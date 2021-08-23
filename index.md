@@ -651,6 +651,385 @@
         </div>
             </div>
           </div> 
+          
+           <section class="py-5" id="nebusis_project">
+
+          <div class="container px-5 my-5">
+            <div class="text-center my-5">
+              <h1 class="fw-bolder mb-3">Nebusis Cloud Services, LLC.</h1>
+            </div>
+              <div class="row gx-5 align-items-center">
+                  <div class="col-lg-6"><img class="img-fluid rounded mb-5 mb-lg-0" src="/images/nebusis_mockup_1.png" alt="..." /></div>
+                  <div class="col-lg-6">
+                      <h2 class="fw-bolder">Our founding</h2>
+                      <p class="lead fw-normal text-muted mb-0">Lorem ipsum dolor sit amet consectetur adipisicing elit. Iusto est, ut esse a labore aliquam beatae expedita. Blanditiis impedit numquam libero molestiae et fugit cupiditate, quibusdam expedita, maiores eaque quisquam.</p>
+                  </div>
+              </div>
+          </div>
+
+
+
+
+          <div class="container px-5 my-5">
+            <div class="row gx-5">
+                <div class="col-lg-4 mb-5 mb-lg-0"><h2 class="fw-bolder mb-0">A better way to start building.</h2></div>
+                <div class="col-lg-8">
+                    <div class="row gx-5 row-cols-1 row-cols-md-2">
+                        <div class="col mb-5 h-100">
+                            <div class="feature bg-primary bg-gradient text-white rounded-3 mb-3"><i class="bi bi-collection"></i></div>
+                            <h2 class="h5">Featured title</h2>
+                            <p class="mb-0">Paragraph of text beneath the heading to explain the heading. Here is just a bit more text.</p>
+                        </div>
+                        <div class="col mb-5 h-100">
+                            <div class="feature bg-primary bg-gradient text-white rounded-3 mb-3"><i class="bi bi-building"></i></div>
+                            <h2 class="h5">Featured title</h2>
+                            <p class="mb-0">Paragraph of text beneath the heading to explain the heading. Here is just a bit more text.</p>
+                        </div>
+                        <div class="col mb-5 mb-md-0 h-100">
+                            <div class="feature bg-primary bg-gradient text-white rounded-3 mb-3"><i class="bi bi-toggles2"></i></div>
+                            <h2 class="h5">Featured title</h2>
+                            <p class="mb-0">Paragraph of text beneath the heading to explain the heading. Here is just a bit more text.</p>
+                        </div>
+                        <div class="col h-100">
+                            <div class="feature bg-primary bg-gradient text-white rounded-3 mb-3"><i class="bi bi-toggles2"></i></div>
+                            <h2 class="h5">Featured title</h2>
+                            <p class="mb-0">Paragraph of text beneath the heading to explain the heading. Here is just a bit more text.</p>
+                        </div>
+
+
+
+                    </section>
+
+<!-- About section two-->
+<section class="py-5" id="new-soil_project">
+    <div class="container px-5 my-5">
+      <div class="text-center my-5">
+        <h2 class="fw-bolder mb-3">New Soil LLC’s Website Redesign & E-commerce Integration</h1>
+      </div>
+        <div class="row gx-5 align-items-center">
+            <div class="col-lg-6 order-first order-lg-last"><img class="img-fluid rounded mb-5 mb-lg-0" src="/images/newsoil_photos/new_soil_revisions_notif.png" alt="..." /></div>
+            <div class="col-lg-6">
+                <h2 class="fw-bolder">Growth &amp; beyond</h2>
+                  <p class="lead fw-normal text-justify text-muted mb-0">New Soil LLC., is a Vermiculture SMB based in Durham, NC. What is Vermiculture you ask? Vermiculture is the process of rearing worms to create vermicompost. The combination of food waste (vegetable-based) bedding materials, and vermicast creates an organic nutrient-rich fertilizer.</p>
+            </div>
+        </div>
+    </div>
+  </section>
+  
+  
+  
+  <!-- Features section-->
+  
+  <section class="py-5" id="features">
+    <div class="container px-5 ">
+        <div class="row gx-5">
+            <div class="col-lg-4 mb-3 mb-lg-0"><h2 class="fw-bolder ">Problem Statement</h2></div>
+            <div class="col-lg-8">
+            <p class="lead fw-normal text-justify text-muted mb-0">The COO had recently joined to replace one of the original co-founders and saw the financial benefit of creating an online store to increase sales. At the time, a majority of their sales were via the farmers market, word of mouth, the website’s blog, and e-mail. New Soil did have a website but it had not been updated since it was first created. Neither of the owners had any website experience but the COO did have a technical background to learn processes.They wanted to be able to update and make changes after the project was completed.</p>
+          </div>
+        </section>
+  
+        <section class="py-5" id="features">
+          <div class="container px-5">
+              <div class="row gx-5">
+                  <div class="col-lg-4 mb-3 mb-lg-0"><h2 class="fw-bolder ">Users and Audience
+                  </h2></div>
+                  <div class="col-lg-8">
+                  <p class="lead fw-normal text-justify text-muted mb-0">Demographically, vermiculture can be considered a niche group. However, there are considerable amounts of individuals in the immediate area of Durham involved in the practice. It is not uncommon to see a personal garden in someone’s yard. 
+                  </p>
+                </div>
+              </section>
+        
+  
+  <section class="py-5" id="features">
+    <div class="container px-5">
+        <div class="row gx-5">
+            <div class="col-lg-4"><h2 class="fw-bolder mb-3">Roles and Responsibilites</h2></div>
+            <div class="col-lg-8 ">
+              <p class="lead fw-normal text-justify text-muted mb-5">Naturally, since this was not an enterprise-level project, my role was fairly simple. My general focus was to update the website to account for a very broad age group, restructure the user journey to account for accessibility, and most importantly, add the WooCommerce integration.  
+              </p>
+  
+             <div class="container px-5">
+                <div class="row gx-5 row-cols-1 row-cols-2">
+                    <div class="col mb-5 h-100">
+                        <div class="feature mb-3"><i class="fa fa-user-alt fa-lg"></i></div>
+                        <h2 class="h5">Role</h2>
+                        <p class="mb-0">Product Designer</p>
+                        <p class="mb-0">Web Development</p>
+                    </div>
+                    <div class="col mb-5 h-100">
+                        <div class="feature mb-3"><i class="fa fa-calendar-alt fa-lg"></i></div>
+                        <h2 class="h5">Timeframe</h2>
+                        <p class="mb-0">August 2019 - July 2020</p>
+                    </div>
+                    <div class="col mb-5 mb-md-0 h-100">
+                        <div class="feature mb-3"><i class="fa fa-people-arrows fa-lg"></i></div>
+                        <h2 class="h5">Stakeholders</h2>
+                        <p class="mb-0">Gary Lipscomb (Founder)</p>
+                        <p class="mb-0">Corre Robinson (COO)</p>
+                    </div>
+                    <div class="col h-100">
+                        <div class="feature mb-3"><i class="fa fa-tools fa-lg"></i></div>
+                        <h2 class="h5">Tools</h2>
+                        <p class="mb-0">Wordpress</p>
+                        <p class="mb-0">Canva</p>
+                        <p class="mb-0">GSuite</p>
+                    </div>
+                </div>
+  
+  
+                </div>
+            </div>
+        </div>
+    </div>
+  </section>
+  
+  
+  <section class="py-5" id="features">
+    <div class="container px-5 my-5">
+        <div class="row gx-5">
+            <div class="col-lg-4"><h2 class="fw-bolder mb-3">Process</h2></div>
+            <div class="col-lg-8">
+              <p class="lead fw-normal text-justify text-muted">Unfortunately, as this project came before my deep-dive into design and UI/UX, I did not move through the process as I would have today. Today, I would use design tools to sketch out, wireframe, and map out any idea that I have, but this is not how it went. 
+              </p>
+            </div>
+  
+            <div class="container px-5 my-5">
+              <div class="row gx-5">
+             <div class="col-lg-6 order-first order-lg-last"><img class="img-fluid rounded mt-5 mb-5 " src="images/newsoil_photos/new_soil_revisions_notif.png" alt="..." />
+                </div>
+      
+                <div class="col-lg-6 mb-3">
+                  <div class="px-5 my-5">
+                    <div class="row gx-5">              <p class="lead fw-normal text-muted">I immediately let people know that there would be website revisions:</div>  
+                </div>
+            </div>
+          </div>
+        </div>
+    </div>
+  
+  
+            <div class="container px-5 my-5">
+              <div class="row gx-5">
+            <div class="col-lg-6 order-first order-lg-last"><img class="img-fluid rounded mt-5 mb-5 " src="images/newsoil_photos/new_soil_original_site.png" alt="..." />
+            
+            <div class="col-lg-6 mx-auto order-first order-lg-last"><img class="img-fluid rounded mb-5 mb-lg-0" src="images/newsoil_photos/new_soil_orginal_site_na.png" alt="..." /></div>
+            </div>
+  
+  
+            <div class="text-center mb-5">
+              <h1 class="fw-bolder">Colors</h1>
+                </div>         
+            <div class="col-lg-6 mb-3">          
+              <h4 class="fw-bolder mb-5">Dark & Dated Color Pallet:</h4>
+  
+              <div class="container px-5 my-5">
+                <div class="row gx-5">
+                <p class="lead fw-normal text-muted mb-5">The initial website had consisted of very dark imagery and colors that did not match what I thought would be a nod towards nature.</p> 
+                </div>
+                
+                <div class="px-5 my-5">
+                <div class="row gx-5">
+                  <p class="lead fw-normal text-muted">As you can see, the header is very black and the neon green does represent a grass-type color. 
+                </p>
+                </div>  
+                </div> 
+              </div>
+            </div>    
+          </div>
+        </div>
+      </div> 
+      
+      <div class="container px-5 my-5">
+        <div class="col-md-6 offset-md-3 text-center mb-5">
+            <p class="lead fw-normal text-justify text-muted mb-0"> The owners wanted to use a banner that the co-founder created himself around the same time the website was created, I extracted the colors from Adobe: 
+            </p>
+        </div>
+        <div class="row gx-5">
+            <div class="col-lg-6">
+                <div class="position-relative text-center mb-5">
+                    <img class="img-fluid rounded-3 mb-3" src="images/newsoil_photos/new_soil_colorful.png" alt="..." />
+                    <h2 class="fw-bolder">Colorful</h4>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="position-relative text-center mb-5">
+                    <img class="img-fluid rounded-3 mb-3" src="images/newsoil_photos/new_soil_muted.png" alt="..." />
+                    <h2 class="fw-bolder">Muted</h4>
+  
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="position-relative text-center mb-5 mb-lg-0">
+                    <img class="img-fluid rounded-3 mb-3" src="images/newsoil_photos/new_soil_deep.png" alt="..." />
+                    <h2 class="fw-bolder">Deep</h4>
+  
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="position-relative text-center">
+                    <img class="img-fluid rounded-3 mb-3" src="images/newsoil_photos/new_soil_dark.png" alt="..." />
+                    <h2 class="fw-bolder">Dark</h4>
+  
+                </div>
+            </div>
+        </div>
+  
+        <div class="container px-5 my-5">
+          <div class="col-md-6 offset-md-3 text-center mb-5">
+              <p class="lead fw-normal text text-muted mb-0"> After consulting with the owners, we decided on this color pallet and typography: 
+              </p>
+          </div>
+  
+          <div class="row gx-5">
+            <div class="col-12"><img class="img-fluid rounded-3 mb-5" src="https://dummyimage.com/1300x700/343a40/6c757d" alt="..." /></div>
+  
+          </div>
+  
+  
+          <div class="container px-5 my-5">
+            <div class="col-md-6 offset-md-3 text-center mb-5">
+              <div class="text-center mb-5">
+                <h1 class="fw-bolder">SiteMap & Structure
+                </h1>
+                <p class="lead fw-normal text text-muted mb-3">Telling the Brand Story and Customer Journey through the sites navigation menu:
+                </p>
+                  </div>      
+            </div>
+          </div>
+  
+          <div class="container px-5 my-5">
+            <div class="col-lg-12 text-center mb-3">
+                <p class="lead fw-normal text-justify text-muted mb-0">Upon reviewing the initial navigation menu and consulting with the owners, we believed that the navigation menu did not have a comprhensible structure that would tailor to new and recurring customers. After our inintial considerations we decided that the first iteration of the restructured menu would contain:  
+                </p>
+            </div>
+  
+                <ul class="list-group-item list-unstyled p-3">
+                  <li> NEWSOIL’S STORY</li>
+               <ul>
+                <li>OUR SALES VENUE AT THE DURHAM FARMERS’ MARKET</li>
+                <li>NEWSOIL VERMICULTURE LLC’S REGULATORY COMPLIANCE</li>
+              </ul>
+            </li>
+                <li>ABOUT VERMICOMPOSTING</li> 
+  
+                <ul>
+                  <li>SCIENCE OF VERMICULTURE </li>
+                  <li>CHEMICAL ANALYSES OF OURCOMPOST™ </li>
+                  <li>CARE OF RED WIGGLERS AND CONSTRUCTION OF A HOMEMADE WORM BIN </li>
+                  <li>INSTRUCTIONAL VIDEOS </li>
+              </ul>
+                      
+                PRODUCTS</li>  
+  
+                <ul>
+                  <li>PRICE LIST</li> 
+                    <li>VERMICOMPOST</li> 
+                      <li>WORM CASTINGS AND WORM TEA BAGS</li> 
+                        <li>WORMS</li> 
+                          <li>WORM TEA</li> 
+                            <li> EQUIPMENT</li> 
+              </ul>
+              <li>CONTACT US</li>      
+            </div>    
+  
+    </div>
+  
+  
+    <section class="py-5" id="features">
+      <div class="container px-5">
+          <div class="row gx-5">
+              <div class="col-lg-4"><h2 class="fw-bolder mb-3">Outcomes and Lessons</h2></div>
+              <div class="col-lg-8 ">
+                <p class="lead fw-normal text-justify text-muted mb-5">Working with NewSoil inspired me and restructured my focus to my initial aspirations. Utlizing all of my previous experience in differing sectors, including the small hints and nudges from colleagues, I began to see how I could assist businesses operate more effciently from the customers perspective.  
+                </p>
+
+                <h5 class="mb-3">Growth & Beyond:</h5>
+
+
+                <p class="lead fw-normal text-justify text-muted mb-5">Additionally, mostly in regard to SMB's I noticed that there are many different area's where a business can pivot and experience ogranic growth, profits without the need to increase uncessary spend.</p>
+    
+                <h5 class="mb-3">Post-Launch Decisions:</h5>
+  
+                <p class="lead fw-normal text-justify text-muted mb-5">Upon initial lauch (pre-Covid), NewSoil saw a significant increase in sales. Eventually, they were able to find solutions to blockers, such as shipping worms to clients. At first they only considered operating with the idea that customers could pick up their </p>
+          
+
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </section>  
+
+
+
+
+
+    </div>
+
+
+
+
+
+
+  </main>
+
+
+
+  <button type="button">
+  <a id="back-to-top" href="#" class="btn back-to-top" role="button"><i class="far fa-arrow-alt-circle-up fa-2x"></i></a>
+  </button>
+
+  <button type="button" class="btn btn-danger btn-floating btn-lg" id="btn-back-to-top">
+    <i class="fas fa-arrow-up"></i>
+  </button>
+
+  <!--Start Modal-->
+<div class="modal fade" id="modalFORM" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+<div class="modal-dialog modal-sm" role="document">
+
+<div class="modal-content">
+<div class="modal-header">
+<h5 class="modal-title" id="exampleModalLabel">Let's have a chat!</h5>
+<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+  <span aria-hidden="true">&times;</span>
+</button>
+</div>
+<div class="modal-body">
+<script charset="utf-8" type="text/javascript" src="//js.hsforms.net/forms/shell.js"></script>
+<script>
+  hbspt.forms.create({
+  region: "na1",
+  portalId: "6082856",
+  formId: "bb8fb749-8c59-4df3-9fe5-eb65fcb39797"
+});
+</script>
+</div>
+<div class="modal-footer">
+<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+
+</div>
+</div>
+</div>
+
+<!--End Modal-->
+
+
+
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-U1DAWAznBHeqEIlVSCgzq+c9gqGAJn5c/t99JyeKa9xxaYpSvHU5awsuZVVFIhvj" crossorigin="anonymous"></script>
+
+<script src="js/main.js"></script>
+
+
+
+</body>
+</html>
 
 
   
