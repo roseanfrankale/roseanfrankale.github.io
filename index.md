@@ -189,16 +189,58 @@
 
         </section>
         
-         <hr class="my-5"/>
+              <hr class="my-5"/>
 
         <section class="page-section text-center " id="about-me">
-            
-            <div class="col-sm-8 mb-5 mx-auto my-auto text-center journey">
+  <section class="page-section text-center " id="my-projects">
+    <div class="col-sm-8 mb-5 mx-auto my-auto text-center journey">
         <h1 class="journey mb-5">ABOUT ME</h1>
         <h2>Once aspiring MBA student, former musician, and longtime lover of Tech and Design</h2>
       </div>
-            
-              <div class="col-sm-10 mb-5 mx-auto my-auto text-center journey">
+
+      <div class="row shadow-sm mt-4 mb-5 bg-white rounded">
+        <div class="col-sm-6 mt-4 background-title1">
+      <h3>Background & Origin</h3>
+
+      <p class="lead mt-4 mb-5 background-content">
+        Hello, I am Rosean Frank-Alexander, another self-taught Product & UI / UX Designer. Born in Brooklyn, NY my family is originally from the island of Trinidad and Tobago. However, through a series of fortunate circumstances I had the pleasure of living in Durham, NC for my formative years and for many more afterwards. My affinity for computers and tech started with my grandmother purchasing a Compaq Presario which included a great music video for Buddy Holly by Weezer. Little did I know then, that moment sparked my interest in software, music but it took some time before it became the foundation of my future interests.
+      </p>
+      </div>
+
+      <div class="col-sm-6 mt-4 background-title1">
+
+      <h3>Interests</h3>
+
+      <p class="lead mt-4 mb-5 background-content">
+
+        Naturally, as I had to facilitate a considerable amount of self-learning principles, I was able to act upon my interets and personal creativity. First, I loved sports as a child and my love of football (Soccer) converted into a commited desire to play basketball (many thanks to Duke, UNC and college basketball) which I did throughout high school. In those years, I participated in choir and stared to learn to play music instruments. As a student you could always find doodles next to my notes, and if you did not find me practicing for sports or choir I would be in the computer lab. This led to me accepting technology award my senior year that was honestly a huge surprise.
+    </p> 
+    </div> 
+
+    <div class="col-sm-6 mt-4 background-title1">
+      <h3>Background & Origin</h3>
+
+      <p class="lead mt-4 mb-5 background-content">
+        Hello, I am Rosean Frank-Alexander, another self-taught Product & UI / UX Designer. Born in Brooklyn, NY my family is originally from the island of Trinidad and Tobago. However, through a series of fortunate circumstances I had the please of living in Durham, NC for my formative years and for many more afterwards. My affinity for computers and tech started with my grandmother purchasing a Compaq Presario which included a great music video for Buddy Holly by Weezer. Little did I know then, that moment sparked my interest in software, music but it took some time before it became the foundation of my future interests.
+      </p>
+      </div>
+
+      <div class="col-sm-6 mt-4 background-title1">
+
+        <h3>Interests</h3>
+
+        <p class="lead mt-4 mb-5 background-content">
+  
+          Naturally, as I had to facilitate a considerable amount of self-learning principles, I was able to act upon my interets and personal creativity. First, I loved sports as a child and my love of football (Soccer) converted into a commited desire to play basketball (many thanks to Duke, UNC and college basketball) which I did throughout high school. In those years, I participated in choir and stared to learn to play music instruments. As a student you could always find doodles next to my notes, and if you did not find me practicing for sports or choir I would be in the computer lab. This led to me accepting technology award my senior year that was honestly a huge surprise.
+      </p> 
+      </div> 
+        </div>
+            </section>
+
+            <hr class="my-5"/>
+
+
+            <div class="col-sm-10 mb-5 mx-auto my-auto text-center journey">
                 <h1 class="journey mb-5">Timeline</h1>
                 <h3>Work History,and Professional Hobbies, OH MY!</h3>
               </div>
@@ -651,8 +693,19 @@
         </div>
             </div>
           </div> 
-          
-           <section class="py-5" id="nebusis_project">
+
+
+          <section class="py-5 mt-5">
+            <div class="col-sm-10 mb-5 mx-auto my-auto text-center journey">
+                <h1 class="journey mb-5">Projects & Case Studies</h1>
+                <h3>Work History,and Professional Hobbies, OH MY!</h3>
+                <p class="lead fw-normal text-muted mb-5">Lorem ipsum dolor sit amet consectetur adipisicing elit. Similique delectus ab doloremque, qui doloribus ea officiis...</p>
+              </div>
+          </section>
+
+        
+
+          <section class="py-5" id="nebusis_project">
 
           <div class="container px-5 my-5">
             <div class="text-center my-5">
@@ -963,11 +1016,46 @@
 
     </section>  
 
+ <footer class="bg-transparent py-4 mt-auto">
+      <div class="container px-5">
+          <div class="row align-items-center justify-content-between flex-column flex-sm-row">
+              <div class="col-auto">
+                  <ul class="list-inline social social-icons">
+                    <li class="list-inline-item">
+                      <a href="https://dribbble.com/rjfa"><i class="fa fa-dribbble fa-lg"></i></a>
+                        </li>
+                          <li class="list-inline-item">
+                            <a href="https://github.com/roseanfrankale"><i class="fa fa-github fa-lg"></i></a>
+                                              </li>
+                                              <li class="list-inline-item">
+                                                  <a href="https://www.linkedin.com/in/rfrankale/"><i class="fa fa-linkedin fa-lg"></i></a>
+                                              </li> 
+                                              <li class="list-inline-item">
+                                                  <a href=""><i class="fa fa-behance fa-lg"></i></a>
+                                              </li>
+                                          </ul>
+                                          </div>
+                                          <div class="col-auto">
+                                            <ul class="mt-2 list-inline footer-links">
+                                              <li class="list-inline-item"><a href="index.html">HOME</a></li>
+                                                  <li class="list-inline-item"><a href="projects.html">PROJECTS</a></li>
+                                                  <li class="list-inline-item"><a href="about.html">ABOUT ME</a></li>
+                                                  <li class="list-inline-item"><a class="nav-link" href="documents/rosean_alexander_resume.pdf" download>RESUME</a> </li>
+                                                  <li class="list-inline-item"><a                      href="#modalFORM" data-toggle="modal"
+                                                    >CONTACT</a></li>
+                                              </ul>
+
+                                            
+
+                                          </div>
+                                        </div>
+                                      </div>
+                                  </footer>
+                          
 
 
 
-
-    </div>
+    
 
 
 
@@ -1030,6 +1118,3 @@
 
 </body>
 </html>
-
-
-  
