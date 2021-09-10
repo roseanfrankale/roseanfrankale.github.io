@@ -1,22 +1,3 @@
-$(document).ready(function() {
-
-
-    if ($(this).scrollTop() > 50) {
-        $('#btn-back-to-top').fadeIn();
-    } else {
-        $('#btn-back-to-top').fadeOut();
-    }
-});
-
-// scroll body to 0px on click
-$('#btn-back-to-top').click(function () {
-    $('body,html').animate({
-        scrollTop: 0,
-        behavior: 'smooth'
-    }, 1100 );
-    return false;
-});
-
 
 //Get the button
 let mybutton = document.getElementById("btn-back-to-top");
@@ -28,8 +9,8 @@ window.onscroll = function () {
 
 function scrollFunction() {
   if (
-    document.body.scrollTop > 20 ||
-    document.documentElement.scrollTop > 20
+    document.body.scrollTop > 1000 ||
+    document.documentElement.scrollTop > 1000
   ) {
     mybutton.style.display = "block";
   } else {
@@ -42,7 +23,73 @@ mybutton.addEventListener("click", backToTop);
 function backToTop() {
   document.body.scrollTop = 0;
   document.documentElement.scrollTop = 0;
-}
+  
+};
+
+
+// Lightbox TEST
+
+window.addEventListener('load', () => {
+  let portfolioContainer = select('.portfolio-container');
+  if (portfolioContainer) {
+    let portfolioIsotope = new Isotope(portfolioContainer, {
+      itemSelector: '.portfolio-item'
+    });
+
+    let portfolioFilters = select('#portfolio-flters li', true);
+
+    on('click', '#portfolio-flters li', function(e) {
+      e.preventDefault();
+      portfolioFilters.forEach(function(el) {
+        el.classList.remove('filter-active');
+      });
+      this.classList.add('filter-active');
+
+      portfolioIsotope.arrange({
+        filter: this.getAttribute('data-filter')
+      });
+      portfolioIsotope.on('arrangeComplete', function() {
+        AOS.refresh()
+      });
+    }, true);
+  }
+
+});
+
+
+const portfolioLightbox = GLightbox({
+  selector: '.portfolio-lightbox'
+});
+
+/**
+ * Portfolio details slider
+ */
+var swiper = new Swiper('.portfolio-details-slider', {
+  speed: 400,
+  loop: true,
+  autoplay: {
+    delay: 5000,
+    disableOnInteraction: false  
+  },
+  pagination: {
+    el: '.swiper-pagination',
+  },
+  navigation: {
+    nextEl: '.swiper-button-next',
+    prevEl: '.swiper-button-prev',
+  },
+
+
+});
+
+
+/**
+ * Animate on Scroll Library
+ */
+
+AOS.init();
+
+
 
 
 
