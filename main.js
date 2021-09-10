@@ -64,7 +64,7 @@ const portfolioLightbox = GLightbox({
 /**
  * Portfolio details slider
  */
-var swiper = new Swiper('.portfolio-details-slider', {
+const swiper = new Swiper('.portfolio-details-slider', {
   speed: 400,
   loop: true,
   autoplay: {
@@ -83,11 +83,6 @@ var swiper = new Swiper('.portfolio-details-slider', {
 });
 
 
-/**
- * Animate on Scroll Library
- */
-
-AOS.init();
 
 
 
