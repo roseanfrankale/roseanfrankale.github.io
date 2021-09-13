@@ -1,8 +1,5 @@
+ $(document).ready()(function() {
 
-
- $( document ).ready()
-$(function() {
-	console.log( "ready!" );
   
   //Get the button
   
@@ -90,11 +87,7 @@ const swiper = new Swiper('.portfolio-details-slider', {
 });
 
 
-});
- 
-  
-  
-});
+};
 
 
 
