@@ -1,6 +1,6 @@
   //Get the button
   
- let mybutton = document.getElementById("btn-back-to-top");
+let mybutton = document.getElementById("btn-back-to-top");
 
 // When the user scrolls down 20px from the top of the document, show the button
 window.onscroll = function () {
@@ -64,7 +64,10 @@ const portfolioLightbox = GLightbox({
 /**
  * Portfolio details slider
  */
-const swiper = new Swiper('.portfolio-details-slider', {
+
+
+
+var swiper = new Swiper(".portfolio-details-slider", {
   // Optional parameters
   spaceBetween: 30,
   loop: true,
@@ -82,3 +85,10 @@ const swiper = new Swiper('.portfolio-details-slider', {
     prevEl: ".swiper-button-prev",
   },
 });
+
+
+/**
+ * Animate on Scroll Library
+ */
+
+AOS.init();
