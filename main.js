@@ -1,4 +1,3 @@
- $(document).ready()(function() {
 
   
   //Get the button
@@ -87,7 +86,7 @@ const swiper = new Swiper('.portfolio-details-slider', {
 });
 
 
-};
+
 
 
 
