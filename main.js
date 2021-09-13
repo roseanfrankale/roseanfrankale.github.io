@@ -1,3 +1,5 @@
+$(document).ready(function () {
+
 
 //Get the button
 let mybutton = document.getElementById("btn-back-to-top");
@@ -86,7 +88,7 @@ const swiper = new Swiper('.portfolio-details-slider', {
 
 });
 
-
+};
 
 
 
