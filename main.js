@@ -1,8 +1,12 @@
-$(document).ready(function () {
 
 
-//Get the button
-let mybutton = document.getElementById("btn-back-to-top");
+ $( document ).ready()
+$(function() {
+	console.log( "ready!" );
+  
+  //Get the button
+  
+ let mybutton = document.getElementById("btn-back-to-top");
 
 // When the user scrolls down 20px from the top of the document, show the button
 window.onscroll = function () {
@@ -87,10 +91,10 @@ const swiper = new Swiper('.portfolio-details-slider', {
 
 
 });
-
-};
-
-
+ 
+  
+  
+});
 
 
 
