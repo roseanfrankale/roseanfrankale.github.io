@@ -67,7 +67,7 @@ const portfolioLightbox = GLightbox({
 
 
 
-var swiper = new swiper(".portfolio-details-slider", {
+var swiper = new Swiper(.portfolio-details-slider, {
   // Optional parameters
   slidesPerView: 1,
   spaceBetween: 30,
