@@ -64,7 +64,51 @@ body {
             border-bottom: 5px solid #BB1a1D;
           }
   
- 
+ .chevron_bounce {
+  color: #f2f2f2;
+  background-color: #b81a1d;
+  overflow: visible;
+  position: relative;
+  font-size: 1.5rem;
+  line-height: 61.1px;
+  width: 60px;
+  height: 60px;
+}
+
+.chevron_bounce:hover i {
+  transform: scale(1.2);
+  transition: all 0.4s ease-in-out;
+  color: #f2f2f2;
+}
+
+.chevron_bounce:before {
+  content: "";
+  display: block;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  background-color: inherit;
+  border-radius: inherit;
+  transition: opacity 0.3s, transform 0.3s;
+  animation: pulse-animation 1.5s cubic-bezier(0.24, 0, 0.38, 1) infinite;
+  z-index: -1;
+}
+@keyframes pulse-animation {
+  0% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0;
+    transform: scale(1.25);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(1.25);
+  }
+}
 
 
   /* nav {
@@ -229,6 +273,8 @@ nav.current ul li a:hover:after {
 
 
 
+
+
 /* Landing Page Content */
 
 
@@ -386,6 +432,19 @@ padding-bottom: 20% 50px;
     text-align: justify;
 
 }
+
+.square-text {
+  font-size: 1.25rem;
+  color: #4c4c4c;
+  display: grid;
+  text-align: left;
+}
+
+.project_card_heading {
+  font-size: 1.5rem;
+  text-align: left;
+}
+
 
 /*.
 .interests-title1{
