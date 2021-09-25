@@ -86,7 +86,54 @@ const swiper = new Swiper('.portfolio-details-slider', {
 });
 
 
+$(function () {
+  $('#portfolioCollapse1').on('shown.bs.collapse', function (e) {
+          $('html,body').animate({
+              scrollTop: $('#neubsis_card').offset().top
+          }, 100); 
+  }); 
+});
 
+$(function () {
+  $('#portfolioCollapse1,#card-close').on('hide.bs.collapse', function (e) {
+          $('html,body').animate({
+              scrollTop: $('#my-projects').offset().top
+          }, 100); 
+  }); 
+});
+
+$(function () {
+  $('#portfolioCollapse2').on('shown.bs.collapse', function (e) {
+          $('html,body').animate({
+              scrollTop: $('#new_soil_card').offset().top 
+          }, 100); 
+  }); 
+});
+
+$(function () {
+  $('#portfolioCollapse2,#card-close').on('hide.bs.collapse', function (e) {
+          $('html,body').animate({
+              scrollTop: $('#my-projects').offset().top
+          }, 100); 
+  }); 
+});
+
+
+$(function () {
+  $('#portfolioCollapse3').on('shown.bs.collapse', function (e) {
+          $('html,body').animate({
+              scrollTop: $('#neubsis_card').offset().top
+          }, 1000); 
+  }); 
+});
+
+$(function () {
+  $('#portfolioCollapse3,#card-close').on('hide.bs.collapse', function (e) {
+          $('html,body').animate({
+              scrollTop: $('#my-projects').offset().top
+          }, 100); 
+  }); 
+});
 
 
 
