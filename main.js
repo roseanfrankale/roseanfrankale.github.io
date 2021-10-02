@@ -66,7 +66,7 @@ const portfolioLightbox = GLightbox({
 /**
  * Portfolio details slider
  */
-const swiper = new Swiper('.portfolio-details-slider', {
+const swiper = new Swiper('.swiper',  {
   // Optional parameters
   spaceBetween: 30,
   loop: true,
