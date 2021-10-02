@@ -1,5 +1,4 @@
-  //Get the button
-  
+//Get the button
 let mybutton = document.getElementById("btn-back-to-top");
 
 // When the user scrolls down 20px from the top of the document, show the button
@@ -27,48 +26,14 @@ function backToTop() {
 };
 
 
-// Lightbox TEST
-
-window.addEventListener('load', () => {
-  let portfolioContainer = select('.portfolio-container');
-  if (portfolioContainer) {
-    let portfolioIsotope = new Isotope(portfolioContainer, {
-      itemSelector: '.portfolio-item'
-    });
-
-    let portfolioFilters = select('#portfolio-flters li', true);
-
-    on('click', '#portfolio-flters li', function(e) {
-      e.preventDefault();
-      portfolioFilters.forEach(function(el) {
-        el.classList.remove('filter-active');
-      });
-      this.classList.add('filter-active');
-
-      portfolioIsotope.arrange({
-        filter: this.getAttribute('data-filter')
-      });
-      portfolioIsotope.on('arrangeComplete', function() {
-        AOS.refresh()
-      });
-    }, true);
-  }
-
-});
-
-
-const portfolioLightbox = GLightbox({
-  selector: '.portfolio-lightbox'
-});
 
 /**
  * Portfolio details slider
  */
 
 
-const swiper = new Swiper('.portfolio-details-slider', {
+const swiper = new Swiper('.swiper',  {
   // Optional parameters
-  slidesPerView: 1,
   spaceBetween: 30,
   loop: true,
   centeredSlides: true,
@@ -86,32 +51,55 @@ const swiper = new Swiper('.portfolio-details-slider', {
   },
 });
 
-const swiper = new Swiper('.swiper', {
-  // Optional parameters
-  direction: 'vertical',
-  loop: true,
 
-  // If we need pagination
-  pagination: {
-    el: '.swiper-pagination',
-  },
 
-  // Navigation arrows
-  navigation: {
-    nextEl: '.swiper-button-next',
-    prevEl: '.swiper-button-prev',
-  },
 
-  // And if we need scrollbar
-  scrollbar: {
-    el: '.swiper-scrollbar',
-  },
+
+$(function () {
+  $('#portfolioCollapse1').on('shown.bs.collapse', function (e) {
+          $('html,body').animate({
+              scrollTop: $('#neubsis_card').offset().top
+          }, 100); 
+  }); 
+});
+
+$(function () {
+  $('#portfolioCollapse1,#card-close').on('hide.bs.collapse', function (e) {
+          $('html,body').animate({
+              scrollTop: $('#my-projects').offset().top
+          }, 100); 
+  }); 
+});
+
+$(function () {
+  $('#portfolioCollapse2').on('shown.bs.collapse', function (e) {
+          $('html,body').animate({
+              scrollTop: $('#new_soil_card').offset().top 
+          }, 100); 
+  }); 
+});
+
+$(function () {
+  $('#portfolioCollapse2,#card-close').on('hide.bs.collapse', function (e) {
+          $('html,body').animate({
+              scrollTop: $('#my-projects').offset().top
+          }, 100); 
+  }); 
 });
 
 
+$(function () {
+  $('#portfolioCollapse3').on('shown.bs.collapse', function (e) {
+          $('html,body').animate({
+              scrollTop: $('#neubsis_card').offset().top
+          }, 1000); 
+  }); 
+});
 
-/**
- * Animate on Scroll Library
- */
-
-AOS.init();
+$(function () {
+  $('#portfolioCollapse3,#card-close').on('hide.bs.collapse', function (e) {
+          $('html,body').animate({
+              scrollTop: $('#my-projects').offset().top
+          }, 100); 
+  }); 
+});
