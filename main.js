@@ -86,6 +86,12 @@ const swiper = new Swiper('.swiper',  {
 });
 
 
+/**
+ * Animate on Scroll Library
+ */
+
+AOS.init();
+
 function () {
   $('#portfolioCollapse1').on('shown.bs.collapse', function (e) {
           $('html,body').animate({
