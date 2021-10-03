@@ -26,7 +26,7 @@ function backToTop() {
 };
 
 
-function () {
+function nebusisOpenScroll() {
   $('#portfolioCollapse1').on('shown.bs.collapse', function (e) {
           $('html,body').animate({
               scrollTop: $('#neubsis_card').offset().top
@@ -34,7 +34,7 @@ function () {
   }); 
 });
 
-function () {
+function nebusisCloseScroll() {
   $('#portfolioCollapse1,#card-close').on('hide.bs.collapse', function (e) {
           $('html,body').animate({
               scrollTop: $('#my-projects').offset().top
@@ -42,7 +42,7 @@ function () {
   }); 
 });
 
-function () {
+function newsoilOpenScroll() {
   $('#portfolioCollapse2').on('shown.bs.collapse', function (e) {
           $('html,body').animate({
               scrollTop: $('#new_soil_card').offset().top 
@@ -50,7 +50,7 @@ function () {
   }); 
 });
 
-function () {
+function newsoilCloseScroll() {
   $('#portfolioCollapse2,#card-close').on('hide.bs.collapse', function (e) {
           $('html,body').animate({
               scrollTop: $('#my-projects').offset().top
@@ -59,7 +59,7 @@ function () {
 });
 
 
-function () {
+function bruvueOpenScroll() {
   $('#portfolioCollapse3').on('shown.bs.collapse', function (e) {
           $('html,body').animate({
               scrollTop: $('#neubsis_card').offset().top
@@ -67,7 +67,7 @@ function () {
   }); 
 });
 
-function () {
+function bruvueCloseScroll() {
   $('#portfolioCollapse3,#card-close').on('hide.bs.collapse', function (e) {
           $('html,body').animate({
               scrollTop: $('#my-projects').offset().top
