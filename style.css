@@ -130,17 +130,37 @@ body {
 
 
 
-  .social-icons a i {
-	color: #4c4c4c;
-  font-size: 16px; 
+.social-icons a i {
+  color: #4c4c4c;
+  font-size: 16px;
+  display: block;
+    margin-block-start: 1em;
+    margin-block-end: 1em;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
+    display: inline-flex;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    height: 50px;
+    width: 50px;
+    margin-bottom: 10px;
+    border-radius: 50%;
+    border: 1px solid #4c4c4c;
+    text-align: center;
 }
- 
-.social-icons a i:hover {
-    color:#B81A1D;
-    transition: all .4s ease-in-out; 
-    font-size: 18px; 
 
-  }
+.social-icons a i:hover {
+  color: #b81a1d;
+  transition: all 0.4s ease-in-out;
+  font-size: 16px;
+  border: 1px solid #b81a1d;
+    text-align: center;
+   
+}
 
 
 .list-unstyled {
