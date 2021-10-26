@@ -196,12 +196,12 @@
   /**
    * Preloader
    */
-  let preloader = select("#preloader");
-  if (preloader) {
-    window.addEventListener("load", () => {
-      preloader.remove();
+$(window).on('load', function(){
+    $('#preloader').delay(700).fadeOut('slow', function(){
+        $("#header").removeClass("content_hidden");
     });
-  }
+
+});
 
   /**
    * Card close transition
