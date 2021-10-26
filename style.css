@@ -111,7 +111,7 @@ h1 span {
 }
 
 .content_hidden {
-  visibility: collapse;
+  visibility: hidden;
 }
 
 /*--------------------------------------------------------------
