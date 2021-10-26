@@ -110,6 +110,10 @@ h1 span {
   }
 }
 
+.content_hidden {
+  visibility: collapse;
+}
+
 /*--------------------------------------------------------------
 # Disable aos animation delay on mobile devices
 --------------------------------------------------------------*/
