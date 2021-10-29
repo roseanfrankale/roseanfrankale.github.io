@@ -240,20 +240,40 @@ $(window).on('load', function(){
     e.preventDefault();
   });
 
+  
+  
   /* Masonry
    * ---------------------------------------------------- */
-
+ 
+  
   var masonryFolio = function () {
-    var containerBricks = $(".masonry");
+        
+    var containerBricks = $('.masonry');
 
-    containerBricks.imagesLoaded(function () {
-      containerBricks.masonry({
-        itemSelector: ".masonry__brick",
-        resize: true,
-      });
+    containerBricks.imagesLoaded().progress(function () {
+        containerBricks.masonry({
+          columnWidth: 200,
+            itemSelector: '.masonry__brick',
+            resize: false,
+            percentPosition : true
+        });
     });
-  };
+};
+  
+  
+ /* Glightbox
+   * ---------------------------------------------------- */ 
+  
+  const lightbox = GLightbox({
+  touchNavigation: true,
+  loop: true,
+  autoplayVideos: true
+});
 
+  
+    /* Swiper
+   * ---------------------------------------------------- */
+  
   new Swiper('.swiper', {
     // Optional parameters
     spaceBetween: 30,
