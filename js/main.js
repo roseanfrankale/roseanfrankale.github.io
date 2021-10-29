@@ -206,8 +206,8 @@ $(window).on('load', function(){
   /**
    * Card close transition
    */
-  $(".close-icon").click(function () {
-    $("#neubsis_card", "new_soil_card").parent().fadeOut("slow");
+ $(".close-icon").click(function () {
+    $("#neubsis_card", "#new_soil_card","#bruvue_card").parent().fadeOut("slow");
   });
 
   $("#card-scroll1, a").on("click", function (e) {
@@ -215,7 +215,7 @@ $(window).on('load', function(){
       {
         scrollTop: $("#neubsis_card").offset().top,
       },
-      "100"
+      ""
     );
     e.preventDefault();
   });
@@ -235,7 +235,7 @@ $(window).on('load', function(){
       {
         scrollTop: $("#bruvue_card").offset().top,
       },
-      "300"
+      ""
     );
     e.preventDefault();
   });
