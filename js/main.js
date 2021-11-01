@@ -264,10 +264,21 @@ $(window).on('load', function(){
  /* Glightbox
    * ---------------------------------------------------- */ 
   
-  const lightbox = GLightbox({
+const lightbox = GLightbox({
   touchNavigation: true,
   loop: true,
-  autoplayVideos: true
+  openEffect: 'zoom',
+  closeEffect: 'fade',
+  cssEfects: {
+    // This are some of the animations included, no need to overwrite
+    fade: { in: 'fadeIn', out: 'fadeOut' },
+    zoom: { in: 'zoomIn', out: 'zoomOut' }
+  }
+  });
+
+
+  const lightboxDescription = GLightbox({
+    selector: '.glightbox2'
 });
 
   
