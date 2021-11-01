@@ -978,6 +978,7 @@ section .card-body {
  * ------------------------------------------------------------------- */
 .masonry-wrap {
   margin-top: 7.2rem;
+  position: relative;
 }
 
 .masonry-wrap:after {
@@ -1034,9 +1035,10 @@ section .card-body {
 }
 
 .item-folio__thumb a::after {
-  content: "...";
-  font-family: georgia, serif;
+  font-family: "Font Awesome 5 Free";
+   content: "\f00e";
   font-size: 2.7rem;
+  font-weight: 900;
   display: block;
   height: 30px;
   width: 30px;
@@ -1074,19 +1076,17 @@ section .card-body {
 }
 
 .item-folio__title {
-  font-family: "Nunito Sans", sans-serif;
   font-size: 1.4rem;
   font-weight: 700;
   line-height: 1.286;
-  color: #ffffff;
+  color: #FFFFFF;
   text-transform: uppercase;
-  letter-spacing: 0.2rem;
-  margin: 0 0 0.3rem 0;
+  letter-spacing: .2rem;
+  margin: 0 0 .3rem 0;
 }
 
 .item-folio__cat {
   color: rgba(255, 255, 255, 0.5);
-  font-family: "Nunito Sans", sans-serif;
   font-size: 1.4rem;
   font-weight: 300;
   line-height: 1.714;
@@ -1099,8 +1099,8 @@ section .card-body {
 
 .item-folio__project-link {
   display: block;
-  color: #ffffff;
-  box-shadow: 0 0 0 1px #ffffff;
+  color: #FFFFFF;
+  box-shadow: 0 0 0 1px #FFFFFF;
   border-radius: 50%;
   height: 4.2rem;
   width: 4.2rem;
@@ -1135,7 +1135,8 @@ section .card-body {
 .item-folio__project-link:hover,
 .item-folio__project-link:focus,
 .item-folio__project-link:active {
-  color: #ffffff;
+  background-color: #FFFFFF;
+  color: #000000;
 }
 
 /* on hover 
