@@ -175,15 +175,6 @@ h1 span {
   height: 45px;
 }
 
-#header img {
-  padding: 0;
-  margin: 10px 0 0 10px;
-  display: none;
-  visibility: hidden;
-  width: 45px;
-  height: 45px;
-}
-
 #header .social-icons {
   margin-top: 40px;
   display: flex;
@@ -268,6 +259,10 @@ h1 span {
 @media (max-width: 768px) {
   #header.header-top {
     height: 60px;
+  }
+
+  #header.header-top h1 {
+    font-size: 26px;
   }
 
   #header.header-top h1 {
@@ -361,8 +356,8 @@ span-under {
 .navbar .btn {
   background: rgb(76, 76, 76, 0.9);
   color: #f2f2f2;
-  letter-spacing: 2px;
-  font-weight: 400;
+  letter-spacing: 3px;
+  font-weight: 500;
 }
 
 .navbar .btn:hover {
@@ -566,7 +561,12 @@ section .card-body {
   padding: 0;
 }
 
-
+@media (max-width: 768px) {
+  .section-title h2 {
+    font-size: 1.5rem;
+    font-weight: 400;
+  }
+}
 
 /*--------------------------------------------------------------
 # About
@@ -594,7 +594,7 @@ section .card-body {
 }
 
 .square-text {
-  font-size: 1.25rem;
+  font-size: 1rem;
   color: #4c4c4c;
   display: grid;
   text-align: left;
@@ -614,8 +614,8 @@ section .card-body {
 }
 
 .project_card_heading {
-  font-size: 1.5rem;
-  font-weight: 500;
+  font-size: 1.25rem;
+  font-weight: 300;
   letter-spacing: 2px;
 }
 
@@ -631,6 +631,7 @@ section .card-body {
     letter-spacing: 3px;
   }
 }
+
 /*--------------------------------------------------------------
 # Skills
 --------------------------------------------------------------*/
@@ -974,7 +975,6 @@ section .card-body {
     margin-left: 20px;
   }
 }
- 
 
 /* ------------------------------------------------------------------- 
  * ## bricks/masonry
@@ -1039,7 +1039,7 @@ section .card-body {
 
 .item-folio__thumb a::after {
   font-family: "Font Awesome 5 Free";
-   content: "\f00e";
+  content: "\f00e";
   font-size: 2.7rem;
   font-weight: 900;
   display: block;
@@ -1082,10 +1082,10 @@ section .card-body {
   font-size: 1.4rem;
   font-weight: 700;
   line-height: 1.286;
-  color: #FFFFFF;
+  color: #ffffff;
   text-transform: uppercase;
-  letter-spacing: .2rem;
-  margin: 0 0 .3rem 0;
+  letter-spacing: 0.2rem;
+  margin: 0 0 0.3rem 0;
 }
 
 .item-folio__cat {
@@ -1102,8 +1102,8 @@ section .card-body {
 
 .item-folio__project-link {
   display: block;
-  color: #FFFFFF;
-  box-shadow: 0 0 0 1px #FFFFFF;
+  color: #ffffff;
+  box-shadow: 0 0 0 1px #ffffff;
   border-radius: 50%;
   height: 4.2rem;
   width: 4.2rem;
@@ -1138,7 +1138,7 @@ section .card-body {
 .item-folio__project-link:hover,
 .item-folio__project-link:focus,
 .item-folio__project-link:active {
-  background-color: #FFFFFF;
+  background-color: #ffffff;
   color: #000000;
 }
 
@@ -1208,11 +1208,9 @@ section .card-body {
   .item-folio__cat {
     font-size: 1.4rem;
   }
-}
-
-@media only screen and (max-width: 400px) {
-  .masonry-wrap {
-    padding: 0 25px;
+  img.responsive {
+    height: auto;
+    width: auto;
   }
 }
 
@@ -1278,19 +1276,9 @@ section .card-body {
   background: #f2f2f2;
 }
 
-
-.swiper-container{
-  margin-left:auto;margin-right:auto;position:relative;overflow:hidden;list-style:none;padding:0;z-index:1
-}
-.swiper-container-vertical>.swiper-wrapper{
-  flex-direction:column
-}
-
 /*--------------------------------------------------------------
 # Project Cards - Modal Styling
 --------------------------------------------------------------*/
-
-
 
 .portfolio-details {
   padding-top: 40px;
@@ -1303,7 +1291,10 @@ section .card-body {
   object-fit: cover;
 }
 
-.portfolio-details .portfolio-details-slider .swiper-pagination .swiper-pagination-bullet {
+.portfolio-details
+  .portfolio-details-slider
+  .swiper-pagination
+  .swiper-pagination-bullet {
   width: 12px;
   height: 12px;
   background-color: #fff;
@@ -1313,11 +1304,13 @@ section .card-body {
 
 div.swiper-button-prev,
 div.swiper-button-next {
-  color: #b81a1d;}
+  color: #b81a1d;
+}
 
-
-
-.portfolio-details .portfolio-details-slider .swiper-pagination .swiper-pagination-bullet-active {
+.portfolio-details
+  .portfolio-details-slider
+  .swiper-pagination
+  .swiper-pagination-bullet-active {
   background-color: #b81a1d;
 }
 
@@ -1340,7 +1333,7 @@ div.swiper-button-next {
   font-size: 15px;
 }
 
-.portfolio-details .portfolio-info ul li+li {
+.portfolio-details .portfolio-info ul li + li {
   margin-top: 10px;
 }
 
@@ -1356,8 +1349,8 @@ div.swiper-button-next {
 
 .portfolio-details .portfolio-description p {
   padding: 0;
+  font-size: 15px;
 }
-
 
   
 
