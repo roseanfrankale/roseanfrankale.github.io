@@ -983,7 +983,7 @@ section .card-body {
   /*--------------------------------------------------------------
 # Contact Me
 --------------------------------------------------------------*/
-.contact .btn {
+#contact .btn {
   background: rgb(242, 242, 242, 0.7);
   font-size: 1.75rem;
   border: 3px solid #4c4c4c;
@@ -995,7 +995,7 @@ section .card-body {
   font-weight: 500;
 }
 
-.contact .btn:hover {
+#contact .btn:hover {
   background-color: rgb(76, 76, 76, 0.9);
   transition: all 0.4s ease-in-out;
   font-weight: 600;
@@ -1004,7 +1004,7 @@ section .card-body {
   border: 3px solid #f2f2f2;
 }
 
-.contact .btn:before {
+#contact .btn:before {
   content: "";
   display: block;
   position: absolute;
