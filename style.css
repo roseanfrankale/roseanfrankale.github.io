@@ -566,12 +566,7 @@ section .card-body {
   padding: 0;
 }
 
-@media (max-width: 768px) {
-  .section-title h2 {
-    font-size: 1.5rem;
-    font-weight: 400;
-    
-  }
+
 
 /*--------------------------------------------------------------
 # About
