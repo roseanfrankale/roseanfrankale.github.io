@@ -999,10 +999,9 @@ section .card-body {
   background-color: rgb(76, 76, 76, 0.9);
   transition: all 0.4s ease-in-out;
   font-weight: 600;
-  color: #f2f2f2; 
+  color: #f2f2f2;
   letter-spacing: 3px;
   border: 3px solid #f2f2f2;
-
 }
 
 .contact .btn:before {
@@ -1035,8 +1034,8 @@ section .card-body {
     opacity: 0;
     transform: scale(1.25);
   }
-}  
-  
+}
+
 
 /* ------------------------------------------------------------------- 
  * ## bricks/masonry
