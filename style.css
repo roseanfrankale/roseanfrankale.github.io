@@ -80,7 +80,12 @@ h1 span {
   position: fixed;
   top: calc(50% - 60px);
   left: calc(50% - 60px);
-  
+  border: 6px solid #b81a1d;
+  border-top-color: #fff;
+  border-bottom-color: #fff;
+  border-radius: 50%;
+  width: 120px;
+  height: 120px;
   -webkit-animation: animate-preloader 1s linear infinite;
   animation: animate-preloader 1s linear infinite;
 }
