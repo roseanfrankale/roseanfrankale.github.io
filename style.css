@@ -61,58 +61,7 @@ h1 span {
   right: 20px;
 }
 
-/*--------------------------------------------------------------
-# Preloader
---------------------------------------------------------------*/
-#preloader {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  z-index: 9999;
-  overflow: hidden;
-  background: url("../images//rjfa_name_logo.svg") no-repeat center center fixed;
-}
 
-#preloader:before {
-  content: "";
-  position: fixed;
-  top: calc(50% - 60px);
-  left: calc(50% - 60px);
-  border: 6px solid #b81a1d;
-  border-top-color: #fff;
-  border-bottom-color: #fff;
-  border-radius: 50%;
-  width: 120px;
-  height: 120px;
-  -webkit-animation: animate-preloader 1s linear infinite;
-  animation: animate-preloader 1s linear infinite;
-}
-
-@-webkit-keyframes animate-preloader {
-  0% {
-    transform: rotate(0deg);
-  }
-
-  100% {
-    transform: rotate(360deg);
-  }
-}
-
-@keyframes animate-preloader {
-  0% {
-    transform: rotate(0deg);
-  }
-
-  100% {
-    transform: rotate(360deg);
-  }
-}
-
-.content_hidden {
-  visibility: hidden;
-}
 
 /*--------------------------------------------------------------
 # Disable aos animation delay on mobile devices
