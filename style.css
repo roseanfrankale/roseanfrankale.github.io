@@ -65,7 +65,7 @@ h1 span {
 # Preloader
 --------------------------------------------------------------*/
 #preloader {
-
+  position: fixed;
   z-index: 9999;
   overflow: hidden;
   background: url("../images//rjfa_name_logo.svg") no-repeat center center fixed;
@@ -73,7 +73,7 @@ h1 span {
 
 #preloader:before {
   content: "";
- 
+  position: fixed;
   -webkit-animation: animate-preloader 1s linear infinite;
   animation: animate-preloader 1s linear infinite;
 }
