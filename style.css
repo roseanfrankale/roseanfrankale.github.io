@@ -88,7 +88,7 @@ h1 span {
 
 @-webkit-keyframes animate-preloader {
   0% {
-    transform: scale(0deg);
+    transform: none;
   }
 
   100% {
@@ -98,7 +98,7 @@ h1 span {
 
 @keyframes animate-preloader {
   0% {
-    transform: scale(0deg);
+    transform: none;
   }
 
   100% {
