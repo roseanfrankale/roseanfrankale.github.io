@@ -78,13 +78,8 @@ h1 span {
 }
 
 @-webkit-keyframes animate-preloader {
-  0% {
-    transform: rotate(0deg);
-  }
-
-  100% {
-    transform: rotate(360deg);
-  }
+  .content_hidden {
+  visibility: hidden;
 }
 
 @keyframes animate-preloader {
