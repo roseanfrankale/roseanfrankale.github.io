@@ -90,12 +90,7 @@ h1 span {
   visibility: hidden;
 }
 
-@keyframes animate-preloader {
 
-
-.content_hidden {
-  visibility: hidden;
-}
 
 /*--------------------------------------------------------------
 # Disable aos animation delay on mobile devices
