@@ -73,15 +73,18 @@ h1 span {
   z-index: 9999;
   overflow: hidden;
   background: url("../images//rjfa_name_logo.svg") no-repeat center center fixed;
-   animation: animate-preloader 1s linear infinite;
+ -webkit-animation: animate-preloader 1s linear infinite;
+  animation: animate-preloader 1s linear infinite;
 }
 
-#preloader:before {
-  content: "";
-  position: fixed;
-  top: calc(50% - 60px);
-  left: calc(50% - 60px);
-  
+@-webkit-keyframes animate-preloader {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
 }
 
 @keyframes animate-preloader {
