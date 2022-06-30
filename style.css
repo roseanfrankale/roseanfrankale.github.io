@@ -73,6 +73,7 @@ h1 span {
   z-index: 9999;
   overflow: hidden;
   background: url("../images//rjfa_name_logo.svg") no-repeat center center fixed;
+   animation: animate-preloader 1s linear infinite;
 }
 
 #preloader:before {
