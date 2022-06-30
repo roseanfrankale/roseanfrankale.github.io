@@ -61,7 +61,19 @@ h1 span {
   right: 20px;
 }
 
-
+/*--------------------------------------------------------------
+# Preloader
+--------------------------------------------------------------*/
+#preloader {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 9999;
+  overflow: hidden;
+  background: url("../images//rjfa_name_logo.svg") no-repeat center center fixed;
+}
 
 /*--------------------------------------------------------------
 # Disable aos animation delay on mobile devices
