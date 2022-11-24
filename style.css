@@ -178,7 +178,7 @@ h1 span {
 
 /* Header Top */
 #header.header-top {
-  height: 100px;
+  height: 75px;
   position: fixed;
   left: 0;
   top: 0;
@@ -483,7 +483,7 @@ section {
 }
 
 section.section-show {
-  top: 100px;
+  top: 75px;
   bottom: auto;
   opacity: 1;
 }
@@ -887,7 +887,7 @@ section .card-body {
   }
 
   .timeline-heading .title {
-    font-size: 1.75rem;
+    font-size: 1.5rem;
     font-weight: 500;
     text-align: left;
     letter-spacing: 1px;
