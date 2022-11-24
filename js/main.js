@@ -193,21 +193,22 @@
     });
   }
 
-  /**
+    /**
    * Preloader
    */
-$(window).on('load', function(){
-    $('#preloader').delay(700).fadeOut('slow', function(){
-        $("#header").removeClass("content_hidden");
+  let preloader = select("#preloader");
+  if (preloader) {
+    window.addEventListener("load", () => {
+      preloader.remove();
     });
-
-});
+  }
+  
 
   /**
    * Card close transition
    */
- $(".close-icon").click(function () {
-    $("#neubsis_card", "#new_soil_card","#bruvue_card").parent().fadeOut("slow");
+  $(".close-icon").click(function () {
+    $("#neubsis_card", "new_soil_card").parent().fadeOut("slow");
   });
 
   $("#card-scroll1").on("click", function (e) {
@@ -230,61 +231,30 @@ $(window).on('load', function(){
     e.preventDefault();
   });
 
-  $("#card-scroll3").on("click", function (e) {
+  $("#card-scroll3, a").on("click", function (e) {
     $("html, body").animate(
       {
         scrollTop: $("#bruvue_card").offset().top,
       },
-      ""
+      "300"
     );
     e.preventDefault();
   });
 
-  
-  
   /* Masonry
    * ---------------------------------------------------- */
- 
-  
+
   var masonryFolio = function () {
-        
-    var containerBricks = $('.masonry');
+    var containerBricks = $(".masonry");
 
-    containerBricks.imagesLoaded().progress(function () {
-        containerBricks.masonry({
-          columnWidth: 200,
-            itemSelector: '.masonry__brick',
-            resize: false,
-            percentPosition : true
-        });
+    containerBricks.imagesLoaded(function () {
+      containerBricks.masonry({
+        itemSelector: ".masonry__brick",
+        resize: true,
+      });
     });
-};
-  
-  
- /* Glightbox
-   * ---------------------------------------------------- */ 
-  
-const lightbox = GLightbox({
-  touchNavigation: true,
-  loop: true,
-  openEffect: 'zoom',
-  closeEffect: 'fade',
-  cssEfects: {
-    // This are some of the animations included, no need to overwrite
-    fade: { in: 'fadeIn', out: 'fadeOut' },
-    zoom: { in: 'zoomIn', out: 'zoomOut' }
-  }
-  });
+  };
 
-
-  const lightboxDescription = GLightbox({
-    selector: '.glightbox2'
-});
-
-  
-    /* Swiper
-   * ---------------------------------------------------- */
-  
   new Swiper('.swiper', {
     // Optional parameters
     spaceBetween: 30,
@@ -303,6 +273,35 @@ const lightbox = GLightbox({
       prevEl: ".swiper-button-prev",
     },
   });
+
+
+
+
+ /**
+   * Initiate glightbox
+   */
+  const glightbox = GLightbox({
+    loop: true,
+    selector: '.glightbox',
+    openEffect: 'zoom',
+    closeEffect: 'fade',
+    startAt: 0,
+    closeOnOutsideClick: false,
+    zoomable: true,
+    height: 'auto',
+    width: '100vw',
+    height: '100vh'
+    
+  });
+
+
+  
+  AOS.init();
+
+
+
+
+
 })();
 
 
