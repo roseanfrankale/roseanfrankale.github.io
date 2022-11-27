@@ -146,7 +146,7 @@ h1 span {
   
 }
 
-#header .social-icons a:hover {
+#header .social-icons a i:hover {
   font-size: 26px;
   border: 1px solid #b81a1d;
   color: #b81a1d;
@@ -163,8 +163,8 @@ h1 span {
     line-height: 30px;
   }
 
-  #header .social-links {
-    margin-top: 15px;
+  #header .social-icons {
+    margin-top: 0px;
   }
 
   #header .container {
@@ -420,7 +420,7 @@ span-under {
   font-family: "Cabin";
   border: 1px solid #232323;
   border-radius: 50px;
-  line-height: 20px;
+  line-height: 10px;
 }
 
 .btn-dark:hover {
@@ -450,7 +450,7 @@ span-under {
   box-shadow: transparent;
   border-radius: 50px;
   border: 1px solid #b81a1d;
-  line-height: 10px;
+  line-height: 5px;
   transition: all 0.6s ease-in-out;
 }
 
@@ -460,7 +460,7 @@ span-under {
   font-family: "Cabin";
   border-radius: 50px;
   border: 2px solid #4c4c4c;
-    line-height: 10px;
+    line-height: 5px;
 
 }
 
@@ -640,9 +640,9 @@ section .card-body {
 # Experience - Resume or Timeline 
 --------------------------------------------------------------*/
 .timeline-container {
-  height: 1000px;
+  height: 1500px;
   position: relative;
-  padding: 50px;
+  padding: 10px;
   border-radius: 15px;
   box-shadow: 0 10px 20px 0 rgb(0 0 0 / 20%);
   border: 1.5px solid #4c4c4c;
@@ -1264,3 +1264,4 @@ div.swiper-button-next {
   padding: 0;
   font-size: 15px;
 }
+
