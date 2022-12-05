@@ -36,7 +36,7 @@ h1 span {
 --------------------------------------------------------------*/
 
 #btn-back-to-top {
-  bottom: 20px;
+  bottom: 60px;
   font-size: 20px;
   height: 40px;
   position: fixed;
@@ -146,11 +146,18 @@ h1 span {
   
 }
 
-#header .social-icons a i:hover {
-  font-size: 26px;
-  border: 1px solid #b81a1d;
+#header .social-icons i:hover {
+  
+  
   color: #b81a1d;
-  transition: border ease-in-out 0.3s;
+  transition: all 0.1s;
+}
+
+#header .social-icons a:hover {
+  background: #b81a1d;
+  border: 1px solid #b81a1d;
+  color: #ffffff;
+  transition: all 0.1s;
 }
 
 @media (max-width: 992px) {
@@ -244,8 +251,8 @@ span-under {
 
 .navbar {
   padding: 0;
-  margin-top: 25px;
   box-shadow: none;
+  align-items: center;
 }
 
 .navbar ul {
@@ -426,16 +433,14 @@ span-under {
 .btn-dark:hover {
   background-color: #ffffff;
   color: #232323;
-  letter-spacing: 1px;
   transition: all 0.3s ease-in-out;
   box-shadow: transparent;
   border: 1px solid #b81a1d;
 }
 
 .btn-outline-dark:hover {
-  background-color: #ffffff;
-  color: #232323;
-  letter-spacing: 1px;
+  background-color: #232323;
+  color: #ffffff;
   transition: all 0.3s ease-in-out;
   box-shadow: transparent;
   border: 1px solid #b81a1d;
@@ -443,15 +448,15 @@ span-under {
 
 .nav-pills .nav-link.active {
   font-size: 1.2em;
-  font-weight: 600;
+  font-weight: 400;
   font-family: "Cabin";
   background-color: #ffffff;
   color: #232323;
   box-shadow: transparent;
   border-radius: 50px;
-  border: 1px solid #b81a1d;
+  border: 2px solid #b81a1d;
   line-height: 5px;
-  transition: all 0.6s ease-in-out;
+  transition: all 0.4s ease-in-out;
 }
 
 .nav-pills .nav-link:not(.active) {
@@ -459,21 +464,21 @@ span-under {
   font-weight: 400;
   font-family: "Cabin";
   border-radius: 50px;
-  border: 2px solid #4c4c4c;
+  border: 1px solid #4c4c4c;
     line-height: 5px;
 
 }
 
 .nav-pills .nav-link:hover {
-  font-size: 1.15em;
-  font-weight: 600;
+  font-size: 1.1em;
+  font-weight: 400;
   font-family: "Cabin";
   background-color: #ffffff;
   color: #232323;
   box-shadow: transparent;
   border: 2px solid #b81a1d;
-  transition: all 0.6s ease-in-out;
-  line-height: 10px;
+  transition: all 0.4s ease-in-out;
+  line-height: 5px;
 
 }
 
@@ -613,11 +618,11 @@ section .card-body {
   padding: 10px;
   background: rgba(255, 255, 255, 0.14);
   transition: ease-in-out 0.3s;
-  border: 2px solid #4c4c4c;
+  border: 1px solid #4c4c4c;
   border-radius: 15px;
 }
 .skills .icon-box i {
-  font-size: 28px;
+  font-size: 22px;
   padding-right: 10px;
   line-height: 1;
 }
@@ -630,8 +635,8 @@ section .card-body {
 }
 
 .skills .icon-box img {
-  width: 32px;
-  height: 32px;
+  width: 24px;
+  height: 24px;
   padding-right: 10px;
   line-height: 1;
 }
@@ -648,6 +653,7 @@ section .card-body {
   border: 1.5px solid #4c4c4c;
 }
 .timeline {
+  margin-top: 20px;
   position: relative;
   padding: 0;
   list-style: none;
@@ -812,11 +818,10 @@ section .card-body {
   margin-right: 8px;
 }
 
-.timeline .social-icons-timeline a:hover {
-  border: 1px solid #b81a1d;
+.timeline .social-icons a:hover {
+  font-size: 17px;
   color: #b81a1d;
   transition: border ease-in-out 0.3s;
-  background: #f2f2f2;
 }
 
 @media (min-width: 768px) {
@@ -1193,6 +1198,12 @@ section .card-body {
 /*--------------------------------------------------------------
 # Footer
 --------------------------------------------------------------*/
+.footer {
+  
+    margin-top: auto;
+    align-items: center;
+
+}
 
 /*--------------------------------------------------------------
 # Project Cards - Modal Styling
