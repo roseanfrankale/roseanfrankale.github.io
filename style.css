@@ -146,11 +146,11 @@ h1 span {
   
 }
 
-#header .social-icons i:hover {
-  
-  
-  color: #b81a1d;
-  transition: all 0.1s;
+#header .social-icons a:hover {
+  font-size: 24px;
+  background-color: #4c4c4c;
+  color: #ffffff;
+  border: 1px solid #4c4c4c;
 }
 
 #header .social-icons a:hover {
