@@ -446,6 +446,12 @@ span-under {
   border: 1px solid #b81a1d;
 }
 
+@media only screen and (max-width: 375px) {
+  .btn-outline-dark {
+    margin-top: 15px;
+  }
+}
+
 .nav-pills .nav-link.active {
   font-size: 1.2em;
   font-weight: 400;
