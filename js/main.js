@@ -204,42 +204,9 @@
   }
   
 
-  /**
-   * Card close transition
-   */
-  $(".close-icon").click(function () {
-    $("#neubsis_card", "new_soil_card").parent().fadeOut("slow");
-  });
 
-  $("#card-scroll1").on("click", function (e) {
-    $("html, body").animate(
-      {
-        scrollTop: $("#neubsis_card").offset().top,
-      },
-      ""
-    );
-    e.preventDefault();
-  });
 
-  $("#card-scroll2").on("click", function (e) {
-    $("html, body").animate(
-      {
-        scrollTop: $("#new_soil_card").offset().top,
-      },
-      ""
-    );
-    e.preventDefault();
-  });
 
-  $("#card-scroll3, a").on("click", function (e) {
-    $("html, body").animate(
-      {
-        scrollTop: $("#bruvue_card").offset().top,
-      },
-      "300"
-    );
-    e.preventDefault();
-  });
 
   /* Masonry
    * ---------------------------------------------------- */
