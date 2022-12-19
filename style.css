@@ -74,7 +74,6 @@ h1 span {
 
 
 
-
 /*--------------------------------------------------------------
 # Header
 --------------------------------------------------------------*/
@@ -88,7 +87,7 @@ h1 span {
 }
 
 #header * {
-  transition: ease-in-out 0.3s;
+  transform: ease-in-out 0.3s;
 }
 
 #header h1 {
@@ -141,23 +140,17 @@ h1 span {
   margin-right: 8px;
   border: 1px solid #4c4c4c;
   border-radius: 50%;
-  width: 45px;
-  height: 45px;
-  
+  width: 40px;
+  height: 40px;
+  transition: ease-in-out 0.3s;
 }
 
-#header .social-icons a:hover {
-  font-size: 24px;
-  background-color: #4c4c4c;
-  color: #ffffff;
-  border: 1px solid #4c4c4c;
-}
+
 
 #header .social-icons a:hover {
-  background: #b81a1d;
-  border: 1px solid #b81a1d;
+  background-color: #b81a1d;
   color: #ffffff;
-  transition: all 0.1s;
+  border: none;
 }
 
 @media (max-width: 992px) {
