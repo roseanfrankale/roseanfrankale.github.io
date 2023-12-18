@@ -5,9 +5,6 @@
 body {
   font-family: "Cabin", sans-serif;
   background-color: #f5f5f5;
-  background: url("/images/desktop-hero-2.png");
-
-
   text-rendering: optimizeLegibility;
 }
 
@@ -86,6 +83,7 @@ h1 span {
   display: flex;
   align-items: center;
   overflow-y: auto;
+  background: url("/images/desktop-hero-2.png");
 
 }
 
