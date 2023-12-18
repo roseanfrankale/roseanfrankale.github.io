@@ -84,6 +84,8 @@ h1 span {
   display: flex;
   align-items: center;
   overflow-y: auto;
+  background: url("/images/desktop-hero-2.png");
+
 }
 
 #header * {
