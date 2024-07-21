@@ -602,7 +602,7 @@ var bgPlayerInit = function bgPlayerInit() {
 
 
 var bootstrapNavbarInit = function bootstrapNavbarInit() {
-  var navbar = document.querySelector('.navbar-sparrow');
+  var navbar = document.querySelector('.navbar-rjfa');
 
   if (navbar) {
     var windowHeight = window.innerHeight;
