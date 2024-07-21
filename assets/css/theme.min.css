@@ -21117,7 +21117,7 @@ label {
     stroke: var(--rjfa-white);
     stroke-linecap: round;
     stroke-linejoin: round;
-    stroke-width: px
+    stroke-width: 2px;
 }
 
 .fancynavbar-addon {
