@@ -11486,7 +11486,7 @@ fieldset:disabled .btn {
     border-radius: var(--rjfa-border-radius-sm) !important
 }
 
-.rounded-2 {
+.rounded-2 { 
     border-radius: var(--rjfa-border-radius) !important
 }
 
