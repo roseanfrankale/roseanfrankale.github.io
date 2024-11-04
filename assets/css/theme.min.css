@@ -20081,7 +20081,7 @@ pre[class*=language-] {
 }
 
 .hoverbox .hoverbox-content a:hover {
-    opacity: .8
+    opacity: .4
 }
 
 .hoverbox:hover .hover-box-content-initial,
@@ -20091,7 +20091,7 @@ pre[class*=language-] {
 
 .hoverbox:hover .hoverbox-content,
 .hoverbox:focus .hoverbox-content {
-    opacity: 1
+    opacity: .8
 }
 
 .hoverbox:hover .as-hoverbox-content,
