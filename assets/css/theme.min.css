@@ -293,14 +293,14 @@ ul ol {
 }
 
 li {
-	display: inline;
-	padding: 10px 5px;
-	font-size: 14px;
+	
+	padding: 5px 5px;
+	font-size: .75rem;
 	color: #636363;
 	font-weight: 400;
 	cursor: pointer;
   	text-transform: uppercase;
-  	letter-spacing: .2em;
+  	letter-spacing: .1em;
 }
 
 li:hover {
