@@ -292,6 +292,28 @@ ul ol {
     margin-bottom: 0
 }
 
+li {
+	
+	padding: 5px 5px;
+	font-size: .75rem;
+	color: #636363;
+	font-weight: 400;
+	cursor: pointer;
+  	text-transform: uppercase;
+  	letter-spacing: .1em;
+}
+
+li:hover {
+	color: #a6a6a6;
+}
+
+li.active {
+	color: #ccc;
+	border: 1px solid #191919;
+	border-radius: 15px;
+}
+
+
 dt {
     font-weight: 700
 }
@@ -5393,6 +5415,11 @@ fieldset:disabled .btn {
     background-repeat: no-repeat;
     background-position: center;
     background-size: 100%
+}
+
+.custom-toggle-icon {
+    width: 24px;
+    height: 24px;
 }
 
 .navbar-nav-scroll {
@@ -21114,17 +21141,17 @@ label {
     opacity: 1 !important
 }
 
-.fancynavbar-toggler {
+.fancynavbar-toggler .fancynavbar-toggler-icon {
     cursor: pointer;
-    width: 4.375rem;
-    height: 4.375rem;
+    width: 4.375rem !important;
+    height: 4.375rem !important;
     opacity: 1 !important;
     -webkit-transform: translateY(4%);
     -ms-transform: translateY(4%);
     transform: translateY(4%)
 }
 
-.fancynavbar-toggler-icon path {
+.fancynavbar-toggler .fancynavbar-toggler-icon path {
     fill: none;
     stroke: var(--rjfa-white);
     stroke-linecap: round;
