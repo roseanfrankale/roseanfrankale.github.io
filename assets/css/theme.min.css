@@ -5224,6 +5224,21 @@ fieldset:disabled .btn {
 
 }
 
+.navbar-rjfa .social-icons .fancynavbar-toggler-icon {
+    width: 18px;
+    height: 18px;
+    stroke-width: 2;
+    stroke: currentColor;
+    opacity: 0.8;
+    transition: ease-in-out 0.3s;
+  }
+  
+  .navbar-rjfa .nav-link:hover .social-icons a {
+    opacity: 1;
+    color: #b81a1d;
+  }
+
+
 .tab-content>.tab-pane {
     display: none
 }
@@ -5256,7 +5271,7 @@ fieldset:disabled .btn {
 .navbar {
     --rjfa-navbar-padding-x: 0rem;
     --rjfa-navbar-padding-y: 0.10rem;
-    --rjfa-navbar-color: rgba(0, 0, 0, 0.55);
+    --rjfa-navbar-color: rgba(200, 200, 200, 0.55);
     --rjfa-navbar-hover-color: rgba(0, 0, 0, 0.9);
     --rjfa-navbar-disabled-color: rgba(0, 0, 0, 0.25);
     --rjfa-navbar-active-color: #000;
@@ -5416,6 +5431,11 @@ fieldset:disabled .btn {
     background-position: center;
     background-size: 100%
 }
+
+/* Toggler specific styling */
+.navbar-rjfa .navbar-toggler-icon svg {
+    stroke: #ffffff;
+  }
 
 .custom-toggle-icon {
     width: 24px;
