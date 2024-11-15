@@ -5434,13 +5434,16 @@ fieldset:disabled .btn {
 
 /* Toggler specific styling */
 .navbar-rjfa .navbar-toggler-icon svg {
-    stroke: #ffffff;
+    stroke: rgba(213, 213, 213, 1);
   }
 
-.custom-toggle-icon {
-    width: 24px;
-    height: 24px;
-}
+  .navbar-rjfa .navbar-toggler {
+    border: none;
+  }
+
+  .navbar-rjfa .navbar-toggler-icon {
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba(213, 213, 213, 1)' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
+  }
 
 .navbar-nav-scroll {
     max-height: var(--rjfa-scroll-height, 75vh);
@@ -21129,6 +21132,8 @@ label {
     -webkit-box-shadow: 0 0 0 .5rem rgba(225, 225, 225, .7);
     box-shadow: 0 0 0 .5rem rgba(225, 225, 225, .7)
 }
+
+
 
 .fancynavbar {
     position: fixed;
