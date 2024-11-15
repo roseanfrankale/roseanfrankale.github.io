@@ -611,7 +611,7 @@ var bootstrapNavbarInit = function bootstrapNavbarInit() {
       var scrollTop = window.pageYOffset;
       var alpha = scrollTop / windowHeight * 2;
       alpha >= 1 && (alpha = 1);
-      navbar.style.backgroundColor = "rgba(43, 43, 43, ".concat(alpha, ")");
+      navbar.style.backgroundColor = "rgba(242, 242, 242, ".concat(alpha, ")");
     };
 
     handleAlpha();
@@ -620,10 +620,10 @@ var bootstrapNavbarInit = function bootstrapNavbarInit() {
     }); // Top navigation background toggle on mobile
 
     navbar.addEventListener('show.bs.collapse', function (e) {
-      e.currentTarget.classList.toggle('--rjfa-gray-1000-rgb');
+      e.currentTarget.classList.toggle('bg-grey');
     });
     navbar.addEventListener('hide.bs.collapse', function (e) {
-      e.currentTarget.classList.toggle('--rjfa-gray-1000-rgb');
+      e.currentTarget.classList.toggle('bg-grey');
     });
   }
 };
