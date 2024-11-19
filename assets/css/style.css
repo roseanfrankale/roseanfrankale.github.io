@@ -38,7 +38,7 @@
   }
   
   #header .social-icons a {
-    font-size: 24px;
+    font-size: 18px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -47,8 +47,8 @@
     margin-right: 8px;
     border: 1px solid #4c4c4c;
     border-radius: 50%;
-    width: 40px;
-    height: 40px;
+    width: 20px;
+    height: 20px;
     transition: ease-in-out 0.3s;
   }
   
@@ -1039,5 +1039,6 @@ overflow: hidden;
   }
   
 }
+
 
 
