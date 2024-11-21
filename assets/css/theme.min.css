@@ -20768,12 +20768,16 @@ html[dir=rtl] .googlemap .gm-style-iw.gm-style-iw-c button[title=Close] {
     text-align: justify !important
 }
 
+
+
+
 .bg-holder {
     position: absolute;
     width: 100%;
     min-height: 100%;
     top: 0;
     left: 0;
+    background-color: rgba(0, 0, 0, .5);
     background-size: cover;
     background-position: center;
     overflow: hidden;
@@ -20781,7 +20785,9 @@ html[dir=rtl] .googlemap .gm-style-iw.gm-style-iw-c button[title=Close] {
     -webkit-backface-visibility: hidden;
     backface-visibility: hidden;
     background-repeat: no-repeat;
-    z-index: 0
+    z-index: 0;
+   
+    
 }
 
 .bg-holder.bg-right {
@@ -20792,7 +20798,7 @@ html[dir=rtl] .googlemap .gm-style-iw.gm-style-iw-c button[title=Close] {
 .bg-holder.overlay:before {
     position: absolute;
     content: "";
-    background: rgba(0, 0, 0, .05);
+    background: rgba(0, 0, 0, .02);
     top: 0;
     bottom: 0;
     left: 0;
