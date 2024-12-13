@@ -5224,6 +5224,21 @@ fieldset:disabled .btn {
 
 }
 
+.navbar-rjfa .social-icons .fancynavbar-toggler-icon {
+    width: 18px;
+    height: 18px;
+    stroke-width: 2;
+    stroke: currentColor;
+    opacity: 0.8;
+    transition: ease-in-out 0.3s;
+  }
+  
+  .navbar-rjfa .nav-link:hover .social-icons a {
+    opacity: 1;
+    color: #b81a1d;
+  }
+
+
 .tab-content>.tab-pane {
     display: none
 }
@@ -5256,7 +5271,7 @@ fieldset:disabled .btn {
 .navbar {
     --rjfa-navbar-padding-x: 0rem;
     --rjfa-navbar-padding-y: 0.10rem;
-    --rjfa-navbar-color: rgba(0, 0, 0, 0.55);
+    --rjfa-navbar-color: rgba(200, 200, 200, 0.55);
     --rjfa-navbar-hover-color: rgba(0, 0, 0, 0.9);
     --rjfa-navbar-disabled-color: rgba(0, 0, 0, 0.25);
     --rjfa-navbar-active-color: #000;
@@ -5417,10 +5432,18 @@ fieldset:disabled .btn {
     background-size: 100%
 }
 
-.custom-toggle-icon {
-    width: 24px;
-    height: 24px;
-}
+/* Toggler specific styling */
+.navbar-rjfa .navbar-toggler-icon svg {
+    stroke: rgba(213, 213, 213, 1);
+  }
+
+  .navbar-rjfa .navbar-toggler {
+    border: none;
+  }
+
+  .navbar-rjfa .navbar-toggler-icon {
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba(213, 213, 213, 1)' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
+  }
 
 .navbar-nav-scroll {
     max-height: var(--rjfa-scroll-height, 75vh);
@@ -20745,12 +20768,16 @@ html[dir=rtl] .googlemap .gm-style-iw.gm-style-iw-c button[title=Close] {
     text-align: justify !important
 }
 
+
+
+
 .bg-holder {
     position: absolute;
     width: 100%;
     min-height: 100%;
     top: 0;
     left: 0;
+    background-color: rgba(0, 0, 0, .5);
     background-size: cover;
     background-position: center;
     overflow: hidden;
@@ -20758,7 +20785,9 @@ html[dir=rtl] .googlemap .gm-style-iw.gm-style-iw-c button[title=Close] {
     -webkit-backface-visibility: hidden;
     backface-visibility: hidden;
     background-repeat: no-repeat;
-    z-index: 0
+    z-index: 0;
+   
+    
 }
 
 .bg-holder.bg-right {
@@ -20769,7 +20798,7 @@ html[dir=rtl] .googlemap .gm-style-iw.gm-style-iw-c button[title=Close] {
 .bg-holder.overlay:before {
     position: absolute;
     content: "";
-    background: rgba(0, 0, 0, .05);
+    background: rgba(0, 0, 0, .02);
     top: 0;
     bottom: 0;
     left: 0;
@@ -21109,6 +21138,8 @@ label {
     -webkit-box-shadow: 0 0 0 .5rem rgba(225, 225, 225, .7);
     box-shadow: 0 0 0 .5rem rgba(225, 225, 225, .7)
 }
+
+
 
 .fancynavbar {
     position: fixed;
