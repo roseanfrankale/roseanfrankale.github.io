@@ -2896,7 +2896,39 @@ var glightbox = GLightbox({
   height: "100vh"
 });
 
+ /*-----------------------------------------------
+  |  Spotify Web Playback SDK
+  -----------------------------------------------*/
 
+window.onSpotifyWebPlaybackSDKReady = async () => {
+  const token = 'YOUR_ACCESS_TOKEN';
+  const player = new Spotify.Player({
+      name: 'Web Playback SDK',
+      getOAuthToken: cb => { cb(token); },
+      volume: 0.5
+  });
+
+  await player.connect();
+
+  player.addListener('ready', ({ device_id }) => {
+      console.log('Device ready:', device_id);
+
+      fetch(`https://api.spotify.com/v1/me/player/play?device_id=${device_id}`, {
+          method: 'PUT',
+          headers: {
+              'Authorization': `Bearer ${token}`,
+              'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+              context_uri: 'spotify:album:ALBUM_ID'
+          })
+      });
+  });
+
+  document.getElementById('play-pause').addEventListener('click', () => {
+      player.togglePlay();
+  });
+};
 
 
 
