@@ -19796,7 +19796,8 @@ fieldset:disabled .btn {
 }
 
 .line-scale-pulse-out-rapid div {
-    background-color: var(--rjfa-black);
+    
+
     width: .125rem;
     border-radius: .1875rem
 }
