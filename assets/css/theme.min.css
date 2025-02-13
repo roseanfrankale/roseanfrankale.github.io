@@ -6132,6 +6132,20 @@ fieldset:disabled .btn {
     }
 }
 
+
+.card.bg-light {
+    transition: all 0.3s ease;
+  }
+  
+  .card.bg-light:hover {
+    background: rgba(255, 255, 255, 0.7) !important;
+    backdrop-filter: blur(10px);
+    box-shadow: 0 8px 32px 0 rgba(184, 26, 29, 0.37);
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    transform: translateY(-5px);
+  }
+  
+
 .accordion {
     --rjfa-accordion-color: #555555;
     --rjfa-accordion-bg: #fff;
@@ -7197,7 +7211,7 @@ fieldset:disabled .btn {
     outline: 0;
     -webkit-box-shadow: 0 0 0 .25rem rgba(4, 91, 193, .25);
     box-shadow: 0 0 0 .25rem rgba(4, 91, 193, .25);
-    opacity: 1
+    opacity: 1hoverbox-content
 }
 
 .btn-close:disabled,
@@ -19796,7 +19810,8 @@ fieldset:disabled .btn {
 }
 
 .line-scale-pulse-out-rapid div {
-    background-color: var(--rjfa-black);
+    
+
     width: .125rem;
     border-radius: .1875rem
 }
