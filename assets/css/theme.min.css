@@ -87,7 +87,7 @@
     --rjfa-dark: #1c1c1c;
     --rjfa-white: #fff;
     --rjfa-black: #000;
-    --rjfa-gray-100: #fafafa;
+    --rjfa-gray-100: #fbfbfb;
     --rjfa-gray-200: #f9f9f9;
     --rjfa-gray-300: #e1e1e1;
     --rjfa-gray-400: #bebebe;
@@ -151,7 +151,16 @@
     }
 }
 
+
+html, body {
+    max-width: 100%;
+    overflow-x: hidden;
+}
+
+
 body {
+    max-width: 100%;
+    overflow-x: hidden;
     margin: 0;
     font-family: var(--rjfa-body-font-family);
     font-size: var(--rjfa-body-font-size);
@@ -11017,6 +11026,11 @@ fieldset:disabled .btn {
     font-size: 1.333rem !important
 }
 
+.fs--2 {
+    font-size: 1.175rem !important
+}
+
+
 .fs-2 {
     font-size: 1.777rem !important
 }
@@ -11364,7 +11378,12 @@ fieldset:disabled .btn {
 
 .bg-light {
     --rjfa-bg-opacity: 1;
-    border-radius: .5rem;
+    border-radius: .5rem; 
+    background-color: rgba(var(--rjfa-light-rgb), var(--rjfa-bg-opacity)) !important
+}
+
+.bg-grey {
+    --rjfa-bg-opacity: 1;
     background-color: rgba(var(--rjfa-light-rgb), var(--rjfa-bg-opacity)) !important
 }
 
