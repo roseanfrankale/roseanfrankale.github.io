@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <title>Rosean Jamel Frank-Alexander - Resume</title>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
   <style>
     /* Global Reset */
     * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -35,7 +35,7 @@
       max-width: 800px;
       margin: auto;
       background: white;
-      padding: 1.2rem 1.6rem;
+      padding: 0.8rem 1rem; /* Adjusted for wider content */
       border-radius: 8px;
       box-shadow: 0 2px 6px rgba(0,0,0,0.08);
     }
@@ -58,7 +58,7 @@
     /* Grid Layout */
     .grid {
       display: flex;
-      gap: 1rem;
+      gap: 0.8rem; /* Adjusted for wider content */
     }
     .left-col { flex: 0 0 40%; }
     .right-col { flex: 0 0 60%; }
@@ -84,21 +84,20 @@
     }
     .card ul { margin-left: 1rem; list-style: disc; }
 
-  /* Print Styles */
-        @media print {
-            body { background: white; padding: 0; }
-            .resume {
-                box-shadow: none;
-                border-radius: 0;
-                padding: 0.8rem;
-            }
-            @page { size: A4; margin: 0.75in; }
-            h1 { font-size: 1rem; }
-            p, li { font-size: 0.65rem; }
-            h2 { font-size: 0.8rem; }
-            h3 { font-size: 0.7rem; }
-            .back-btn { display: none; }
-        }
+    /* Print Styles */
+    @media print {
+      body { background: white; padding: 0; }
+      .resume {
+        box-shadow: none;
+        border-radius: 0;
+        padding: 0.8rem;
+      }
+      @page { size: A4; margin: 0.5in; }
+      h1 { font-size: 1rem; }
+      p, li { font-size: 0.7rem; }
+      h2 { font-size: 0.85rem; }
+      h3 { font-size: 0.75rem; }
+    }
   </style>
 </head>
 <body>
@@ -117,24 +116,23 @@
     </p>
 
     <div class="grid">
-      <!-- Left Column -->
       <div class="left-col">
         <section>
           <h2>Skills</h2>
           <div class="card">
-            <h3>Business & Growth</h3>
-            <p>Product Development Strategy, Technical Operations, Customer Success, Account Management, UI/UX, Technical Training & Support, IoT, Brand Development, PCI-DSS, ISO Management, Lead Generation</p>
+            <h3>Business &amp; Growth</h3>
+            <p>Product Development Strategy, Technical Operations, Customer Success, Account Management, UI/UX, Technical Training &amp; Support, IoT, Brand Development, PCI-DSS, ISO Management, Lead Generation</p>
           </div>
           <div class="card">
             <h3>Design</h3>
-            <p>UI/UX Design, Prototyping, Wireframing & Mockups, Interaction Design, User Stories & Journey Mapping, Responsive Design, Sketching</p>
+            <p>UI/UX Design, Prototyping, Wireframing &amp; Mockups, Interaction Design, User Stories &amp; Journey Mapping, Responsive Design, Sketching</p>
           </div>
           <div class="card">
             <h3>Software Development</h3>
             <p>JavaScript, Node.js, React, HTML5, CSS3, Bootstrap, jQuery, MySQL, APIs (RESTful), Tailwind, Vue.js</p>
           </div>
           <div class="card">
-            <h3>AI & Data Insights</h3>
+            <h3>AI &amp; Data Insights</h3>
             <p>Generative AI (ISO Projects), Prompt Engineering, AI-Powered Analytics, Data for AI/ML Models</p>
           </div>
           <div class="card">
@@ -169,7 +167,7 @@
             <h3>Hubspot</h3>
             <ul>
               <li>Content Marketing</li>
-              <li>Inbound & Inbound Sales</li>
+              <li>Inbound &amp; Inbound Sales</li>
               <li>Sales Software</li>
             </ul>
           </div>
@@ -183,154 +181,94 @@
         </section>
       </div>
 
-      <!-- Right Column -->
       <div class="right-col">
-     <section>
-    <h2 class="text-2xl font-bold text-gray-800 mb-4 pb-2 border-b-2 border-blue-500">Work Experience</h2>
-    <div class="space-y-6">
-        <div class="p-4 bg-gray-50 rounded-lg shadow-sm transition-all duration-300 hover:bg-white hover:shadow-md">
-            <div class="flex justify-between items-start mb-1">
-                <h3 class="text-xl font-bold text-gray-700">Freelance</h3>
-                <span class="text-sm text-gray-500">JUL 2019 &ndash; PRESENT</span>
-            </div>
-            <ul class="list-disc list-inside space-y-1 text-gray-600">
-                <li>Drove product, design, and technical initiatives for diverse clients, leveraging expertise in UI/UX, frontend development, and AI project management to deliver impactful digital solutions.</li>
-            </ul>
-        </div>
-        <div class="p-4 bg-gray-50 rounded-lg shadow-sm transition-all duration-300 hover:bg-white hover:shadow-md">
-            <div class="flex justify-between items-start mb-1">
-                <h3 class="text-xl font-bold text-gray-700">Director of Product & Technology</h3>
-                <span class="text-sm text-gray-500">NOV 2020 &ndash; JUN 2024</span>
-            </div>
-            <p class="text-lg font-medium text-gray-600 mb-1">Nebusis Cloud Services, LLC., Reston, VA./Madrid, Spain</p>
-            <ul class="list-disc list-inside space-y-1 text-gray-600">
-                <li>Collaborated with CEO to define and execute the product roadmap, resulting in a **12% increase in user engagement**.</li>
-                <li>Managed ISO AI projects and directed multi-location onboarding for global clients.</li>
-                <li>Oversaw client onboarding and developed software processes.</li>
-            </ul>
-        </div>
-        <div class="p-4 bg-gray-50 rounded-lg shadow-sm transition-all duration-300 hover:bg-white hover:shadow-md">
-            <div class="flex justify-between items-start mb-1">
-                <h3 class="text-xl font-bold text-gray-700">Sales Development Representative (Contract)</h3>
-                <span class="text-sm text-gray-500">JUL 2023 &ndash; SEP 2023</span>
-            </div>
-            <p class="text-lg font-medium text-gray-600 mb-1">Frenetic, Madrid, Spain</p>
-            <ul class="list-disc list-inside space-y-1 text-gray-600">
-                <li>Pioneered in-depth research on potential clients to personalize outreach and tailor messaging.</li>
-                <li>Identified and qualified high-potential leads through targeted outreach and cold-calling, generating a **20% increase in new opportunities** for the sales pipeline.</li>
-                <li>Leveraged HubSpot to segment leads and prioritize high-value accounts.</li>
-            </ul>
-        </div>
-        <div class="p-4 bg-gray-50 rounded-lg shadow-sm transition-all duration-300 hover:bg-white hover:shadow-md">
-            <div class="flex justify-between items-start mb-1">
-                <h3 class="text-xl font-bold text-gray-700">Frontend & E-commerce Consultant</h3>
-                <span class="text-sm text-gray-500">AUG 2019 &ndash; JUN 2020</span>
-            </div>
-            <p class="text-lg font-medium text-gray-600 mb-1">Newsoil, LLC., Durham, NC</p>
-            <ul class="list-disc list-inside space-y-1 text-gray-600">
-                <li>Architected website and e-commerce roadmap. Implemented order tracking and confirmation systems.</li>
-                <li>Integrated WooCommerce store, resulting in a **50% increase in online transaction rates**.</li>
-            </ul>
-        </div>
-        <div class="p-4 bg-gray-50 rounded-lg shadow-sm transition-all duration-300 hover:bg-white hover:shadow-md">
-            <div class="flex justify-between items-start mb-1">
-                <h3 class="text-xl font-bold text-gray-700">Director of Customer Success</h3>
-                <span class="text-sm text-gray-500">JAN 2019 &ndash; JUL 2019</span>
-            </div>
-            <p class="text-lg font-medium text-gray-600 mb-1">BruVue Inc., Durham, NC</p>
-            <ul class="list-disc list-inside space-y-1 text-gray-600">
-                <li>Cultivated relationships with C-level clients and provided onboarding and support.</li>
-                <li>Documented user stories, product specifications, and feature requests to enhance usability.</li>
-                <li>Assisted the development team (Node, React) with data and app maintenance.</li>
-            </ul>
-        </div>
-        <div class="p-4 bg-gray-50 rounded-lg shadow-sm transition-all duration-300 hover:bg-white hover:shadow-md">
-            <div class="flex justify-between items-start mb-1">
-                <h3 class="text-xl font-bold text-gray-700">Project Manager/Customer Success</h3>
-                <span class="text-sm text-gray-500">JUN 2016 &ndash; MAY 2017</span>
-            </div>
-            <p class="text-lg font-medium text-gray-600 mb-1">Spreedly Inc., Durham, NC</p>
-            <ul class="list-disc list-inside space-y-1 text-gray-600">
-                <li>Facilitated the completion of Annual PCI Compliance Assessment with the SRE/DevOps team.</li>
-                <li>Managed and qualified inbound leads during their assessment of the Spreedly API.</li>
-                <li>Provided technical assistance for implementation and migration inquiries.</li>
-                <li>Submitted feature requests and monitored developments throughout the projects duration.</li>
-            </ul>
-        </div>
-        <div class="p-4 bg-gray-50 rounded-lg shadow-sm transition-all duration-300 hover:bg-white hover:shadow-md">
-            <div class="flex justify-between items-start mb-1">
-                <h3 class="text-xl font-bold text-gray-700">Technical Operations Coordinator - Specialist</h3>
-                <span class="text-sm text-gray-500">FEB 2014 &ndash; JUN 2016</span>
-            </div>
-            <p class="text-lg font-medium text-gray-600 mb-1">Etix Inc., Morrisville, NC</p>
-            <ul class="list-disc list-inside space-y-1 text-gray-600">
+        <section>
+          <h2>Work Experience</h2>
+          <div class="card">
+            <h3>Technical Operations Coordinator - Specialist <span style="float:right; font-weight:400; color:#6b7280;">FEB 2014 &ndash; JUN 2016</span></h3>
+            <p><em>Etix Inc., Morrisville, NC</em></p>
+            <ul>
                 <li>Orchestrated product/hardware planning, procurement, security/PCI, reporting, and equipment rollouts.</li>
                 <li>Collaborated with the Tech. Ops. Manager to implement inventory management/tracking software (barcode asset tagging) for over **5500 pieces ($2.5M)** of rental equipment.</li>
                 <li>Reduced company box office hardware by **35%**, resulting in savings exceeding **$200K+**.</li>
                 <li>Achieved a **65% reduction in shipping costs**.</li>
                 <li>Conducted product unit testing, including troubleshooting of beta and v1. iPhone apps.</li>
             </ul>
-        </div>
-        <div class="p-4 bg-gray-50 rounded-lg shadow-sm transition-all duration-300 hover:bg-white hover:shadow-md">
-            <div class="flex justify-between items-start mb-1">
-                <h3 class="text-xl font-bold text-gray-700">Inside Sales Representative</h3>
-                <span class="text-sm text-gray-500">OCT 2017 &ndash; MAR 2018</span>
-            </div>
-            <p class="text-lg font-medium text-gray-600 mb-1">Marca Global LLC., Denver, CO</p>
-            <ul class="list-disc list-inside space-y-1 text-gray-600">
+          </div>
+          <div class="card">
+            <h3>Project Manager/Customer Success <span style="float:right; font-weight:400; color:#6b7280;">JUN 2016 &ndash; MAY 2017</span></h3>
+            <p><em>Spreedly Inc., Durham, NC</em></p>
+            <ul>
+                <li>Facilitated the completion of Annual PCI Compliance Assessment with the SRE/DevOps team.</li>
+                <li>Managed and qualified inbound leads during their assessment of the Spreedly API.</li>
+                <li>Provided technical assistance for implementation and migration inquiries.</li>
+                <li>Submitted feature requests and monitored developments throughout the projects duration.</li>
+            </ul>
+          </div>
+          <div class="card">
+            <h3>Inside Sales Representative <span style="float:right; font-weight:400; color:#6b7280;">OCT 2017 &ndash; MAR 2018</span></h3>
+            <p><em>Marca Global LLC., Denver, CO</em></p>
+            <ul>
                 <li>Executed outbound call campaigns (70 calls per day).</li>
                 <li>Maintained and updated a custom CRM, managing **800+ leads per month**.</li>
                 <li>Defined closing strategies and crafted tailored RFPs.</li>
             </ul>
-        </div>
-        <div class="p-4 bg-gray-50 rounded-lg shadow-sm transition-all duration-300 hover:bg-white hover:shadow-md">
-            <div class="flex justify-between items-start mb-1">
-                <h3 class="text-xl font-bold text-gray-700">Customer Success Consultant (Contract)</h3>
-                <span class="text-sm text-gray-500">JUL 2019 &ndash; AUG 2019</span>
-            </div>
-            <p class="text-lg font-medium text-gray-600 mb-1">Curemint Inc., Durham, NC</p>
-            <ul class="list-disc list-inside space-y-1 text-gray-600">
+          </div>
+          <div class="card">
+            <h3>Director of Customer Success <span style="float:right; font-weight:400; color:#6b7280;">JAN 2019 &ndash; JUL 2019</span></h3>
+            <p><em>BruVue Inc., Durham, NC</em></p>
+            <ul>
+                <li>Cultivated relationships with C-level clients and provided onboarding and support.</li>
+                <li>Documented user stories, product specifications, and feature requests to enhance usability.</li>
+                <li>Assisted the development team (Node, React) with data and app maintenance.</li>
+            </ul>
+          </div>
+          <div class="card">
+            <h3>Customer Success Consultant (Contract) <span style="float:right; font-weight:400; color:#6b7280;">JUL 2019 &ndash; AUG 2019</span></h3>
+            <p><em>Curemint Inc., Durham, NC</em></p>
+            <ul>
                 <li>Developed and implemented the foundational customer onboarding strategy (KPIs/OKRs), conducting product demos and automating acquisition processes.</li>
             </ul>
-        </div>
-    </div>
-</section>
-                
-                                <section>
-                    <h2 class="text-2xl font-bold text-gray-800 mb-4 pb-2 border-b-2 border-blue-500">Projects</h2>
-                    <div class="space-y-6">
-                                                <div class="p-4 bg-gray-50 rounded-lg shadow-sm transition-all duration-300 hover:bg-white hover:shadow-md">
-                            <div class="flex justify-between items-start mb-1">
-                                <h3 class="text-xl font-bold text-gray-700">Nebusis Website & AI Chatbot Project</h3>
-                                <span class="text-sm text-gray-500">NOV 2020 &ndash; JUN 2023</span>
-                            </div>
-                            <p class="text-lg font-medium text-gray-600 mb-1">Nebusis Cloud Services, LLC. | Roles: Product Manager, UI/UX Design, Operations Management</p>
-                            <ul class="list-disc list-inside space-y-1 text-gray-600">
-                                <li><strong>V1 Redesign:</strong> Restructured the original, non-responsive website based on foundational UI/UX principles, creating new landing pages.</li>
-                                <li><strong>V2 Implementation:</strong> Led the rebuild of the crashed website, creating minimal wireframes and utilizing vector assets for A/B testing due to the project's urgency.</li>
-                                <li><strong>Technical & Strategic Outcomes:</strong> Developed ISO policies using <strong>Generative AI</strong> and created four landing pages and a pricing page using <strong>WordPress and Elementor</strong>.</li>
-                                <li><strong>Marketing Contribution:</strong> Created marketing materials including GIFs, email templates, and other copy to support the onboarding initiatives.</li>
-                            </ul>
-                        </div>
-                                                <div class="p-4 bg-gray-50 rounded-lg shadow-sm transition-all duration-300 hover:bg-white hover:shadow-md">
-                             <div class="flex justify-between items-start mb-1">
-                                <h3 class="text-xl font-bold text-gray-700">Qurado UI/UX Consulting</h3>
-                                <span class="text-sm text-gray-500">OCT 2022 &ndash; NOV 2022</span>
-                            </div>
-                            <p class="text-lg font-medium text-gray-600 mb-1">Qurado | Role: UI/UX Consultant</p>
-                            <ul class="list-disc list-inside space-y-1 text-gray-600">
-                                <li><strong>Sitemap & Workflows:</strong> Created a new sitemap to improve user-friendliness and redesigned checkout and payment flows to enhance the user experience.</li>
-                                <li><strong>Branding & Design:</strong> Collaborated on new branding concepts, experimenting with color schemes and typography to achieve a modern and sleek aesthetic.</li>
-                                <li><strong>Tools & Technologies:</strong> Utilized <strong>Figma</strong>, <strong>Adobe Creative Cloud</strong>, and <strong>Notion</strong> to increase website traffic and engagement.</li>
-                                <li><strong>Deployment:</strong> Created a modernized design, including a hero video to introduce the brand, while maintaining the same color palette and typography.</li>
-                            </ul>
-                        </div>
-                    </div>
-                </section>
+          </div>
+          <div class="card">
+            <h3>Freelance <span style="float:right; font-weight:400; color:#6b7280;">JUL 2019 &ndash; PRESENT</span></h3>
+            <p><em>Product, Design, and Technical Initiatives for Diverse Clients</em></p>
+            <ul>
+              <li>Drove product, design, and technical initiatives for diverse clients, leveraging expertise in UI/UX, frontend development, and AI project management.</li>
+            </ul>
+          </div>
+          <div class="card">
+            <h3>Frontend &amp; E-commerce Consultant <span style="float:right; font-weight:400; color:#6b7280;">AUG 2019 &ndash; JUN 2020</span></h3>
+            <p><em>Newsoil, LLC., Durham, NC</em></p>
+            <ul>
+                <li>Architected website and e-commerce roadmap. Implemented order tracking and confirmation systems.</li>
+                <li>Integrated WooCommerce store, resulting in a **50% increase in online transaction rates**.</li>
+            </ul>
+          </div>
+          <div class="card">
+            <h3>Director of Product &amp; Technology <span style="float:right; font-weight:400; color:#6b7280;">NOV 2020 &ndash; JUN 2024</span></h3>
+            <p><em>Nebusis Cloud Services, LLC., Reston, VA / Madrid, Spain</em></p>
+            <ul>
+              <li>Collaborated with CEO to define and execute product roadmap, resulting in a <strong>12% increase</strong> in user engagement.</li>
+              <li>Managed <strong>ISO AI projects</strong> and directed multi-location onboarding for global clients.</li>
+              <li>Oversaw client onboarding and developed software processes.</li>
+            </ul>
+          </div>
+          <div class="card">
+            <h3>Sales Development Representative (Contract) <span style="float:right; font-weight:400; color:#6b7280;">JUL 2023 &ndash; SEP 2023</span></h3>
+            <p><em>Frenetic, Madrid, Spain</em></p>
+            <ul>
+                <li>Pioneered in-depth research on potential clients to personalize outreach and tailor messaging.</li>
+                <li>Identified and qualified high-potential leads through targeted outreach and cold-calling, generating a **20% increase in new opportunities** for the sales pipeline.</li>
+                <li>Leveraged HubSpot to segment leads and prioritize high-value accounts.</li>
+            </ul>
+          </div>
+        </section>
+
         <section>
           <h2>Projects</h2>
           <div class="card">
-            <h3>Nebusis Website & AI Chatbot Project <span style="float:right; font-weight:400; color:#6b7280;">Nov 2020 – Jun 2023</span></h3>
+            <h3>Nebusis Website &amp; AI Chatbot Project <span style="float:right; font-weight:400; color:#6b7280;">Nov 2020 – Jun 2023</span></h3>
             <p><em>Nebusis Cloud Services, LLC | Roles: Product Manager, UI/UX Design, Operations Management</em></p>
             <ul>
               <li><strong>V1 Redesign:</strong> Restructured the original website, creating new landing pages.</li>
