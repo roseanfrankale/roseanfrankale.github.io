@@ -84,20 +84,21 @@
     }
     .card ul { margin-left: 1rem; list-style: disc; }
 
-    /* Print Styles */
-    @media print {
-      body { background: white; padding: 0; }
-      .resume {
-        box-shadow: none;
-        border-radius: 0;
-        padding: 0.8rem;
-      }
-      @page { size: A4; margin: 0.5in; }
-      h1 { font-size: 1rem; }
-      p, li { font-size: 0.7rem; }
-      h2 { font-size: 0.85rem; }
-      h3 { font-size: 0.75rem; }
-    }
+  /* Print Styles */
+        @media print {
+            body { background: white; padding: 0; }
+            .resume {
+                box-shadow: none;
+                border-radius: 0;
+                padding: 0.8rem;
+            }
+            @page { size: A4; margin: 0.75in; }
+            h1 { font-size: 1rem; }
+            p, li { font-size: 0.65rem; }
+            h2 { font-size: 0.8rem; }
+            h3 { font-size: 0.7rem; }
+            .back-btn { display: none; }
+        }
   </style>
 </head>
 <body>
