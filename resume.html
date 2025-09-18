@@ -35,7 +35,7 @@
       max-width: 800px;
       margin: auto;
       background: white;
-      padding: 0.8rem 1rem; /* Adjusted for wider content */
+      padding: 0.8rem 1rem;
       border-radius: 8px;
       box-shadow: 0 2px 6px rgba(0,0,0,0.08);
     }
@@ -58,7 +58,7 @@
     /* Grid Layout */
     .grid {
       display: flex;
-      gap: 0.8rem; /* Adjusted for wider content */
+      gap: 0.8rem;
     }
     .left-col { flex: 0 0 40%; }
     .right-col { flex: 0 0 60%; }
@@ -73,6 +73,17 @@
     }
     h3 { font-size: 0.9rem; font-weight: 600; color: #111827; }
     p, li { font-size: 0.8rem; color: #374151; }
+    .card h3 span { /* Adjusted span font size here */
+      font-size: 0.8rem;
+      font-weight: 400;
+      color: #6b7280;
+      float: right;
+    }
+    .card h3 {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
 
     section { margin-bottom: 1rem; }
     .card {
@@ -81,6 +92,9 @@
       border-radius: 6px;
       padding: 0.6rem;
       margin-bottom: 0.6rem;
+    }
+    .card p:not(:last-child) {
+        margin-bottom: 0.4rem;
     }
     .card ul { margin-left: 1rem; list-style: disc; }
 
@@ -92,11 +106,16 @@
         border-radius: 0;
         padding: 0.8rem;
       }
-      @page { size: A4; margin: 0.5in; }
-      h1 { font-size: 1rem; }
-      p, li { font-size: 0.7rem; }
-      h2 { font-size: 0.85rem; }
-      h3 { font-size: 0.75rem; }
+      @page { size: A4; margin: 0.4in; }
+      h1 { font-size: 0.9rem; }
+      p, li { font-size: 0.65rem; }
+      h2 { font-size: 0.75rem; }
+      h3 { font-size: 0.7rem; }
+      .card h3 span {
+        font-size: 0.65rem;
+      }
+      section { margin-bottom: 0.6rem; }
+      .card { margin-bottom: 0.4rem; }
     }
   </style>
 </head>
@@ -185,14 +204,61 @@
         <section>
           <h2>Work Experience</h2>
           <div class="card">
-            <h3>Technical Operations Coordinator - Specialist <span style="float:right; font-weight:400; color:#6b7280;">FEB 2014 &ndash; JUN 2016</span></h3>
-            <p><em>Etix Inc., Morrisville, NC</em></p>
+            <h3>Freelance <span style="float:right; font-weight:400; color:#6b7280;">JUL 2019 &ndash; PRESENT</span></h3>
+            <p><em>Product, Design, and Technical Initiatives for Diverse Clients</em></p>
             <ul>
-                <li>Orchestrated product/hardware planning, procurement, security/PCI, reporting, and equipment rollouts.</li>
-                <li>Collaborated with the Tech. Ops. Manager to implement inventory management/tracking software (barcode asset tagging) for over **5500 pieces ($2.5M)** of rental equipment.</li>
-                <li>Reduced company box office hardware by **35%**, resulting in savings exceeding **$200K+**.</li>
-                <li>Achieved a **65% reduction in shipping costs**.</li>
-                <li>Conducted product unit testing, including troubleshooting of beta and v1. iPhone apps.</li>
+              <li>Drove product, design, and technical initiatives for diverse clients, leveraging expertise in UI/UX, frontend development, and AI project management to deliver impactful digital solutions.</li>
+            </ul>
+          </div>
+          <div class="card">
+            <h3>Sales Development Representative (Contract) <span style="float:right; font-weight:400; color:#6b7280;">JUL 2023 &ndash; SEP 2023</span></h3>
+            <p><em>Frenetic, Madrid, Spain</em></p>
+            <ul>
+                <li>Pioneered in-depth research on potential clients to personalize outreach and tailor messaging.</li>
+                <li>Identified and qualified high-potential leads through targeted outreach and cold-calling, generating a **20% increase in new opportunities** for the sales pipeline.</li>
+                <li>Leveraged HubSpot to segment leads and prioritize high-value accounts.</li>
+            </ul>
+          </div>
+          <div class="card">
+            <h3>Director of Product &amp; Technology <span style="float:right; font-weight:400; color:#6b7280;">NOV 2020 &ndash; JUN 2024</span></h3>
+            <p><em>Nebusis Cloud Services, LLC., Reston, VA / Madrid, Spain</em></p>
+            <ul>
+              <li>Collaborated with CEO to define and execute product roadmap, resulting in a <strong>12% increase</strong> in user engagement.</li>
+              <li>Managed <strong>ISO AI projects</strong> and directed multi-location onboarding for global clients.</li>
+              <li>Oversaw client onboarding and developed software processes.</li>
+            </ul>
+          </div>
+          <div class="card">
+            <h3>Frontend &amp; E-commerce Consultant <span style="float:right; font-weight:400; color:#6b7280;">AUG 2019 &ndash; JUN 2020</span></h3>
+            <p><em>Newsoil, LLC., Durham, NC</em></p>
+            <ul>
+                <li>Architected website and e-commerce roadmap. Implemented order tracking and confirmation systems.</li>
+                <li>Integrated WooCommerce store, resulting in a **50% increase in online transaction rates**.</li>
+            </ul>
+          </div>
+          <div class="card">
+            <h3>Customer Success Consultant (Contract) <span style="float:right; font-weight:400; color:#6b7280;">JUL 2019 &ndash; AUG 2019</span></h3>
+            <p><em>Curemint Inc., Durham, NC</em></p>
+            <ul>
+                <li>Developed and implemented the foundational customer onboarding strategy (KPIs/OKRs), conducting product demos and automating acquisition processes.</li>
+            </ul>
+          </div>
+          <div class="card">
+            <h3>Director of Customer Success <span style="float:right; font-weight:400; color:#6b7280;">JAN 2019 &ndash; JUL 2019</span></h3>
+            <p><em>BruVue Inc., Durham, NC</em></p>
+            <ul>
+                <li>Cultivated relationships with C-level clients and provided onboarding and support.</li>
+                <li>Documented user stories, product specifications, and feature requests to enhance usability.</li>
+                <li>Assisted the development team (Node, React) with data and app maintenance.</li>
+            </ul>
+          </div>
+          <div class="card">
+            <h3>Inside Sales Representative <span style="float:right; font-weight:400; color:#6b7280;">OCT 2017 &ndash; MAR 2018</span></h3>
+            <p><em>Marca Global LLC., Denver, CO</em></p>
+            <ul>
+                <li>Executed outbound call campaigns (70 calls per day).</li>
+                <li>Maintained and updated a custom CRM, managing **800+ leads per month**.</li>
+                <li>Defined closing strategies and crafted tailored RFPs.</li>
             </ul>
           </div>
           <div class="card">
@@ -206,61 +272,14 @@
             </ul>
           </div>
           <div class="card">
-            <h3>Inside Sales Representative <span style="float:right; font-weight:400; color:#6b7280;">OCT 2017 &ndash; MAR 2018</span></h3>
-            <p><em>Marca Global LLC., Denver, CO</em></p>
+            <h3>Technical Operations Coordinator - Specialist <span style="float:right; font-weight:400; color:#6b7280;">FEB 2014 &ndash; JUN 2016</span></h3>
+            <p><em>Etix Inc., Morrisville, NC</em></p>
             <ul>
-                <li>Executed outbound call campaigns (70 calls per day).</li>
-                <li>Maintained and updated a custom CRM, managing **800+ leads per month**.</li>
-                <li>Defined closing strategies and crafted tailored RFPs.</li>
-            </ul>
-          </div>
-          <div class="card">
-            <h3>Director of Customer Success <span style="float:right; font-weight:400; color:#6b7280;">JAN 2019 &ndash; JUL 2019</span></h3>
-            <p><em>BruVue Inc., Durham, NC</em></p>
-            <ul>
-                <li>Cultivated relationships with C-level clients and provided onboarding and support.</li>
-                <li>Documented user stories, product specifications, and feature requests to enhance usability.</li>
-                <li>Assisted the development team (Node, React) with data and app maintenance.</li>
-            </ul>
-          </div>
-          <div class="card">
-            <h3>Customer Success Consultant (Contract) <span style="float:right; font-weight:400; color:#6b7280;">JUL 2019 &ndash; AUG 2019</span></h3>
-            <p><em>Curemint Inc., Durham, NC</em></p>
-            <ul>
-                <li>Developed and implemented the foundational customer onboarding strategy (KPIs/OKRs), conducting product demos and automating acquisition processes.</li>
-            </ul>
-          </div>
-          <div class="card">
-            <h3>Freelance <span style="float:right; font-weight:400; color:#6b7280;">JUL 2019 &ndash; PRESENT</span></h3>
-            <p><em>Product, Design, and Technical Initiatives for Diverse Clients</em></p>
-            <ul>
-              <li>Drove product, design, and technical initiatives for diverse clients, leveraging expertise in UI/UX, frontend development, and AI project management.</li>
-            </ul>
-          </div>
-          <div class="card">
-            <h3>Frontend &amp; E-commerce Consultant <span style="float:right; font-weight:400; color:#6b7280;">AUG 2019 &ndash; JUN 2020</span></h3>
-            <p><em>Newsoil, LLC., Durham, NC</em></p>
-            <ul>
-                <li>Architected website and e-commerce roadmap. Implemented order tracking and confirmation systems.</li>
-                <li>Integrated WooCommerce store, resulting in a **50% increase in online transaction rates**.</li>
-            </ul>
-          </div>
-          <div class="card">
-            <h3>Director of Product &amp; Technology <span style="float:right; font-weight:400; color:#6b7280;">NOV 2020 &ndash; JUN 2024</span></h3>
-            <p><em>Nebusis Cloud Services, LLC., Reston, VA / Madrid, Spain</em></p>
-            <ul>
-              <li>Collaborated with CEO to define and execute product roadmap, resulting in a <strong>12% increase</strong> in user engagement.</li>
-              <li>Managed <strong>ISO AI projects</strong> and directed multi-location onboarding for global clients.</li>
-              <li>Oversaw client onboarding and developed software processes.</li>
-            </ul>
-          </div>
-          <div class="card">
-            <h3>Sales Development Representative (Contract) <span style="float:right; font-weight:400; color:#6b7280;">JUL 2023 &ndash; SEP 2023</span></h3>
-            <p><em>Frenetic, Madrid, Spain</em></p>
-            <ul>
-                <li>Pioneered in-depth research on potential clients to personalize outreach and tailor messaging.</li>
-                <li>Identified and qualified high-potential leads through targeted outreach and cold-calling, generating a **20% increase in new opportunities** for the sales pipeline.</li>
-                <li>Leveraged HubSpot to segment leads and prioritize high-value accounts.</li>
+                <li>Orchestrated product/hardware planning, procurement, security/PCI, reporting, and equipment rollouts.</li>
+                <li>Collaborated with the Tech. Ops. Manager to implement inventory management/tracking software (barcode asset tagging) for over **5500 pieces ($2.5M)** of rental equipment.</li>
+                <li>Reduced company box office hardware by **35%**, resulting in savings exceeding **$200K+**.</li>
+                <li>Achieved a **65% reduction in shipping costs**.</li>
+                <li>Conducted product unit testing, including troubleshooting of beta and v1. iPhone apps.</li>
             </ul>
           </div>
         </section>
