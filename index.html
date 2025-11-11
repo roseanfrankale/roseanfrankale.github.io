@@ -1,464 +1,462 @@
-<!doctype html>
-<html lang="en">
-  <head>
-    <!-- Global site tag (gtag.js) - Google Analytics -->
-    <script
-      async
-      src="https://www.googletagmanager.com/gtag/js?id=G-N0J675HHCL"
-    ></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
 
-      function gtag() {
-        dataLayer.push(arguments);
-      }
-      gtag("js", new Date());
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Rosean Frank-Alexander</title>
+  
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;800&display=swap" rel="stylesheet">
 
-      gtag("config", "G-N0J675HHCL");
-    </script>
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
 
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- Font Awesome for more icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
-    <!-- ===============================================-->
-    <!--    Document Title-->
-    <!-- ===============================================-->
-    <title>RJFA</title>
+  <!-- Feather Icons -->
+  <script src="https://unpkg.com/feather-icons"></script>
 
-    <!-- ===============================================-->
-    <!--    Favicons-->
-    <!-- ===============================================-->
-    <link rel="apple-touch-icon" sizes="180x180" href="/assets/img/rjfa_logo_svg.svg">
-    <link rel="icon" type="image/png" sizes="32x32" href="/assets/img/rjfa_logo_svg.svg">
-    <link rel="icon" type="image/png" sizes="16x16" href="/assets/img/rjfa_logo_svg.svg">
-    <link rel="shortcut icon" type="image/x-icon" href="/assets/img/rjfa_logo_svg.svg">
-    <link rel="manifest" href="/assets/img/rjfa_logo_svg.svg">
-    <meta name="msapplication-TileImage" content="/assets/img/rjfa_logo_svg.svg">
-    <meta name="theme-color" content="#ffffff">
-    <!-- ===============================================-->
-    <!--    Stylesheets-->
-    <!-- ===============================================-->
-    <link href="/vendors/swiper/swiper-bundle.min.css" rel="stylesheet">
-    <link href="/vendors/loaders.css/loaders.min.css" rel="stylesheet" type="text/css">
-    <link rel="preconnect" href="https://fonts.gstatic.com/">
-    <link href="/assets/css/theme.min.css" rel="stylesheet" />
-    <link href="/assets/css/user.min.css" rel="stylesheet" />
-    <link href="/assets/css/style.css" rel="stylesheet" />
-    <link href="/vendors/glightbox/glightbox.css"   rel="stylesheet"
-  />
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="assets/css/style.css">
 
-  </head>
-
-  <body class="overflow-hidden-x">
+  <!-- Theme + Navbar + Darkmode -->
+  <script src="assets/js/theme.js"></script>
+</head>
+<body>
 
 
-
-
-    <nav class="navbar navbar-expand-lg fixed-top navbar-rjfa fancynavbar fancynavbar-expand-lg fancynavbar-top" data-navbar-on-scroll="data-navbar-on-scroll">
-      <div class="container">
-        <a class="navbar-brand" href="https://roseanfrankale.github.io/">
-          <img src="/assets/img/rjfa_logo_grey_svg.svg" alt="RJFA" height="35" />
-        </a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown1">
-          <span class="navbar-toggler-icon"></span>
+  <!-- NAVBAR -->
+  <nav class="navbar navbar-expand-lg fixed-top">
+    <div class="container">
+      <a class="navbar-brand fw-bold" href="/">
+        <img src="assets/img/rjfa_logo_grey_svg.svg" width="34" height="34" alt="Logo">
+      </a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+        <ul class="navbar-nav">
+          <li class="nav-item">
+            <a class="nav-link" href="#hero"><i data-feather="home"></i> Home</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#about"><i data-feather="user"></i> About</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#work"><i data-feather="briefcase"></i> Work</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="gallery.html"><i data-feather="image"></i> Gallery</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="mailto:rosean.frankalexander@gmail.com"><i data-feather="mail"></i> Contact</a>
+          </li>
+        </ul>
+        <button id="theme-toggle" class="ms-3">
+          <i data-feather="moon"></i>
         </button>
-        <div class="collapse navbar-collapse" id="navbarNavDropdown1">
-          <ul class="navbar-nav ms-auto d-flex align-items-center">
-            <li class="nav-item"><a class="nav-link px-2"  href="https://roseanfrankale.github.io/">Home</a></li>
-            <li class="nav-item"><a class="nav-link px-2"  href="https://roseanfrankale.github.io/index.html#:~:text=CONNECT-,Featured%20Work,-NEBUSIS%C2%AE">FEATURED WORK</a></li>
-            <li class="nav-item"><a class="nav-link px-2"  href="https://roseanfrankale.github.io/gallery">GALLERY</a></li>
-            <li class="nav-item"><a class="nav-link px-2"  href="https://roseanfrankale.github.io/about.html">About Me</a></li>
-            <li class="nav-item"><a class="nav-link px-2" href="#" data-bs-toggle="modal" data-bs-target="#connectModal">Connect</a></li>            
-            <li class="nav-item"><a class="nav-link px-2"  href="https://www.linkedin.com/in/rfrankale/"><i class="social-icons" data-feather="linkedin"></i></a></li>
-            <li class="nav-item"><a class="nav-link px-2" href="https://github.com/roseanfrankale"><i class="social-icons" data-feather="github"></i></a></li>
-            <li class="nav-item"><a class="nav-link px-2" href="https://dribbble.com/rjfa"><i class="social-icons" data-feather="dribbble"></i></a></li>
-            
-             
+      </div>
+    </div>
+  </nav>
+
+  <!-- HERO SECTION -->
+  <section id="hero">
+    <div class="animated-bg"></div>
+    <div class="container text-center position-relative z-1">
+      <h1 class="hero-title">
+        Hello, I'm <span class="highlight">RoSean</span>
+      </h1>
+      <p class="hero-subtext mb-4">Front-End Engineer • Designer • Musician</p>
+      
+      <div class="hero-actions mb-5">
+        <a href="#work" class="custom-btn-outline">View My Work</a>
+        <a href="#about" class="custom-btn-outline">About Me</a>
+      </div>
+      <div class="hero-socials">
+        <a href="https://www.linkedin.com/in/rfrankale/" target="_blank" aria-label="LinkedIn"><i data-feather="linkedin"></i></a>
+        <a href="https://github.com/roseanfrankale/" target="_blank" aria-label="GitHub"><i data-feather="github"></i></a>
+        <a href="https://dribbble.com/rjfa/" target="_blank" aria-label="Dribbble"><i data-feather="dribbble"></i></a>
+        <a href="https://www.youtube.com/playlist?list=PLq8eop32VW4_lzzDk9UZI9XWkdyXlaMcV" target="_blank" aria-label="YouTube"><i data-feather="youtube"></i></a>
+        <a href="music.html" aria-label="Music"><i data-feather="music"></i></a>
+      </div>
+    </div>
+    
+  </section>
+
+  <!-- FEATURED WORK -->
+  <section id="work" class="py-5">
+    <div class="container">
+      <div class="section-title-stacked mb-5">
+        <h2 class="title-main">Featured</h2>
+        <p class="title-sub">Work</p>
+      </div>
+      <div class="row g-4">
+          <div class="col-md-6 col-lg-6">
+            <a href="nebusis.html" class="project-card-link">
+              <div class="project-card">
+                <div class="project-bg"><img src="assets/img/nebusis_photos/NEBUSIS Dribble Landing.png" alt="Nebusis Dashboard"></div>
+                <div class="overlay"></div>
+                <div class="project-content">
+                  <h2 class="fw-bold">Nebusis®</h2>
+                  <p>SaaS ISO-based platform simplifying management systems.</p>
+                </div>
+                <div class="project-footer">
+                  <span class="badge rounded-pill border border-light">SaaS Platform</span>
+                  <span class="cta-link">→ Read More</span>
+                </div>
+              </div>
+            </a>
+          </div>
+
+          <!-- Project 2 -->
+          <div class="col-md-6 col-lg-6">
+            <a href="qurado.html" class="project-card-link">
+              <div class="project-card">
+                <div class="project-bg"><img src="assets/img/qurado/Qurado_Dribble_Landing.png" alt="Qurado Dashboard"></div>
+                <div class="overlay"></div>
+                <div class="project-content">
+                  <h2 class="fw-bold">Qurado</h2>
+                  <p>E-commerce platform redesign for small businesses.</p>
+                </div>
+                <div class="project-footer">
+                  <span class="badge rounded-pill border border-light">E-Commerce</span>
+                  <span class="cta-link">→ View Project</span>
+                </div>
+              </div>
+            </a>
+          </div>
+
+          <!-- Project 3 -->
+          <div class="col-md-6 col-lg-6">
+            <a href="naesor.html" class="project-card-link">
+              <div class="project-card">
+                <div class="project-bg"><img src="assets/img/naesor/NAESOR Dribble Landing Page.png" alt="Naesor music app"></div>
+                <div class="overlay"></div>
+                <div class="project-content">
+                  <h2 class="fw-bold">Naesor</h2>
+                  <p>Conceptual album app designed for a Google challenge.</p>
+                </div>
+                <div class="project-footer">
+                  <span class="badge rounded-pill border border-light">Music App</span>
+                  <span class="cta-link">→ Explore</span>
+                </div>
+              </div>
+            </a>
+          </div>
+
+          <!-- Project 4 -->
+          <div class="col-md-6 col-lg-6">
+            <a href="bruvue.html" class="project-card-link">
+              <div class="project-card">
+                <div class="project-bg"><img src="assets/img/bruvue_photos/BruVue_Landing_1.png" alt="BruVue Logo"></div>
+                <div class="overlay"></div>
+                <div class="project-content">
+                  <h2 class="fw-bold">BruVue</h2>
+                  <p>Tools for bar sensors and analytics – first design project.</p>
+                </div>
+                <div class="project-footer">
+                  <span class="badge rounded-pill border border-light">Analytics</span>
+                  <span class="cta-link">→ Learn More</span>
+                </div>
+              </div>
+            </div>
+          </div>
+          </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ABOUT SECTION -->
+  <section class="py-5" id="about">
+    <div class="container">
+      <div class="row g-5 align-items-start">
+        <!-- Left Column: Narrative (Sticky) -->
+        <div class="col-lg-5">
+          <div class="position-sticky" style="top: 8rem;">
+          <div class="section-title-stacked mb-5">
+        <h2 class="title-main">About</h2>
+        <p class="title-sub">Me</p>
+      </div>
+          
+            <p class="lead">
+              I'm a designer and product thinker with a passion for blending design, branding,
+              and strategy. My work focuses on crafting intuitive user experiences and scalable
+              digital products.
+            </p>
+            <div class="about-img-wrapper text-center my-4">
+              <img src="assets/img/sean_pro_foto_dl_1 .jpeg" alt="Rosean portrait" class="img-fluid rounded-3 shadow about-img">
+            </div>
+            <div class="text-center">
+              <a href="resume.html" target="_blank" class="custom-btn">View CV</a>
+              <a href="#connect" class="custom-btn">Let's Connect</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right Column: Data (Skills & Experience) -->
+        <div class="col-lg-6 offset-lg-1">
+          <!-- Pills Navigation -->
+          <div class="about-pills-wrapper">
+            <ul class="nav nav-pills mb-4" id="about-pills" role="tablist">
+              <li class="nav-item" role="presentation">
+                <button class="nav-link active" id="pills-skills-tab" data-bs-toggle="pill" data-bs-target="#pills-skills" type="button" role="tab" aria-controls="pills-skills" aria-selected="true">Skills & Tools</button>
+              </li>
+              <li class="nav-item" role="presentation">
+                <button class="nav-link" id="pills-experience-tab" data-bs-toggle="pill" data-bs-target="#pills-experience" type="button" role="tab" aria-controls="pills-experience" aria-selected="false">Experience</button>
+              </li>
+              <li class="nav-item" role="presentation">
+                <button class="nav-link" id="pills-education-tab" data-bs-toggle="pill" data-bs-target="#pills-education" type="button" role="tab" aria-controls="pills-education" aria-selected="false">Education</button>
+              </li>
+            </ul>
+          </div>
+
+          <!-- Tab Content -->
+          <div class="tab-content" id="pills-tabContent">
+            <!-- Skills & Tools Pane -->
+            <div class="tab-pane fade show active" id="pills-skills" role="tabpanel" aria-labelledby="pills-skills-tab">
+            <!-- Web Development -->
+            <h4 class="skills-sub-heading">Web Development</h4>
+            <div class="row row-cols-3 row-cols-sm-4 row-cols-md-4 g-4 text-center mb-5">
+                <div class="col"><div class="skill-item"><i class="fab fa-html5" style="color: #e34f26;"></i><span>HTML5</span></div></div>
+                <div class="col"><div class="skill-item"><i class="fab fa-css3-alt" style="color: #264de4;"></i><span>CSS3</span></div></div>
+                <div class="col"><div class="skill-item"><i class="fab fa-js-square" style="color: #f7df1e;"></i><span>JavaScript</span></div></div>
+                <div class="col"><div class="skill-item"><i class="fas fa-code" style="color: #0769ad;"></i><span>jQuery</span></div></div>
+                <div class="col"><div class="skill-item"><i class="fab fa-react" style="color: #61dafb;"></i><span>React</span></div></div>
+                <div class="col"><div class="skill-item"><i class="fab fa-vuejs" style="color: #4fc08d;"></i><span>Vue.js</span></div></div>
+                <div class="col"><div class="skill-item"><i class="fab fa-node-js" style="color: #68a063;"></i><span>Node.js</span></div></div>
+                <div class="col"><div class="skill-item"><i class="fas fa-database" style="color: #00758f;"></i><span>MySQL</span></div></div>
+                <div class="col"><div class="skill-item"><i class="fab fa-github" style="color: #333;"></i><span>GitHub</span></div></div>
+            </div>
+
+            <!-- Design -->
+            <h4 class="skills-sub-heading">Design</h4>
+            <div class="row row-cols-3 row-cols-sm-4 row-cols-md-4 g-4 text-center mb-5">
+                <div class="col"><div class="skill-item"><i class="fab fa-figma" style="color: #f24e1e;"></i><span>Figma</span></div></div>
+                <div class="col"><div class="skill-item"><i class="fab fa-sketch" style="color: #f7b500;"></i><span>Sketch</span></div></div>
+                <div class="col"><div class="skill-item"><i class="fas fa-paint-brush" style="color: #ff61f6;"></i><span>Framer</span></div></div>
+                <div class="col"><div class="skill-item"><i class="fas fa-project-diagram" style="color: #ffd02f;"></i><span>Miro</span></div></div>
+                <div class="col"><div class="skill-item"><i class="fab fa-adobe" style="color: #31a8ff;"></i><span>Photoshop</span></div></div>
+                <div class="col"><div class="skill-item"><i class="fab fa-adobe" style="color: #ff3366;"></i><span>InDesign</span></div></div>
+                <div class="col"><div class="skill-item"><i class="fab fa-adobe" style="color: #ff61f6;"></i><span>Adobe XD</span></div></div>
+                <div class="col"><div class="skill-item"><i class="fab fa-adobe" style="color: #ff9a00;"></i><span>Illustrator</span></div></div>
+                <div class="col"><div class="skill-item"><i class="fas fa-palette" style="color: #00c4cc;"></i><span>Canva</span></div></div>
+            </div>
+
+            <!-- Business Tools -->
+            <h4 class="skills-sub-heading">Business Tools</h4>
+            <div class="row row-cols-3 row-cols-sm-4 row-cols-md-4 g-4 text-center">
+                <div class="col"><div class="skill-item"><i class="fab fa-google" style="color: #4285f4;"></i><span>Google Workspace</span></div></div>
+                <div class="col"><div class="skill-item"><i class="fab fa-salesforce" style="color: #00a1e0;"></i><span>Salesforce</span></div></div>
+                <div class="col"><div class="skill-item"><i class="fab fa-slack" style="color: #4a154b;"></i><span>Slack</span></div></div>
+                <div class="col"><div class="skill-item"><i class="fab fa-jira" style="color: #0052cc;"></i><span>Jira</span></div></div>
+                <div class="col"><div class="skill-item"><i class="fab fa-trello" style="color: #0079bf;"></i><span>Trello</span></div></div>
+                <div class="col"><div class="skill-item"><i class="fab fa-confluence" style="color: #172b4d;"></i><span>Confluence</span></div></div>
+                <div class="col"><div class="skill-item"><i class="fab fa-hubspot" style="color: #ff7a59;"></i><span>HubSpot</span></div></div>
+                <div class="col"><div class="skill-item"><i class="fab fa-mailchimp" style="color: #ffe01b;"></i><span>Mailchimp</span></div></div>
+                <div class="col"><div class="skill-item"><i class="fas fa-tasks" style="color: #f06a6a;"></i><span>Asana</span></div></div>
+                <div class="col"><div class="skill-item"><i class="fab fa-microsoft" style="color: #00a4ef;"></i><span>Microsoft Teams</span></div></div>
+                <div class="col"><div class="skill-item"><i class="fas fa-sticky-note" style="color: #000;"></i><span>Notion</span></div></div>
+            </div>
+            </div>
+
+            <!-- Experience Pane -->
+            <div class="tab-pane fade" id="pills-experience" role="tabpanel" aria-labelledby="pills-experience-tab">
+            <div class="experience-list">
+              <!-- Freelance -->
+              <div class="experience-item">
+                <div class="d-flex justify-content-between align-items-center flex-wrap">
+                  <h4 class="mb-0">Freelance Product & Technology Consultant</h4>
+                  <span class="experience-date">Jul 2019 - Present</span>
+                </div>
+                <p class="experience-company">Independent Contractor</p>
+                <p class="small">Drive product strategy, design, and technical initiatives for diverse clients across multiple industries. Specialize in UI/UX optimization, frontend development, and AI-powered project management solutions that deliver measurable business impact.</p>
+              </div>
+
+              <!-- Nebusis -->
+              <div class="experience-item">
+                <div class="d-flex justify-content-between align-items-center flex-wrap">
+                  <h4 class="mb-0">Director of Product & Technology</h4>
+                  <span class="experience-date">Nov 2020 - Jun 2024</span>
+                </div>
+                <p class="experience-company">Nebusis Cloud Services • Reston, VA / Madrid, Spain</p>
+                <p class="small">Led strategic product initiatives in partnership with CEO, driving a <strong>12% increase in user engagement</strong> through data-driven roadmap execution. Spearheaded ISO AI project implementations and orchestrated seamless multi-location client onboarding across global markets. Architected scalable software processes that enhanced operational efficiency.</p>
+                <a href="https://www.nebusis.com" target="_blank" class="card-link">Visit Site →</a>
+              </div>
+
+              <!-- Frenetic -->
+              <div class="experience-item">
+                <div class="d-flex justify-content-between align-items-center flex-wrap">
+                  <h4 class="mb-0">Sales Development Representative (Contract)</h4>
+                  <span class="experience-date">Jul 2023 - Sep 2023</span>
+                </div>
+                <p class="experience-company">Frenetic, Madrid, Spain</p>
+                <p class="small">Pioneered in-depth research on potential clients to personalize outreach and tailor messaging. Identified and qualified high-potential leads through targeted outreach and cold-calling, generating a <strong>20% increase in new opportunities</strong> for the sales pipeline. Leveraged HubSpot to segment leads and prioritize high-value accounts.</p>
+              </div>
+
+              <!-- Newsoil -->
+              <div class="experience-item">
+                <div class="d-flex justify-content-between align-items-center flex-wrap">
+                  <h4 class="mb-0">Frontend & E-commerce Consultant</h4>
+                  <span class="experience-date">Aug 2019 - Jun 2020</span>
+                </div>
+                <p class="experience-company">Newsoil, LLC., Durham, NC</p>
+                <p class="small">Architected website and e-commerce roadmap. Implemented order tracking and confirmation systems. Integrated WooCommerce store, resulting in a <strong>50% increase in online transaction rates</strong>.</p>
+              </div>
+
+              <!-- CureMint -->
+              <div class="experience-item">
+                <div class="d-flex justify-content-between align-items-center flex-wrap">
+                  <h4 class="mb-0">Customer Success Consultant (Contract)</h4>
+                  <span class="experience-date">Jul 2019 - Aug 2019</span>
+                </div>
+                <p class="experience-company">Curemint Inc., Durham, NC</p>
+                <p class="small">Developed and implemented the foundational customer onboarding strategy (KPIs/OKRs), conducting product demos and automating acquisition processes. CureMint is the most user-friendly and intuitive dental procurement software on the market today.</p>
+                <a href="https://www.curemint.io" target="_blank" class="card-link">Visit Site →</a>
+              </div>
+
+              <!-- BruVue -->
+              <div class="experience-item">
+                <div class="d-flex justify-content-between align-items-center flex-wrap">
+                  <h4 class="mb-0">Director of Customer Success</h4>
+                  <span class="experience-date">Jan 2019 - Jul 2019</span>
+                </div>
+                <p class="experience-company">BruVue Inc., Durham, NC</p>
+                <p class="small">Cultivated relationships with C-level clients and provided onboarding and support. Documented user stories, product specifications, and feature requests to enhance usability. Assisted the development team (Node, React) with data and app maintenance. BruVue introduced me to the innovative IoT sector, allowing me to hone my skills and explore new technological areas.</p>
+                <a href="https://www.facebook.com/BruVue/" target="_blank" class="card-link">Visit Site →</a>
+              </div>
+
+              <!-- Spreedly -->
+              <div class="experience-item">
+                <div class="d-flex justify-content-between align-items-center flex-wrap">
+                  <h4 class="mb-0">Project Manager/Customer Success</h4>
+                  <span class="experience-date">Jun 2016 - May 2017</span>
+                </div>
+                <p class="experience-company">Spreedly Inc., Durham, NC</p>
+                <p class="small">Facilitated the completion of Annual PCI Compliance Assessment with the SRE/DevOps team. Managed and qualified inbound leads during their assessment of the Spreedly API. Provided technical assistance for implementation and migration inquiries. Spreedly introduced me to the startup world and FinTech as a service.</p>
+                <a href="https://www.spreedly.com" target="_blank" class="card-link">Visit Site →</a>
+              </div>
+
+              <!-- Etix -->
+              <div class="experience-item">
+                <div class="d-flex justify-content-between align-items-center flex-wrap">
+                  <h4 class="mb-0">Technical Operations Coordinator - Specialist</h4>
+                  <span class="experience-date">Feb 2014 - Jun 2016</span>
+                </div>
+                <p class="experience-company">Etix Inc. • Morrisville, NC</p>
+                <p class="small">Orchestrated comprehensive product lifecycle management including hardware planning, procurement, security compliance, and nationwide equipment rollouts. Led implementation of enterprise inventory management system with barcode asset tracking for <strong>5,500+ pieces ($2.5M)</strong> of rental equipment. Achieved substantial cost optimizations: <strong>35% reduction in hardware inventory</strong> and <strong>65% decrease in shipping costs</strong>, generating <strong>$200K+ in annual savings</strong>.</p>
+              </div>
+            </div>
+            </div>
+
+            <!-- Education Pane -->
+            <div class="tab-pane fade" id="pills-education" role="tabpanel" aria-labelledby="pills-education-tab">
+              <div class="experience-list">
+                <div class="experience-item">
+                  <h4 class="mb-0">North Carolina Wesleyan University</h4>
+                  <p class="experience-company mb-1">B.S. Computer Information Systems</p>
+                  <p class="experience-company">B.A. Business Administration</p>
+                </div>
+                <div class="experience-item">
+                  <h4 class="mb-0">Coursera Certifications</h4>
+                  <p class="experience-company mb-1">Digital Product Management (UVA, Darden)</p>
+                  <p class="experience-company">Google UI/UX</p>
+                </div>
+                <div class="experience-item">
+                  <h4 class="mb-0">HubSpot Certifications</h4>
+                  <p class="experience-company mb-1">Content Marketing</p>
+                  <p class="experience-company mb-1">Inbound & Inbound Sales</p>
+                  <p class="experience-company">Sales Software</p>
+                </div>
+                <div class="experience-item">
+                  <h4 class="mb-0">Google Analytics Certifications</h4>
+                  <p class="experience-company mb-1">Analytics for Beginners</p>
+                  <p class="experience-company">Analytics Individual Certification</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONNECT SECTION -->
+  <section class="py-5" id="connect">
+    <div class="container">
+      <div class="text-center mt-4 mb-3">
+        <h2 class="display-6 fw-bold">Let's Connect</h2>
+        <p class="lead">Have a project idea, collaboration, or just want to say hi? Drop me a line below.</p>
+      </div>
+      <!-- Custom HubSpot Form -->
+      <div class="row justify-content-center">
+        <div class="col-lg-8">
+          <form id="my-modern-form" class="p-4 p-md-5 rounded shadow">
+            <div class="mb-3">
+              <label for="firstname" class="form-label visually-hidden">First Name</label>
+              <input type="text" class="form-control" id="firstname" name="firstname" placeholder="Enter your name" required>
+            </div>
+            <div class="mb-3">
+              <label for="email" class="form-label visually-hidden">Email address</label>
+              <input type="email" class="form-control" id="email" name="email" placeholder="Enter your email" required>
+            </div>
+            <div class="mb-3">
+              <label for="message_field" class="form-label visually-hidden">Your Message</label>
+              <textarea class="form-control" id="message_field" name="message_field" rows="3" placeholder="Enter your message" required></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary w-100">Send Message</button>
+            <div id="form-message" class="mt-3 text-center"></div>
+          </form>
+
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer p-3 pt-4">
+    <div class="container">
+      <div class="row align-items-center pb-4">
+        <div class="col-md-4 d-flex mb-3">
+          <a href="index.html"><img src="assets/img/rjfa_logo_grey_svg.svg" width="34" height="34" alt="RJFA Logo" /></a>
+          <span class="ms-2">&copy; 2025</span>
+        </div>
+
+        <div class="col-md-4 col-sm-6">
+          <h3 class="mb-2 fs-base">Navigation</h3>
+          <ul class="list-unstyled">
+            <li><a class="nav-link" href="#hero"><i data-feather="home"></i> Home</a></li>
+            <li><a class="nav-link" href="#about"><i data-feather="user"></i> About Me</a></li>
+            <li><a class="nav-link" href="#work"><i data-feather="briefcase"></i> Featured Work</a></li>
+            <li><a class="nav-link" href="gallery.html"><i data-feather="image"></i> Gallery</a></li>
+            <li><a class="nav-link" href="mailto:rosean.frankalexander@gmail.com"><i data-feather="mail"></i> Contact</a></li>
+          </ul>
+        </div>
+
+        <div class="col-md-4 col-sm-6">
+          <h3 class="mb-2 fs-base">Socials</h3>
+          <ul class="list-unstyled d-flex gap-3">
+            <li><a href="https://www.linkedin.com/in/rfrankale/" target="_blank"><i data-feather="linkedin"></i></a></li>
+            <li><a href="https://github.com/roseanfrankale/" target="_blank"><i data-feather="github"></i></a></li>
+            <li><a href="https://dribbble.com/rjfa/" target="_blank"><i data-feather="dribbble"></i></a></li>
+            <li><a href="https://www.youtube.com/playlist?list=PLq8eop32VW4_lzzDk9UZI9XWkdyXlaMcV" target="_blank" aria-label="YouTube"><i data-feather="youtube"></i></a></li>
+            <li><a href="music.html" aria-label="Music"><i data-feather="music"></i></a></li>
           </ul>
         </div>
       </div>
-    </nav>
-
-
-    <!-- ===============================================-->
-    <!--    Main Content-->
-    <!-- ===============================================-->
-    <main class="main min-vh-100 overflow-hidden" id="top">
-
-      <!-- ============================================-->
-      <!-- Preloader ==================================-->
-      <div class="preloader" id="preloader">
-        <div class="loader">
-
-        </div>
-      </div><!-- ============================================-->
-      <!-- End of Preloader ===========================-->
-
-      <!-- ============================================-->
-      <section class="p-0 overflow-hidden" id="digitalHeader">
-        <div class="bg-holder overlay digital-header" style="background-image:url(/assets/img/desktop-hero-2.png);" data-zanim-xs='{"delay":0,"animation":"zoom-out"}' data-zanim-trigger="scroll"></div>
-        <div class="container" id="home">
-          <div class="row min-vh-100 py-8 flex-center">
-            <div class="header header-top" data-zanim-timeline="{}" data-zanim-trigger="scroll">
-              <div class="col-lg-8 mx-auto">
-                <h1 class="mb-3 display-4">
-                  <span class="overflow-hidden">
-                    <span class="" data-zanim-xs='{"delay":0.1}'></span>
-                    Hello! I'm Ro<span-under>Sean</span-under><br />Frank-<span>Alexander</span>
-                  </span>
-                </h1>
-             
-              </div>
-              <div class="col-lg-8 mt-5 mx-auto" >
-                <span class="overflow-hidden">
-                  <span class="" data-zanim-xs='{"delay":0.2}'>
-                    <nav id="navbar" class="navbar navbar-expand-lg list-unstyled">
-                     
-                      <ul class="collapse navbar-collapse" id="navbarContent">
-                        
-                        <li class="nav-item mx-2">
-                          <a class="nav-link fs--2" href="#work">FEATURED WORK</a>
-                        </li>
-                        <li class="nav-item mx-2">
-                          <a class="nav-link fs--2" href="https://roseanfrankale.github.io/gallery">GALLERY</a>
-                        </li>
-                        <li class="nav-item mx-2">
-                          <a class="nav-link fs--2" href="#about">ABOUT ME</a>
-                        </li>
-                        <li class="nav-item mx-2">
-                          <a class="nav-link fs--2" href="#contact">CONNECT</a>
-                        </li>
-                      </ul>
-                      <i class="bi bi-list mobile-nav-toggle"></i>
-                    </nav>                    <div class="social-icons mx-auto">
-                      <li class="list-inline-item">
-                        <a href="https://www.linkedin.com/in/rfrankale/"><i data-feather="linkedin"></i></a>
-                      </li>
-                      <li class="list-inline-item">
-                        <a href="https://github.com/roseanfrankale"><i data-feather="github"></i></a>
-                      </li>
-                      <li class="list-inline-item">
-                        <a href="https://dribbble.com/rjfa"><i data-feather="dribbble"></i></a>
-                      </li>
-                      <li class="list-inline-item">
-                        <a href="https://roseanfrankale.github.io/music.html"><i data-feather="music"></i></a>
-                      </li>
-                      <li class="list-inline-item">
-                        <a href="https://www.youtube.com/@roseanfrank-alexander7614/playlists"><i data-feather="youtube"></i></a>
-                      </li>
-                    </div>
-                  </span>
-                </span>
-              </div>
-            </div>
-          </div>
-        </div>
-        <a class="indicator indicator-down" data-zanim-timeline='{"delay":1}' data-zanim-trigger="scroll" href="#target-down" data-offset="60">
-          <span class="indicator-arrow indicator-arrow-one" data-zanim-xs='{"from":{"opacity":0,"y":15},"to":{"opacity":1,"y":-5,"scale":1},"ease":"Back.easeOut","duration":0.4,"delay":0.25}'></span>
-          <span class="indicator-arrow indicator-arrow-two" data-zanim-xs='{"from":{"opacity":0,"y":15},"to":{"opacity":1,"y":-5,"scale":1},"ease":"Back.easeOut","duration":0.4,"delay":0.5}'></span>
-        </a>
-      </section>
-      
-      <div id="target-down"></div>
-
-      <!-- ============================================-->
-      <!-- <section> begin ============================-->
-
-
-
-        
-          
-      
-            <section class="overflow-hidden p-0" id="work">
-      
-                  <div class="row mt-5 mb-5 justify-content-center px-5 py-5">
-                    <div class="col-md text-center border-bottom col-lg-8">
-                      <h2 class="display-4 mt-1 fw-bold text-gradient" data-zanim-xs='{"delay":0.2}' data-aos="fade-up">Featured Work</h2>
-                      
-                    </div>
-                  </div>      
-
-                  <div class="container position-relative py-3">
-                  <div class="row mt-3 justify-content-center mb-5" data-zanim-timeline="{}" data-zanim-trigger="scroll">
-                    <div class="row ">
-                    <div class="col-lg-4 mt-5">
-                      <h2 class="fw-light text-uppercase" data-zanim-xs='{"delay":0.2}'>Nebusis<sup>®</sup></h2>
-                      <p class="font-sans-serif" data-zanim-xs='{"delay":0.4}'>Nebusis® is a simplified Software as a Service (SaaS) solution based on recognized ISO Management system standards.</p>
-                       
-                          <ul class="list-unstyled font-sans-serif" data-zanim-xs='{"delay":0.6}'>
-                            <li>Website Redesign</li>
-                            <li>Mockups</li>
-                            <li>Branding</li>
-                            <li>New Product</li>
-                            <li>Development</li>
-                            <li>Prototyping</li>
-                            <li>Research</li>
-                          </ul>
-                      
-                         <p data-zanim-xs='{"delay":0.6}'>
-                        <a class="btn btn-outline-dark" href="nebusis.html">View Project</a></p>
-                    </div>
-
-
-                    <div class="col-lg-8 mb-5">
-                      <a href="nebusis.html" class="portfolio-item" data-id="1">
-                        <div class="overlay">
-                          <span class="wrap-icon"><i data-feather="eye"></i></span>
-                          <div class="portfolio-item-content">
-                            <h3>View Project</h3>
-                            <p>Web | Branding | Mockups</p>
-                          </div>
-                        </div>
-                        <img src="/assets/img/nebusis_photos/NEBUSIS Dribble Landing.png" class="lazyload img-fluid" alt="Images" />
-                      </a>
-                    
-                    </div>
-                    </div>
-                  </div>
-                  </div>
-                    
-                    <div class="bg-grey">
-                      <div class="container py-5">
-                          <div class="row justify-content-center mb-5" data-zanim-timeline="{}" data-zanim-trigger="scroll">
-                            <!-- Existing content stays here -->
-                            <div class="row mt-5 ">
-                              <div class="col-lg-8 mb-5">
-                                <a href="qurado.html" class="portfolio-item"
-                                data-id="1">
-                                <div class="overlay">
-                                  <span class="wrap-icon"><i data-feather="eye"></i></span>
-                                  <div class="portfolio-item-content">
-                                    <h3>View Project</h3>
-                                    <p>Web | Branding | Mockups</p>
-                                  </div>
-                                </div>
-                                <img src="/assets/img/qurado/Qurado_Dribble_Landing.png" class="lazyload  img-fluid" alt="Images" />
-                              </a>
-                                
-                              </div>
-        
-                              
-                              <div class="col-lg-4 mt-5">                       
-                                <h2 class="fw-light text-uppercase" data-zanim-xs='{"delay":0.2,"animation":"slide-right"}'>QURADO</h2>
-                                <p class="font-sans-serif" data-zanim-xs='{"delay":0.4}'>This project was a short cosultative project for a acquaintance.</p>
-                                  <ul class="list-unstyled font-sans-serif" data-zanim-xs='{"delay":0.6}'>
-                                    <li>E-commerce</li>
-                                    <li>B2C/B2B</li>
-                                    <li>Branding</li>                 
-                                    <li>Prototyping</li>
-                                    <li>Research</li>
-                                  </ul>
-                                <p data-zanim-xs='{"delay":0.6}'>
-                                  <a class="btn btn-outline-dark" href="qurado.html">View Project</a></p>
-                              </div>
-                            </div>
-                            
-                          </div>
-                        </div>
-                      </div>
-                    
-                    
-                    
-      
-                    
-                      <div class="container position-relative py-5">
-                        <div class="row mt-5 mb-5 justify-content-center" data-zanim-timeline="{}" data-zanim-trigger="scroll">
-                          <div class="col-lg-4 mt-5">
-                            <h2 class="fw-light text-uppercase" data-zanim-xs='{"delay":0.3,"animation":"slide-left"}'>NAESOR</h2>
-                            <p class="font-sans-serif" data-zanim-xs='{"delay":0.4}'>
-                              Google Design Course Challenge:<br>
-                              Using a prompt from Sharpen.Design, I chose to create an album application.
-                            </p>
-                            <ul class="list-unstyled font-sans-serif" data-zanim-xs='{"delay":0.6}'>
-                              <li>Mobile</li>
-                              <li>Mockups</li>
-                              <li>Branding</li>
-                              <li>Prototyping</li>
-                              <li>Research</li>
-                            </ul>
-                            <p data-zanim-xs='{"delay":0.6}'>
-                              <a class="btn btn-outline-dark" href="naesor.html">View Project</a>
-                            </p>
-                          </div>
-                          
-                          <div class="col-lg-8">
-                            <a href="naesor.html" class="portfolio-item" data-id="1">
-                              <div class="overlay">
-                                <span class="wrap-icon">
-                                  <i data-feather="eye"></i>
-                                </span>
-                                <div class="portfolio-item-content">
-                                  <h3>NAESOR</h3>
-                                  <p>Mobile | Branding | Prototyping</p>
-                                </div>
-                              </div>
-                              <img src="/assets/img/naesor/NAESOR Dribble Landing Page_2.png" 
-                                   class="lazyload img-fluid" 
-                                   alt="NAESOR Project Preview" />
-                            </a>
-                          </div>
-                        </div>
-                      </div>
-                      
-
-
-
-
-                  <div class="bg-grey">
-                    <div class="container py-5 position-relative">
-                  <div class="row justify-content-center">
-                    <div class="col-lg-8 mt-5 mb-5">
-                      <a href="bruvue.html" class="portfolio-item ajax-load-page isotope-item gsap-reveal-img"
-                       data-id="1">
-                        <div class="overlay">
-                          <span class="wrap-icon"><i data-feather="eye"></i></span>
-                          <div class="portfolio-item-content">
-                            <h3>View Project</h3>
-                            <p>Web | Branding | Mockups</p>
-                          </div>
-                        </div>
-                        <img src="/assets/img/bruvue_photos/BruVue_Line_of_Sensors_Tap_G1.png" class="lazyload  img-fluid"
-                          alt="Images" />
-                      </a>
-                    </div>
-                    <div class="col-lg-4 mt-5 mb-5 ">
-                      <h2 class="fw-light " data-zanim-xs='{"delay":0.2,"animation":"slide-left"}'>BruVue</h2>
-                      <p>BruVue was the first place I ever put my hands on design tools.</p>
-                      <ul class="list-unstyled font-sans-serif" data-zanim-xs='{"delay":0.6}'>                      
-                        <li>Branding</li>                      
-                        <li>Research</li>
-                      </ul>
-                      <p><a class="btn btn-outline-dark" href="bruvue.html">Learn More</a></p>
-                    </div>
-                  </div>
-      
-      
-                </div>
-            </div>
-               
-        </section>
-
-       
-        
-        </main>
-
-        <!-- Footer-->
-        <footer class="footer bg-dark p-3 pt-2">
-          <div class="row align-items-center pb-4">
-            <div class="text-nowrap  border-light py-4">
-              <!-- Links-->
-              <div class="row">
-                <div class="col-md-4 col-sm-6 mb-3">
-                  <a href="https://roseanfrankale.github.io/" class="mr-auto mb-3"><img src="/assets/img/rjfa_logo_grey_svg.svg"
-                    width="30" height="34" alt="" class="navbar-brand" /></a>
-                    <span class="mb-3 mb-md-0">&copy; 2022</span>
-                    
-                </div>
-                <div class="col-md-4 col-sm-6">
-                  <h3 class="mb-2 pb-1 fs-base text-light">Navigation</h3>
-                  <ul class="list-unstyled fs-sm">
-                    <li><a class="nav-link active" href="https://roseanfrankale.github.io/">HOME</a></li>
-                    <li><a class="nav-link-light"href="https://roseanfrankale.github.io/about">ABOUT ME</a></li>
-                    <li><a class="nav-link-light"href="#work">FEATURED WORK</a></li>
-                    <li><a class="nav-link-light"href="https://roseanfrankale.github.io/gallery">GALLERY</a></li>
-                    <li><a class="nav-link-light" href="mailto:rosean.frankalexander@gmail.com">CONTACT: </a>
-                      <a class="text-white" href="mailto:rosean.frankalexander@gmail.com">rosean.frankalexander@gmail.com</a>  
-                    </li>
-                  </ul>
-                </div>
-                <div class=" text-nowrap col-md-4 col-sm-6">
-                  <h3 class=" mb-2 pb-1 fs-base text-light">Socials</h3>
-                <ul class="list-unstyled fs-sm">
-                  <li class="nav-item d-flex align-items-center">
-                    <a class="nav-link px-2" href="https://www.linkedin.com/in/rfrankale/">
-                      <i class="social-icons" data-feather="linkedin"></i>
-                    </a>
-                  </li>
-                  <li class="nav-item d-flex align-items-center">
-                    <a class="nav-link px-2" href="https://github.com/roseanfrankale/">
-                      <i class="social-icons" data-feather="github"></i>
-                    </a>
-                  </li>
-                  <li class="nav-item d-flex align-items-center">
-                    <a class="nav-link px-2" href="https://dribbble.com/rjfa/">
-                      <i class="social-icons" data-feather="dribbble"></i>
-                    </a>
-                  </li>
-                </ul>        
-                </div>
-              </div>
-              <div class="col-sm-4 mb-4">
-                
-              </div>
-            </div> 
-          </div>   
-        </footer>
-
-        <!--CONNECT Modal -->
-<div class="modal fade" id="connectModal" tabindex="-1" aria-labelledby="connectModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-fullscreen">
-    <div class="modal-content bg-opacity-75">
-      <div class="modal-header">
-       
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-       <!-- <section> begin ============================-->
-    <section class="text-centerfont-sans-serif" id="Contact">
-        <div class="container">
-          <div class="row justify-content-center">
-            <h1 class="text-dark-50 text-center mb-3">Let's Connect!</h1>
-              <h3 class="text-500 text-center mb-5"> Let's collaborate on your next project - I'd love to hear from you!</h3>              <form class="text-start">
-                <div class="row justify-content-center">
-                  <div class="col-lg-8">
-                    <script charset="utf-8" type="text/javascript" src="//js.hsforms.net/forms/embed/v2.js"></script>
-                    <script>
-                      hbspt.forms.create({
-                        region: "na1",
-                        portalId: "6082856",
-                        formId: "bb8fb749-8c59-4df3-9fe5-eb65fcb39797"
-                      });
-                    </script>
-                  </div>
-                </div>
-              </form>
-          </div>
-        </div><!-- end of .container-->
-      </section><!-- <section> close ============================-->
-      </div>
     </div>
-  </div>
-</div>
-        
-        
-                 <!--JavaScripts-->
-           <script src="/vendors/popper/popper.min.js"></script>
-           <script src="/vendors/bootstrap/bootstrap.min.js"></script>
-           <script src="/vendors/anchorjs/anchor.min.js"></script>
-           <script src="/vendors/is/is.min.js"></script>
-           <script src="/vendors/swiper/swiper-bundle.min.js"></script>
-           <script src="/vendors/bigpicture/BigPicture.js"> </script>
-           <script src="/vendors/isotope-layout/isotope.pkgd.min.js"> </script>
-           <script src="/vendors/isotope-packery/packery-mode.pkgd.min.js"> </script>
-           <script src="/vendors/progressbar/progressbar.min.js"></script>
-           <script src="/vendors/rellax/rellax.min.js"> </script>
-           <script src="/vendors/fontawesome/all.min.js"></script>
-           <script src="/vendors/lodash/lodash.min.js"></script>
-           <script src="////polyfill.io/v3/polyfill.min58be.js?features=window.scroll"></script>
-           <script src="/vendors/imagesloaded/imagesloaded.pkgd.js"></script>
-           <script src="/vendors/gsap/gsap.js"></script>
-           <script src="/vendors/gsap/customEase.js"></script>
-           <script src="/vendors/gsap/drawSVGPlugin.js"></script>
-           <script src="/vendors/glightbox/glightbox.js"></script>
-         <script src="https://unpkg.com/feather-icons"></script>
-        
-           <script>
-             feather.replace();
-           </script>
-        
-        <script src="/assets/js/theme.js"></script>
+  </footer>
+
+  <!-- Scripts -->
+  <!-- Bootstrap JS Bundle (includes Popper) -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+  <!-- GSAP + ScrollTrigger -->
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.2/dist/gsap.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.2/dist/ScrollTrigger.min.js"></script>
+
+  <!-- Custom Animations -->
+  <script src="assets/js/animations.js"></script>
 </body>
-
-
 </html>
