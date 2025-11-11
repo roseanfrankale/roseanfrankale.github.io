@@ -1,80 +1,1311 @@
-<!doctype html>
-<html lang="en">
-  <head>
-    <!-- Global site tag (gtag.js) - Google Analytics -->
-    <script
-      async
-      src="https://www.googletagmanager.com/gtag/js?id=G-N0J675HHCL"
-    ></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Rosean Frank-Alexander | Case Studies</title>
+  
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;800&display=swap" rel="stylesheet">
 
-      function gtag() {
-        dataLayer.push(arguments);
-      }
-      gtag("js", new Date());
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
 
-      gtag("config", "G-N0J675HHCL");
-    </script>
+  <!-- Font Awesome for more icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- Feather Icons -->
+  <script src="https://unpkg.com/feather-icons"></script>
 
-    <!-- ===============================================-->
-    <!--    Document Title-->
-    <!-- ===============================================-->
-    <title>RJFA</title>
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="assets/css/style.css">
+  <link rel="stylesheet" href="assets/css/case-study.css">
 
-    <!-- ===============================================-->
-    <!--    Favicons-->
-    <!-- ===============================================-->
-    <link rel="apple-touch-icon" sizes="180x180" href="/assets/img/rjfa_logo_svg.svg">
-    <link rel="icon" type="image/png" sizes="32x32" href="/assets/img/rjfa_logo_svg.svg">
-    <link rel="icon" type="image/png" sizes="16x16" href="/assets/img/rjfa_logo_svg.svg">
-    <link rel="shortcut icon" type="image/x-icon" href="/assets/img/rjfa_logo_svg.svg">
-    <link rel="manifest" href="/assets/img/rjfa_logo_svg.svg">
-    <meta name="msapplication-TileImage" content="/assets/img/rjfa_logo_svg.svg">
-    <meta name="theme-color" content="#ffffff">
-    <!-- ===============================================-->
-    <!--    Stylesheets-->
-    <!-- ===============================================-->
-    <link href="/vendors/swiper/swiper-bundle.min.css" rel="stylesheet">
-    <link href="/vendors/loaders.css/loaders.min.css" rel="stylesheet" type="text/css">
-    <link rel="preconnect" href="https://fonts.gstatic.com/">
-    <link href="/assets/css/theme.min.css" rel="stylesheet" />
-    <link href="/assets/css/user.min.css" rel="stylesheet" />
-    <link href="/assets/css/style.css" rel="stylesheet" />
-    <link href="/vendors/glightbox/glightbox.css"   rel="stylesheet"
-  />
+  <!-- Theme + Navbar + Darkmode -->
+  <script src="assets/js/theme.js"></script>
+</head>
+<body>
 
-  </head>
+  <!-- Scroll Progress -->
+  <div class="scroll-progress">
+    <div class="scroll-progress-bar"></div>
+  </div>
 
-  <body class="overflow-hidden-x">
-
-
-
-
-    <nav class="navbar navbar-expand-lg fixed-top navbar-rjfa fancynavbar fancynavbar-expand-lg fancynavbar-top" data-navbar-on-scroll="data-navbar-on-scroll">
-      <div class="container">
-        <a class="navbar-brand" href="https://roseanfrankale.github.io/">
-          <img src="/assets/img/rjfa_logo_grey_svg.svg" alt="RJFA" height="35" />
-        </a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown1">
-          <span class="navbar-toggler-icon"></span>
+  <!-- Navigation -->
+  <nav class="navbar navbar-expand-lg fixed-top">
+    <div class="container">
+      <a class="navbar-brand fw-bold" href="index.html">
+        <img src="assets/img/rjfa_logo_grey_svg.svg" width="34" height="34" alt="Logo">
+      </a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+        <ul class="navbar-nav">
+          <li class="nav-item">
+            <a class="nav-link" href="index.html">← Back to Portfolio</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#overview">Overview</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#process">Process</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#results">Results</a>
+          </li>
+        </ul>
+        <button id="theme-toggle" class="ms-3">
+          <i data-feather="moon"></i>
         </button>
-        <div class="collapse navbar-collapse" id="navbarNavDropdown1">
-          <ul class="navbar-nav ms-auto d-flex align-items-center">
-            <li class="nav-item"><a class="nav-link px-2"  href="https://roseanfrankale.github.io/">Home</a></li>
-            <li class="nav-item"><a class="nav-link px-2"  href="https://roseanfrankale.github.io/index.html#:~:text=CONNECT-,Featured%20Work,-NEBUSIS%C2%AE">FEATURED WORK</a></li>
-            <li class="nav-item"><a class="nav-link px-2"  href="https://roseanfrankale.github.io/gallery">GALLERY</a></li>
-            <li class="nav-item"><a class="nav-link px-2"  href="https://roseanfrankale.github.io/about.html">About Me</a></li>
-            <li class="nav-item"><a class="nav-link px-2" href="#" data-bs-toggle="modal" data-bs-target="#connectModal">Connect</a></li>            
-            <li class="nav-item"><a class="nav-link px-2"  href="https://www.linkedin.com/in/rfrankale/"><i class="social-icons" data-feather="linkedin"></i></a></li>
-            <li class="nav-item"><a class="nav-link px-2" href="https://github.com/roseanfrankale"><i class="social-icons" data-feather="github"></i></a></li>
-            <li class="nav-item"><a class="nav-link px-2" href="https://dribbble.com/rjfa"><i class="social-icons" data-feather="dribbble"></i></a></li>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <section class="case-hero">
+    <div class="container">
+      <div class="hero-content text-center">
+        <h1 class="case-title">Qurado</h1>
+        <p class="case-subtitle">UI/UX consulting for a Spanish e-commerce platform.</p>
+        
+        <div class="hero-mockup text-center"> 
+          <a href="/assets/img/qurado/Qurado_Dribble_Landing.png">
+            <div class="hoverbox">
+              <img src="/assets/img/qurado/Qurado_Dribble_Landing.png" alt="Qurado Landing Page">
+              <div class="hoverbox-content">
+                <i class="text-white" data-feather="plus"></i>
+              </div>
+            </div>
+          </a>
+        </div>
+
+        <div class="hero-meta">
+          <div class="meta-item">
+            <div class="meta-label">My Role</div>
+            <div class="meta-value">UI/UX Consultant</div>
+          </div>
+          <div class="meta-item">
+            <div class="meta-label">Timeline</div>
+            <div class="meta-value">Oct 2022 - Nov 2022</div>
+          </div>
+          <div class="meta-item">
+            <div class="meta-label">Platform</div>
+            <div class="meta-value">E-commerce Website</div>
+          </div>
+          <div class="meta-item">
+            <div class="meta-label">Tools</div>
+            <div class="meta-value">Figma, Adobe Creative Cloud</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Overview Section -->
+  <section id="overview" class="case-section">
+    <div class="container">
+      <div class="section-header">
+        <div class="section-number">01 — Overview</div>
+        <h2 class="section-title">Elevating an E-Commerce Experience</h2>
+      </div>
+
+      <div class="two-column-text">
+        <p>Qurado is an e-commerce platform that connects consumers directly with the best local food producers throughout Spain. The products are harvested or processed just before shipment, ensuring maximum freshness and quality.</p>
+        
+        <p>I was brought on in a minor consulting capacity to demonstrate how modern design tools and principles could enhance the user experience and increase website engagement. The goal was to propose improvements to the existing site, focusing on branding, user flow, and overall aesthetics.</p>
+      </div>
+
+      <div class="key-insights">
+        <h3>Project Highlights</h3>
+        <ul>
+          <li>Provided UI/UX consulting to improve an existing e-commerce platform.</li>
+          <li>Demonstrated the value of Figma, Adobe XD, and Notion for increasing traffic and engagement.</li>
+          <li>Developed new branding concepts for a more modern and sleek look.</li>
+          <li>Created a new sitemap to improve user-friendliness and site structure.</li>
+          <li>Designed and tested new checkout and payment workflows to reduce friction.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- Design Process Section -->
+  <section id="process" class="case-section">
+    <div class="container">
+      <div class="section-header">
+        <div class="section-number">02 — Design Process</div>
+        <h2 class="section-title">From Concept to Deployment</h2>
+        <p class="section-description">
+          A consultative approach to improving user experience.
+        </p>
+      </div>
+
+      <div class="process-timeline">
+        <!-- Step 1 -->
+        <div class="process-step">
+          <div class="step-content">
+            <h3 class="step-title" data-step="01">Sitemap &amp; Structure</h3>
+            <p>My first task was to create a sitemap for the new design. I used the existing sitemap as a starting point and made a few changes to the structure to make it more user-friendly and intuitive for customers navigating the site.</p>
+          </div>
+          <div class="step-image-wrapper">
+            <a href="/assets/img/qurado/Documentation/Quravío_Sitemap.png"> 
+              <div class="hoverbox">
+                <img src="/assets/img/qurado/Documentation/Quravío_Sitemap.png" alt="Qurado Sitemap">
+                <div class="hoverbox-content">
+                  <i class="text-white" data-feather="plus"></i>
+                </div>
+              </div>
+            </a>
+          </div>
+        </div>
+
+        <!-- Step 2 -->
+        <div class="process-step">
+          <div class="step-image-wrapper">
+            <a href="/assets/img/qurado/Documentation/Qurado Marca Concepto.png"> 
+              <div class="hoverbox">
+                <img src="/assets/img/qurado/Documentation/Qurado Marca Concepto.png" alt="Qurado Branding Concepts">
+                <div class="hoverbox-content">
+                  <i class="text-white" data-feather="plus"></i>
+                </div>
+              </div>
+            </a>
+          </div>
+          <div class="step-content">
+            <h3 class="step-title" data-step="02">Branding &amp; Visuals</h3>
+            <p>We worked on creating a few new branding concepts for the new design. We wanted to create a more modern and sleek look for the app, so we experimented with different color schemes and typography to better reflect the premium quality of the products.</p>
+          </div>
+        </div>
+
+        <!-- Step 3 -->
+        <div class="process-step">
+          <div class="step-content">
+            <h3 class="step-title" data-step="03">Workflows &amp; Prototypes</h3>
+            <p>We worked on checkout flows and payment flows for the new design. We wanted to make the checkout process as smooth and easy as possible for our users, so we tested a few different designs and made a few changes to the flow to reduce friction.</p>
+          </div>
+          <div class="step-image-wrapper">
+            <a href="/assets/img/qurado/Documentation/prototype_1.png"> 
+              <div class="hoverbox">
+                <img src="/assets/img/qurado/Documentation/prototype_1.png" alt="Qurado Checkout Workflow">
+                <div class="hoverbox-content">
+                  <i class="text-white" data-feather="plus"></i>
+                </div>
+              </div>
+            </a>
+          </div>
+        </div>
+
+        <!-- Step 4 -->
+        <div class="process-step">
+          <div class="step-image-wrapper">
+            <a href="/assets/img/qurado/Documentation/iPad Pro mockup 13-inch top view.png"> 
+              <div class="hoverbox">
+                <img src="/assets/img/qurado/Documentation/iPad Pro mockup 13-inch top view.png" alt="Qurado Final Design">
+                <div class="hoverbox-content">
+                  <i class="text-white" data-feather="plus"></i>
+                </div>
+              </div>
+            </a>
+          </div>
+          <div class="step-content">
+            <h3 class="step-title" data-step="04">Deployment &amp; Final Touches</h3>
+            <p>Utilizing the same color palette and typography, we created a modernized design and aesthetic for the site. This included a hero video to introduce the brand and its commitment to quality.</p>
+            <a href="https://qurado.es/" target="_blank" class="btn-link mt-3">Visit Live Site →</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Results & Impact Section -->
+  <section id="results" class="case-section">
+    <div class="container">
+      <div class="section-header">
+        <div class="section-number">03 — Results & Impact</div>
+        <h2 class="section-title">Visual Showcase</h2>
+        <p class="section-description">
+          A collection of concepts, mockups, and final designs from the project.
+        </p>
+      </div>
+
+      <!-- Visual Showcase -->
+      <div class="case-study-showcase">
+        <div class="showcase-row">
+          <div class="showcase-item">
+            <a href="/assets/img/qurado/Documentation/web_intro_mockup_1.png"> 
+              <div class="hoverbox overlay">
+                <img src="/assets/img/qurado/Documentation/web_intro_mockup_1.png" alt="Qurado Web Intro Mockup">
+                <div class="hoverbox-content">
+                  <i class="text-white" data-feather="plus"></i>
+                </div>
+              </div>
+            </a>
+          </div>
+        </div>
+        
+        <div class="showcase-row">
+          <div class="showcase-item showcase-item--half">
+            <a href="/assets/img/qurado/Documentation/discover_ipad.png"> 
+              <div class="hoverbox">
+                <img src="/assets/img/qurado/Documentation/discover_ipad.png" alt="Qurado Discover on iPad">
+                <div class="hoverbox-content">
+                  <i class="text-white" data-feather="plus"></i>
+                </div>
+              </div>
+            </a>
+          </div>
+          <div class="showcase-item showcase-item--half">
+            <a href="/assets/img/qurado/Documentation/iPad Pro mockup 13-inch top view.png"> 
+              <div class="hoverbox">
+                <img src="/assets/img/qurado/Documentation/iPad Pro mockup 13-inch top view.png" alt="Qurado on iPad Pro">
+                <div class="hoverbox-content">
+                  <i class="text-white" data-feather="plus"></i>
+                </div>
+              </div>
+            </a>
+          </div>
+        </div>
+        
+        <div class="showcase-row">
+          <div class="showcase-item showcase-item--half">
+            <a href="/assets/img/qurado/Documentation/concept_1.png"> 
+              <div class="hoverbox">
+                <img src="/assets/img/qurado/Documentation/concept_1.png" alt="Qurado Concept 1">
+                <div class="hoverbox-content">
+                  <i class="text-white" data-feather="plus"></i>
+                </div>
+              </div>
+            </a>
+          </div>
+          <div class="showcase-item showcase-item--half">
+            <a href="/assets/img/qurado/Documentation/concept_2.png"> 
+              <div class="hoverbox">
+                <img src="/assets/img/qurado/Documentation/concept_2.png" alt="Qurado Concept 2">
+                <div class="hoverbox-content">
+                  <i class="text-white" data-feather="plus"></i>
+                </div>
+              </div>
+            </a>
+          </div>
+        </div>
+
+        <div class="showcase-row">
+          <div class="showcase-item">
+            <a href="/assets/img/qurado/Documentation/QURADO - Branding + Look&Feel v2.png"> 
+              <div class="hoverbox">
+                <img src="/assets/img/qurado/Documentation/QURADO - Branding + Look&Feel v2.png" alt="Qurado Branding">
+                <div class="hoverbox-content">
+                  <i class="text-white" data-feather="plus"></i>
+                </div>
+              </div>
+            </a>
+          </div>
+        </div>
+
+        <div class="showcase-row">
+            <div class="showcase-item showcase-item--half">
+              <a href="/assets/img/qurado/Documentation/prototype_1.png"> 
+                <div class="hoverbox">
+                  <img src="/assets/img/qurado/Documentation/prototype_1.png" alt="Qurado Prototype 1">
+                  <div class="hoverbox-content">
+                    <i class="text-white" data-feather="plus"></i>
+                  </div>
+                </div>
+              </a>
+            </div>
+            <div class="showcase-item showcase-item--half">
+              <a href="/assets/img/qurado/Documentation/prototype_2.png"> 
+                <div class="hoverbox">
+                  <img src="/assets/img/qurado/Documentation/prototype_2.png" alt="Qurado Prototype 2">
+                  <div class="hoverbox-content">
+                    <i class="text-white" data-feather="plus"></i>
+                  </div>
+                </div>
+              </a>
+            </div>
+          </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Call to Action -->
+  <section class="cta-section">
+    <div class="container">
+      <h2 class="cta-title">Let's Work Together</h2>
+      <p class="cta-text">Interested in discussing how I can help bring your next project to life?</p>
+      <form action="mailto:rosean.frankalexander@gmail.com" method="get" enctype="text/plain" class="cta-form">
+        <input type="email" name="email" placeholder="Enter your email address" required>
+        <input type="hidden" name="subject" value="Project Inquiry from Qurado Case Study">
+        <button type="submit" class="btn-primary">Get in Touch</button>
+      </form>
+    </div>
+  </section>
+
+
+ <!-- Lightbox -->
+ <div id="lightbox" class="lightbox hidden">
+  <button id="lightbox-close" class="lightbox-close">&times;</button>
+  <button id="lightbox-prev" class="lightbox-prev nav-btn">‹</button>
+  <button id="lightbox-next" class="lightbox-next nav-btn">›</button>
+  <div class="lightbox-content">
+    <img id="lightbox-img" src="" alt="Gallery Preview" class="lightbox-zoomable" />
+    <div id="lightbox-caption" class="lightbox-caption"></div>
+  </div>
+</div>
+
+  <!-- Footer -->
+  <footer class="footer p-3 pt-4">
+      <div class="container">
+        <div class="row align-items-center pb-4"> 
+          <div class="col-md-4 col-sm-6 mb-3 d-flex align-items-center">
+            <a href="index.html">
+              <img src="assets/img/rjfa_horizontal_svg.svg" width="34" height="34" alt="RJFA Logo" />
+            </a>
+            <span class="ms-2">&copy; 2025</span>
+          </div>
+
+          <div class="col-md-4 col-sm-6">
+            <h3 class="mb-2 fs-base">Navigation</h3>
+            <ul class="list-unstyled">
+              <li><a class="nav-link" href="index.html#hero">Home</a></li>
+              <li><a class="nav-link" href="index.html#about">About Me</a></li>
+              <li><a class="nav-link" href="index.html#work">Featured Work</a></li>
+              <li><a class="nav-link" href="gallery.html">Gallery</a></li>
+              <li><a class="nav-link" href="mailto:rosean.frankalexander@gmail.com">Contact</a></li>
+            </ul>
+          </div>
+
+          <div class="col-md-4 col-sm-6">
+            <h3 class="mb-2 fs-base">Socials</h3>
+            <ul class="list-unstyled d-flex gap-3">
+              <li><a href="https://www.linkedin.com/in/rfrankale/" target="_blank"><i data-feather="linkedin"></i></a></li>
+              <li><a href="https://github.com/roseanfrankale/" target="_blank"><i data-feather="github"></i></a></li>
+              <li><a href="https://dribbble.com/rjfa/" target="_blank"><i data-feather="dribbble"></i></a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </footer>
+
+
+  <!-- Scripts -->
+  <!-- Bootstrap JS Bundle (includes Popper) -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+  <!-- GSAP + ScrollTrigger -->
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.2/dist/gsap.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.2/dist/ScrollTrigger.min.js"></script>
+  <script src="https://unpkg.com/imagesloaded@5/imagesloaded.pkgd.min.js"></script>
+  <script src="https://unpkg.com/isotope-layout@3/dist/isotope.pkgd.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.2/dist/Flip.min.js"></script>
+
+ <!-- Custom Animations -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/color-thief/2.3.0/color-thief.umd.js"></script>
+  <script src="assets/js/gallery.js"></script>
+  <script src="assets/js/case-study.js"></script>
+  <script src="assets/js/case-study-extended.js"></script>
+
+   </body>
+
+</html>
+
+<!-- Old Content Below, for reference -->
+<!--
+
+    <main class="main min-vh-100 " id="top">
+
+      <div class="preloader" id="preloader">
+        <div class="loader">
+        </div>
+      </div>
+
+      <section class="py-0  .d-none .d-md-block .d-xl-none .d-xxl-none" id="promotionHeader">
+        <div class="bg-holder overlay-2 overflow-hidden "
+          style="background-image:url(/assets/img/qurado/Qurado_Dribble_Landing.png);"
+          data-zanim-xs='{"delay":0.4,"animation":"zoom-out"}' data-zanim-trigger="scroll">
+  
+        </div>
+        <div class="container">
+          <div class="row min-vh-100 align-items-center py- g-1">
+            <div class="col-lg-6" data-zanim-timeline='{"delay":0.4}' data-zanim-trigger="scroll">
+              <div class="overflow-hidden">
+                <h1 class=" fs-sm-5 fs-md-4 fw-light fs-md-4 fs-md-8" data-zanim-xs='{"delay":0.1}'>Qurado</h1>
+                  
+                   
+              </div>
+              <div class="overflow-hidden">
+                
+                <a
+                class="btn btn-dark btn-sm mt1"
+                href="#qurado-gallery"
+                >See Gallery</a>
+                
+                <a
+                  class="indicator indicator-down"
+                  data-zanim-timeline='{"delay":1}'
+                  data-zanim-trigger="scroll"
+                  href="#target-down"
+                  data-offset="60"
+                  ><span
+                    class="indicator-arrow indicator-arrow-one"
+                    data-zanim-xs='{"from":{"opacity":0,"y":15},"to":{"opacity":1,"y":-5,"scale":1},"ease":"Back.easeOut","duration":0.4,"delay":0.25}'
+                  ></span
+                  ><span
+                    class="indicator-arrow indicator-arrow-two"
+                    data-zanim-xs='{"from":{"opacity":0,"y":15},"to":{"opacity":1,"y":-5,"scale":1},"ease":"Back.easeOut","duration":0.4,"delay":0.5}'
+                  ></span></a
+                >
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+        <section class="p-0 bg-light" id="LandingHeader">
+            <div class="row justify-content-center py-100 px-2 py-2 mt-5 mb-5" id="roles">
+                <div class="container">
+                    <div class="row" data-zanim-timeline="{}" data-zanim-trigger="scroll">
+                        <div class="col-lg-6 position-relative">
+                            <div class="h-100 mt-5 mb-5"
+                                data-zanim-lg='{"animation":"slide-right","from":{"opacity":0},"delay":0.4}'
+                                data-zanim-trigger="scroll">
+                                <div class="px-3 parallax" d data-zanim-trigger="scroll"
+                                    data-zanim-lg='{"animation":"slide-right","delay":0}'>
+                                    <img src="/assets/img/qurado/Documentation/Masonry Grid Images.png"
+                                        alt="Image" class="img-fluid" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6 pl-lg-5">
+                            <div class="row flex-center py-6 py-md-8">
+                                <div class="col-11 col-sm-10">
+                                    <div class="overflow-hidden">
+                                        <h2 class="fw-light  text-uppercase fs-3 fs-lg-4" data-zanim-lg='{"delay":0.4}'>
+                                            Roles &amp; <br />
+                                            Responsibilites:
+                                        </h2>
+                                    </div>
+                                    <div class="overflow-hidden mt-3">
+                                        <div class="col-sm-6 col-md-6 col-lg-6 mb-4">
+                                            <div class="detail-v1">
+                                                <span class="detail-label">Client</span>
+                                                <span class="detail-val">Pablo Simon (Founder)</span>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-6 col-md-6 col-lg-6 mb-4">
+                                            <div class="detail-v1">
+                                                <span class="detail-label">Role</span>
+                                                <p class="mb-0 detail-val">UI/UX Consultant</p>
+
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-6 col-md-6 col-lg-6 mb-4">
+                                            <div class="detail-v1">
+                                                <span class="detail-label">Project Start</span>
+                                                <span class="detail-val">Oct, 2022</span>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-6 col-md-6 col-lg-6 mb-4">
+                                            <div class="detail-v1">
+                                                <span class="detail-label">Project End</span>
+                                                <span class="detail-val">Nov, 2022</span>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-6 col-md-6 col-lg-6 mb-4">
+                                            <div class="detail-v1">
+                                                <span class="detail-label">Role</span>
+                                                <span class="detail-val">
+                                                    <a href="#">UI/UX Design</a>,
+                                                    <a href="#">Consulting</a>,
+                                                </span>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-6 col-md-6 col-lg-6 mb-4">
+                                            <div class="detail-v1">
+                                                <span class="detail-label">Tools</span>
+                                                <span class="detail-val"><a href="#">Adobe Creative Cloud</a>,<a
+                                                        href="#">Figma</a></span>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-6 col-md-6 col-lg-6 mb-4">
+                                            <div class="detail-v1">
+                                                <span class="detail-label">Project Start</span>
+                                                <span class="detail-val">Nov, 2020</span>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-6 col-md-6 col-lg-6 mb-4">
+                                            <div class="detail-v1">
+                                                <span class="detail-label">Visit QURADO</span>
+                                                <span class="detail-val"><a
+                                                        href="https://qurado.es/">https://qurado.es/</a></span>
+                                            </div>
+                                        </div>
+                                        <div class=" col-sm-6 col-md-6 col-lg-6 mb-4">
+                                            <p class="font-sans-serif mt-4 text-500" data-zanim-lg='{"delay":0.5}'>
+                                                Qurado works directly with the best local producers throughout Spain.
+                                                The selection of producers is carried out by a committee made up of
+                                                professionals in the sector. <br /> All products are harvested or
+                                                processed just before shipment and directly from the origin.
+                                            </p>
+
+                                        </div>
+
+                                    </div>
+                                    <div class="overflow-hidden">
+                                        <div class="mt-3 mt-lg-5" data-zanim-xs='{"delay":0.6}'>
+                                            <a class="btn btn-outline-dark" href="https://qurado.es/">Visit
+                                                Website</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                 </div>
+        </section>
+
+            <section class="p-0" id="bigcartelAbout">
+                <div class="container  p-2 ">
+                  <div class="row bg-light shadow-sm mt-5 justify-content-center">
+                    <div class="col-lg-7">
+                      <p class="fs-2 mt-5 font-sans-serif fw-normal text-dark">For Qurado, I worked in a minor consulting
+                        capacticy to demonstrate how <span
+                            class="text-decoration-underline fw-light ms-1">Figma</span>, <span
+                            class="text-decoration-underline fw-light ms-1">Adobe XD</span>, and tools like<span
+                            class="text-decoration-underline fw-light ms-1">Notion</span> would increase website
+                        traffic and engagement.</p>
+                  </div>
+                  <div class="row p-4 mt-3">
+                    <div class="col-lg-8 px-lg-2 ">
+                      <a
+                      href="/assets/img/qurado/Documentation/web_intro_mockup_1.png"
+                      
+                      class="glightbox"
+                      data-gallery="qurado-gallery-1"
+                    >
+                   <img
+                    src="/assets/img/qurado/Documentation/web_intro_mockup_1.png"
+                    class="rounded img-fluid"
+                    alt="Images" data-zanim-lg='{"delay":0.1,"animation":"zoom-in"}'
+                    data-zanim-trigger="scroll"
+                  />
+                </a>
+                    </div>
+                    <div class="col-lg px-lg-2 mt-2 mt-lg-0">
+                      <div class="row bg-light ">
+                        <div class="col-12 px-lg-2">
+                          <a
+                          href="/assets/img/qurado/Documentation/discover_ipad.png"
+                          
+                          class="glightbox"
+                          data-gallery="qurado-gallery-1"
+                        >
+                       <img
+                        src="/assets/img/qurado/Documentation/discover_ipad.png"
+                        class="rounded img-fluid"
+                        alt="Images" data-zanim-lg='{"delay":0.1,"animation":"zoom-in"}'
+                        data-zanim-trigger="scroll"
+                      />
+                    </a>
+                      
+                        </div>
+                        <div class="col px-lg-2 mt-2">
+                          <a
+                          href="/assets/img/qurado/Documentation/iPad Pro mockup 13-inch top view.png"
+                          
+                          class="glightbox"
+                          data-gallery="qurado-gallery-1"
+                        >
+                       <img
+                        src="/assets/img/qurado/Documentation/iPad Pro mockup 13-inch top view.png"
+                        class="rounded img-fluid"
+                        alt="Images" data-zanim-lg='{"delay":0.1,"animation":"zoom-in"}'
+                        data-zanim-trigger="scroll"
+                      />
+                    </a>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </section>   
+
+    <section class="pb-0">
+        <div class="row px-2 py-2 mt-5">
+          <div class="features-6">
+            <div class="container">
+              <div class="row">
+                <div class="col-md-8 mx-auto ">
+                  <h4 class="description fs-2 font-sans-serif fw-normal text-dark">
+                    During the consulting phase, I worked with the client to create a few new concepts on the original design, and made a few sugggetions on how to improve the user experience.
+                  </h4>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-12 ps-lg-7">
+                  <div class="row mt-5 align-items-end">
+                    <div class="col-lg-6 order-lg-2 text-center"> <a
+                        href="/assets/img/qurado/Documentation/Quravío_Sitemap.png"
+                        
+                        class="glightbox"
+                        data-gallery="qurado-gallery-2"
+                      >
+                     <img
+                      src="/assets/img/qurado/Documentation/Quravío_Sitemap.png"
+                      class="rounded img-fluid"
+                      alt="Images" data-zanim-lg='{"delay":0.1,"animation":"zoom-in"}'
+                      data-zanim-trigger="scroll"
+                    />
+                  </a>
+                    
+                    </div>
+                    <div
+                      class="col-lg-6 border-start-lg border-bottom-lg pb-lg-8 mt-4 mt-lg-0 mb-8 mb-lg-0"
+                    >
+                      <div class="process-item ms-6 ms-sm-8 ms-lg-6">
+                        
+                        <h3>Sitemap</h3>
+                        <p class="fs-1 text-dark">
+                         My first task was to create a sitemap for the new design. I used the existing sitemap as a starting point, and made a few changes to the structure to make it more user-friendly.
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+
+
+                  <div class="row">
+                    <div
+                      class="col-lg-6 border-end-lg border-bottom-lg text-center py-lg-8"
+                    ><a
+                    href="/assets/img/qurado/Documentation/Qurado Marca Concepto.png"
+                    
+                    class="glightbox"
+                    data-gallery="qurado-gallery-2"
+                  >
+                 <img
+                  src="/assets/img/qurado/Documentation/Qurado Marca Concepto.png"
+                  class="rounded img-fluid"
+                  alt="Images" data-zanim-lg='{"delay":0.1,"animation":"zoom-in"}'
+                  data-zanim-trigger="scroll"
+                />
+              </a>
+                     
+                    </div>
+                    <div class="col-lg-6 mt-4 mb-8 my-lg-8">
+                      <div class="process-item ms-6 ms-sm-8 ms-lg-6">
+                        
+                        <h3>Branding</h3>
+                        <p class="fs-1 text-dark">
+                          We worked on creating a few new branding concepts for the new design. We wanted to create a more modern and sleek look for the app, so we experimented with different color schemes and typography.
+                        </p>
+                        
+                      </div>
+                    
+                    </div>
+                  </div>
+
+                  <div class="row">
+                    
+                    <div
+                      class="col-lg-6 order-lg-2 text-center align-self-center nebusis logos">
+                   <a
+                    href="/assets/img/qurado/Documentation/prototype_1.png"
+                    
+                    class="glightbox"
+                    data-gallery="qurado-gallery-2"
+                  >
+                 <img
+                  src="/assets/img/qurado/Documentation/prototype_1.png"
+                  class="rounded img-fluid"
+                  alt="Images" data-zanim-lg='{"delay":0.1,"animation":"zoom-in"}'
+                  data-zanim-trigger="scroll"
+                />
+              </a>
+                    </div>
+                    <div
+                      class="col-lg-6 border-start-lg border-bottom-lg py-lg-8 mt-4 mt-lg-0 mb-8 mb-lg-0"
+                    >
+                      <div class="process-item ms-6 ms-sm-8 ms-lg-6">
+                       
+                        <h3>Workflows</h3>
+                        <p class="fs-1 text-dark">
+                        We worked on checkout flows and payment flows for the new design. We wanted to make the checkout process as smooth and easy as possible for our users, so we tested a few different designs and made a few changes to the flow.
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row pb-1">
+                    <div class="col-lg-6 border-end-lg text-center py-lg-8"> <a
+                        href="/assets/img/qurado/Documentation/iPad Pro mockup 13-inch top view.png"
+                        
+                        class="glightbox"
+                        data-gallery="qurado-gallery-2"
+                      >
+                     <img
+                      src="/assets/img/qurado/Documentation/iPad Pro mockup 13-inch top view.png"
+                      class="rounded img-fluid"
+                      alt="Images" data-zanim-lg='{"delay":0.1,"animation":"zoom-in"}'
+                      data-zanim-trigger="scroll"
+                    />
+                  </a>
+                      <img
+                        class="img-fluid shadow"
+                        src=""
+                        alt=""
+                        width="400"
+                      />
+                  </div>
+                  <div
+                    class="col-lg-6 align-self-center mb-5 mt-4 mb-5 mt-lg-0 mt-lg-8"
+                  >
+                    <div
+                      class="process-item process-item-last ms-6 ms-sm-8 ms-lg-6"
+                    >
+                      <h3>Deployment</h3>
+                      <p class="fs-1 text-dark">
+                        Utilizing the same color pallet and typography, we created a modernized design and asthetic for the site. This included a hero video to introduce the brand.
+                      </p>
+                      <a
+                        class="btn btn-outline-dark btn-sm mt-3"
+                        href="https://qurado.es/"
+                        >See Website</a
+                      >
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+      </div>
+    </div>
+  </section>
+
+        <section class=" bg-light" id="qurado-gallery">
+            <div class="container">
+              <div class="row mb-5">
+                <div class="col">
+      
+                  <div class="row mt-3">
+                    <h2 class="mb-3 fs-3 text-center neumorp-heading">Gallery</h2>
+                    <ul class="nav font-sans-serif fs-2 mb-3 justify-content-center" data-filter-nav="data-filter-nav">
+                        <li class="nav-item"><a class="nav-link isotope-nav active" href="#!" data-filter="*">all</a></li>
+                        <li class="nav-item"> <a class="nav-link isotope-nav" href="#!" data-filter=".dashboards">Dashboards</a></li>
+                        <li class="nav-item"> <a class="nav-link isotope-nav" href="#!" data-filter=".landing">Landing Pages</a></li>
+                        <li class="nav-item"> <a class="nav-link isotope-nav" href="#!" data-filter=".logos">Logos</a></li>
+                        <li class="nav-item"> <a class="nav-link isotope-nav" href="#!" data-filter=".marketing">Marketing</a></li>
+                        <li class="nav-item"><a class="nav-link isotope-nav" href="#!" data-filter=".mockups">Mockups</a></li>
+                        <li class="nav-item"> <a class="nav-link isotope-nav" href="#!" data-filter=".vectors">Vectors</a></li>
+                        <li class="nav-item"> <a class="nav-link isotope-nav" href="#!" data-filter=".wireframes">Wireframes</a></li>
+                      </ul>
+                      </ul>
+                  </div>
+               
+      
+                
+      
+                  <div class="row g-3 mt-2" id="portfolio-gallery" data-zanim-timeline="{}" data-zanim-trigger="scroll"
+                    data-isotope='{"layoutMode":"packery"}'>
+
+
+              <div class="col-6 col-md-3 isotope-item qurado landing wireframes">
+                <a class="glightbox" data-gallery="qurado-gallery-1" href="/assets/img/qurado/Documentation/concept_1.png">
+                    <div class="hoverbox rounded portfolio-item overlay overflow-hidden" data-zanim-xs='{"animation":"zoom-in"}'>
+                        <img class="w-100" src="/assets/img/qurado/Documentation/concept_1.png" alt="Concept 1" />
+                        <div class="hoverbox-content bg-dark d-flex flex-center text-center">
+                            <div class="px-4">
+                                <i class="text-white" data-feather="plus"></i>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            </div>
             
-             
+            <div class="col-6 col-md-3 isotope-item qurado landing wireframes">
+                <a class="glightbox" data-gallery="qurado-gallery-1" href="/assets/img/qurado/Documentation/concept_2.png">
+                    <div class="hoverbox rounded portfolio-item overlay overflow-hidden" data-zanim-xs='{"animation":"zoom-in"}'>
+                        <img class="w-100" src="/assets/img/qurado/Documentation/concept_2.png" alt="Concept 2" />
+                        <div class="hoverbox-content bg-dark d-flex flex-center text-center">
+                            <div class="px-4">
+                                <i class="text-white" data-feather="plus"></i>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            </div>
+            
+              
+            <div class="col-6 col-md-3 isotope-item qurado landing wireframes">
+              <a class="glightbox" data-gallery="qurado-gallery-1" href="/assets/img/qurado/Documentation/concept_3.png">
+                  <div class="hoverbox rounded portfolio-item overlay overflow-hidden" data-zanim-xs='{"animation":"zoom-in"}'>
+                      <img class="w-100" src="/assets/img/qurado/Documentation/concept_3.png" alt="Concept 3" />
+                      <div class="hoverbox-content bg-dark d-flex flex-center text-center">
+                          <div class="px-4">
+                              <i class="text-white" data-feather="plus"></i>
+                          </div>
+                      </div>
+                  </div>
+              </a>
+          </div>
+          
+          <div class="col-6 col-md-3 isotope-item qurado landing marketing mockups wireframes">
+              <a class="glightbox" data-gallery="qurado-gallery-1" href="/assets/img/qurado/Documentation/concept_4.png">
+                  <div class="hoverbox rounded portfolio-item overlay overflow-hidden" data-zanim-xs='{"animation":"zoom-in"}'>
+                      <img class="w-100" src="/assets/img/qurado/Documentation/concept_4.png" alt="Concept 4" />
+                      <div class="hoverbox-content bg-dark d-flex flex-center text-center">
+                          <div class="px-4">
+                              <i class="text-white" data-feather="plus"></i>
+                          </div>
+                      </div>
+                  </div>
+              </a>
+          </div>
+          
+          <div class="col-6 col-md-3 isotope-item qurado landing marketing mockups wireframes">
+              <a class="glightbox" data-gallery="qurado-gallery-1" href="/assets/img/qurado/Documentation/concept_5.png">
+                  <div class="hoverbox rounded portfolio-item overlay overflow-hidden" data-zanim-xs='{"animation":"zoom-in"}'>
+                      <img class="w-100" src="/assets/img/qurado/Documentation/concept_5.png" alt="Concept 5" />
+                      <div class="hoverbox-content bg-dark d-flex flex-center text-center">
+                          <div class="px-4">
+                              <i class="text-white" data-feather="plus"></i>
+                          </div>
+                      </div>
+                  </div>
+              </a>
+          </div>
+          
+          <div class="col-6 col-md-3 isotope-item qurado landing marketing mockups wireframes">
+              <a class="glightbox" data-gallery="qurado-gallery-1" href="/assets/img/qurado/Documentation/QURADO - Branding + Look&Feel v2.png">
+                  <div class="hoverbox rounded portfolio-item overlay overflow-hidden" data-zanim-xs='{"animation":"zoom-in"}'>
+                      <img class="w-100" src="/assets/img/qurado/Documentation/QURADO - Branding + Look&Feel v2.png" alt="QURADO - Branding and Look & Feel v2" />
+                      <div class="hoverbox-content bg-dark d-flex flex-center text-center">
+                          <div class="px-4">
+                              <i class="text-white" data-feather="plus"></i>
+                          </div>
+                      </div>
+                  </div>
+              </a>
+          </div>
+          
+          <div class="col-6 col-md-3 isotope-item qurado landing marketing wireframes">
+              <a class="glightbox" data-gallery="qurado-gallery-1" href="/assets/img/qurado/Documentation/variant_design_1.png">
+                  <div class="hoverbox rounded portfolio-item overlay overflow-hidden" data-zanim-xs='{"animation":"zoom-in"}'>
+                      <img class="w-100" src="/assets/img/qurado/Documentation/variant_design_1.png" alt="Variant Design 1" />
+                      <div class="hoverbox-content bg-dark d-flex flex-center text-center">
+                          <div class="px-4">
+                              <i class="text-white" data-feather="plus"></i>
+                          </div>
+                      </div>
+                  </div>
+              </a>
+          </div>
+          
+          <div class="col-6 col-md-3 isotope-item qurado landing marketing mockups wireframes">
+              <a class="glightbox" data-gallery="qurado-gallery-1" href="/assets/img/qurado/Documentation/design_variant_2.png">
+                  <div class="hoverbox rounded portfolio-item overlay overflow-hidden" data-zanim-xs='{"animation":"zoom-in"}'>
+                      <img class="w-100" src="/assets/img/qurado/Documentation/design_variant_2.png" alt="Design Variant 2" />
+                      <div class="hoverbox-content bg-dark d-flex flex-center text-center">
+                          <div class="px-4">
+                              <i class="text-white" data-feather="plus"></i>
+                          </div>
+                      </div>
+                  </div>
+              </a>
+          </div>
+          
+          <div class="col-6 col-md-3 isotope-item qurado dashboards  mockups">
+              <a class="glightbox" data-gallery="qurado-gallery-1" href="/assets/img/qurado/Documentation/Product_description.png">
+                  <div class="hoverbox rounded portfolio-item overlay overflow-hidden" data-zanim-xs='{"animation":"zoom-in"}'>
+                      <img class="w-100" src="/assets/img/qurado/Documentation/Product_description.png" alt="Product Description" />
+                      <div class="hoverbox-content bg-dark d-flex flex-center text-center">
+                          <div class="px-4">
+                              <i class="text-white" data-feather="plus"></i>
+                          </div>
+                      </div>
+                  </div>
+              </a>
+          </div>
+          
+          <div class="col-6 col-md-3 isotope-item qurado dashboards  marketing mockups ">
+              <a class="glightbox" data-gallery="qurado-gallery-1" href="/assets/img/qurado/Documentation/iPad%20Pro%20mockup%2013-inch%20top%20view.png">
+                  <div class="hoverbox rounded portfolio-item overlay overflow-hidden" data-zanim-xs='{"animation":"zoom-in"}'>
+                      <img class="w-100" src="/assets/img/qurado/Documentation/iPad%20Pro%20mockup%2013-inch%20top%20view.png" alt="iPad Pro Mockup 13-inch Top View" />
+                      <div class="hoverbox-content bg-dark d-flex flex-center text-center">
+                          <div class="px-4">
+                              <i class="text-white" data-feather="plus"></i>
+                          </div>
+                      </div>
+                  </div>
+              </a>
+          </div>
+          
+          <div class="col-6 col-md-3 isotope-item qurado dashboards  marketing mockups">
+              <a class="glightbox" data-gallery="qurado-gallery-1" href="/assets/img/qurado/Documentation/related_prodcuts.png">
+                  <div class="hoverbox rounded portfolio-item overlay overflow-hidden" data-zanim-xs='{"animation":"zoom-in"}'>
+                      <img class="w-100" src="/assets/img/qurado/Documentation/related_prodcuts.png" alt="Related Products" />
+                      <div class="hoverbox-content bg-dark d-flex flex-center text-center">
+                          <div class="px-4">
+                              <i class="text-white" data-feather="plus"></i>
+                          </div>
+                      </div>
+                  </div>
+              </a>
+          </div>
+
+
+          <div class="col-6 col-md-3 isotope-item qurado dashboards marketing mockups">
+            <a class="glightbox" data-gallery="qurado-gallery-1" href="/assets/img/qurado/Documentation/prototype_1.png">
+              <div class="hoverbox rounded portfolio-item overlay overflow-hidden" data-zanim-xs='{"animation":"zoom-in"}'>
+                <img class="w-100" src="/assets/img/qurado/Documentation/prototype_1.png" alt="Variant Design 1" />
+                <div class="hoverbox-content bg-dark d-flex flex-center text-center">
+                  <div class="px-4">
+                    <i class="text-white" data-feather="plus"></i>
+                  </div>
+                </div>
+              </div>
+            </a>
+          </div>
+          
+          <div class="col-6 col-md-3 isotope-item qurado dashboards marketing mockups">
+            <a class="glightbox" data-gallery="qurado-gallery-1" href="/assets/img/qurado/Documentation/prototype_2.png">
+              <div class="hoverbox rounded portfolio-item overlay overflow-hidden" data-zanim-xs='{"animation":"zoom-in"}'>
+                <img class="w-100" src="/assets/img/qurado/Documentation/prototype_2.png" alt="Variant Design 2" />
+                <div class="hoverbox-content bg-dark d-flex flex-center text-center">
+                  <div class="px-4">
+                    <i class="text-white" data-feather="plus"></i>
+                  </div>
+                </div>
+              </div>
+            </a>
+          </div>
+          
+
+          <div class="col-6 col-md-3 isotope-item qurado dashboards marketing mockups">
+            <a class="glightbox" data-gallery="qurado-gallery-1" href="/assets/img/qurado/Documentation/prototype_final.png">
+              <div class="hoverbox rounded portfolio-item overlay overflow-hidden" data-zanim-xs='{"animation":"zoom-in"}'>
+                <img class="w-100" src="/assets/img/qurado/Documentation/prototype_final.png" alt="Variant Design 2" />
+                <div class="hoverbox-content bg-dark d-flex flex-center text-center">
+                  <div class="px-4">
+                    <i class="text-white" data-feather="plus"></i>
+                  </div>
+                </div>
+              </div>
+            </a>
+          </div>
+
+
+          <div class="col-6 col-md-3 isotope-item qurado dashboards marketing mockups">
+            <a class="glightbox" data-gallery="qurado-gallery-1" href="/assets/img/qurado/Documentation/wireframe-1.png">
+              <div class="hoverbox rounded portfolio-item overlay overflow-hidden" data-zanim-xs='{"animation":"zoom-in"}'>
+                <img class="w-100" src="/assets/img/qurado/Documentation/wireframe-1.png" alt="Variant Design 2" />
+                <div class="hoverbox-content bg-dark d-flex flex-center text-center">
+                  <div class="px-4">
+                    <i class="text-white" data-feather="plus"></i>
+                  </div>
+                </div>
+              </div>
+            </a>
+          </div>
+
+          <div class="col-6 col-md-3 isotope-item qurado dashboards marketing mockups">
+            <a class="glightbox" data-gallery="qurado-gallery-1" href="/assets/img/qurado/Documentation/wireframe2.png">
+              <div class="hoverbox rounded portfolio-item overlay overflow-hidden" data-zanim-xs='{"animation":"zoom-in"}'>
+                <img class="w-100" src="/assets/img/qurado/Documentation/wireframe2.png" alt="Variant Design 2" />
+                <div class="hoverbox-content bg-dark d-flex flex-center text-center">
+                  <div class="px-4">
+                    <i class="text-white" data-feather="plus"></i>
+                  </div>
+                </div>
+              </div>
+            </a>
+          </div>
+
+
+          <div class="col-6 col-md-3 isotope-item qurado dashboards marketing mockups">
+            <a class="glightbox" data-gallery="qurado-gallery-1" href="/assets/img/qurado/Documentation/wireframe3.png">
+              <div class="hoverbox rounded portfolio-item overlay overflow-hidden" data-zanim-xs='{"animation":"zoom-in"}'>
+                <img class="w-100" src="/assets/img/qurado/Documentation/wireframe3.png" alt="Variant Design 2" />
+                <div class="hoverbox-content bg-dark d-flex flex-center text-center">
+                  <div class="px-4">
+                    <i class="text-white" data-feather="plus"></i>
+                  </div>
+                </div>
+              </div>
+            </a>
+          </div>
+
+
+
+  <div class="col-6 col-md-3 isotope-item qurado landing wireframes">
+    <a class="glightbox" data-gallery="qurado-gallery-1" href="/assets/img/qurado/Documentation/concept_1.png">
+        <div class="hoverbox rounded portfolio-item overlay overflow-hidden" data-zanim-xs='{"animation":"zoom-in"}'>
+            <img class="w-100" src="/assets/img/qurado/Documentation/concept_1.png" alt="Concept 1" />
+            <div class="hoverbox-content bg-dark d-flex flex-center text-center">
+                <div class="px-4">
+                    <i class="text-white" data-feather="plus"></i>
+                </div>
+            </div>
+        </div>
+    </a>
+</div>
+
+<div class="col-6 col-md-3 isotope-item qurado landing wireframes">
+    <a class="glightbox" data-gallery="qurado-gallery-1" href="/assets/img/qurado/Documentation/concept_2.png">
+        <div class="hoverbox rounded portfolio-item overlay overflow-hidden" data-zanim-xs='{"animation":"zoom-in"}'>
+            <img class="w-100" src="/assets/img/qurado/Documentation/concept_2.png" alt="Concept 2" />
+            <div class="hoverbox-content bg-dark d-flex flex-center text-center">
+                <div class="px-4">
+                    <i class="text-white" data-feather="plus"></i>
+                </div>
+            </div>
+        </div>
+    </a>
+</div>
+
+  
+<div class="col-6 col-md-3 isotope-item qurado landing wireframes">
+  <a class="glightbox" data-gallery="qurado-gallery-1" href="/assets/img/qurado/Documentation/concept_3.png">
+      <div class="hoverbox rounded portfolio-item overlay overflow-hidden" data-zanim-xs='{"animation":"zoom-in"}'>
+          <img class="w-100" src="/assets/img/qurado/Documentation/concept_3.png" alt="Concept 3" />
+          <div class="hoverbox-content bg-dark d-flex flex-center text-center">
+              <div class="px-4">
+                  <i class="text-white" data-feather="plus"></i>
+              </div>
+          </div>
+      </div>
+  </a>
+</div>
+
+<div class="col-6 col-md-3 isotope-item qurado landing marketing mockups wireframes">
+  <a class="glightbox" data-gallery="qurado-gallery-1" href="/assets/img/qurado/Documentation/concept_4.png">
+      <div class="hoverbox rounded portfolio-item overlay overflow-hidden" data-zanim-xs='{"animation":"zoom-in"}'>
+          <img class="w-100" src="/assets/img/qurado/Documentation/concept_4.png" alt="Concept 4" />
+          <div class="hoverbox-content bg-dark d-flex flex-center text-center">
+              <div class="px-4">
+                  <i class="text-white" data-feather="plus"></i>
+              </div>
+          </div>
+      </div>
+  </a>
+</div>
+
+<div class="col-6 col-md-3 isotope-item qurado landing marketing mockups wireframes">
+  <a class="glightbox" data-gallery="qurado-gallery-1" href="/assets/img/qurado/Documentation/concept_5.png">
+      <div class="hoverbox rounded portfolio-item overlay overflow-hidden" data-zanim-xs='{"animation":"zoom-in"}'>
+          <img class="w-100" src="/assets/img/qurado/Documentation/concept_5.png" alt="Concept 5" />
+          <div class="hoverbox-content bg-dark d-flex flex-center text-center">
+              <div class="px-4">
+                  <i class="text-white" data-feather="plus"></i>
+              </div>
+          </div>
+      </div>
+  </a>
+</div>
+
+<div class="col-6 col-md-3 isotope-item qurado landing marketing mockups wireframes">
+  <a class="glightbox" data-gallery="qurado-gallery-1" href="/assets/img/qurado/Documentation/QURADO - Branding + Look&Feel v2.png">
+      <div class="hoverbox rounded portfolio-item overlay overflow-hidden" data-zanim-xs='{"animation":"zoom-in"}'>
+          <img class="w-100" src="/assets/img/qurado/Documentation/QURADO - Branding + Look&Feel v2.png" alt="QURADO - Branding and Look & Feel v2" />
+          <div class="hoverbox-content bg-dark d-flex flex-center text-center">
+              <div class="px-4">
+                  <i class="text-white" data-feather="plus"></i>
+              </div>
+          </div>
+      </div>
+  </a>
+</div>
+
+<div class="col-6 col-md-3 isotope-item qurado landing marketing wireframes">
+  <a class="glightbox" data-gallery="qurado-gallery-1" href="/assets/img/qurado/Documentation/variant_design_1.png">
+      <div class="hoverbox rounded portfolio-item overlay overflow-hidden" data-zanim-xs='{"animation":"zoom-in"}'>
+          <img class="w-100" src="/assets/img/qurado/Documentation/variant_design_1.png" alt="Variant Design 1" />
+          <div class="hoverbox-content bg-dark d-flex flex-center text-center">
+              <div class="px-4">
+                  <i class="text-white" data-feather="plus"></i>
+              </div>
+          </div>
+      </div>
+  </a>
+</div>
+
+<div class="col-6 col-md-3 isotope-item qurado landing marketing mockups wireframes">
+  <a class="glightbox" data-gallery="qurado-gallery-1" href="/assets/img/qurado/Documentation/design_variant_2.png">
+      <div class="hoverbox rounded portfolio-item overlay overflow-hidden" data-zanim-xs='{"animation":"zoom-in"}'>
+          <img class="w-100" src="/assets/img/qurado/Documentation/design_variant_2.png" alt="Design Variant 2" />
+          <div class="hoverbox-content bg-dark d-flex flex-center text-center">
+              <div class="px-4">
+                  <i class="text-white" data-feather="plus"></i>
+              </div>
+          </div>
+      </div>
+  </a>
+</div>
+
+<div class="col-6 col-md-3 isotope-item qurado dashboards  mockups">
+  <a class="glightbox" data-gallery="qurado-gallery-1" href="/assets/img/qurado/Documentation/Product_description.png">
+      <div class="hoverbox rounded portfolio-item overlay overflow-hidden" data-zanim-xs='{"animation":"zoom-in"}'>
+          <img class="w-100" src="/assets/img/qurado/Documentation/Product_description.png" alt="Product Description" />
+          <div class="hoverbox-content bg-dark d-flex flex-center text-center">
+              <div class="px-4">
+                  <i class="text-white" data-feather="plus"></i>
+              </div>
+          </div>
+      </div>
+  </a>
+</div>
+
+<div class="col-6 col-md-3 isotope-item qurado dashboards  marketing mockups ">
+  <a class="glightbox" data-gallery="qurado-gallery-1" href="/assets/img/qurado/Documentation/iPad%20Pro%20mockup%2013-inch%20top%20view.png">
+      <div class="hoverbox rounded portfolio-item overlay overflow-hidden" data-zanim-xs='{"animation":"zoom-in"}'>
+          <img class="w-100" src="/assets/img/qurado/Documentation/iPad%20Pro%20mockup%2013-inch%20top%20view.png" alt="iPad Pro Mockup 13-inch Top View" />
+          <div class="hoverbox-content bg-dark d-flex flex-center text-center">
+              <div class="px-4">
+                  <i class="text-white" data-feather="plus"></i>
+              </div>
+          </div>
+      </div>
+  </a>
+</div>
+
+<div class="col-6 col-md-3 isotope-item qurado dashboards  marketing mockups">
+  <a class="glightbox" data-gallery="qurado-gallery-1" href="/assets/img/qurado/Documentation/related_prodcuts.png">
+      <div class="hoverbox rounded portfolio-item overlay overflow-hidden" data-zanim-xs='{"animation":"zoom-in"}'>
+          <img class="w-100" src="/assets/img/qurado/Documentation/related_prodcuts.png" alt="Related Products" />
+          <div class="hoverbox-content bg-dark d-flex flex-center text-center">
+              <div class="px-4">
+                  <i class="text-white" data-feather="plus"></i>
+              </div>
+          </div>
+      </div>
+  </a>
+</div>
+
+
+
+
+
+                  </div>
+                  </div>
+                </div>           
+            </div>
+        </section>
+
+
+
+      </main>
+
+      <footer class="footer mt-5 bg-dark p-5 pt-5">
+        <div class="row align-items-center pb-4">
+          <div class="text-nowrap  border-light py-4">
+            <div class="row">
+              <div class="col-md-4 col-sm-6 mb-3">
+                <a href="https://roseanfrankale.github.io/" class="mr-auto mb-3"><img src="/assets/img/rjfa_logo_grey_svg.svg"
+                  width="30" height="34" alt="" class="navbar-brand" /></a>
+                  <span class="mb-3 mb-md-0">&copy; 2022</span>
+                  
+              </div>
+              <div class="col-md-4 col-sm-6">
+                <h3 class="mb-2 pb-1 fs-base text-light">Navigation</h3>
+                <ul class="list-unstyled fs-sm">
+                  <li><a class="nav-link active" href="https://roseanfrankale.github.io/">HOME</a></li>
+                  <li><a class="nav-link-light"href="https://roseanfrankale.github.io/about">ABOUT ME</a></li>
+                  <li><a class="nav-link-light"href="#work">FEATURED WORK</a></li>
+                  <li><a class="nav-link-light"href="https://roseanfrankale.github.io/gallery">GALLERY</a></li>
+                  <li><a class="nav-link-light" href="mailto:rosean.frankalexander@gmail.com">CONTACT: </a>
+                    <a class="text-white" href="mailto:rosean.frankalexander@gmail.com">rosean.frankalexander@gmail.com</a>  
+                  </li>
+                </ul>
+              </div>
+              <div class=" text-nowrap col-md-4 col-sm-6">
+                <h3 class=" mb-2 pb-1 fs-base text-light">Socials</h3>
+              <ul class="list-unstyled fs-sm">
+                <li class="nav-item d-flex align-items-center">
+                  <a class="nav-link px-2" href="https://www.linkedin.com/in/rfrankale/">
+                    <i class="social-icons" data-feather="linkedin"></i>
+                  </a>
+                </li>
+                <li class="nav-item d-flex align-items-center">
+                  <a class="nav-link px-2" href="https://github.com/roseanfrankale/">
+                    <i class="social-icons" data-feather="github"></i>
+                  </a>
+                </li>
+                <li class="nav-item d-flex align-items-center">
+                  <a class="nav-link px-2" href="https://dribbble.com/rjfa/">
+                    <i class="social-icons" data-feather="dribbble"></i>
+                  </a>
+                </li>
+              </ul>        
+              </div>
+            </div>
+            <div class="col-sm-4 mb-4">
+              
+            </div>
+          </div> 
+        </div>   
+      </footer>
+
+<div class="modal fade" id="connectModal" tabindex="-1" aria-labelledby="connectModalLabel" aria-hidden="true">
+<div class="modal-dialog modal-fullscreen">
+  <div class="modal-content bg-opacity-75">
+    <div class="modal-header">
+     
+      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+    </div>
+    <div class="modal-body">
+  <section class="text-centerfont-sans-serif" id="Contact">
+      <div class="container">
+        <div class="row justify-content-center">
+          <h1 class="text-dark-50 text-center mb-3">Let's Connect!</h1>
+            <h3 class="text-500 text-center mb-5"> Let's collaborate on your next project - I'd love to hear from you!</h3>              <form class="text-start">
+              <div class="row justify-content-center">
+                <div class="col-lg-8">
+                  <script charset="utf-8" type="text/javascript" src="//js.hsforms.net/forms/embed/v2.js"></script>
+                  <script>
+                    hbspt.forms.create({
+                      region: "na1",
+                      portalId: "6082856",
+                      formId: "bb8fb749-8c59-4df3-9fe5-eb65fcb39797"
+                    });
+                  </script>
+                </div>
+              </div>
+            </form>
+        </div>
+      </div>
+    </section>
+    </div>
+  </div>
+</div>
+</div>
+      
+      
+         <script src="/vendors/popper/popper.min.js"></script>
+         <script src="/vendors/bootstrap/bootstrap.min.js"></script>
+         <script src="/vendors/anchorjs/anchor.min.js"></script>
+         <script src="/vendors/is/is.min.js"></script>
+         <script src="/vendors/swiper/swiper-bundle.min.js"></script>
+         <script src="/vendors/bigpicture/BigPicture.js"> </script>
+         <script src="/vendors/isotope-layout/isotope.pkgd.min.js"> </script>
+         <script src="/vendors/isotope-packery/packery-mode.pkgd.min.js"> </script>
+         <script src="/vendors/progressbar/progressbar.min.js"></script>
+         <script src="/vendors/rellax/rellax.min.js"> </script>
+         <script src="/vendors/fontawesome/all.min.js"></script>
+         <script src="/vendors/lodash/lodash.min.js"></script>
+         <script src="////polyfill.io/v3/polyfill.min58be.js?features=window.scroll"></script>
+         <script src="/vendors/imagesloaded/imagesloaded.pkgd.js"></script>
+         <script src="/vendors/gsap/gsap.js"></script>
+         <script src="/vendors/gsap/customEase.js"></script>
+         <script src="/vendors/gsap/drawSVGPlugin.js"></script>
+         <script src="/vendors/glightbox/glightbox.js"></script>
+       <script src="https://unpkg.com/feather-icons"></script>
+      
+         <script>
+           feather.replace();
+         </script>
+      
+      <script src="/assets/js/theme.js"></script>
+-->
           </ul>
         </div>
       </div>
