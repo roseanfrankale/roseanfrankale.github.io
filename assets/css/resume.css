@@ -1,0 +1,172 @@
+/* resume.css */
+
+/* Overriding body padding for this specific page */
+body.resume-page {
+  padding-top: 100px; /* Adjust for fixed navbar */
+  padding-bottom: 2rem;
+}
+
+/* Resume Container */
+.resume {
+  max-width: 800px;
+  margin: auto;
+  background: var(--bg);
+  color: var(--text);
+  padding: 2rem;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+  border: 1px solid transparent;
+  transition: background 0.4s, color 0.4s, border-color 0.4s;
+}
+
+.resume header {
+  text-align: center;
+  margin-bottom: 1.5rem;
+  padding-bottom: 1.5rem;
+  border-bottom: 1px solid var(--footer-bg);
+}
+
+.resume header h1 {
+  font-size: 1.8rem;
+  font-weight: 800;
+  letter-spacing: 0.05em;
+  color: var(--text);
+}
+
+.resume header p {
+  font-size: 1rem;
+  color: var(--text-muted);
+  margin-top: 0.5rem;
+}
+
+/* Grid Layout */
+.grid {
+  display: flex;
+  gap: 1.5rem;
+}
+
+.left-col { flex: 0 0 35%; }
+.right-col { flex: 1; }
+
+.resume h2 {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--accent);
+  border-bottom: 2px solid var(--accent);
+  margin-bottom: 1rem;
+  padding-bottom: 0.4rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.resume h3 {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--text);
+}
+
+.resume p, .resume li {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+}
+
+.card h3 span {
+  font-size: 0.8rem;
+  font-weight: 400;
+  color: var(--text-muted);
+  float: right;
+  text-align: right;
+}
+
+.card h3 {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 1rem;
+}
+
+.resume section { margin-bottom: 1.5rem; }
+
+.card {
+  background: var(--section-bg);
+  border: 1px solid var(--footer-bg);
+  border-radius: 8px;
+  padding: 1rem;
+  margin-bottom: 1rem;
+}
+
+.card p:not(:last-child) {
+  margin-bottom: 0.5rem;
+}
+
+.card ul {
+  margin-left: 1rem;
+  list-style: disc;
+  padding-left: 0.5rem;
+}
+
+.card em {
+  color: var(--text-muted);
+  font-style: italic;
+}
+
+/* Dark Theme Specifics */
+[data-theme="dark"] .resume {
+  box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+  border-color: #333;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .grid {
+    flex-direction: column;
+  }
+  .left-col, .right-col {
+    flex: 1;
+  }
+  body.resume-page {
+    padding: 80px 1rem 1rem;
+  }
+  .resume {
+    padding: 1.5rem;
+  }
+}
+
+/* Print Styles */
+@media print {
+  body {
+    background: white !important;
+    color: #111 !important;
+    padding: 0;
+  }
+  .navbar, .footer, .back-btn {
+    display: none !important;
+  }
+  .resume {
+    box-shadow: none;
+    border-radius: 0;
+    padding: 0.5rem;
+    max-width: 100%;
+    border: none !important;
+    background: white !important;
+  }
+  .resume header, .resume header h1, .resume h2, .resume h3, .resume p, .resume li, .resume header p, .card h3 span {
+    color: #111 !important;
+  }
+  .card {
+    background: #f9fafb !important;
+    border: 1px solid #eee !important;
+    page-break-inside: avoid;
+  }
+  @page {
+    size: A4;
+    margin: 0.5in;
+  }
+  h1 { font-size: 1.5rem; }
+  p, li { font-size: 0.8rem; }
+  h2 { font-size: 1rem; }
+  h3 { font-size: 0.9rem; }
+  .card h3 span { font-size: 0.8rem; }
+  section { margin-bottom: 1rem; }
+  .card { margin-bottom: 0.5rem; }
+}

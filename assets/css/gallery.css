@@ -1,0 +1,229 @@
+/* ===========================
+   GALLERY PAGE
+   =========================== */
+
+/* Gallery Hero */
+.gallery-hero {
+  padding: 10rem 0 5rem;
+  background: var(--bg);
+  transition: background 0.4s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.gallery-hero h1, 
+.gallery-hero p {
+  color: var(--text);
+  transition: color 0.4s ease;
+}
+
+/* Filter Buttons */
+.gallery-filter-btn {
+  background: transparent;
+  color: var(--text-muted);
+  border: 1px solid transparent;
+  border-radius: 0;
+  padding: 0.75rem 1.5rem;
+  margin: 0 0.25rem;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  font-size: 0.875rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  cursor: pointer;
+}
+
+.gallery-filter-btn.active,
+.gallery-filter-btn:hover {
+  color: var(--accent);
+  background-color: transparent;
+  border-bottom: 2px solid var(--accent);
+}
+
+/* Gallery Container */
+.image-gallery {
+  max-width: 1400px;
+  margin:  3rem auto;
+  padding: 0 15px;
+}
+
+/* Masonry Grid Sizing */
+.grid-sizer,
+.gallery-item {
+  padding: 3px 3px; /* Half of JS gutter value (10px / 2) */
+  width: 100%;
+}
+
+/* Responsive widths for Masonry */
+@media (min-width: 576px) {
+  .grid-sizer,
+  .gallery-item {
+    width: 50%;
+  }
+}
+
+@media (min-width: 768px) {
+  .grid-sizer,
+  .gallery-item {
+    width: 33.333%;
+  }
+}
+
+@media (min-width: 992px) {
+  .grid-sizer,
+  .gallery-item {
+    width: 25%;
+  }
+}
+
+@media (min-width: 1200px) {
+  .grid-sizer,
+  .gallery-item {
+    width: 20%;
+  }
+}
+
+/* Gallery Item Images */
+.gallery-item img {
+  width: 100%;
+  height: auto;
+  display: block;
+  transition: transform 0.4s ease, filter 0.3s ease;
+  border-radius: 12px;
+}
+
+/* Hoverbox Effects */
+.hoverbox {
+  position: relative;
+  overflow: hidden;
+  border-radius: 12px;
+  cursor: pointer;
+  isolation: isolate;
+}
+
+.hoverbox img {
+  display: block;
+  width: 100%;
+  height: auto;
+  transition: transform 0.4s ease, filter 0.3s ease;
+}
+
+.hoverbox-content {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  transition: opacity 0.3s ease-in-out;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 0, 0, 0.7); /* A dark overlay for the content */
+  z-index: 1;
+}
+
+.hoverbox:hover .hoverbox-content {
+  opacity: 0.8; /* Fade in to 80% opacity */
+}
+
+.hoverbox:hover img {
+  transform: scale(1.05);
+}
+
+/* Make the plus icon more visible with a background */
+.hoverbox-content i {
+  width: 48px;
+  height: 48px;
+  color: white;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8px;
+}
+
+/* Lightbox */
+.lightbox {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.95);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+  opacity: 1;
+  transition: opacity 0.3s ease;
+}
+
+.lightbox.hidden {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.lightbox img {
+  max-width: 90%;
+  max-height: 90vh;
+  border-radius: 12px;
+  box-shadow: 0 10px 50px rgba(0, 0, 0, 0.5);
+}
+
+.lightbox-close {
+  position: absolute;
+  top: 2rem;
+  right: 2rem;
+  font-size: 2.5rem;
+  color: white;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  transition: color 0.3s ease, transform 0.3s ease;
+  z-index: 10000;
+}
+
+.lightbox-close:hover {
+  color: var(--accent);
+  transform: scale(1);
+}
+
+/* Lightbox Caption */
+.lightbox-caption {
+  position: absolute;
+  bottom: 2rem;
+  left: 50%;
+  transform: translateX(-50%);
+  color: white;
+  background: rgba(0, 0, 0, 0.5);
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  font-size: 0.9rem;
+}
+
+/* Optional: Navigation arrows for lightbox */
+.lightbox-prev,
+.lightbox-next {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 3rem;
+  color: white;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  transition: color 0.3s ease;
+  padding: 1rem;
+  z-index: 10000;
+}
+
+.lightbox-prev {
+  left: 2rem;
+}
+
+.lightbox-next {
+  right: 2rem;
+}
+
+.lightbox-prev:hover,
+.lightbox-next:hover {
+  color: var(--accent);
+}
