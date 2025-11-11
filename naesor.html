@@ -1,1362 +1,366 @@
-<!doctype html>
-<html lang="en">
-  <head>
-    <!-- Global site tag (gtag.js) - Google Analytics -->
-    <script
-      async
-      src="https://www.googletagmanager.com/gtag/js?id=G-N0J675HHCL"
-    ></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Rosean Frank-Alexander | Case Studies</title>
+  
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;800&display=swap" rel="stylesheet">
 
-      function gtag() {
-        dataLayer.push(arguments);
-      }
-      gtag("js", new Date());
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
 
-      gtag("config", "G-N0J675HHCL");
-    </script>
+  <!-- Font Awesome for more icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- Feather Icons -->
+  <script src="https://unpkg.com/feather-icons"></script>
 
-    <!-- ===============================================-->
-    <!--    Document Title-->
-    <!-- ===============================================-->
-    <title>RJFA</title>
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="assets/css/style.css">
+  <link rel="stylesheet" href="assets/css/case-study.css">
 
-    <!-- ===============================================-->
-    <!--    Favicons-->
-    <!-- ===============================================-->
-    <link rel="apple-touch-icon" sizes="180x180" href="/assets/img/rjfa_logo_svg.svg">
-    <link rel="icon" type="image/png" sizes="32x32" href="/assets/img/rjfa_logo_svg.svg">
-    <link rel="icon" type="image/png" sizes="16x16" href="/assets/img/rjfa_logo_svg.svg">
-    <link rel="shortcut icon" type="image/x-icon" href="/assets/img/rjfa_logo_svg.svg">
-    <link rel="manifest" href="/assets/img/rjfa_logo_svg.svg">
-    <meta name="msapplication-TileImage" content="/assets/img/rjfa_logo_svg.svg">
-    <meta name="theme-color" content="#ffffff">
-    <!-- ===============================================-->
-    <!--    Stylesheets-->
-    <!-- ===============================================-->
-    <link href="/vendors/swiper/swiper-bundle.min.css" rel="stylesheet">
-    <link href="/vendors/loaders.css/loaders.min.css" rel="stylesheet" type="text/css">
-    <link rel="preconnect" href="https://fonts.gstatic.com/">
-    <link href="/assets/css/theme.min.css" rel="stylesheet" />
-    <link href="/assets/css/user.min.css" rel="stylesheet" />
-    <link href="/assets/css/style.css" rel="stylesheet" />
-    <link href="/vendors/glightbox/glightbox.css"   rel="stylesheet"
-  />
+  <!-- Theme + Navbar + Darkmode -->
+  <script src="assets/js/theme.js"></script>
+</head>
+<body>
 
-  </head>
+  <!-- Scroll Progress -->
+  <div class="scroll-progress">
+    <div class="scroll-progress-bar"></div>
+  </div>
 
-  <body class="overflow-hidden-x">
-
-
-    <nav class="navbar navbar-expand-lg fixed-top navbar-rjfa fancynavbar fancynavbar-expand-lg fancynavbar-top" data-navbar-on-scroll="data-navbar-on-scroll">
-      <div class="container">
-        <a class="navbar-brand" href="https://roseanfrankale.github.io/">
-          <img src="/assets/img/rjfa_logo_grey_svg.svg" alt="RJFA" height="35" />
-        </a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown1">
-          <span class="navbar-toggler-icon"></span>
+  <!-- Navigation -->
+  <nav class="navbar navbar-expand-lg fixed-top">
+    <div class="container">
+      <a class="navbar-brand fw-bold" href="index.html">
+        <img src="assets/img/rjfa_logo_grey_svg.svg" width="34" height="34" alt="Logo">
+      </a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+        <ul class="navbar-nav">
+          <li class="nav-item">
+            <a class="nav-link" href="index.html">← Back to Portfolio</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#overview">Overview</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#process">Process</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#results">Results</a>
+          </li>
+        </ul>
+        <button id="theme-toggle" class="ms-3">
+          <i data-feather="moon"></i>
         </button>
-        <div class="collapse navbar-collapse" id="navbarNavDropdown1">
-          <ul class="navbar-nav ms-auto d-flex align-items-center">
-            <li class="nav-item"><a class="nav-link px-2"  href="https://roseanfrankale.github.io/">Home</a></li>
-            <li class="nav-item"><a class="nav-link px-2"  href="https://roseanfrankale.github.io/index.html#:~:text=CONNECT-,Featured%20Work,-NEBUSIS%C2%AE">FEATURED WORK</a></li>
-            <li class="nav-item"><a class="nav-link px-2"  href="https://roseanfrankale.github.io/gallery">GALLERY</a></li>
-            <li class="nav-item"><a class="nav-link px-2"  href="https://roseanfrankale.github.io/about.html">About Me</a></li>
-            <li class="nav-item"><a class="nav-link px-2" href="#" data-bs-toggle="modal" data-bs-target="#connectModal">Connect</a></li>            
-            <li class="nav-item"><a class="nav-link px-2"  href="https://www.linkedin.com/in/rfrankale/"><i class="social-icons" data-feather="linkedin"></i></a></li>
-            <li class="nav-item"><a class="nav-link px-2" href="https://github.com/roseanfrankale"><i class="social-icons" data-feather="github"></i></a></li>
-            <li class="nav-item"><a class="nav-link px-2" href="https://dribbble.com/rjfa"><i class="social-icons" data-feather="dribbble"></i></a></li>
-            
-             
-          </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <section class="case-hero">
+    <div class="container">
+      <div class="hero-content text-center">
+        <h1 class="case-title">Naesor</h1>
+        <p class="case-subtitle">Crafting a seamless music experience for a Google challenge.</p>
+        
+        <div class="hero-mockup text-center">
+          <img src="assets/img/naesor/NAESOR Dribble Landing Page.png" alt="Naesor App Landing Page">
+        </div>
+
+        <div class="hero-meta">
+          <div class="meta-item">
+            <div class="meta-label">My Role</div>
+            <div class="meta-value">UI/UX Designer, Product Designer</div>
+          </div>
+          <div class="meta-item">
+            <div class="meta-label">Timeline</div>
+            <div class="meta-value">Google UX Design Challenge</div>
+          </div>
+          <div class="meta-item">
+            <div class="meta-label">Platform</div>
+            <div class="meta-value">Mobile App (iOS/Android)</div>
+          </div>
+          <div class="meta-item">
+            <div class="meta-label">Industry</div>
+            <div class="meta-value">Music Streaming, Digital Content</div>
+          </div>
         </div>
       </div>
-    </nav>
+    </div>
+  </section>
 
-    
-    <!-- ===============================================-->
-    <!--    Main Content-->
-    <!-- ===============================================-->
-    <main class="main min-vh-100 overflow-hidden page-wrapper" id="top">
+  <!-- Overview Section -->
+  <section id="overview" class="case-section">
+    <div class="container">
+      <div class="section-header">
+        <div class="section-number">01 — Overview</div>
+        <h2 class="section-title">The Design Challenge</h2>
+        <p class="section-description">
+          Designing an intuitive music album app that enhances user engagement and discovery, as part of a Google UX Design challenge.
+        </p>
+      </div>
 
-       <!-- ============================================-->
-      <!-- Preloader ==================================-->
-      <div class="preloader" id="preloader">
-        <div class="loader">
-        </div>
-      </div><!-- ============================================-->
-      <!-- End of Preloader ===========================-->
-
-
-      <section class="py-0 .d-none .d-md-block .d-xl-none .d-xxl-none" id="naesorHeader">
-        <div class="bg-holder overlay-1 overflow-hidden"
-          style="background-image:url(/assets/img/naesor/NAESOR\ Dribble\ Landing\ Page_2.png);"
-          data-zanim-xs='{"delay":0.4,"animation":"zoom-out"}' data-zanim-tdata-zanim-xs='{"delay":0.4,"animation":"zoom-out"}' data-zanim-trigger="scroll">
-  
-        </div>
-        <!--/.bg-holder-->
-        <div class="container ">
-          <div class="row min-vh-100 align-items-center py- g-1">
-            <div class="col-lg-12" data-zanim-timeline='{"delay":0.4}' data-zanim-trigger="scroll">
-                <div class="overflow-hidden">   
-                               <h1 class=" text-400 fs-md-4 fw-light mb-2 fs-md-4 fs-md-8" data-zanim-xs='{"delay":0.1}'>NAESOR ALBUM APPLICATION</h1>
-                    <p
-                    class="mt-1 mt-sm-3 font-secondary text-400"
-                    data-zanim-xs='{"delay":.6}'
-                  >
-                  Google UI/UX Design Course | Desgin Challenge | Micro
-                  Interactions                </p>
-                   
-                  </div>
-                  <div class="mt-1 mt-sm-4">
-                    <a class="btn btn-light btn-sm shadow-sm-2" href="#naesorHero">View Project</a>
-                   
-                    
-                    <a
-                      class="indicator indicator-down"
-                      data-zanim-timeline='{"delay":1}'
-                      data-zanim-trigger="scroll"
-                      href="#target-down"
-                      data-offset="60"
-                      ><span
-                        class="indicator-arrow indicator-arrow-one"
-                        data-zanim-xs='{"from":{"opacity":0,"y":15},"to":{"opacity":1,"y":-5,"scale":1},"ease":"Back.easeOut","duration":0.4,"delay":0.25}'
-                      ></span
-                      ><span
-                        class="indicator-arrow indicator-arrow-two"
-                        data-zanim-xs='{"from":{"opacity":0,"y":15},"to":{"opacity":1,"y":-5,"scale":1},"ease":"Back.easeOut","duration":0.4,"delay":0.5}'
-                      ></span></a
-                    >
-                  </div>
-             
-              <!-- <div class="overflow-hidden">
-                  <div class="input-group pe-lg-7" data-zanim-xs='{"delay":0.3}'><input class="form-control bg-transparent text-white border-700" type="text" placeholder="What type of website do you need?" aria-label="Recipient's username" aria-describedby="button-addon-interior" /><button class="btn btn-light px-3 fw-normal bg-200" id="button-addon-interior" type="button">get started</button></div>
-                </div>-->
-            </div>
+      <div class="problem-solution-grid">
+        <div class="problem-card">
+          <div class="card-icon">
+            <i data-feather="frown"></i>
           </div>
-        </div><!-- end of .container-->
-      </section><!-- <section> close ============================-->
-
-       
-        <div id="target-down"></div>
-
-
-        <section class="p-0" id="naesorHero">
-          <div class="row py-100 px-2 py-2 mb-5" id="roles">
-              <div class="container-fluid">
-                <div
-                  class="row"
-                  data-zanim-timeline="{}"
-                  data-zanim-trigger="scroll"
-                >
-                  <div class="col-lg-6 position-relative">
-                    <div
-                      class="h-100 py-9"
-                      data-zanim-lg='{"animation":"slide-right","from":{"opacity":0},"delay":0.4}'
-                
-                        data-zanim-trigger="scroll"
-                        data-zanim-lg='{"animation":"slide-right","delay":0}'
-                      >
-                        <img
-                          src="/assets/img/naesor/NAESOR Dribble Landing Page_2.png"
-                          alt="Image"
-                          class="rounded-3 shadow-sm img-fluid"
-                        />
-                      
-                      <!--/.bg-holder-->
-                    </div>
-                  </div>
-                  <div class="col-lg-6 pl-lg-5">
-                    <div class="row flex-center py-6 py-md-8">
-                      <div class="col-11 col-sm-10">
-                        <div class="overflow-hidden">
-                          <h2
-                            class="fw-light text-uppercase fs-3 fs-lg-4"
-                            data-zanim-lg='{"delay":0.4}'
-                          >
-                            Roles &amp; <br />
-                            Responsibilites:
-                          </h2>
-                        </div>
-                        <div class="overflow-hidden">
-                          <div class="col-sm-6 col-md-6 col-lg-6 mb-4">
-                            <div class="detail-v1">
-                              <span class="detail-label">Client</span>
-                              <span class="detail-val">NAESOR (OR Just Me)</span>
-                            </div>
-                          </div>
-                          <div class="col-sm-6 col-md-6 col-lg-6 mb-4">
-                            <div class="detail-v1">
-                              <span class="detail-label">Stakeholders</span>
-                              <p class="mb-0 detail-val">Rosean Alexander (Founder)</p>
-                              
-                            </div>
-                          </div>
-                          <div class="col-sm-6 col-md-6 col-lg-6 mb-4">
-                            <div class="detail-v1">
-                              <span class="detail-label">Project Start</span>
-                              <span class="detail-val">May, 2022</span>
-                            </div>
-                          </div>
-                          <div class="col-sm-6 col-md-6 col-lg-6 mb-4">
-                            <div class="detail-v1">
-                              <span class="detail-label">Project End</span>
-                              <span class="detail-val">June, 2022</span>
-                            </div>
-                          </div>
-                          <div class="col-sm-6 col-md-6 col-lg-6 mb-4">
-                            <div class="detail-v1">
-                              <span class="detail-label">Role</span>
-                              <span class="detail-val"
-                                ><a href="#">UI/UX Reasearcher</a>
-                                <a href="#">UI/UX Design</a>,
-                                <a href="#">Project Mangement</a>,
-                                <a href="#">Operations Mangement</a></span
-                              >
-                            </div>
-                          </div>
-                          <div class="col-sm-6 col-md-6 col-lg-6 mb-4">
-                            <div class="detail-v1">
-                              <span class="detail-label">Tools</span>
-                              <span class="detail-val"
-                                ><a href="#">Figma</a
-                                ></span
-                              >
-                            </div>
-                          </div>
-                          
-                         
-                       
-                         
-                        </div>
-                        <div class="overflow-hidden">
-                          <div class="mt-4 mt-lg-6" data-zanim-xs='{"delay":0.6}'> 
-                            <a class="btn btn-outline-dark me-3" href="#naesor-gallery">View Gallery</a>
-                            
-                            <a class="btn btn-dark shadow-sm"
-                            href="https://docs.google.com/presentation/d/1wylyElM84VZMWm_GBQZIiLGpUQKVUhwcxujB6NQSgYA/edit?usp=sharing" data-zanim-xs='{"delay":0.7}'
-                            >Process Book</a>
-                           
-
-                            
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <!-- end of .container-->
-            </section>
-            <!-- <section> close ============================-->
-       
-                <section class="p-0" id="naesorHero">
-                    <div class="py-0 overflow-hidden container-fluid hero-bg">
-                      <div class="row py-6 min-vh-100 align-items-center mx-auto">
-                        <div class="">
-                            <div class="row py-2 px-2 mt-5">
-                                <div class="col-lg-8">
-                                  <img class="img-fluid rounded mb-5 mb-lg-0" src="/assets/img/naesor/naesor_sharpen.png" alt="Problem Statement" />
-                                </div>
-                                <div class="col-lg-4">
-                                  <h4 class="mb-3 mt-2">The Problem:</h4>
-                                  <p class="mb-10 mx-auto">
-                                    Users who are interested in the artist would like to either purchase or save and album before the release date.
-                                  </p>
-                                  <h4 class="mb-3">The Goal:</h4>
-                                  <p class="mb-0 mx-auto">
-                                    Design an app that represents the artist and create an engaging experience for the user.
-                                  </p>
-                                </div>
-                              </div>
-                              
-                              <div class="row py-2 px-2 mt-5">
-                                <div class="col-lg-2 mt-5">
-                                  <h4 class="mb-5">Users &amp; Audience</h4>
-                                </div>
-                                <div class="col-lg-10 mt-5">
-                                  <img class="img-fluid rounded mb-5 mb-lg-0" src="/assets/img/naesor/Persona/naesorcs2.png" alt="Users and Audience" />
-                                </div>
-                              </div>
-                              
-                              <div class="row py-2 px-2">
-                                <div class="col-lg-6 mt-5">
-                                  <a href="/assets/img/naesor/Persona/naesorcs3.png" class="glightbox" data-gallery="naesor-gallery1">
-                                    <img src="/assets/img/naesor/Persona/naesorcs3.png" class="img-fluid rounded mb-5 mb-lg-0" alt="Persona 3" />
-                                  </a>
-                                </div>
-                                <div class="col-lg-6 mt-5">
-                                  <a href="/assets/img/naesor/Persona/naesorcs4.png" class="glightbox" data-gallery="naesor-gallery1">
-                                    <img src="/assets/img/naesor/Persona/naesorcs4.png" class="img-fluid rounded mb-5 mb-lg-0" alt="Persona 4" />
-                                  </a>
-                                </div>
-                              </div>
-                              
-                              <div class="row py-2 px-2">
-                                <div class="col-lg-6 mt-2">
-                                  <a href="/assets/img/naesor/Persona/naesorcs5.png" class="glightbox" data-gallery="naesor-gallery1">
-                                    <img src="/assets/img/naesor/Persona/naesorcs5.png" class="img-fluid rounded mb-5 mb-lg-0" alt="Persona 5" />
-                                  </a>
-                                </div>
-                                <div class="col-lg-6 mt-2">
-                                  <a href="/assets/img/naesor/Persona/naesorcs6.png" class="glightbox" data-gallery="naesor-gallery1">
-                                    <img src="/assets/img/naesor/Persona/naesorcs6.png" class="img-fluid rounded mb-5 mb-lg-0" alt="Persona 6" />
-                                  </a>
-                                </div>
-                              </div>
-                              
-                              <div class="row py-2 px-2">
-                                <div class="col-lg-6 mt-2">
-                                  <a href="/assets/img/naesor/Persona/naesorcs7.png" class="glightbox" data-gallery="naesor-gallery1">
-                                    <img src="/assets/img/naesor/Persona/naesorcs7.png" class="img-fluid rounded mb-5 mb-lg-0" alt="Persona 7" />
-                                  </a>
-                                </div>
-                                <div class="col-lg-6 mt-2">
-                                  <a href="/assets/img/naesor/Persona/naesorcs8.png" class="glightbox" data-gallery="naesor-gallery1">
-                                    <img src="/assets/img/naesor/Persona/naesorcs8.png" class="img-fluid rounded mb-5 mb-lg-0" alt="Persona 8" />
-                                  </a>
-                                </div>
-                              </div>   
-
-
-                                <div class="row mt-5 py-2 px-2">
-                                    <h4 class="mb-5">Starting The Design</h4>
-                                    <div class="col-lg-12 text-center">
-                                      <img
-                                        class="img-fluid mb-5 mb-lg-0"
-                                        src="/assets/img/naesor/Persona/naesorcs9.png"
-                                        alt="..."
-                                      />
-                                    </div>
-                                    <div class="row py-2 px-2">
-                                      <h4 class="mt-5 mb-3">Paper Wireframes</h4>
-                                      <div class="col-lg-6 mt-5">
-                                        <a
-                                          href="/assets/img/naesor/wireframes_prototypes/UX_Design_Storyboard_Big_Picture.jpg"
-                                          class="glightbox"
-                                          data-gallery="naesor-gallery3"
-                                        >
-                                          <img
-                                            src="/assets/img/naesor/wireframes_prototypes/UX_Design_Storyboard_Big_Picture.jpg"
-                                            class="img-fluid img-fluid rounded mb-5 mb-lg-0"
-                                            alt="image"
-                                        /></a>
-                                      </div>
-                                      <div class="col-lg-6 mt-5">
-                                        <a
-                                          href="/assets/img/naesor/wireframes_prototypes/Paper Wireframe.png"
-                                          class="glightbox"
-                                          data-gallery="naesor-gallery3"
-                                        >
-                                          <img
-                                            src="/assets/img/naesor/wireframes_prototypes/Paper Wireframe.png"
-                                            class="img-fluid img-fluid rounded mb-5 mb-lg-0"
-                                            alt="image"
-                                        /></a>
-                                      </div>
-                                    </div>
-                                    <div class="row py-2 px-2">
-                                      <h4 class="mt-5 mb-3">Digital Wireframes</h4>
-                                      <div class="col-lg-6 mt-5">
-                                        <a
-                                          href="/assets/img/naesor/Google Course Mockups/naesorcs12.png"
-                                          class="glightbox"
-                                          data-gallery="naesor-gallery4"
-                                        >
-                                          <img
-                                            src="/assets/img/naesor/Google Course Mockups/naesorcs12.png"
-                                            class="img-fluid img-fluid rounded mb-5 mb-lg-0"
-                                            alt="image"
-                                        /></a>
-                                      </div>
-                      
-                                      <div class="col-lg-6 mt-5">
-                                        <a
-                                          href="/assets/img/naesor/Google Course Mockups/naesorcs13.png"
-                                          class="glightbox"
-                                          data-gallery="naesor-gallery4"
-                                        >
-                                          <img
-                                            src="/assets/img/naesor/Google Course Mockups/naesorcs13.png"
-                                            class="img-fluid img-fluid rounded mb-5 mb-lg-0"
-                                            alt="image"
-                                        /></a>
-                                      </div>
-                                    </div>                                <div class="row mt-5 py-2 px-2">
-                                      <div class="col-lg-4 mt-5">
-                                        <h4 class="mb-5">Low-fidelty prototype</h4>
-                                        <p class="mb-0">
-                                          The low-fidelity app prototype for NAESOR’S Album
-                                          Pre-Order/Pre-Save was tested and can be viewed
-                                          <a
-                                            href="https://www.figma.com/proto/366tankOcrzBe9xkjuaOev/GITUNAR?page-id=0%3A1&node-id=746%3A4014&viewport=-237%2C-187%2C0.06&scaling=scale-down&starting-point-node-id=727%3A3584&show-proto-sidebar=1"
-                                            >here.</a
-                                          >
-                                        </p>
-                                        <a
-                                          class="btn btn-dark mt-4"
-                                          href="https://www.figma.com/proto/366tankOcrzBe9xkjuaOev/GITUNAR?page-id=0%3A1&node-id=746%3A4014&viewport=-237%2C-187%2C0.06&scaling=scale-down&starting-point-node-id=727%3A3584&show-proto-sidebar=1"
-                                          role="button"
-                                          >View Protoype</a
-                                        >
-                                      </div>
-                                      <div class="col-lg-8 mt-5 mb-3">
-                                        <a
-                                          href="/assets/img/naesor/wireframes_prototypes/naesorcslofi1.png"
-                                          class="glightbox"
-                                          data-gallery="naesor-gallery5"
-                                        >
-                                          <img
-                                            src="/assets/img/naesor/wireframes_prototypes/naesorcslofi1.png"
-                                            class="img-fluid img-fluid rounded mb-5 mb-lg-0"
-                                            alt="image"
-                                        /></a>
-                                      </div>
-                                      <div class="row-cols-auto mt-3">
-                                        <a
-                                          href="/assets/img/naesor/wireframes_prototypes/naesorcslofi2.png"
-                                          class="glightbox"
-                                          data-gallery="naesor-gallery5"
-                                        >
-                                          <img
-                                            src="/assets/img/naesor/wireframes_prototypes/naesorcslofi2.png"
-                                            class="img-fluid img-fluid rounded mb-5 mb-lg-0"
-                                            alt="image"
-                                        /></a>
-                                      </div>
-                                    </div>
-                                    <div class="row mt-5 py-2 px-2">
-                                      <a
-                                        href="/assets/img/naesor/Persona/naesorcs14.png"
-                                        class="glightbox"
-                                        data-gallery="naesor-gallery6"
-                                      >
-                                        <img
-                                          src="/assets/img/naesor/Persona/naesorcs14.png"
-                                          class="img-fluid img-fluid rounded mb-5 mb-lg-0"
-                                          alt="image"
-                                      /></a>
-                                    </div>
-                      
-                                    <div class="row mt-5 py-2 px-2">
-                                      <h4 class="mb-5">Refining The Design</h4>
-                                      <div class="col-lg-12 text-center">
-                                        <img
-                                          class="img-fluid mb-5 mb-lg-0"
-                                          src="/assets/img/naesor/wireframes_prototypes/naesorcsrfd.png"
-                                          alt="..."
-                                        />
-                                      </div>
-                                      <div class="row">
-                                        <h4 class="mt-5 mb-3">Mockups</h4>
-                                        <div class="col-lg-6 mt-5">
-                                          <a
-                                            href="/assets/img/naesor/Google Course Mockups/naesorcs16.png"
-                                            class="glightbox"
-                                            data-gallery="naesor-gallery7"
-                                          >
-                                            <img
-                                              src="/assets/img/naesor/Google Course Mockups/naesorcs16.png"
-                                              class="img-fluid img-fluid rounded mb-5 mb-lg-0"
-                                              alt="image"
-                                          /></a>
-                                        </div>
-                                        <div class="col-lg-6 mt-5">
-                                          <a
-                                            href="/assets/img/naesor/Google Course Mockups/naesorcs17.png"
-                                            class="glightbox"
-                                            data-gallery="naesor-gallery7"
-                                          >
-                                            <img
-                                              src="/assets/img/naesor/Google Course Mockups/naesorcs17.png"
-                                              class="img-fluid img-fluid rounded mb-5 mb-lg-0"
-                                              alt="image"
-                                          /></a>
-                                        </div>
-                                      </div>
-                                      <div class="row py-2 px-2">
-                                        <div class="col-lg-6 mt-5">
-                                          <a
-                                            href="/assets/img/naesor/Google Course Mockups/naesorcs18.png"
-                                            class="glightbox"
-                                            data-gallery="naesor-gallery7"
-                                          >
-                                            <img
-                                              src="/assets/img/naesor/Google Course Mockups/naesorcs18.png"
-                                              class="img-fluid img-fluid rounded mb-5 mb-lg-0"
-                                              alt="image"
-                                          /></a>
-                                        </div>
-                                        <div class="col-lg-6 mt-5">
-                                          <a
-                                            href="/assets/img/naesor/Google Course Mockups/naesorcs19.png"
-                                            class="glightbox"
-                                            data-gallery="naesor-gallery7"
-                                          >
-                                            <img
-                                              src="/assets/img/naesor/Google Course Mockups/naesorcs19.png"
-                                              class="img-fluid img-fluid rounded mb-5 mb-lg-0"
-                                              alt="image"
-                                          /></a>
-                                        </div>
-                                      </div>
-                                      <div class="row mt-5 py-2 px-2">
-                                        <div class="col-lg-4 mt-5">
-                                          <h4 class="mb-5">Hi-fidelty prototype</h4>
-                                          <p class="mb-0">
-                                            The Hi-fidelity app prototype for NAESOR’S Album
-                                            Pre-Order/Pre-Save was tested and can be viewed
-                                            <a
-                                              href="https://www.figma.com/proto/366tankOcrzBe9xkjuaOev/GITUNAR?page-id=0%3A1&node-id=746%3A4014&viewport=-237%2C-187%2C0.06&scaling=scale-down&starting-point-node-id=727%3A3584&show-proto-sidebar=1"
-                                              >here.</a
-                                            >
-                                          </p>
-                                          <a
-                                            class="btn btn-dark mt-4"
-                                            href="https://www.figma.com/proto/366tankOcrzBe9xkjuaOev/GITUNAR?page-id=0%3A1&node-id=746%3A4014&viewport=-237%2C-187%2C0.06&scaling=scale-down&starting-point-node-id=727%3A3584&show-proto-sidebar=1"
-                                            role="button"
-                                            >View Protoype</a
-                                          >
-                                        </div>
-                                        <div class="col-lg-8 mt-5">
-                                          <a
-                                            href="/assets/img/naesor/wireframes_prototypes/Album Pre-Order Hi-fidelity Prototype.png"
-                                            class="glightbox"
-                                            data-gallery="naesor-gallery8"
-                                          >
-                                            <img
-                                              src="/assets/img/naesor/wireframes_prototypes/Album Pre-Order Hi-fidelity Prototype.png"
-                                              class="img-fluid img-fluid rounded mb-5 mb-lg-0"
-                                              alt="image"
-                                          /></a>
-                                        </div>
-                      
-                                        <div class="row-cols-auto mt-3">
-                                          <a
-                                            href="/assets/img/naesor/wireframes_prototypes/Album Pre-Order Hi-fidelity Prototype.png"
-                                            class="glightbox"
-                                            data-gallery="naesor-gallery8"
-                                          >
-                                            <img
-                                              src="/assets/img/naesor/wireframes_prototypes/Album Pre-Order Hi-fidelity Prototype.png"
-                                              class="img-fluid img-fluid rounded mb-5 mb-lg-0"
-                                              alt="image"
-                                          /></a>
-                                        </div>
-                                      </div>
-                      
-                                      <div class="row py-2 px-2 mt-5">
-                                        <div class="col-lg-2 mt-5">
-                                          <h4 class="mb-5">Accesibility</h4>
-                                          <p class="mb-0"></p>
-                                        </div>
-                                        <div class="col-lg-10 mt-5">
-                                          <a
-                                            href="/assets/img/naesor/Persona/naesorcs14.png"
-                                            class="glightbox"
-                                            data-gallery="naesor-gallery9"
-                                          >
-                                            <img
-                                              src="/assets/img/naesor/Persona/naesorcs14.png"
-                                              class="img-fluid img-fluid rounded mb-5 mb-lg-0"
-                                              alt="image"
-                                          /></a>
-                                        </div>
-                                      </div>
-                      
-                                      <div class="row mt-5 py-2 px-2">
-                                        <h4 class="mb-5">Going Forward</h4>
-                                        <div class="col-lg-12 text-center">
-                                          <img
-                                            class="img-fluid mb-5 mb-lg-0"
-                                            src="/assets/img/naesor/Persona/naesorcsgf.png"
-                                            alt="..."
-                                          />
-                                        </div>
-                                        <div class="row">
-                                          <div class="col-lg-6 mt-5">
-                                            <a
-                                              href="/assets/img/naesor/Persona/naesorcs20.png"
-                                              class="glightbox"
-                                              data-gallery="naesor-gallery9"
-                                            >
-                                              <img
-                                                src="/assets/img/naesor/Persona/naesorcs20.png"
-                                                class="img-fluid img-fluid rounded mb-5 mb-lg-0"
-                                                alt="image"
-                                            /></a>
-                                          </div>
-                                          <div class="col-lg-6 mt-5">
-                                            <a
-                                              href="/assets/img/naesor/Persona/naesorcs21.png"
-                                              class="glightbox"
-                                              data-gallery="naesor-gallery9"
-                                            >
-                                              <img
-                                                src="/assets/img/naesor/Persona/naesorcs21.png"
-                                                class="img-fluid img-fluid rounded mb-5 mb-lg-0"
-                                                alt="image"
-                                            /></a>
-                                          </div>
-                                        </div>
-                                      </div>
-
-
-                      </div>
-                    </div>
-                  </section>
-                  
-
-
-               <!-- <section> close ============================-->
-  <!-- <section> close ============================-->
-               
-               
-   
-                <section class=" " id="naesor-gallery">
-                    <div class="container">
-                      <div class="row mb-5">
-                        <div class="col">
-                        <div class="row mt-5">
-                            <h2 class="mb-2 fs-1 mt-1 text-center neumorph-heading">Categories </h2>
-                            <ul class="nav font-sans-serif fs-2 mb-2 justify-content-center" data-filter-nav="data-filter-nav">
-                                <li class="nav-item"><a class="nav-link isotope-nav active" href="#!" data-filter="*">all</a></li>
-                                <li class="nav-item"> <a class="nav-link isotope-nav" href="#!" data-filter=".dashboards">Dashboards</a></li>
-                                <li class="nav-item"> <a class="nav-link isotope-nav" href="#!" data-filter=".landing">Landing Pages</a></li>
-                                <li class="nav-item"> <a class="nav-link isotope-nav" href="#!" data-filter=".logos">Logos</a></li>
-                                <li class="nav-item"> <a class="nav-link isotope-nav" href="#!" data-filter=".marketing">Marketing</a></li>
-                                <li class="nav-item"><a class="nav-link isotope-nav" href="#!" data-filter=".mockups">Mockups</a></li>
-                                <li class="nav-item"> <a class="nav-link isotope-nav" href="#!" data-filter=".vectors">Vectors</a></li>
-                                <li class="nav-item"> <a class="nav-link isotope-nav" href="#!" data-filter=".wireframes">Wireframes</a></li>
-                              </ul>
-                        </div>
-                        <div class="row g-3 mt-2 justify-content-center" id="portfolio-gallery" data-zanim-timeline="{}" data-zanim-trigger="scroll"
-                        data-isotope='{"layoutMode":"packery"}'>
-                        
-  <!-- NAESOR Dribble Landing Page -->
-  <div class="col-6 col-md-3 isotope-item naesor landing ">
-    <a class="glightbox" data-gallery="nebusis-gallery-4" href="assets/img/naesor/NAESOR Dribble Landing Page.png">
-        <div class="hoverbox rounded portfolio-item overlay overflow-hidden" data-zanim-xs='{"animation":"zoom-in"}'>
-            <img class="w-100" src="assets/img/naesor/NAESOR Dribble Landing Page.png" alt="" />
-            <div class="hoverbox-content bg-dark d-flex flex-center text-center">
-                <div class="px-4">
-                    <i class="text-white" data-feather="plus"></i>
-                </div>
-            </div>
+          <h3 class="card-title">The Problem</h3>
+          <p class="card-text">
+            Existing music apps often suffer from cluttered interfaces, complex navigation, and a lack of personalized discovery, leading to user frustration and missed opportunities for artists.
+          </p>
         </div>
-    </a>
+
+        <div class="solution-card">
+          <div class="card-icon">
+            <i data-feather="smile"></i>
+          </div>
+          <h3 class="card-title">Our Solution</h3>
+          <p class="card-text">
+            Naesor was conceived as a clean, user-centric album app focusing on seamless navigation, personalized content, and an engaging visual experience, making music discovery a joy.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Process Section -->
+  <section id="process" class="case-section">
+    <div class="container">
+      <div class="section-header">
+        <div class="section-number">02 — Process</div>
+        <h2 class="section-title">The Design Journey: From Concept to Interactive Prototype</h2>
+        <p class="section-description">
+          A user-centered approach to crafting a seamless and engaging music experience.
+        </p>
+      </div>
+
+      <div class="process-timeline">
+        <div class="process-step">
+          <div class="step-content">
+            <h3 class="step-title">User Research & Empathy Mapping</h3>
+            <p>Began by understanding target users' needs, pain points, and desires in music consumption. Focused on how users discover, organize, and interact with their favorite albums and artists.</p>
+          </div>
+          <div class="step-number">1</div>
+          <div class="step-content">
+            <img src="assets/img/naesor/Case Study Mockups/iPhone 11 Pro Splash Landing Mockup.png" alt="Naesor Splash Screen" class="img-fluid rounded">
+          </div>
+        </div>
+
+        <div class="process-step">
+          <div class="step-content">
+            <img src="assets/img/naesor/Figma Proto/iPhone 11 Pro/X - 44.png" alt="Naesor Wireframe" class="img-fluid rounded">
+          </div>
+          <div class="step-number">2</div>
+          <div class="step-content">
+            <h3 class="step-title">Information Architecture & Wireframing</h3>
+            <p>Structured the app's content logically, creating intuitive navigation paths. Developed low-fidelity wireframes to define layout and functionality, ensuring a clear user flow.</p>
+          </div>
+        </div>
+
+        <div class="process-step">
+          <div class="step-content">
+            <h3 class="step-title">Prototyping & Interaction Design</h3>
+            <p>Built interactive prototypes to simulate the user experience, allowing for early testing and iteration. Focused on smooth transitions, responsive elements, and engaging micro-interactions.</p>
+          </div>
+          <div class="step-number">3</div>
+          <div class="step-content">
+            <img src="assets/img/naesor/Case Study Mockups/iPhone 11 Pro Library.png" alt="Naesor Library Prototype" class="img-fluid rounded">
+          </div>
+        </div>
+
+       <div class="process-step">
+          <div class="step-content">
+            <img src="assets/img/naesor/Case Study Mockups/iPhone 11 Pro Music Player Mockup.jpg" alt="Naesor Music Player Mockup" class="img-fluid rounded">
+          </div>
+          <div class="step-number">4</div>
+          <div class="step-content">
+            <h3 class="step-title">Visual Design & High-Fidelity Mockups</h3>
+            <p>Translated wireframes into polished, high-fidelity designs, applying a modern aesthetic with a focus on album art and readability. Ensured visual consistency across all screens.</p>
+          </div>
+        </div>
+
+        <div class="process-step">
+          <div class="step-content">
+            <h3 class="step-title">Key Feature Showcase: Seamless Purchasing</h3>
+            <p>Designed a streamlined purchase flow for albums and merchandise, minimizing steps and providing clear feedback to the user. This included intuitive cart management and secure checkout.</p>
+          </div>
+          <div class="step-number">5</div>
+          <div class="step-content">
+            <img src="assets/img/naesor/Case Study Mockups/iPhone 11 Pro Order Confirmation Mockup.png" alt="Naesor Order Confirmation" class="img-fluid rounded">
+          </div>
+        </div>
+      </section>
+
+  <!-- Results Section -->
+  <section id="results" class="case-section">
+    <div class="container">
+      <div class="section-header">
+        <div class="section-number">03 — Results</div>
+        <h2 class="section-title">Outcome & Impact</h2>
+        <p class="section-description">
+          The Naesor project successfully demonstrated a user-centered approach to mobile app design, resulting in a highly intuitive and visually appealing music experience.
+        </p>
+      </div>
+
+      <div class="results-grid">
+        <div class="result-item">
+          <div class="result-number"><i data-feather="navigation"></i></div>
+          <div class="result-label">Intuitive Navigation</div>
+        </div>
+        <div class="result-item">
+          <div class="result-number"><i data-feather="eye"></i></div>
+          <div class="result-label">Engaging Visuals</div>
+        </div>
+        <div class="result-item">
+          <div class="result-number"><i data-feather="shopping-cart"></i></div>
+          <div class="result-label">Streamlined Purchase Flow</div>
+        </div>
+        <div class="result-item">
+          <div class="result-number"><i data-feather="heart"></i></div>
+          <div class="result-label">High User Satisfaction (Conceptual)</div>
+        </div>
+      </div>
+
+      <div class="case-study-showcase">
+        <div class="showcase-row">
+          <div class="showcase-item"><a href="assets/img/naesor/NAESOR Dribble Landing Page.png"><img src="assets/img/naesor/NAESOR Dribble Landing Page.png" alt="Naesor App Landing Page"></a></div>
+        </div>
+        <div class="showcase-row">
+          <div class="showcase-item showcase-item--third"><a href="assets/img/naesor/Case Study Mockups/iPhone 11 Pro Splash Landing Mockup.png"><img src="assets/img/naesor/Case Study Mockups/iPhone 11 Pro Splash Landing Mockup.png" alt="Naesor Splash Screen"></a></div>
+          <div class="showcase-item showcase-item--third"><a href="assets/img/naesor/Case Study Mockups/iPhone 11 Pro Library.png"><img src="assets/img/naesor/Case Study Mockups/iPhone 11 Pro Library.png" alt="Naesor Library Screen"></a></div>
+          <div class="showcase-item showcase-item--third"><a href="assets/img/naesor/Case Study Mockups/iPhone 11 Pro Music Player Mockup.jpg"><img src="assets/img/naesor/Case Study Mockups/iPhone 11 Pro Music Player Mockup.jpg" alt="Naesor Music Player"></a></div>
+        </div>
+        <div class="showcase-row">
+          <div class="showcase-item showcase-item--half"><a href="assets/img/naesor/Case Study Mockups/iPhone 11 Pro Order Confirmation Mockup.png"><img src="assets/img/naesor/Case Study Mockups/iPhone 11 Pro Order Confirmation Mockup.png" alt="Naesor Order Confirmation"></a></div>
+          <div class="showcase-item showcase-item--half"><a href="assets/img/naesor/Case Study Mockups/iPhone 11 Pro Account Authorized Mockup.png"><img src="assets/img/naesor/Case Study Mockups/iPhone 11 Pro Account Authorized Mockup.png" alt="Naesor Account Authorized"></a></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+ 
+  </section>
+
+  <!-- Key Learnings -->
+  <section class="case-section">
+    <div class="container">
+      <div class="section-header">
+        <div class="section-number">04 — Learnings</div>
+        <h2 class="section-title">Key Takeaways</h2>
+      </div>
+
+      <div class="row g-4">
+        <div class="col-lg-4">
+          <div class="result-item h-100">
+            <div class="card-icon" style="background: #61dafb;">
+              <i data-feather="users"></i>
+            </div>
+            <h4 class="card-title">User-Centric Design</h4>
+            <p class="card-text">Prioritizing user needs from discovery to delivery ensures a product that truly resonates and provides value.</p>
+          </div>
+        </div>
+        <div class="col-lg-4">
+          <div class="result-item h-100">
+            <div class="card-icon" style="background: #4fc08d;">
+              <i data-feather="refresh-cw"></i>
+            </div>
+            <h4 class="card-title">Iterative Prototyping</h4>
+            <p class="card-text">Rapid prototyping and testing are crucial for refining interactions and identifying usability issues early in the design process.</p>
+          </div>
+        </div>
+        <div class="col-lg-4">
+          <div class="result-item h-100">
+            <div class="card-icon" style="background: #f7df1e; color: #333;">
+              <i data-feather="image"></i>
+            </div>
+            <h4 class="card-title">Visual Storytelling</h4>
+            <p class="card-text">Effective use of high-fidelity mockups and clear visual hierarchy is key to communicating the product's value and aesthetic.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Section -->
+  <section class="cta-section">
+    <div class="container">
+      <h2 class="cta-title">Interested in Working Together?</h2>
+      <p class="cta-text">Let's discuss how I can help bring your next project to life</p>
+      <form action="mailto:rosean.frankalexander@gmail.com" method="get" enctype="text/plain" class="cta-form">
+        <input type="email" name="email" placeholder="Your email address" required>
+        <input type="hidden" name="subject" value="Project Inquiry from your Portfolio">
+        <button type="submit" class="btn-primary">Get in Touch</button>
+      </form>
+    </div>
+  </section>
+
+ <!-- Lightbox -->
+  <div id="lightbox" class="lightbox hidden">
+    <button id="lightbox-close" class="lightbox-close">&times;</button>
+    <button id="lightbox-prev" class="lightbox-prev nav-btn">‹</button>
+    <button id="lightbox-next" class="lightbox-next nav-btn">›</button>
+    <div class="lightbox-content">
+      <img id="lightbox-img" src="" alt="Gallery Preview" class="lightbox-zoomable" />
+      <div id="lightbox-caption" class="lightbox-caption"></div>
+    </div>
   </div>
 
 
-                        <div class="col-6 col-md-3 isotope-item naesor marketing mockups">
-                            <a class="glightbox" data-gallery="naesor-gallery" href="/assets/img/naesor/Case Study Mockups/iPhone 11 Pro Library.png">
-                                <div class="hoverbox rounded portfolio-item overlay overflow-hidden" data-zanim-xs='{"animation":"zoom-in"}'>
-                                    <img class="w-100" src="/assets/img/naesor/Case Study Mockups/iPhone 11 Pro Library.png" alt="iPhone 11 Pro Library" />
-                                    <div class="hoverbox-content bg-dark d-flex flex-center text-center">
-                                        <div class="px-4">
-                                            <i class="text-white" data-feather="plus"></i>
-                                        </div>
-                                    </div>
-                                </div>
-                            </a>
-                        </div>
-                        <div class="col-6 col-md-3 isotope-item naesor marketing mockups">
-                            <a class="glightbox" data-gallery="naesor-gallery" href="/assets/img/naesor/Case Study Mockups/iPhone 11 Pro Library.png">
-                                <div class="hoverbox rounded portfolio-item overlay overflow-hidden" data-zanim-xs='{"animation":"zoom-in"}'>
-                                    <img class="w-100" src="/assets/img/naesor/Case Study Mockups/iPhone 11 Pro Library.png" alt="iPhone 11 Pro Library" />
-                                    <div class="hoverbox-content bg-dark d-flex flex-center text-center">
-                                        <div class="px-4">
-                                            <i class="text-white" data-feather="plus"></i>
-                                        </div>
-                                    </div>
-                                </div>
-                            </a>
-                        </div>
-                        
-                        <div class="col-6 col-md-3 isotope-item naesor marketing mockups">
-                            <a class="glightbox" data-gallery="naesor-gallery" href="/assets/img/naesor/Case Study Mockups/iPhone 11 Pro Order Confirmation Mockup.png">
-                                <div class="hoverbox rounded portfolio-item overlay overflow-hidden" data-zanim-xs='{"animation":"zoom-in"}'>
-                                    <img class="w-100" src="/assets/img/naesor/Case Study Mockups/iPhone 11 Pro Order Confirmation Mockup.png" alt="iPhone 11 Pro Order Confirmation Mockup" />
-                                    <div class="hoverbox-content bg-dark d-flex flex-center text-center">
-                                        <div class="px-4">
-                                            <i class="text-white" data-feather="plus"></i>
-                                        </div>
-                                    </div>
-                                </div>
-                            </a>
-                        </div>
-                        
-                        <div class="col-6 col-md-3 isotope-item naesor marketing mockups">
-                            <a class="glightbox" data-gallery="naesor-gallery" href="/assets/img/naesor/Case Study Mockups/iPhone 11 Pro Library Mockup.jpg">
-                                <div class="hoverbox rounded portfolio-item overlay overflow-hidden" data-zanim-xs='{"animation":"zoom-in"}'>
-                                    <img class="w-100" src="assets/img/naesor/Case Study Mockups/iPhone 11 Pro Library Mockup.jpg" alt="iPhone 11 Pro Library Mockup" />
-                                    <div class="hoverbox-content bg-dark d-flex flex-center text-center">
-                                        <div class="px-4">
-                                            <i class="text-white" data-feather="plus"></i>
-                                        </div>
-                                    </div>
-                                </div>
-                            </a>
-                        </div>
-                        
-                        <div class="col-6 col-md-3 isotope-item naesor marketing mockups">
-                            <a class="glightbox" data-gallery="naesor-gallery" href="/assets/img/naesor/Case Study Mockups/iPhone 11 Pro Order.png">
-                                <div class="hoverbox rounded portfolio-item overlay overflow-hidden" data-zanim-xs='{"animation":"zoom-in"}'>
-                                    <img class="w-100" src="/assets/img/naesor/Case Study Mockups/iPhone 11 Pro Order.png" alt="iPhone 11 Pro Order" />
-                                    <div class="hoverbox-content bg-dark d-flex flex-center text-center">
-                                        <div class="px-4">
-                                            <i class="text-white" data-feather="plus"></i>
-                                        </div>
-                                    </div>
-                                </div>
-                            </a>
-                        </div>
-                        
-                        <div class="col-6 col-md-3 isotope-item naesor marketing mockups">
-                            <a class="glightbox" data-gallery="naesor-gallery" href="/assets/img/naesor/Case Study Mockups/iPhone 11 Pro Order Save Mockup.jpg">
-                                <div class="hoverbox rounded portfolio-item overlay overflow-hidden" data-zanim-xs='{"animation":"zoom-in"}'>
-                                    <img class="w-100" src="/assets/img/naesor/Case Study Mockups/iPhone 11 Pro Order Save Mockup.jpg" alt="iPhone 11 Pro Order Save Mockup" />
-                                    <div class="hoverbox-content bg-dark d-flex flex-center text-center">
-                                        <div class="px-4">
-                                            <i class="text-white" data-feather="plus"></i>
-                                        </div>
-                                    </div>
-                                </div>
-                            </a>
-                        </div>
-                        
-                        <div class="col-6 col-md-3 isotope-item naesor marketing mockups">
-                            <a class="glightbox" data-gallery="naesor-gallery" href="/assets/img/naesor/Case Study Mockups/iPhone 11 Pro Account Authorized Mockup.png">
-                                <div class="hoverbox rounded portfolio-item overlay overflow-hidden" data-zanim-xs='{"animation":"zoom-in"}'>
-                                    <img class="w-100" src="/assets/img/naesor/Case Study Mockups/iPhone 11 Pro Account Authorized Mockup.png" alt="iPhone 11 Pro Account Authorized Mockup" />
-                                    <div class="hoverbox-content bg-dark d-flex flex-center text-center">
-                                        <div class="px-4">
-                                            <i class="text-white" data-feather="plus"></i>
-                                        </div>
-                                    </div>
-                                </div>
-                            </a>
-                        </div>
-                        
-                        <div class="col-6 col-md-3 isotope-item naesor marketing mockups">
-                            <a class="glightbox" data-gallery="naesor-gallery" href="/assets/img/naesor/Case Study Mockups/iPhone 11 Pro Music Player Mockup.jpg">
-                                <div class="hoverbox rounded portfolio-item overlay overflow-hidden" data-zanim-xs='{"animation":"zoom-in"}'>
-                                    <img class="w-100" src="/assets/img/naesor/Case Study Mockups/iPhone 11 Pro Music Player Mockup.jpg" alt="iPhone 11 Pro Music Player Mockup" />
-                                    <div class="hoverbox-content bg-dark d-flex flex-center text-center">
-                                        <div class="px-4">
-                                            <i class="text-white" data-feather="plus"></i>
-                                        </div>
-                                    </div>
-                                </div>
-                            </a>
-                        </div>
-                        
-                        <div class="col-6 col-md-3 isotope-item naesor marketing mockups">
-                            <a class="glightbox" data-gallery="naesor-gallery" href="/assets/img/naesor/Case Study Mockups/iPhone 11 Pro Order Purchase Summary Mockup.jpg">
-                                <div class="hoverbox rounded portfolio-item overlay overflow-hidden" data-zanim-xs='{"animation":"zoom-in"}'>
-                                    <img class="w-100" src="/assets/img/naesor/Case Study Mockups/iPhone 11 Pro Order Purchase Summary Mockup.jpg" alt="iPhone 11 Pro Order Purchase Summary Mockup" />
-                                    <div class="hoverbox-content bg-dark d-flex flex-center text-center">
-                                        <div class="px-4">
-                                            <i class="text-white" data-feather="plus"></i>
-                                        </div>
-                                    </div>
-                                </div>
-                            </a>
-                        </div>
-                        
-                        <div class="col-6 col-md-3 isotope-item naesor marketing mockups">
-                            <a class="glightbox" data-gallery="naesor-gallery" href="/assets/img/naesor/Case Study Mockups/iPhone 11 Pro Order Summary Mockup.jpg">
-                                <div class="hoverbox rounded portfolio-item overlay overflow-hidden" data-zanim-xs='{"animation":"zoom-in"}'>
-                                    <img class="w-100" src="/assets/img/naesor/Case Study Mockups/iPhone 11 Pro Order Summary Mockup.jpg" alt="iPhone 11 Pro Order Summary Mockup" />
-                                    <div class="hoverbox-content bg-dark d-flex flex-center text-center">
-                                        <div class="px-4">
-                                            <i class="text-white" data-feather="plus"></i>
-                                        </div>
-                                    </div>
-                                </div>
-                            </a>
-                        </div>
-                        
-                        <div class="col-6 col-md-3 isotope-item naesor marketing mockups">
-                            <a class="glightbox" data-gallery="naesor-gallery" href="/assets/img/naesor/Case Study Mockups/iPhone 11 Pro Splash Landing Mockup.jpg">
-                                <div class="hoverbox rounded portfolio-item overlay overflow-hidden" data-zanim-xs='{"animation":"zoom-in"}'>
-                                    <img class="w-100" src="/assets/img/naesor/Case Study Mockups/iPhone 11 Pro Splash Landing Mockup.jpg" alt="iPhone 11 Pro Splash Landing Mockup" />
-                                    <div class="hoverbox-content bg-dark d-flex flex-center text-center">
-                                        <div class="px-4">
-                                            <i class="text-white" data-feather="plus"></i>
-                                        </div>
-                                    </div>
-                                </div>
-                            </a>
-                        </div>
-                        
-                        <div class="col-6 col-md-3 isotope-item naesor marketing mockups">
-                            <a class="glightbox" data-gallery="naesor-gallery" href="/assets/img/naesor/Case Study Mockups/iPhone 11 Pro Order Purchase Details Mockup.jpg">
-                                <div class="hoverbox rounded portfolio-item overlay overflow-hidden" data-zanim-xs='{"animation":"zoom-in"}'>
-                                    <img class="w-100" src="/assets/img/naesor/Case Study Mockups/iPhone 11 Pro Order Purchase Details Mockup.jpg" alt="iPhone 11 Pro Order Purchase Details Mockup" />
-                                    <div class="hoverbox-content bg-dark d-flex flex-center text-center">
-                                        <div class="px-4">
-                                            <i class="text-white" data-feather="plus"></i>
-                                        </div>
-                                    </div>
-                                </div>
-                            </a>
-                        </div>
-                        
-                        <div class="col-6 col-md-3 isotope-item naesor marketing mockups">
-                            <a class="glightbox" data-gallery="naesor-gallery" href="/assets/img/naesor/Case Study Mockups/iPhone 11 Pro Connect Account Mockup.jpg">
-                                <div class="hoverbox rounded portfolio-item overlay overflow-hidden" data-zanim-xs='{"animation":"zoom-in"}'>
-                                    <img class="w-100" src="/assets/img/naesor/Case Study Mockups/iPhone 11 Pro Connect Account Mockup.jpg" alt="iPhone 11 Pro Connect Account Mockup" />
-                                    <div class="hoverbox-content bg-dark d-flex flex-center text-center">
-                                        <div class="px-4">
-                                            <i class="text-white" data-feather="plus"></i>
-                                        </div>
-                                    </div>
-                                </div>
-                            </a>
-                        </div>
-                        
-                        <div class="col-6 col-md-3 isotope-item naesor marketing mockups">
-                            <a class="glightbox" data-gallery="naesor-gallery" href="/assets/img/naesor/Case Study Mockups/iPhone 11 Pro Order Option Mockup.jpg">
-                                <div class="hoverbox rounded portfolio-item overlay overflow-hidden" data-zanim-xs='{"animation":"zoom-in"}'>
-                                    <img class="w-100" src="/assets/img/naesor/Case Study Mockups/iPhone 11 Pro Order Option Mockup.jpg" alt="iPhone 11 Pro Order Option Mockup" />
-                                    <div class="hoverbox-content bg-dark d-flex flex-center text-center">
-                                        <div class="px-4">
-                                            <i class="text-white" data-feather="plus"></i>
-                                        </div>
-                                    </div>
-                                </div>
-                            </a>
-                        </div>
-                        
-                        <div class="col-6 col-md-3 isotope-item naesor marketing mockups">
-                            <a class="glightbox" data-gallery="naesor-gallery" href="/assets/img/naesor/Case Study Mockups/iPhone 11 Pro Billing Info 2Mockup.jpg">
-                                <div class="hoverbox rounded portfolio-item overlay overflow-hidden" data-zanim-xs='{"animation":"zoom-in"}'>
-                                    <img class="w-100" src="/assets/img/naesor/Case Study Mockups/iPhone 11 Pro Billing Info 2Mockup.jpg" alt="iPhone 11 Pro Billing Info 2Mockup" />
-                                    <div class="hoverbox-content bg-dark d-flex flex-center text-center">
-                                        <div class="px-4">
-                                            <i class="text-white" data-feather="plus"></i>
-                                        </div>
-                                    </div>
-                                </div>
-                            </a>
-                        </div>
-                        
-                        <div class="col-6 col-md-3 isotope-item naesor marketing mockups">
-                            <a class="glightbox" data-gallery="naesor-gallery" href="/assets/img/naesor/Figma Proto/iPhone 11 Pro/">
-                                <div class="hoverbox rounded portfolio-item overlay overflow-hidden" data-zanim-xs='{"animation":"zoom-in"}'>
-                                    <img class="w-100" src="/assets/img/naesor/Case Study Mockups/iPhone 11 Pro Billing Info 1 Mockup.png" alt="iPhone 11 Pro Billing Info 1 Mockup" />
-                                    <div class="hoverbox-content bg-dark d-flex flex-center text-center">
-                                        <div class="px-4">
-                                            <i class="text-white" data-feather="plus"></i>
-                                        </div>
-                                    </div>
-                                </div>
-                            </a>
-                        </div>
 
-                        <div class="col-6 col-md-3 isotope-item naesor wireframes mockups">
-                            <a class="glightbox" data-gallery="naesor-gallery" href="/assets/img/naesor/Figma Proto/iPhone 11 Pro/X - 44.png">
-                                <div class="hoverbox rounded portfolio-item overlay overflow-hidden" data-zanim-xs='{"animation":"zoom-in"}'>
-                                    <img class="w-100" src="/assets/img/naesor/Figma Proto/iPhone 11 Pro/X - 44.png" alt="X - 44 Mockup" />
-                                    <div class="hoverbox-content bg-dark d-flex flex-center text-center">
-                                        <div class="px-4">
-                                            <i class="text-white" data-feather="plus"></i>
-                                        </div>
-                                    </div>
-                                </div>
-                            </a>
-                        </div>
+    <!-- FOOTER -->
+  <footer class="footer p-3 pt-4">
+    <div class="container">
+      <div class="row align-items-center pb-4">
+        <div class="col-md-4 col-sm-6 mb-3">
+          <a href="index.html"><img src="assets/img/rjfa_logo_grey_svg.svg" width="34" height="34" alt="RJFA Logo" /></a>
+          <span class="ms-2">&copy; 2025</span>
+        </div>
 
+        <div class="col-md-4 col-sm-6">
+          <h3 class="mb-2 fs-base">Navigation</h3>
+          <ul class="list-unstyled">
+            <li><a class="nav-link" href="#hero">Home</a></li>
+            <li><a class="nav-link" href="#about">About Me</a></li>
+            <li><a class="nav-link" href="#work">Featured Work</a></li>
+            <li><a class="nav-link" href="gallery.html">Gallery</a></li>
+            <li><a class="nav-link" href="mailto:rosean.frankalexander@gmail.com">Contact</a></li>
+          </ul>
+        </div>
 
-                        <div class="col-6 col-md-3 isotope-item naesor wireframes mockups">
-                            <a class="glightbox" data-gallery="naesor-gallery" href="/assets/img/naesor/Figma Proto/iPhone 11 Pro/X - 45.png">
-                                <div class="hoverbox rounded portfolio-item overlay overflow-hidden" data-zanim-xs='{"animation":"zoom-in"}'>
-                                    <img class="w-100" src="/assets/img/naesor/Figma Proto/iPhone 11 Pro/X - 45.png" alt="X - 45 Mockup" />
-                                    <div class="hoverbox-content bg-dark d-flex flex-center text-center">
-                                        <div class="px-4">
-                                            <i class="text-white" data-feather="plus"></i>
-                                        </div>
-                                    </div>
-                                </div>
-                            </a>
-                        </div>
-                            
-
-                        <div class="col-6 col-md-3 isotope-item naesor wireframes mockups">
-                            <a class="glightbox" data-gallery="naesor-gallery" href="/assets/img/naesor/Figma Proto/iPhone 11 Pro/X - 44.png">
-                                <div class="hoverbox rounded portfolio-item overlay overflow-hidden" data-zanim-xs='{"animation":"zoom-in"}'>
-                                    <img class="w-100" src="/assets/img/naesor/Figma Proto/iPhone 11 Pro/X - 44.png" alt="X - 44 Mockup" />
-                                    <div class="hoverbox-content bg-dark d-flex flex-center text-center">
-                                        <div class="px-4">
-                                            <i class="text-white" data-feather="plus"></i>
-                                        </div>
-                                    </div>
-                                </div>
-                            </a>
-                        </div>
-                        
-                        <div class="col-6 col-md-3 isotope-item naesor wireframes mockups">
-                            <a class="glightbox" data-gallery="naesor-gallery" href="/assets/img/naesor/Figma Proto/iPhone 11 Pro/X - 45.png">
-                                <div class="hoverbox rounded portfolio-item overlay overflow-hidden" data-zanim-xs='{"animation":"zoom-in"}'>
-                                    <img class="w-100" src="/assets/img/naesor/Figma Proto/iPhone 11 Pro/X - 45.png" alt="X - 45 Mockup" />
-                                    <div class="hoverbox-content bg-dark d-flex flex-center text-center">
-                                        <div class="px-4">
-                                            <i class="text-white" data-feather="plus"></i>
-                                        </div>
-                                    </div>
-                                </div>
-                            </a>
-                        </div>
-                        
-                        <div class="col-6 col-md-3 isotope-item naesor wireframes mockups">
-                            <a class="glightbox" data-gallery="naesor-gallery" href="/assets/img/naesor/Figma Proto/iPhone 11 Pro/X - 48.png">
-                                <div class="hoverbox rounded portfolio-item overlay overflow-hidden" data-zanim-xs='{"animation":"zoom-in"}'>
-                                    <img class="w-100" src="/assets/img/naesor/Figma Proto/iPhone 11 Pro/X - 48.png" alt="X - 48 Mockup" />
-                                    <div class="hoverbox-content bg-dark d-flex flex-center text-center">
-                                        <div class="px-4">
-                                            <i class="text-white" data-feather="plus"></i>
-                                        </div>
-                                    </div>
-                                </div>
-                            </a>
-                        </div>
-                        
-                        <div class="col-6 col-md-3 isotope-item naesor wireframes mockups">
-                            <a class="glightbox" data-gallery="naesor-gallery" href="/assets/img/naesor/Figma Proto/iPhone 11 Pro/X - 41.png">
-                                <div class="hoverbox rounded portfolio-item overlay overflow-hidden" data-zanim-xs='{"animation":"zoom-in"}'>
-                                    <img class="w-100" src="/assets/img/naesor/Figma Proto/iPhone 11 Pro/X - 41.png" alt="X - 41 Mockup" />
-                                    <div class="hoverbox-content bg-dark d-flex flex-center text-center">
-                                        <div class="px-4">
-                                            <i class="text-white" data-feather="plus"></i>
-                                        </div>
-                                    </div>
-                                </div>
-                            </a>
-                        </div>
-                        
-                        <div class="col-6 col-md-3 isotope-item naesor wireframes mockups">
-                            <a class="glightbox" data-gallery="naesor-gallery" href="/assets/img/naesor/Figma Proto/iPhone 11 Pro/X - 46.png">
-                                <div class="hoverbox rounded portfolio-item overlay overflow-hidden" data-zanim-xs='{"animation":"zoom-in"}'>
-                                    <img class="w-100" src="/assets/img/naesor/Figma Proto/iPhone 11 Pro/X - 46.png" alt="X - 46 Mockup" />
-                                    <div class="hoverbox-content bg-dark d-flex flex-center text-center">
-                                        <div class="px-4">
-                                            <i class="text-white" data-feather="plus"></i>
-                                        </div>
-                                    </div>
-                                </div>
-                            </a>
-                        </div>
-                        
-                        <div class="col-6 col-md-3 isotope-item naesor wireframes mockups">
-                            <a class="glightbox" data-gallery="naesor-gallery" href="/assets/img/naesor/Figma Proto/iPhone 11 Pro/X - 26.png">
-                                <div class="hoverbox rounded portfolio-item overlay overflow-hidden" data-zanim-xs='{"animation":"zoom-in"}'>
-                                    <img class="w-100" src="/assets/img/naesor/Figma Proto/iPhone 11 Pro/X - 26.png" alt="X - 26 Mockup" />
-                                    <div class="hoverbox-content bg-dark d-flex flex-center text-center">
-                                        <div class="px-4">
-                                            <i class="text-white" data-feather="plus"></i>
-                                        </div>
-                                    </div>
-                                </div>
-                            </a>
-                        </div>
-                        
-                        <div class="col-6 col-md-3 isotope-item naesor wireframes mockups">
-                            <a class="glightbox" data-gallery="naesor-gallery" href="/assets/img/naesor/Figma Proto/iPhone 11 Pro/X - 23.png">
-                                <div class="hoverbox rounded portfolio-item overlay overflow-hidden" data-zanim-xs='{"animation":"zoom-in"}'>
-                                    <img class="w-100" src="/assets/img/naesor/Figma Proto/iPhone 11 Pro/X - 23.png" alt="X - 23 Mockup" />
-                                    <div class="hoverbox-content bg-dark d-flex flex-center text-center">
-                                        <div class="px-4">
-                                            <i class="text-white" data-feather="plus"></i>
-                                        </div>
-                                    </div>
-                                </div>
-                            </a>
-                        </div>
-                        
-                        <div class="col-6 col-md-3 isotope-item naesor wireframes mockups">
-                            <a class="glightbox" data-gallery="naesor-gallery" href="/assets/img/naesor/Figma Proto/iPhone 11 Pro/X - 43.png">
-                                <div class="hoverbox rounded portfolio-item overlay overflow-hidden" data-zanim-xs='{"animation":"zoom-in"}'>
-                                    <img class="w-100" src="/assets/img/naesor/Figma Proto/iPhone 11 Pro/X - 43.png" alt="X - 43 Mockup" />
-                                    <div class="hoverbox-content bg-dark d-flex flex-center text-center">
-                                        <div class="px-4">
-                                            <i class="text-white" data-feather="plus"></i>
-                                        </div>
-                                    </div>
-                                </div>
-                            </a>
-                        </div>
-                        
-                        <div class="col-6 col-md-3 isotope-item naesor wireframes mockups">
-                            <a class="glightbox" data-gallery="naesor-gallery" href="/assets/img/naesor/Figma Proto/iPhone 11 Pro/X - 28.png">
-                                <div class="hoverbox rounded portfolio-item overlay overflow-hidden" data-zanim-xs='{"animation":"zoom-in"}'>
-                                    <img class="w-100" src="/assets/img/naesor/Figma Proto/iPhone 11 Pro/X - 28.png" alt="X - 28 Mockup" />
-                                    <div class="hoverbox-content bg-dark d-flex flex-center text-center">
-                                        <div class="px-4">
-                                            <i class="text-white" data-feather="plus"></i>
-                                        </div>
-                                    </div>
-                                </div>
-                            </a>
-                        </div>
-                        
-                        <div class="col-6 col-md-3 isotope-item naesor wireframes mockups">
-                            <a class="glightbox" data-gallery="naesor-gallery" href="/assets/img/naesor/Figma Proto/iPhone 11 Pro/X - 31.png">
-                                <div class="hoverbox rounded portfolio-item overlay overflow-hidden" data-zanim-xs='{"animation":"zoom-in"}'>
-                                    <img class="w-100" src="/assets/img/naesor/Figma Proto/iPhone 11 Pro/X - 31.png" alt="X - 31 Mockup" />
-                                    <div class="hoverbox-content bg-dark d-flex flex-center text-center">
-                                        <div class="px-4">
-                                            <i class="text-white" data-feather="plus"></i>
-                                        </div>
-                                    </div>
-                                </div>
-                            </a>
-                        </div>
-                        
-                        <div class="col-6 col-md-3 isotope-item naesor wireframes mockups">
-                            <a class="glightbox" data-gallery="naesor-gallery" href="/assets/img/naesor/Figma Proto/iPhone 11 Pro/X - 33.png">
-                                <div class="hoverbox rounded portfolio-item overlay overflow-hidden" data-zanim-xs='{"animation":"zoom-in"}'>
-                                    <img class="w-100" src="/assets/img/naesor/Figma Proto/iPhone 11 Pro/X - 33.png" alt="X - 33 Mockup" />
-                                    <div class="hoverbox-content bg-dark d-flex flex-center text-center">
-                                        <div class="px-4">
-                                            <i class="text-white" data-feather="plus"></i>
-                                        </div>
-                                    </div>
-                                </div>
-                            </a>
-                        </div>
-                        
-                        <div class="col-6 col-md-3 isotope-item naesor wireframes mockups">
-                            <a class="glightbox" data-gallery="naesor-gallery" href="/assets/img/naesor/Figma Proto/iPhone 11 Pro/X - 27.png">
-                                <div class="hoverbox rounded portfolio-item overlay overflow-hidden" data-zanim-xs='{"animation":"zoom-in"}'>
-                                    <img class="w-100" src="/assets/img/naesor/Figma Proto/iPhone 11 Pro/X - 27.png" alt="X - 27 Mockup" />
-                                    <div class="hoverbox-content bg-dark d-flex flex-center text-center">
-                                        <div class="px-4">
-                                            <i class="text-white" data-feather="plus"></i>
-                                        </div>
-                                    </div>
-                                </div>
-                            </a>
-                        </div>
-                        
-                        <div class="col-6 col-md-3 isotope-item naesor wireframes mockups">
-                            <a class="glightbox" data-gallery="naesor-gallery" href="/assets/img/naesor/Figma Proto/iPhone 11 Pro/X - 29.png">
-                                <div class="hoverbox rounded portfolio-item overlay overflow-hidden" data-zanim-xs='{"animation":"zoom-in"}'>
-                                    <img class="w-100" src="/assets/img/naesor/Figma Proto/iPhone 11 Pro/X - 29.png" alt="X - 29 Mockup" />
-                                    <div class="hoverbox-content bg-dark d-flex flex-center text-center">
-                                        <div class="px-4">
-                                            <i class="text-white" data-feather="plus"></i>
-                                        </div>
-                                    </div>
-                                </div>
-                            </a>
-                        </div>
-                        
-                        <div class="col-6 col-md-3 isotope-item naesor wireframes mockups">
-                            <a class="glightbox" data-gallery="naesor-gallery" href="/assets/img/naesor/Figma Proto/iPhone 11 Pro/X - 38.png">
-                                <div class="hoverbox rounded portfolio-item overlay overflow-hidden" data-zanim-xs='{"animation":"zoom-in"}'>
-                                    <img class="w-100" src="/assets/img/naesor/Figma Proto/iPhone 11 Pro/X - 38.png" alt="X - 38 Mockup" />
-                                    <div class="hoverbox-content bg-dark d-flex flex-center text-center">
-                                        <div class="px-4">
-                                            <i class="text-white" data-feather="plus"></i>
-                                        </div>
-                                    </div>
-                                </div>
-                            </a>
-                        </div>
-                        
-                        <div class="col-6 col-md-3 isotope-item naesor wireframes mockups">
-                            <a class="glightbox" data-gallery="naesor-gallery" href="/assets/img/naesor/Figma Proto/iPhone 11 Pro/X - 30.png">
-                                <div class="hoverbox rounded portfolio-item overlay overflow-hidden" data-zanim-xs='{"animation":"zoom-in"}'>
-                                    <img class="w-100" src="/assets/img/naesor/Figma Proto/iPhone 11 Pro/X - 30.png" alt="X - 30 Mockup" />
-                                    <div class="hoverbox-content bg-dark d-flex flex-center text-center">
-                                        <div class="px-4">
-                                            <i class="text-white" data-feather="plus"></i>
-                                        </div>
-                                    </div>
-                                </div>
-                            </a>
-                        </div>
-                        
-                        <div class="col-6 col-md-3 isotope-item naesor wireframes mockups">
-                            <a class="glightbox" data-gallery="naesor-gallery" href="/assets/img/naesor/Figma Proto/iPhone 11 Pro/X - 34.png">
-                                <div class="hoverbox rounded portfolio-item overlay overflow-hidden" data-zanim-xs='{"animation":"zoom-in"}'>
-                                    <img class="w-100" src="/assets/img/naesor/Figma Proto/iPhone 11 Pro/X - 34.png" alt="X - 34 Mockup" />
-                                    <div class="hoverbox-content bg-dark d-flex flex-center text-center">
-                                        <div class="px-4">
-                                            <i class="text-white" data-feather="plus"></i>
-                                        </div>
-                                    </div>
-                                </div>
-                            </a>
-                        </div>
-                        
-                        <div class="col-6 col-md-3 isotope-item naesor wireframes mockups">
-                            <a class="glightbox" data-gallery="naesor-gallery" href="/assets/img/naesor/Figma Proto/iPhone 11 Pro/X - 22.png">
-                                <div class="hoverbox rounded portfolio-item overlay overflow-hidden" data-zanim-xs='{"animation":"zoom-in"}'>
-                                    <img class="w-100" src="/assets/img/naesor/Figma Proto/iPhone 11 Pro/X - 22.png" alt="X - 22 Mockup" />
-                                    <div class="hoverbox-content bg-dark d-flex flex-center text-center">
-                                        <div class="px-4">
-                                            <i class="text-white" data-feather="plus"></i>
-                                        </div>
-                                    </div>
-                                </div>
-                            </a>
-                        </div>
-                        
-                        <div class="col-6 col-md-3 isotope-item naesor wireframes mockups">
-                            <a class="glightbox" data-gallery="naesor-gallery" href="/assets/img/naesor/Figma Proto/iPhone 11 Pro/X - 21.png">
-                                <div class="hoverbox rounded portfolio-item overlay overflow-hidden" data-zanim-xs='{"animation":"zoom-in"}'>
-                                    <img class="w-100" src="/assets/img/naesor/Figma Proto/iPhone 11 Pro/X - 21.png" alt="X - 21 Mockup" />
-                                    <div class="hoverbox-content bg-dark d-flex flex-center text-center">
-                                        <div class="px-4">
-                                            <i class="text-white" data-feather="plus"></i>
-                                        </div>
-                                    </div>
-                                </div>
-                            </a>
-                        </div>
-                        
-                        <div class="col-6 col-md-3 isotope-item naesor wireframes mockups">
-                            <a class="glightbox" data-gallery="naesor-gallery" href="/assets/img/naesor/Figma Proto/iPhone 11 Pro_2/iPhone 13 Mockup.png">
-                                <div class="hoverbox rounded portfolio-item overlay overflow-hidden" data-zanim-xs='{"animation":"zoom-in"}'>
-                                    <img class="w-100" src="/assets/img/naesor/Figma Proto/iPhone 11 Pro_2/iPhone 13 Mockup.png" alt="iPhone 13 Mockup" />
-                                    <div class="hoverbox-content bg-dark d-flex flex-center text-center">
-                                        <div class="px-4">
-                                            <i class="text-white" data-feather="plus"></i>
-                                        </div>
-                                    </div>
-                                </div>
-                            </a>
-                        </div>
-                        
-                        <div class="col-6 col-md-3 isotope-item naesor wireframes mockups">
-                            <a class="glightbox" data-gallery="naesor-gallery" href="/assets/img/naesor/Figma Proto/iPhone 11 Pro_2/iPhone 13 Payment Cart Mockup.png">
-                                <div class="hoverbox rounded portfolio-item overlay overflow-hidden" data-zanim-xs='{"animation":"zoom-in"}'>
-                                    <img class="w-100" src="/assets/img/naesor/Figma Proto/iPhone 11 Pro_2/iPhone 13 Payment Cart Mockup.png" alt="iPhone 13 Payment Cart Mockup" />
-                                    <div class="hoverbox-content bg-dark d-flex flex-center text-center">
-                                        <div class="px-4">
-                                            <i class="text-white" data-feather="plus"></i>
-                                        </div>
-                                    </div>
-                                </div>
-                            </a>
-                        </div>
-                        
-                        <div class="col-6 col-md-3 isotope-item naesor wireframes mockups">
-                            <a class="glightbox" data-gallery="naesor-gallery" href="/assets/img/Figma Proto/iPhone 11 Pro_2/iPhone 13 Streaming Checkout Mockup.png">
-                                <div class="hoverbox rounded portfolio-item overlay overflow-hidden" data-zanim-xs='{"animation":"zoom-in"}'>
-                                    <img class="w-100" src="/assets/img/Figma Proto/iPhone 11 Pro_2/iPhone 13 Streaming Checkout Mockup.png" alt="iPhone 13 Streaming Checkout Mockup" />
-                                    <div class="hoverbox-content bg-dark d-flex flex-center text-center">
-                                        <div class="px-4">
-                                            <i class="text-white" data-feather="plus"></i>
-                                        </div>
-                                    </div>
-                                </div>
-                            </a>
-                        </div>
-                        
-                        <div class="col-6 col-md-3 isotope-item naesor wireframes mockups">
-                            <a class="glightbox" data-gallery="naesor-gallery" href="/assets/img/naesor/Figma Proto/iPhone 11 Pro_2/iPhone 13 Greeting Mockup.png">
-                                <div class="hoverbox rounded portfolio-item overlay overflow-hidden" data-zanim-xs='{"animation":"zoom-in"}'>
-                                    <img class="w-100" src="/assets/img/naesor/Figma Proto/iPhone 11 Pro_2/iPhone 13 Greeting Mockup.png" alt="iPhone 13 Greeting Mockup" />
-                                    <div class="hoverbox-content bg-dark d-flex flex-center text-center">
-                                        <div class="px-4">
-                                            <i class="text-white" data-feather="plus"></i>
-                                        </div>
-                                    </div>
-                                </div>
-                            </a>
-                        </div>
-                        
-                        <div class="col-6 col-md-3 isotope-item naesor wireframes mockups">
-                            <a class="glightbox" data-gallery="naesor-gallery" href="/assets/img/naesor/Figma Proto/iPhone 11 Pro_2/iPhone 13 Login Mockup.png">
-                                <div class="hoverbox rounded portfolio-item overlay overflow-hidden" data-zanim-xs='{"animation":"zoom-in"}'>
-                                    <img class="w-100" src="/assets/img/naesor/Figma Proto/iPhone 11 Pro_2/iPhone 13 Login Mockup.png" alt="iPhone 13 Login Mockup" />
-                                    <div class="hoverbox-content bg-dark d-flex flex-center text-center">
-                                        <div class="px-4">
-                                            <i class="text-white" data-feather="plus"></i>
-                                        </div>
-                                    </div>
-                                </div>
-                            </a>
-                        </div>
-                        
-                        <div class="col-6 col-md-3 isotope-item naesor wireframes mockups">
-                            <a class="glightbox" data-gallery="naesor-gallery" href="/assets/img/naesor/Figma Proto/iPhone 11 Pro_2/X - 6.png">
-                                <div class="hoverbox rounded portfolio-item overlay overflow-hidden" data-zanim-xs='{"animation":"zoom-in"}'>
-                                    <img class="w-100" src="/assets/img/naesor/Figma Proto/iPhone 11 Pro_2/X - 6.png" alt="X - 6" />
-                                    <div class="hoverbox-content bg-dark d-flex flex-center text-center">
-                                        <div class="px-4">
-                                            <i class="text-white" data-feather="plus"></i>
-                                        </div>
-                                    </div>
-                                </div>
-                            </a>
-                        </div>
-                        
-                        <div class="col-6 col-md-3 isotope-item naesor wireframes mockups">
-                            <a class="glightbox" data-gallery="naesor-gallery" href="/assets/img/naesor/Figma Proto/iPhone 11 Pro_2/X - 17.png">
-                                <div class="hoverbox rounded portfolio-item overlay overflow-hidden" data-zanim-xs='{"animation":"zoom-in"}'>
-                                    <img class="w-100" src="/assets/img/naesor/Figma Proto/iPhone 11 Pro_2/X - 17.png" alt="X - 17" />
-                                    <div class="hoverbox-content bg-dark d-flex flex-center text-center">
-                                        <div class="px-4">
-                                            <i class="text-white" data-feather="plus"></i>
-                                        </div>
-                                    </div>
-                                </div>
-                            </a>
-                        </div>
-                        
-                        <div class="col-6 col-md-3 isotope-item naesor wireframes mockups">
-                            <a class="glightbox" data-gallery="naesor-gallery" href="/assets/img/naesor/Figma Proto/iPhone 11 Pro_2/X - 49.png">
-                                <div class="hoverbox rounded portfolio-item overlay overflow-hidden" data-zanim-xs='{"animation":"zoom-in"}'>
-                                    <img class="w-100" src="/assets/img/naesor/Figma Proto/iPhone 11 Pro_2/X - 49.png" alt="X - 49" />
-                                    <div class="hoverbox-content bg-dark d-flex flex-center text-center">
-                                        <div class="px-4">
-                                            <i class="text-white" data-feather="plus"></i>
-                                        </div>
-                                    </div>
-                                </div>
-                            </a>
-                        </div>
-                        
-
-
-                        </div>
-                    </div>
-                    </div>
-                </section>
-
-
-                
-              
-
-
-              </main>
-
-              <!-- Footer-->
-              <footer class="footer mt-5 bg-dark p-5 pt-5">
-                <div class="row align-items-center pb-4">
-                  <div class="text-nowrap  border-light py-4">
-                    <!-- Links-->
-                    <div class="row">
-                      <div class="col-md-4 col-sm-6 mb-3">
-                        <a href="https://roseanfrankale.github.io/" class="mr-auto mb-3"><img src="/assets/img/rjfa_logo_grey_svg.svg"
-                          width="30" height="34" alt="" class="navbar-brand" /></a>
-                          <span class="mb-3 mb-md-0">&copy; 2022</span>
-                          
-                      </div>
-                      <div class="col-md-4 col-sm-6">
-                        <h3 class="mb-2 pb-1 fs-base text-light">Navigation</h3>
-                        <ul class="list-unstyled fs-sm">
-                          <li><a class="nav-link active" href="https://roseanfrankale.github.io/">HOME</a></li>
-                          <li><a class="nav-link-light"href="https://roseanfrankale.github.io/about">ABOUT ME</a></li>
-                          <li><a class="nav-link-light"href="#work">FEATURED WORK</a></li>
-                          <li><a class="nav-link-light"href="https://roseanfrankale.github.io/gallery">GALLERY</a></li>
-                          <li><a class="nav-link-light" href="mailto:rosean.frankalexander@gmail.com">CONTACT: </a>
-                            <a class="text-white" href="mailto:rosean.frankalexander@gmail.com">rosean.frankalexander@gmail.com</a>  
-                          </li>
-                        </ul>
-                      </div>
-                      <div class=" text-nowrap col-md-4 col-sm-6">
-                        <h3 class=" mb-2 pb-1 fs-base text-light">Socials</h3>
-                      <ul class="list-unstyled fs-sm">
-                        <li class="nav-item d-flex align-items-center">
-                          <a class="nav-link px-2" href="https://www.linkedin.com/in/rfrankale/">
-                            <i class="social-icons" data-feather="linkedin"></i>
-                          </a>
-                        </li>
-                        <li class="nav-item d-flex align-items-center">
-                          <a class="nav-link px-2" href="https://github.com/roseanfrankale/">
-                            <i class="social-icons" data-feather="github"></i>
-                          </a>
-                        </li>
-                        <li class="nav-item d-flex align-items-center">
-                          <a class="nav-link px-2" href="https://dribbble.com/rjfa/">
-                            <i class="social-icons" data-feather="dribbble"></i>
-                          </a>
-                        </li>
-                      </ul>        
-                      </div>
-                    </div>
-                    <div class="col-sm-4 mb-4">
-                      
-                    </div>
-                  </div> 
-                </div>   
-              </footer>
-      
-              <!--CONNECT Modal -->
-      <div class="modal fade" id="connectModal" tabindex="-1" aria-labelledby="connectModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-fullscreen">
-          <div class="modal-content bg-opacity-75">
-            <div class="modal-header">
-             
-              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-             <!-- <section> begin ============================-->
-          <section class="text-centerfont-sans-serif" id="Contact">
-              <div class="container">
-                <div class="row justify-content-center">
-                  <h1 class="text-dark-50 text-center mb-3">Let's Connect!</h1>
-                    <h3 class="text-500 text-center mb-5"> Let's collaborate on your next project - I'd love to hear from you!</h3>              <form class="text-start">
-                      <div class="row justify-content-center">
-                        <div class="col-lg-8">
-                          <script charset="utf-8" type="text/javascript" src="//js.hsforms.net/forms/embed/v2.js"></script>
-                          <script>
-                            hbspt.forms.create({
-                              region: "na1",
-                              portalId: "6082856",
-                              formId: "bb8fb749-8c59-4df3-9fe5-eb65fcb39797"
-                            });
-                          </script>
-                        </div>
-                      </div>
-                    </form>
-                </div>
-              </div><!-- end of .container-->
-            </section><!-- <section> close ============================-->
-            </div>
-          </div>
+        <div class="col-md-4 col-sm-6">
+          <h3 class="mb-2 fs-base">Socials</h3>
+          <ul class="list-unstyled d-flex gap-3">
+            <li><a href="https://www.linkedin.com/in/rfrankale/" target="_blank"><i data-feather="linkedin"></i></a></li>
+            <li><a href="https://github.com/roseanfrankale/" target="_blank"><i data-feather="github"></i></a></li>
+            <li><a href="https://dribbble.com/rjfa/" target="_blank"><i data-feather="dribbble"></i></a></li>
+          </ul>
         </div>
       </div>
-              
-              
-                       <!--JavaScripts-->
-                 <script src="/vendors/popper/popper.min.js"></script>
-                 <script src="/vendors/bootstrap/bootstrap.min.js"></script>
-                 <script src="/vendors/anchorjs/anchor.min.js"></script>
-                 <script src="/vendors/is/is.min.js"></script>
-                 <script src="/vendors/swiper/swiper-bundle.min.js"></script>
-                 <script src="/vendors/bigpicture/BigPicture.js"> </script>
-                 <script src="/vendors/isotope-layout/isotope.pkgd.min.js"> </script>
-                 <script src="/vendors/isotope-packery/packery-mode.pkgd.min.js"> </script>
-                 <script src="/vendors/progressbar/progressbar.min.js"></script>
-                 <script src="/vendors/rellax/rellax.min.js"> </script>
-                 <script src="/vendors/fontawesome/all.min.js"></script>
-                 <script src="/vendors/lodash/lodash.min.js"></script>
-                 <script src="////polyfill.io/v3/polyfill.min58be.js?features=window.scroll"></script>
-                 <script src="/vendors/imagesloaded/imagesloaded.pkgd.js"></script>
-                 <script src="/vendors/gsap/gsap.js"></script>
-                 <script src="/vendors/gsap/customEase.js"></script>
-                 <script src="/vendors/gsap/drawSVGPlugin.js"></script>
-                 <script src="/vendors/glightbox/glightbox.js"></script>
-               <script src="https://unpkg.com/feather-icons"></script>
-              
-                 <script>
-                   feather.replace();
-                 </script>
-              
-              <script src="/assets/js/theme.js"></script>
-      </body>
-      
-      
-      </html>
-      
+    </div>
+  </footer>
+
+
+
+  <!-- Scripts -->
+  <!-- Bootstrap JS Bundle (includes Popper) -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+  <!-- GSAP + ScrollTrigger -->
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.2/dist/gsap.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.2/dist/ScrollTrigger.min.js"></script>
+  <script src="https://unpkg.com/imagesloaded@5/imagesloaded.pkgd.min.js"></script>
+  <script src="https://unpkg.com/isotope-layout@3/dist/isotope.pkgd.min.js"></script>
+
+ <!-- Custom Animations -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/color-thief/2.3.0/color-thief.umd.js"></script>
+  <script src="assets/js/gallery.js"></script>
+  <script src="assets/js/case-study.js"></script>
+   </body>
+</html>
