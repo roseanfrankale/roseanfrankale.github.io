@@ -764,3 +764,106 @@
     padding: 0.5rem 1rem;
   }
 }
+
+/* New Hero Case Study Styles (inspired by infinixsoft) */
+.hero-image-container {
+  position: relative;
+  display: inline-block;
+}
+
+.hero-image-blur {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 80%;
+  height: 80%;
+  background-color: var(--accent);
+  border-radius: 9999px;
+  filter: blur(100px);
+  opacity: 0.3;
+  z-index: -1;
+}
+
+.hero-case-image {
+  position: relative;
+  max-width: 550px;
+  width: 100%;
+  height: auto;
+}
+
+.hero-case-content {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.hero-case-badge {
+  display: inline-block;
+  width: fit-content;
+  padding: 0.3rem 0.8rem;
+  border-radius: 50px;
+  background-color: rgba(184, 26, 29, 0.1);
+  color: var(--accent);
+  font-size: 0.8rem;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+.hero-case-logo {
+  max-width: 180px;
+  height: auto;
+  margin-bottom: 0.5rem;
+}
+
+.hero-case-details {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  margin-top: 2rem;
+}
+
+.detail-group .detail-label {
+  font-size: 0.8rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  margin-bottom: 0.5rem;
+}
+
+.detail-group .detail-value {
+  font-size: 1rem;
+  color: var(--text);
+}
+
+.tech-badges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+/* Custom badge styling for tech stack */
+.tech-badges .badge {
+  display: inline-block;
+  padding: 8px 12px;
+  border: 1px solid var(--footer-bg);
+  border-radius: 30px;
+  background-color: var(--section-bg);
+  color: var(--text-muted);
+  font-size: 12px;
+  font-weight: 500;
+  overflow: hidden;
+  cursor: default;
+  transition: all 0.3s ease;
+}
+
+[data-theme="dark"] .tech-badges .badge {
+  background-color: #262629;
+  border-color: #50505f;
+  color: #fff;
+}
+
+.tech-badges .badge:hover {
+  transform: translateY(-2px);
+  border-color: var(--accent);
+}
