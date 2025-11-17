@@ -49,8 +49,6 @@ document.addEventListener("DOMContentLoaded", () => {
   const lightboxImg = document.getElementById("lightbox-img");
   const lightboxCaption = document.getElementById("lightbox-caption");
   const closeBtn = document.getElementById("lightbox-close");
-  const lightboxPrev = document.getElementById("lightbox-prev");
-  const lightboxNext = document.getElementById("lightbox-next");
   // Select links from the main gallery AND all relevant sections in case studies
   const galleryLinks = document.querySelectorAll(
     ".gallery-item a, " +
@@ -114,10 +112,6 @@ document.addEventListener("DOMContentLoaded", () => {
     // Close button
     if (closeBtn) closeBtn.addEventListener("click", hideLightbox);
 
-    // Navigation buttons
-    if (lightboxPrev) lightboxPrev.addEventListener("click", (e) => { e.stopPropagation(); showLightbox(currentIndex - 1); });
-    if (lightboxNext) lightboxNext.addEventListener("click", (e) => { e.stopPropagation(); showLightbox(currentIndex + 1); });
-
     // Close on background click
     lightbox.addEventListener("click", (event) => {
       if (event.target === lightbox) {
@@ -134,8 +128,6 @@ document.addEventListener("DOMContentLoaded", () => {
     document.addEventListener("keydown", (e) => {
       if (!lightbox.classList.contains("hidden")) {
         if (e.key === "Escape") hideLightbox();
-        if (e.key === "ArrowLeft") showLightbox(currentIndex - 1);
-        if (e.key === "ArrowRight") showLightbox(currentIndex + 1);
       }
     });
   }

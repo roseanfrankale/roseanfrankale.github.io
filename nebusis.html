@@ -20,6 +20,7 @@
   <!-- Custom CSS -->
   <!-- Note: These file paths are preserved as requested, but may not exist in your environment -->
   <link rel="stylesheet" href="assets/css/style.css">
+  <link rel="stylesheet" href="assets/css/gallery.css">
   <link rel="stylesheet" href="assets/css/case-study.css">
 
   <!-- Theme + Navbar + Darkmode -->
@@ -36,7 +37,7 @@
   <nav class="navbar navbar-expand-lg fixed-top">
     <div class="container">
       <a class="navbar-brand fw-bold" href="index.html">
-        <img src="assets/img/rjfa_logo_grey_svg.svg" width="34" height="34" alt="Logo">
+        <img src="assets/img/rjfa_logo_grey_svg.svg" width="34" height="34" alt="Rosean Frank-Alexander Logo">
       </a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
         <span class="navbar-toggler-icon"></span>
@@ -64,39 +65,56 @@
   </nav>
 
   <!-- Hero Section -->
-  <section class="case-hero">
-    <div class="container">
-      <div class="hero-content text-center">
-        <h1 class="case-title">Nebusis®</h1>
-        <p class="case-subtitle">Transforming ISO compliance through design.</p>
-        
-        <div class="hero-mockup text-center"> 
-
-
-              <img src="assets/img/nebusis_photos/NEBUSIS Dribble Landing.png" alt="Nebusis Dashboard">
-              <div class="hoverbox-content">
-                <i class="text-white" data-feather="plus"></i>
-              </div>
+  <section class="case-hero mb-5" style="padding-top: 5rem;">
+    <div class="container-fluid">
+      <div class="row justify-content-center">
+        <div class="col-12 text-center">
+          <h1 class="case-title">Nebusis®</h1>
+        </div>
+      </div>
+      <div class="hero-content mt-3 row align-items-center justify-content-center">
+        <!-- Left Column: Image -->
+        <div class="col-lg-6 text-center">
+          <div class="hero-image-container">
+            <div class="hero-mockup">
+              <img src="assets/img/nebusis_photos/NEBUSIS Dribble Landing.png" alt="Nebusis Dashboard" class="hero-case-image">
             </div>
-          </a>
+          </div>
         </div>
 
-        <div class="hero-meta">
-          <div class="meta-item">
-            <div class="meta-label">My Role</div>
-            <div class="meta-value">Product Manager, UI/UX Designer, Project Manager</div>
-          </div>
-          <div class="meta-item">
-            <div class="meta-label">Timeline</div>
-            <div class="meta-value">November 2020 - June 2023</div>
-          </div>
-          <div class="meta-item">
-            <div class="meta-label">Platform</div>
-            <div class="meta-value">SaaS Web Application</div>
-          </div>
-          <div class="meta-item">
-            <div class="meta-label">Industry</div>
-            <div class="meta-value">Compliance & Risk Management</div>
+        <!-- Right Column: Content -->
+        <div class="col-lg-5">
+          <div class="hero-case-content">
+            <p class="case-subtitle">Transforming ISO compliance through design.</p>
+            <div class="hero-case-details">
+              <div class="meta-item">
+                <p class="meta-label">My Role</p>
+                <p class="meta-value">Product Manager, UI/UX Designer, Project Manager</p>
+              </div>
+              <div class="meta-item">
+                <p class="meta-label">Timeline</p>
+                <p class="meta-value">November 2020 - June 2023</p>
+              </div>
+              <div class="meta-item">
+                <p class="meta-label">Platform</p>
+                <p class="meta-value">SaaS Web Application</p>
+              </div>
+              <div class="meta-item">
+                <p class="meta-label">Industry</p>
+                <p class="meta-value">Compliance & Risk Management</p>
+              </div>
+                   <div class="meta-item">
+                <p class="meta-label">Tech Stack</p>
+                <div class="tech-badges hero-case-badge">
+                  <span class="badge">Figma</span>
+                  <span class="badge">Wordpress</span>
+                  <span class="badge">Elementor</span>
+                  <span class="badge">Quickbooks</span>
+                  <span class="badge">ClickUp</span>
+                  <span class="badge">Mailchimp</span>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -287,8 +305,8 @@
         <!-- Step 2 -->
         <div class="process-step">
           <div class="step-image-wrapper">
-            <a href="assets/img/nebusis_photos/final_landing/neb_old_3_frame_2.png"> 
-              <div class="hoverbox">
+            <a href="assets/img/nebusis_photos/final_landing/neb_old_3_frame_2.png">
+              <div class="hoverbox rounded overlay overflow-hidden">
                 <img src="assets/img/nebusis_photos/final_landing/neb_old_3_frame_2.png" alt="Wireframing process">
                 <div class="hoverbox-content">
                   <i class="text-white" data-feather="plus"></i>
@@ -325,8 +343,8 @@
         <!-- Step 4 -->
         <div class="process-step">
           <div class="step-image-wrapper">
-            <a href="assets/img/nebusis_photos/mockups/DarkMockup_Nebusis.png"> 
-              <div class="hoverbox">
+            <a href="assets/img/nebusis_photos/mockups/DarkMockup_Nebusis.png">
+              <div class="hoverbox rounded overlay overflow-hidden">
                 <img src="assets/img/nebusis_photos/mockups/DarkMockup_Nebusis.png" alt="Final design system">
                 <div class="hoverbox-content">
                   <i class="text-white" data-feather="plus"></i>
@@ -378,8 +396,8 @@
       <div class="case-study-showcase">
         <div class="showcase-row">
           <div class="showcase-item">
-            <a href="assets/img/nebusis_photos/mockups/nebusis_dashboard_mockup.png"> 
-              <div class="hoverbox overlay">
+            <a href="assets/img/nebusis_photos/mockups/nebusis_dashboard_mockup.png">
+              <div class="hoverbox rounded overlay overflow-hidden">
                 <img src="assets/img/nebusis_photos/mockups/nebusis_dashboard_mockup.png" alt="Nebusis Dashboard Interface">
                 <div class="hoverbox-content">
                   <i class="text-white" data-feather="plus"></i>
@@ -391,8 +409,8 @@
         
         <div class="showcase-row">
           <div class="showcase-item showcase-item--half">
-            <a href="assets/img/nebusis_photos/mockups/policy_managment_mockup.png"> 
-              <div class="hoverbox">
+            <a href="assets/img/nebusis_photos/mockups/policy_managment_mockup.png">
+              <div class="hoverbox rounded overlay overflow-hidden">
                 <img src="assets/img/nebusis_photos/mockups/policy_managment_mockup.png" alt="Policy Management Interface">
                 <div class="hoverbox-content">
                   <i class="text-white" data-feather="plus"></i>
@@ -401,8 +419,8 @@
             </a>
           </div>
           <div class="showcase-item showcase-item--half">
-            <a href="assets/img/nebusis_photos/mockups/nebusis_risk_opp_mockup_laptop.png"> 
-              <div class="hoverbox">
+            <a href="assets/img/nebusis_photos/mockups/nebusis_risk_opp_mockup_laptop.png">
+              <div class="hoverbox rounded overlay overflow-hidden">
                 <img src="assets/img/nebusis_photos/mockups/nebusis_risk_opp_mockup_laptop.png" alt="Risk Tracking Dashboard">
                 <div class="hoverbox-content">
                   <i class="text-white" data-feather="plus"></i>
@@ -414,8 +432,8 @@
         
         <div class="showcase-row">
           <div class="showcase-item">
-            <a href="assets/img/nebusis_photos/mockups/DarkMockup_Nebusis.png"> 
-              <div class="hoverbox">
+            <a href="assets/img/nebusis_photos/mockups/DarkMockup_Nebusis.png">
+              <div class="hoverbox rounded overlay overflow-hidden">
                 <img src="assets/img/nebusis_photos/mockups/DarkMockup_Nebusis.png" alt="Responsive Design Showcase">
                 <div class="hoverbox-content">
                   <i class="text-white" data-feather="plus"></i>
@@ -427,8 +445,8 @@
         
         <div class="showcase-row">
           <div class="showcase-item showcase-item--half">
-            <a href="assets/img/nebusis_photos/mockups/neb_risk_top_mockup.png"> 
-              <div class="hoverbox">
+            <a href="assets/img/nebusis_photos/mockups/neb_risk_top_mockup.png">
+              <div class="hoverbox rounded overlay overflow-hidden">
                 <img src="assets/img/nebusis_photos/mockups/neb_risk_top_mockup.png" alt="Risk Management View">
                 <div class="hoverbox-content">
                   <i class="text-white" data-feather="plus"></i>
@@ -437,8 +455,8 @@
             </a>
           </div>
           <div class="showcase-item showcase-item--half">
-            <a href="assets/img/nebusis_photos/mockups/neb_policy_top_mockup.png"> 
-              <div class="hoverbox">
+            <a href="assets/img/nebusis_photos/mockups/neb_policy_top_mockup.png">
+              <div class="hoverbox rounded overlay overflow-hidden">
                 <img src="assets/img/nebusis_photos/mockups/neb_policy_top_mockup.png" alt="Policy Management View">
                 <div class="hoverbox-content">
                   <i class="text-white" data-feather="plus"></i>
@@ -510,13 +528,10 @@
  <!-- Lightbox -->
  <div id="lightbox" class="lightbox hidden">
   <button id="lightbox-close" class="lightbox-close">&times;</button>
-  <button id="lightbox-prev" class="lightbox-prev nav-btn">‹</button>
-  <button id="lightbox-next" class="lightbox-next nav-btn">›</button>
-  <div class="lightbox-content">
-    <img id="lightbox-img" src="" alt="Gallery Preview" class="lightbox-zoomable" />
-    <div id="lightbox-caption" class="lightbox-caption"></div>
-  </div>
+  <img id="lightbox-img" src="" alt="Gallery Preview" class="lightbox-zoomable" />
+  <div id="lightbox-caption" class="lightbox-caption"></div>
 </div>
+
 
   <!-- Footer -->
   <footer class="footer p-3 pt-4">
@@ -524,11 +539,11 @@
       <div class="row align-items-center pb-4"> 
         <div class="col-md-4 col-sm-6 mb-3 d-flex align-items-center">
           <a href="index.html">
-            <img src="assets/img/rjfa_horizontal_svg.svg" width="34" height="34" alt="RJFA Logo" />
+            <img src="assets/img/rjfa_horizontal_svg.svg" width="34" height="34" alt="Rosean Frank-Alexander Logo" />
           </a>
-          <span class="ms-2">&copy; 2025</span>
+          <span class="ms-2">&copy; 2024</span>
         </div>
-
+        
         <div class="col-md-4 col-sm-6">
           <h3 class="mb-2 fs-base">Navigation</h3>
           <ul class="list-unstyled">
@@ -543,9 +558,9 @@
         <div class="col-md-4 col-sm-6">
           <h3 class="mb-2 fs-base">Socials</h3>
           <ul class="list-unstyled d-flex gap-3">
-            <li><a href="https://www.linkedin.com/in/rfrankale/" target="_blank"><i data-feather="linkedin"></i></a></li>
-            <li><a href="https://github.com/roseanfrankale/" target="_blank"><i data-feather="github"></i></a></li>
-            <li><a href="https://dribbble.com/rjfa/" target="_blank"><i data-feather="dribbble"></i></a></li>
+            <li><a href="https://www.linkedin.com/in/rfrankale/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn"><i data-feather="linkedin"></i></a></li>
+            <li><a href="https://github.com/roseanfrankale/" target="_blank" rel="noopener noreferrer" aria-label="GitHub"><i data-feather="github"></i></a></li>
+            <li><a href="https://dribbble.com/rjfa/" target="_blank" rel="noopener noreferrer" aria-label="Dribbble"><i data-feather="dribbble"></i></a></li>
           </ul>
         </div>
       </div>

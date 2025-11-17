@@ -1,210 +1,138 @@
 <!doctype html>
-<html lang="en">
-  <head>
-    <!-- Global site tag (gtag.js) - Google Analytics -->
-    <script
-      async
-      src="https://www.googletagmanager.com/gtag/js?id=G-N0J675HHCL"
-    ></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Connect - Rosean Frank-Alexander</title>
+  
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;800&display=swap" rel="stylesheet">
 
-      function gtag() {
-        dataLayer.push(arguments);
-      }
-      gtag("js", new Date());
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
 
-      gtag("config", "G-N0J675HHCL");
-    </script>
+  <!-- Font Awesome for more icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- Feather Icons -->
+  <script src="https://unpkg.com/feather-icons"></script>
 
-    <!-- ===============================================-->
-    <!--    Document Title-->
-    <!-- ===============================================-->
-    <title>RJFA</title>
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="assets/css/style.css">
 
-    <!-- ===============================================-->
-    <!--    Favicons-->
-    <!-- ===============================================-->
-    <link rel="apple-touch-icon" sizes="180x180" href="/assets/img/rjfa_logo_svg.svg">
-    <link rel="icon" type="image/png" sizes="32x32" href="/assets/img/rjfa_logo_svg.svg">
-    <link rel="icon" type="image/png" sizes="16x16" href="/assets/img/rjfa_logo_svg.svg">
-    <link rel="shortcut icon" type="image/x-icon" href="/assets/img/rjfa_logo_svg.svg">
-    <link rel="manifest" href="/assets/img/rjfa_logo_svg.svg">
-    <meta name="msapplication-TileImage" content="/assets/img/rjfa_logo_svg.svg">
-    <meta name="theme-color" content="#ffffff">
-    <!-- ===============================================-->
-    <!--    Stylesheets-->
-    <!-- ===============================================-->
-    <link href="../vendors/swiper/swiper-bundle.min.css" rel="stylesheet">
-    <link href="../vendors/loaders.css/loaders.min.css" rel="stylesheet" type="text/css">
-    <link rel="preconnect" href="https://fonts.gstatic.com/">
-    <link href="../assets/css/theme.min.css" rel="stylesheet" />
-    <link href="../assets/css/user.min.css" rel="stylesheet" />
-    <link href="/assets/css/style.css" rel="stylesheet" />
-    <link href="/vendors/glightbox/glightbox.css"   rel="stylesheet"
-  />
-
-  </head>
-
-  <body class="overflow-hidden-x">
-
-
-
-
-    <nav class="navbar navbar-expand-lg fixed-top navbar-rjfa fancynavbar fancynavbar-expand-lg fancynavbar-top" data-navbar-on-scroll="data-navbar-on-scroll">
-      <div class="container">
-        <a class="navbar-brand" href="https://roseanfrankale.github.io/">
-          <img src="/assets/img/rjfa_logo_grey_svg.svg" alt="RJFA" height="35" />
-        </a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown1">
-          <span class="navbar-toggler-icon"></span>
+  <!-- Theme + Navbar + Darkmode -->
+  <script src="assets/js/theme.js"></script>
+</head>
+</body>
+<body>
+  <!-- NAVBAR -->
+  <nav class="navbar navbar-expand-lg fixed-top">
+    <div class="container">
+      <a class="navbar-brand fw-bold" href="/">
+        <img src="assets/img/rjfa_logo_grey_svg.svg" width="34" height="34" alt="Rosean Frank-Alexander Logo">
+      </a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+        <ul class="navbar-nav">
+          <li class="nav-item">
+            <a class="nav-link" href="index.html#hero"><i data-feather="home"></i> Home</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="index.html#about"><i data-feather="user"></i> About</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="index.html#work"><i data-feather="briefcase"></i> Work</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="gallery.html"><i data-feather="image"></i> Gallery</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="mailto:rosean.frankalexander@gmail.com"><i data-feather="mail"></i> Contact</a>
+          </li>
+        </ul>
+        <button id="theme-toggle" class="ms-3">
+          <i data-feather="moon"></i>
         </button>
-        <div class="collapse navbar-collapse" id="navbarNavDropdown1">
-          <ul class="navbar-nav ms-auto d-flex align-items-center">
-            <li class="nav-item"><a class="nav-link px-2"  href="#home">Home</a></li>
-            <li class="nav-item"><a class="nav-link px-2"  href="#work">FEATURED WORK</a></li>
-            <li class="nav-item"><a class="nav-link px-2"  href="https://roseanfrankale.github.io/gallery">GALLERY</a></li>
-            <li class="nav-item"><a class="nav-link px-2"  href="#about">About Me</a></li>
-            <li class="nav-item"><a class="nav-link px-2"  href="#contact">Connect</a></li>
-            <li class="nav-item"><a class="nav-link px-2"  href="https://www.linkedin.com/in/rfrankale/"><i class="social-icons" data-feather="linkedin"></i></a></li>
-            <li class="nav-item"><a class="nav-link px-2" href="https://github.com/roseanfrankale"><i class="social-icons" data-feather="github"></i></a></li>
-            <li class="nav-item"><a class="nav-link px-2" href="https://dribbble.com/rjfa"><i class="social-icons" data-feather="dribbble"></i></a></li>
-              
-             
-          </ul>
-        </div>
-      </div>
-    </nav>
-    
-    <!-- ===============================================-->
-    <!--    Main Content-->
-    <!-- ===============================================-->
-    <main class="main min-vh-100 " id="top">
-
-      <!-- ============================================-->
-      <!-- Preloader ==================================-->
-      <div class="preloader" id="preloader">
-        <div class="loader">
-
-        </div>
-      </div><!-- ============================================-->
-      <!-- End of Preloader ===========================-->
-
-
- <!-- <section> begin ============================-->
-    <section class="text-centerfont-sans-serif" id="Contact">
-        <div class="container">
-          <div class="row justify-content-center">
-            <div class="col-lg-10 p-5" style="background: rgba(255, 255, 255, 0.1); backdrop-filter: blur(10px); border-radius: 2rem; box-shadow: 0 8px 32px 0 rgba(131, 131, 131, 0.7);">
-              <h2 class="text-dark-50 mb-4">Let's Connect!</h2>
-              <p class="text-500 mb-5">The digital landscape is constantly evolving; just when you think you've gotten the hang of it, you realise that things are a-changing once again. And we are here to help.</p>
-              <form class="text-start">
-                <div class="row justify-content-center">
-                  <div class="col-lg-8">
-                    <script charset="utf-8" type="text/javascript" src="//js.hsforms.net/forms/embed/v2.js"></script>
-                    <script>
-                      hbspt.forms.create({
-                        region: "na1",
-                        portalId: "6082856",
-                        formId: "bb8fb749-8c59-4df3-9fe5-eb65fcb39797"
-                      });
-                    </script>
-                  </div>
-                </div>
-              </form>
-            </div>
-          </div>
-        </div><!-- end of .container-->
-      </section><!-- <section> close ============================-->
-
-</main>
-
-<!-- Footer-->
-<footer class="footer mt-5 bg-dark p-5 pt-5">
-  <div class="row align-items-center pb-4">
-    <div class="text-nowrap  border-light py-4">
-      <!-- Links-->
-      <div class="row">
-        <div class="col-md-4 col-sm-6 mb-3">
-          <a href="https://roseanfrankale.github.io/" class="mr-auto mb-3"><img src="/assets/img/rjfa_logo_grey_svg.svg"
-            width="30" height="34" alt="" class="navbar-brand" /></a>
-            <span class="mb-3 mb-md-0">&copy; 2022</span>
-            
-        </div>
-        <div class="col-md-4 col-sm-6">
-          <h3 class="mb-2 pb-1 fs-base text-light">Navigation</h3>
-          <ul class="list-unstyled fs-sm">
-            <li><a class="nav-link active" href="https://roseanfrankale.github.io/">HOME</a></li>
-            <li><a class="nav-link-light"href="https://roseanfrankale.github.io/about">ABOUT ME</a></li>
-            <li><a class="nav-link-light"href="#work">FEATURED WORK</a></li>
-            <li><a class="nav-link-light"href="https://roseanfrankale.github.io/gallery">GALLERY</a></li>
-            <li><a class="nav-link-light" href="mailto:rosean.frankalexander@gmail.com">CONTACT: </a>
-              <a class="text-white" href="mailto:rosean.frankalexander@gmail.com">rosean.frankalexander@gmail.com</a>  
-            </li>
-          </ul>
-        </div>
-        <div class=" text-nowrap col-md-4 col-sm-6">
-          <h3 class=" mb-2 pb-1 fs-base text-light">Socials</h3>
-        <ul class="list-unstyled fs-sm">
-          <li class="nav-item d-flex align-items-center">
-            <a class="nav-link px-2" href="https://www.linkedin.com/in/rfrankale/">
-              <i class="social-icons" data-feather="linkedin"></i>
-            </a>
-          </li>
-          <li class="nav-item d-flex align-items-center">
-            <a class="nav-link px-2" href="https://github.com/roseanfrankale/">
-              <i class="social-icons" data-feather="github"></i>
-            </a>
-          </li>
-          <li class="nav-item d-flex align-items-center">
-            <a class="nav-link px-2" href="https://dribbble.com/rjfa/">
-              <i class="social-icons" data-feather="dribbble"></i>
-            </a>
-          </li>
-        </ul>        
-        </div>
-      </div>
-      <div class="col-sm-4 mb-4">
-        
       </div>
     </div>
-     
-  
-  </div>   
-</footer>
+  </nav>
 
+  <!-- CONNECT SECTION -->
+  <section class="py-5" id="connect" style="padding-top: 8rem !important;">
+    <div class="container">
+      <div class="text-center mt-4 mb-3">
+        <h2 class="display-6 fw-bold">Let's Connect</h2>
+        <p class="lead">Have a project idea, collaboration, or just want to say hi? Drop me a line below.</p>
+      </div>
+      <!-- Custom HubSpot Form -->
+      <div class="row justify-content-center">
+        <div class="col-lg-8">
+          <form id="my-modern-form" class="p-4 p-md-5 rounded shadow">
+            <div class="mb-3">
+              <label for="firstname" class="form-label visually-hidden">First Name</label>
+              <input type="text" class="form-control" id="firstname" name="firstname" placeholder="Enter your name" required>
+            </div>
+            <div class="mb-3">
+              <label for="email" class="form-label visually-hidden">Email address</label>
+              <input type="email" class="form-control" id="email" name="email" placeholder="Enter your email" required>
+            </div>
+            <div class="mb-3">
+              <label for="message_field" class="form-label visually-hidden">Your Message</label>
+              <textarea class="form-control" id="message_field" name="message_field" rows="3" placeholder="Enter your message" required></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary w-100">Send Message</button>
+            <div id="form-message" class="mt-3 text-center"></div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
 
-         <!--JavaScripts-->
-   <script src="../vendors/popper/popper.min.js"></script>
-   <script src="../vendors/bootstrap/bootstrap.min.js"></script>
-   <script src="../vendors/anchorjs/anchor.min.js"></script>
-   <script src="../vendors/is/is.min.js"></script>
-   <script src="../vendors/swiper/swiper-bundle.min.js"></script>
-   <script src="../vendors/bigpicture/BigPicture.js"> </script>
-   <script src="../vendors/isotope-layout/isotope.pkgd.min.js"> </script>
-   <script src="../vendors/isotope-packery/packery-mode.pkgd.min.js"> </script>
-   <script src="../vendors/progressbar/progressbar.min.js"></script>
-   <script src="../vendors/rellax/rellax.min.js"> </script>
-   <script src="../vendors/fontawesome/all.min.js"></script>
-   <script src="../vendors/lodash/lodash.min.js"></script>
-   <script src="../../../../polyfill.io/v3/polyfill.min58be.js?features=window.scroll"></script>
-   <script src="../vendors/imagesloaded/imagesloaded.pkgd.js"></script>
-   <script src="../vendors/gsap/gsap.js"></script>
-   <script src="../vendors/gsap/customEase.js"></script>
-   <script src="../vendors/gsap/drawSVGPlugin.js"></script>
-   <script src="../vendors/glightbox/glightbox.js"></script>
- <script src="https://unpkg.com/feather-icons"></script>
+  <!-- FOOTER -->
+  <footer class="footer p-3 pt-4">
+    <div class="container">
+      <div class="row align-items-center pb-4">
+        <div class="col-md-4 d-flex mb-3">
+          <a href="index.html"><img src="assets/img/rjfa_logo_grey_svg.svg" width="34" height="34" alt="Rosean Frank-Alexander Logo" /></a>
+          <span class="ms-2">&copy; 2024</span>
+        </div>
 
-   <script>
-     feather.replace();
-   </script>
+        <div class="col-md-4 col-sm-6">
+          <h3 class="mb-2 fs-base">Navigation</h3>
+          <ul class="list-unstyled">
+            <li><a class="nav-link" href="index.html#hero"><i data-feather="home"></i> Home</a></li>
+            <li><a class="nav-link" href="index.html#about"><i data-feather="user"></i> About Me</a></li>
+            <li><a class="nav-link" href="index.html#work"><i data-feather="briefcase"></i> Featured Work</a></li>
+            <li><a class="nav-link" href="gallery.html"><i data-feather="image"></i> Gallery</a></li>
+            <li><a class="nav-link" href="mailto:rosean.frankalexander@gmail.com"><i data-feather="mail"></i> Contact</a></li>
+          </ul>
+        </div>
 
-<script src="../assets/js/theme.js"></script>
+        <div class="col-md-4 col-sm-6">
+          <h3 class="mb-2 fs-base">Socials</h3>
+          <ul class="list-unstyled d-flex gap-3">
+            <li><a href="https://www.linkedin.com/in/rfrankale/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn"><i data-feather="linkedin"></i></a></li>
+            <li><a href="https://github.com/roseanfrankale/" target="_blank" rel="noopener noreferrer" aria-label="GitHub"><i data-feather="github"></i></a></li>
+            <li><a href="https://dribbble.com/rjfa/" target="_blank" rel="noopener noreferrer" aria-label="Dribbble"><i data-feather="dribbble"></i></a></li>
+            <li><a href="https://www.youtube.com/playlist?list=PLq8eop32VW4_lzzDk9UZI9XWkdyXlaMcV" target="_blank" rel="noopener noreferrer" aria-label="YouTube"><i data-feather="youtube"></i></a></li>
+            <li><a href="music.html" aria-label="Music"><i data-feather="music"></i></a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <!-- Bootstrap JS Bundle (includes Popper) -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+  <!-- GSAP + ScrollTrigger -->
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.2/dist/gsap.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.2/dist/ScrollTrigger.min.js"></script>
+
+  <!-- Custom Animations -->
+  <script src="assets/js/animations.js"></script>
 </body>
-
-
 </html>
