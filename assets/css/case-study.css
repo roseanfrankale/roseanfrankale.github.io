@@ -12,7 +12,6 @@
 .case-subtitle {
   font-size: clamp(1.25rem, 3vw, 2rem);
   color: var(--text-muted);
-  margin-bottom: 3rem;
   font-weight: 300;
 }
 
@@ -39,13 +38,13 @@
 .meta-value {
   font-size: 1.1rem;
   color: var(--text);
-  font-weight: 500;
+  font-weight: 400;
+  padding: 0.3rem 0.8rem;
 }
 
 /* Hero Image */
 .hero-mockup {
   position: relative;
-  margin: 3rem 0;
 }
 
 .hero-mockup img {
@@ -803,7 +802,6 @@
   width: fit-content;
   padding: 0.3rem 0.8rem;
   border-radius: 50px;
-  background-color: rgba(184, 26, 29, 0.1);
   color: var(--accent);
   font-size: 0.8rem;
   font-weight: 600;
