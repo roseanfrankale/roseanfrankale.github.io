@@ -1,175 +1,462 @@
-/* MUSIC PAGE EXCLUSIVE STYLING */
+/* ===========================
+   MUSIC PORTFOLIO - EDITORIAL THEME
+   =========================== */
 
-#hero {
-  position: relative; /* Container for the overlay */
-  min-height: 100vh; /* Make sure the section is at least full height */
-  overflow: hidden; /* Prevents video overflow */
+/* Typography & Base Override */
+.music-portfolio-body {
+    background-color: var(--bg);
+    color: var(--text);
+    overflow-x: hidden;
+    font-family: 'Inter', sans-serif;
 }
 
-.bg-holder {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
+/* Ensure darker backgrounds for music section contrast */
+.bg-darker {
+    background-color: #050505 !important;
 }
 
-.bg-holder iframe {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  width: 100%;
-  height: 100%;
-  transform: translate(-50%, -50%);
-  min-width: 100vw;
-  min-height: 100vh;
-  pointer-events: none; /* Allows clicks to pass through to the overlay/text */
+[data-theme="light"] .bg-darker {
+    background-color: #f0f0f0 !important;
 }
 
-.overlay::after {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0, 0, 0, 0.5); /* Semi-transparent black overlay */
-  z-index: 1; /* Make sure the overlay is above the video */
+/* Utilities */
+.text-accent {
+    color: var(--accent) !important;
 }
 
-/* Ensure text is on top of the overlay */
-#hero .d-flex {
-  position: relative;
-  z-index: 2; 
+.border-white-10 {
+    border-color: rgba(255, 255, 255, 0.1) !important;
+}
+[data-theme="light"] .border-white-10 {
+    border-color: rgba(0, 0, 0, 0.1) !important;
 }
 
-/* --- Band Showcase Layout --- */
-.music-showcase {
-  padding: 8rem 0; /* Increased padding for more space */
+.ls-1 { letter-spacing: 0.1em; }
+.ls-2 { letter-spacing: 0.2em; }
+.ls-3 { letter-spacing: 0.3em; }
+
+.fw-black {
+    font-weight: 900;
 }
 
-.music-showcase.alt-bg {
-  background-color: var(--section-bg);
+.mix-blend-overlay {
+    mix-blend-mode: overlay;
 }
 
-.band-title {
-  font-size: clamp(2rem, 8vw, 5rem); /* Match .title-main */
-  font-weight: 800;
-  color: var(--text);
-  text-transform: uppercase;
-  line-height: 1;
+.mix-blend-normal {
+    mix-blend-mode: normal;
 }
 
-.band-meta {
-  font-size: 1.4rem; /* Match .title-sub */
-  font-weight: 700;
-  color: var(--accent);
-  text-transform: uppercase;
-  letter-spacing: 0.5em; /* Match .title-sub */
-  padding-left: 0.25em; /* Match .title-sub */
-  margin-bottom: 1.5rem;
+/* ===========================
+   LEFT SIDEBAR NAVIGATION
+   =========================== */
+.sidebar-nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 260px;
+    height: 100vh;
+    background: rgba(13, 13, 13, 0.95);
+    backdrop-filter: blur(10px);
+    border-right: 1px solid rgba(255, 255, 255, 0.05);
+    padding: 2rem;
+    z-index: 1000;
+    transition: transform 0.3s ease;
 }
 
-.band-description {
-  font-size: 1.2rem;
-  color: var(--text-muted);
-  line-height: 1.7;
+[data-theme="light"] .sidebar-nav {
+    background: rgba(255, 255, 255, 0.95);
+    border-right: 1px solid rgba(0, 0, 0, 0.05);
 }
 
-.notable-performances {
-  color: var(--accent);
-  font-weight: 700;
-  font-size: 1.3rem;
+.sidebar-header .logo-link {
+    transition: opacity 0.3s ease;
 }
+.sidebar-header .logo-link:hover { opacity: 0.8; }
 
-.performance-list {
-  font-size: 1.2rem;
-  line-height: 1.5;
-  color: var(--text-muted);
-  font-weight: 600;
+/* Sidebar Menu Links */
+.sidebar-menu .nav-link {
+    color: var(--text-muted);
+    font-size: 0.85rem;
     text-transform: uppercase;
-
+    letter-spacing: 2px;
+    padding: 0.75rem 0;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    position: relative;
+    display: inline-flex;
+    align-items: center;
 }
 
-.band-links {
-  display: flex;
-  gap: 1rem;
-  margin-top: 2rem;
+.sidebar-menu .nav-link:hover,
+.sidebar-menu .nav-link.active {
+    color: var(--text);
+    padding-left: 10px;
 }
 
-.band-links a {
-  display: inline-flex;
-  justify-content: center;
-  align-items: center;
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  border: 1px solid var(--text-muted);
-  color: var(--text-muted);
-  font-size: 1.1rem;
-  text-decoration: none;
-  transition: all 0.3s ease;
+.sidebar-menu .nav-link.active::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 4px;
+    height: 4px;
+    background-color: var(--accent);
+    border-radius: 50%;
 }
 
-.band-links a:hover {
-  background-color: var(--accent);
-  border-color: var(--accent);
-  color: white;
-  transform: translateY(-3px);
+.sidebar-menu .nav-link.back-link {
+    color: var(--text-muted);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    margin-bottom: 1rem;
+    padding-left: 0 !important;
+}
+[data-theme="light"] .sidebar-menu .nav-link.back-link {
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
 }
 
-/* --- Video Card Styling --- */
-.video-card {
-  position: relative;
-  cursor: pointer;
-  border-radius: 12px;
-  overflow: hidden;
-  max-width: 400px; /* Constrain the width */
-  margin: 0 auto; /* Center the card within its column */
-  
+.sidebar-menu .nav-link.back-link:hover {
+    color: var(--accent);
 }
 
-.video-card:hover {
-  transform: translateY(-5px);
- 
+/* Sidebar Footer */
+.social-links a {
+    color: var(--text-muted);
+    font-size: 1.1rem;
+    transition: color 0.3s ease;
+}
+.social-links a:hover { color: var(--accent); }
+
+/* Main Content Wrapper (Pushes content right) */
+.main-content {
+    margin-left: 260px;
+    position: relative;
+    z-index: 1;
+    background-color: var(--bg);
 }
 
-.video-card img {
-  transition: transform 0.4s ease;
+/* Mobile Nav Toggle */
+.mobile-nav-toggle {
+    position: fixed;
+    top: 1.5rem;
+    right: 1.5rem;
+    z-index: 2000;
+    background: var(--accent);
+    color: white;
+    border: none;
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.3);
 }
 
-.video-card:hover img {
-  transform: scale(1.05);
+/* ===========================
+   HERO SECTION
+   =========================== */
+.hero-section {
+    position: relative;
+    height: 100vh;
+    overflow: hidden;
+    background-color: #000;
 }
 
-.play-icon {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 70px;
-  height: 70px;
-  background: rgba(255, 255, 255, 0.8);
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: all 0.3s ease;
+.video-bg-wrapper {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+    pointer-events: none;
 }
 
-.play-icon i {
-  color: var(--accent);
-  width: 30px;
-  height: 30px;
+.video-bg-wrapper iframe {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 100vw;
+    height: 56.25vw; /* 16:9 Aspect Ratio */
+    min-height: 100vh;
+    min-width: 177.77vh; /* 16:9 Aspect Ratio */
+    transform: translate(-50%, -50%);
+    opacity: 0.8;
 }
 
-.video-card:hover .play-icon {
-  transform: translate(-50%, -50%) scale(1.1);
-  background: white;
+.video-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to bottom, rgba(0,0,0,0.4), var(--bg));
+    z-index: 1;
 }
 
-/* --- Video Lightbox --- */
-.lightbox-content {
-  width: 90%;
-  max-width: 960px;
+.scroll-indicator {
+    position: absolute;
+    bottom: 30px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-decoration: none;
+    z-index: 5;
+    animation: bounce 2s infinite;
+}
+
+@keyframes bounce {
+    0%, 20%, 50%, 80%, 100% {transform: translateX(-50%) translateY(0);}
+    40% {transform: translateX(-50%) translateY(-10px);}
+    60% {transform: translateX(-50%) translateY(-5px);}
+}
+
+/* ===========================
+   PARALLAX BANDS
+   =========================== */
+.parallax-section {
+    position: relative;
+    min-height: 100vh;
+    overflow: hidden;
+    padding: 6rem 0;
+    display: flex;
+    align-items: center;
+}
+
+.parallax-bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 120%; /* Taller for parallax movement */
+    background-size: cover;
+    background-position: center;
+    z-index: 0;
+    filter: brightness(0.5); /* Darken bg images for text readability */
+}
+
+/* Glass Panel */
+.glass-panel {
+    background: rgba(13, 13, 13, 0.75);
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 15px 40px rgba(0,0,0,0.5);
+    position: relative;
+    z-index: 2;
+    transition: transform 0.3s ease;
+}
+
+[data-theme="light"] .glass-panel {
+    background: rgba(255, 255, 255, 0.85);
+    border: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.glass-panel:hover {
+    transform: translateY(-5px);
+    background: rgba(13, 13, 13, 0.85);
+}
+[data-theme="light"] .glass-panel:hover {
+    background: rgba(255, 255, 255, 0.95);
+}
+
+/* Text overrides inside glass panel for Light Mode */
+[data-theme="light"] .glass-panel h2,
+[data-theme="light"] .glass-panel p.text-light {
+    color: #111 !important; /* Force dark text in light mode */
+}
+[data-theme="light"] .glass-panel p.text-white-50 {
+    color: #666 !important;
+}
+
+/* Social Circles */
+.social-circle {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    color: rgba(255, 255, 255, 0.7);
+    font-size: 1.2rem;
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+[data-theme="light"] .social-circle {
+    border-color: rgba(0,0,0,0.3);
+    color: rgba(0,0,0,0.7);
+}
+
+.social-circle:hover {
+    background: var(--accent);
+    border-color: var(--accent);
+    color: white;
+    transform: scale(1.1);
+}
+
+/* Video Card Trigger */
+.video-card-trigger {
+    position: relative;
+    cursor: pointer;
+    max-width: 500px;
+    transition: transform 0.3s ease;
+    z-index: 2;
+}
+.video-card-trigger:hover {
+    transform: scale(1.03);
+}
+
+.play-btn-overlay {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(0,0,0,0.2);
+    border-radius: 1rem;
+    transition: background 0.3s ease;
+}
+.video-card-trigger:hover .play-btn-overlay {
+    background: rgba(0,0,0,0.4);
+}
+
+.play-btn {
+    width: 80px;
+    height: 80px;
+    background: rgba(255,255,255,0.15);
+    backdrop-filter: blur(5px);
+    border: 1px solid rgba(255,255,255,0.4);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 1.5rem;
+    transition: transform 0.3s ease;
+}
+.video-card-trigger:hover .play-btn {
+    transform: scale(1.1);
+    background: var(--accent);
+    border-color: var(--accent);
+}
+
+.watch-label {
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(0,0,0,0.7);
+    color: white;
+    padding: 5px 15px;
+    border-radius: 20px;
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-weight: 600;
+}
+
+/* Image Only Card */
+.image-only-card {
+    position: relative;
+    max-width: 500px;
+    z-index: 2;
+}
+.overlay-badge {
+    position: absolute;
+    bottom: 20px;
+    left: 20px;
+    background: var(--accent);
+    color: white;
+    padding: 5px 15px;
+    border-radius: 20px;
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    font-weight: 700;
+    letter-spacing: 1px;
+}
+
+/* ===========================
+   VIDEO MODAL
+   =========================== */
+.video-modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.95);
+    z-index: 3000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.4s ease;
+    backdrop-filter: blur(5px);
+}
+
+.video-modal-overlay.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+.close-modal {
+    position: absolute;
+    top: 2rem;
+    right: 2rem;
+    background: none;
+    border: none;
+    color: white;
+    cursor: pointer;
+    transition: color 0.3s;
+    font-size: 2rem;
+}
+.close-modal:hover { color: var(--accent); }
+
+.video-container {
+    width: 80%;
+    max-width: 1000px;
+    aspect-ratio: 16/9;
+    background: #000;
+    box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+}
+
+.video-container iframe {
+    width: 100%;
+    height: 100%;
+}
+
+/* ===========================
+   RESPONSIVE
+   =========================== */
+@media (max-width: 991.98px) {
+    .sidebar-nav {
+        transform: translateX(-100%);
+        width: 100%;
+        background: rgba(13, 13, 13, 0.98);
+        border-right: none;
+    }
+    .sidebar-nav.open {
+        transform: translateX(0);
+    }
+    
+    .main-content {
+        margin-left: 0;
+    }
+    
+    .parallax-section {
+        padding: 4rem 0;
+    }
+
+    .hero-content h1 {
+        font-size: 3.5rem;
+    }
+    
+    /* On mobile, parallax images just act as static backgrounds to save perf */
+    .parallax-bg {
+        height: 100%; 
+    }
 }
