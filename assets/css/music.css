@@ -20,32 +20,55 @@
 }
 
 /* Utilities */
-.text-accent {
-    color: var(--accent) !important;
-}
-
-.border-white-10 {
-    border-color: rgba(255, 255, 255, 0.1) !important;
-}
-[data-theme="light"] .border-white-10 {
-    border-color: rgba(0, 0, 0, 0.1) !important;
-}
+.text-accent { color: var(--accent) !important; }
+.border-white-10 { border-color: rgba(255, 255, 255, 0.1) !important; }
+[data-theme="light"] .border-white-10 { border-color: rgba(0, 0, 0, 0.1) !important; }
 
 .ls-1 { letter-spacing: 0.1em; }
 .ls-2 { letter-spacing: 0.2em; }
 .ls-3 { letter-spacing: 0.3em; }
+.fw-black { font-weight: 900; }
+.mix-blend-overlay { mix-blend-mode: overlay; }
+.mix-blend-normal { mix-blend-mode: normal; }
 
-.fw-black {
-    font-weight: 900;
+/* ===========================
+   TOP NAVBAR (Original)
+   =========================== */
+.navbar {
+    background: rgba(13, 13, 13, 0.5);
+    backdrop-filter: blur(10px);
+    transition: transform 0.5s ease, opacity 0.5s ease;
+    padding: 0.75rem 0;
+    z-index: 1050;
 }
-
-.mix-blend-overlay {
-    mix-blend-mode: overlay;
+.navbar .nav-link {
+    color: var(--text);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-size: 0.8rem;
+    transition: color 0.3s ease;
 }
-
-.mix-blend-normal {
-    mix-blend-mode: normal;
+.navbar .nav-link:hover {
+    color: var(--accent);
 }
+.btn-reset {
+    background: none;
+    border: none;
+    padding: 0;
+    color: inherit;
+    cursor: pointer;
+}
+.theme-toggle-btn {
+    width: 30px;
+    height: 30px;
+    background: var(--accent);
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.theme-toggle-btn i { width: 16px; height: 16px; }
 
 /* ===========================
    LEFT SIDEBAR NAVIGATION
@@ -60,8 +83,9 @@
     backdrop-filter: blur(10px);
     border-right: 1px solid rgba(255, 255, 255, 0.05);
     padding: 2rem;
-    z-index: 1000;
-    transition: transform 0.3s ease;
+    z-index: 1040; /* Just below bootstrap navbar default if they overlap, but we toggle them */
+    transform: translateX(-100%); /* HIDDEN INITIALLY */
+    transition: transform 0.5s cubic-bezier(0.77, 0, 0.175, 1);
 }
 
 [data-theme="light"] .sidebar-nav {
@@ -69,12 +93,9 @@
     border-right: 1px solid rgba(0, 0, 0, 0.05);
 }
 
-.sidebar-header .logo-link {
-    transition: opacity 0.3s ease;
-}
+.sidebar-header .logo-link { transition: opacity 0.3s ease; }
 .sidebar-header .logo-link:hover { opacity: 0.8; }
 
-/* Sidebar Menu Links */
 .sidebar-menu .nav-link {
     color: var(--text-muted);
     font-size: 0.85rem;
@@ -112,13 +133,6 @@
     margin-bottom: 1rem;
     padding-left: 0 !important;
 }
-[data-theme="light"] .sidebar-menu .nav-link.back-link {
-    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
-}
-
-.sidebar-menu .nav-link.back-link:hover {
-    color: var(--accent);
-}
 
 /* Sidebar Footer */
 .social-links a {
@@ -128,30 +142,15 @@
 }
 .social-links a:hover { color: var(--accent); }
 
-/* Main Content Wrapper (Pushes content right) */
+/* ===========================
+   MAIN CONTENT
+   =========================== */
+/* Removed margin-left to make page full width by default since sidebar is hidden */
 .main-content {
-    margin-left: 260px;
+    margin-left: 0;
     position: relative;
     z-index: 1;
     background-color: var(--bg);
-}
-
-/* Mobile Nav Toggle */
-.mobile-nav-toggle {
-    position: fixed;
-    top: 1.5rem;
-    right: 1.5rem;
-    z-index: 2000;
-    background: var(--accent);
-    color: white;
-    border: none;
-    width: 44px;
-    height: 44px;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.3);
 }
 
 /* ===========================
@@ -257,9 +256,6 @@
     transform: translateY(-5px);
     background: rgba(13, 13, 13, 0.85);
 }
-[data-theme="light"] .glass-panel:hover {
-    background: rgba(255, 255, 255, 0.95);
-}
 
 /* Text overrides inside glass panel for Light Mode */
 [data-theme="light"] .glass-panel h2,
@@ -305,9 +301,7 @@
     transition: transform 0.3s ease;
     z-index: 2;
 }
-.video-card-trigger:hover {
-    transform: scale(1.03);
-}
+.video-card-trigger:hover { transform: scale(1.03); }
 
 .play-btn-overlay {
     position: absolute;
@@ -319,9 +313,7 @@
     border-radius: 1rem;
     transition: background 0.3s ease;
 }
-.video-card-trigger:hover .play-btn-overlay {
-    background: rgba(0,0,0,0.4);
-}
+.video-card-trigger:hover .play-btn-overlay { background: rgba(0,0,0,0.4); }
 
 .play-btn {
     width: 80px;
@@ -433,30 +425,10 @@
    RESPONSIVE
    =========================== */
 @media (max-width: 991.98px) {
-    .sidebar-nav {
-        transform: translateX(-100%);
-        width: 100%;
-        background: rgba(13, 13, 13, 0.98);
-        border-right: none;
-    }
-    .sidebar-nav.open {
-        transform: translateX(0);
-    }
+    .parallax-section { padding: 4rem 0; }
+    .hero-content h1 { font-size: 3.5rem; }
+    .parallax-bg { height: 100%; }
     
-    .main-content {
-        margin-left: 0;
-    }
-    
-    .parallax-section {
-        padding: 4rem 0;
-    }
-
-    .hero-content h1 {
-        font-size: 3.5rem;
-    }
-    
-    /* On mobile, parallax images just act as static backgrounds to save perf */
-    .parallax-bg {
-        height: 100%; 
-    }
+    /* Ensure Sidebar fills width on mobile if triggered */
+    .sidebar-nav { width: 100%; }
 }
