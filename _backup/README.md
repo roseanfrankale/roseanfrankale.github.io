@@ -1,1 +1,0 @@
-# roseanfrankale.github.io
