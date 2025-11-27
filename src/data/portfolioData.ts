@@ -1,5 +1,5 @@
 
-import { ProjectData, ExperienceItem, MusicProject } from '../types';
+import { ProjectData, ExperienceItem, MusicProject } from '../../types';
 
 export const projects: ProjectData[] = [
   {

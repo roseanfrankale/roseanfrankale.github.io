@@ -96,12 +96,14 @@ const About: React.FC = () => {
                         ))}
                     </div>
                     <div className="mt-12 flex flex-wrap gap-6">
-                        <a href="/music.html" target="_blank" 
+                        <a href="/music.html" target="_blank">
+                            <motion.button
+                                whileHover={{ scale: 1.1 }}
+                                whileTap={{ scale: 0.95 }}>Music</motion.button>
                         </a>
                         {/* Placeholder for Resume link if needed */}
-                        <button className="group inline-flex items-center px-8 py-4 border border-text/20 text-text rounded-full uppercase tracking-widest text-xs font-bold hover:border-accent hover:text-accent transition-colors duration-300">
-                            Download CV <Download size={16} className="ml-2 group-hover:translate-y-1 transition-transform" />
-                        </button>
+                       <a href={'/resume.html'} target="_blank" className="group inline-flex items-center px-8 py-4 border border-text/20 text-text rounded-full uppercase tracking-widest text-xs font-bold hover:border-accent hover:text-accent transition-colors duration-300"> 
+                       Download CV <Download size={16} className="ml-2 group-hover:translate-y-1 transition-transform" /></a>
                     </div>
                 </div>
               </motion.div>
