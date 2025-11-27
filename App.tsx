@@ -7,7 +7,8 @@ import { LightboxProvider } from './context/LightboxContext';
 import Lightbox from './components/Lightbox';
 
 // Lazy load pages
-const Home = lazy(() => import('./pages/Homeut'));
+const Home = lazy(() => import('./pages/Home'));
+const About = lazy(() => import('./pages/About'));
 const Gallery = lazy(() => import('./pages/Gallery'));
 const Music = lazy(() => import('./pages/Music'));
 const ProjectDetail = lazy(() => import('./pages/ProjectDetail'));
