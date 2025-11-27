@@ -1,0 +1,78 @@
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <link rel="icon" href="https://roseanfrankale.github.io/assets/img/rjfa_logo_svg.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#000000" />
+    <meta name="description" content="Rosean Frank-Alexander Portfolio" />
+    <title>RJFA | Rosean Frank-Alexander</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/color-thief/2.3.0/color-thief.umd.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Cabin:wght@400;500;600;700&family=Raleway:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <script>
+      tailwind.config = {
+        darkMode: 'class',
+        theme: {
+          extend: {
+            colors: {
+              bg: 'var(--bg)',
+              text: 'var(--text)',
+              'text-muted': 'var(--text-muted)',
+              accent: 'var(--accent)',
+              'accent-light': 'var(--accent-light)',
+              'section-bg': 'var(--section-bg)',
+              'card-bg': 'var(--card-bg)',
+              'footer-bg': 'var(--footer-bg)',
+              rjfa: {
+                primary: '#045bc1',
+                red: '#b81a1d',
+                dark: '#1c1c1c',
+                gray: '#7F7F7F',
+                light: '#fafafa',
+              }
+            },
+            fontFamily: {
+              sans: ['Inter', 'sans-serif'],
+              serif: ['Raleway', 'serif'],
+              cabin: ['Cabin', 'sans-serif'],
+            },
+            fontSize: {
+              'clamp-title': 'clamp(3rem, 8vw, 6rem)',
+              'clamp-subtitle': 'clamp(1.25rem, 3vw, 2rem)',
+            },
+            animation: {
+                'fade-in': 'fadeIn 0.5s ease-out forwards',
+            },
+            keyframes: {
+                fadeIn: {
+                    '0%': { opacity: '0', transform: 'translateY(10px)' },
+                    '100%': { opacity: '1', transform: 'translateY(0)' },
+                }
+            }
+          }
+        }
+      }
+    </script>
+    <style>
+      /* Basic resets provided by Tailwind, custom CSS loaded via index.tsx */
+    </style>
+  <script type="importmap">
+{
+  "imports": {
+    "react-router-dom": "https://aistudiocdn.com/react-router-dom@^7.9.6",
+    "framer-motion": "https://aistudiocdn.com/framer-motion@^12.23.24",
+    "react-dom/": "https://aistudiocdn.com/react-dom@^19.2.0/",
+    "react/": "https://aistudiocdn.com/react@^19.2.0/",
+    "react": "https://aistudiocdn.com/react@^19.2.0",
+    "@google/genai": "https://aistudiocdn.com/@google/genai@^1.30.0",
+    "lucide-react": "https://aistudiocdn.com/lucide-react@^0.554.0"
+  }
+}
+</script>
+</head>
+  <body>
+    <div id="root"></div>
+  </body>
+</html>
