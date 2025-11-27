@@ -134,6 +134,9 @@
     padding: 2rem;
     z-index: 1000;
     transition: transform 0.3s ease;
+<<<<<<< HEAD
+>>>>>>> parent of 19db5001 (updates to music page)
+=======
 >>>>>>> parent of 19db5001 (updates to music page)
 }
 
@@ -143,6 +146,7 @@
   margin-top: 2rem;
 }
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 .band-links a {
   display: inline-flex;
@@ -157,6 +161,8 @@
   text-decoration: none;
   transition: all 0.3s ease;
 =======
+=======
+>>>>>>> parent of 19db5001 (updates to music page)
 .sidebar-header .logo-link {
     transition: opacity 0.3s ease;
 }
@@ -201,6 +207,13 @@
 }
 [data-theme="light"] .sidebar-menu .nav-link.back-link {
     border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+[data-theme="light"] .sidebar-menu .nav-link.back-link {
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.sidebar-menu .nav-link.back-link:hover {
+    color: var(--accent);
 }
 
 .sidebar-menu .nav-link.back-link:hover {
@@ -558,5 +571,8 @@
     .parallax-bg {
         height: 100%; 
     }
+<<<<<<< HEAD
+>>>>>>> parent of 19db5001 (updates to music page)
+=======
 >>>>>>> parent of 19db5001 (updates to music page)
 }
