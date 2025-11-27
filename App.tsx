@@ -12,7 +12,6 @@ const About = lazy(() => import('./pages/About'));
 const Gallery = lazy(() => import('./pages/Gallery'));
 const Music = lazy(() => import('./pages/Music'));
 const ProjectDetail = lazy(() => import('./pages/ProjectDetail'));
-const NebusisPage = lazy(() => import('./pages/case-studies/NebusisPage.tsx'));
 
 const LoadingFallback = () => (
   <div className="h-screen w-full flex items-center justify-center bg-bg">
@@ -33,7 +32,6 @@ function App() {
                 <Route path="/gallery" element={<Gallery />} />
                 <Route path="/music" element={<Music />} />
                 <Route path="/project/:projectId" element={<ProjectDetail />} />
-                <Route path="/project/nebusis" element={<NebusisPage />} />
               </Routes>
             </Suspense>
             <Lightbox />
