@@ -15,8 +15,7 @@ const About: React.FC = () => {
     { id: 'experience', label: 'Experience' },
   ];
 
-  const profileImage = "https://roseanfrankale.github.io/assets/img/sean_pro_foto_dl_1%20.jpeg";
-
+  const profileImage = "sseg";
   return (
     <div className="pt-32 pb-20 min-h-screen bg-bg text-text transition-colors duration-300 overflow-hidden">
       <div className="container mx-auto px-4 md:px-6">
@@ -97,8 +96,7 @@ const About: React.FC = () => {
                         ))}
                     </div>
                     <div className="mt-12 flex flex-wrap gap-6">
-                        <a href="https://roseanfrankale.github.io/music.html" target="_blank" rel="noreferrer" className="group inline-flex items-center px-8 py-4 bg-text text-bg rounded-full uppercase tracking-widest text-xs font-bold hover:scale-105 transition-transform duration-300">
-                            Musical Portfolio <ArrowUpRight size={16} className="ml-2" />
+                        <a href="/music.html" target="_blank" 
                         </a>
                         {/* Placeholder for Resume link if needed */}
                         <button className="group inline-flex items-center px-8 py-4 border border-text/20 text-text rounded-full uppercase tracking-widest text-xs font-bold hover:border-accent hover:text-accent transition-colors duration-300">
