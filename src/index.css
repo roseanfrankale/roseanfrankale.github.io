@@ -91,3 +91,7 @@ body {
     background: rgba(0, 0, 0, 0.03);
     border: 1px solid rgba(0, 0, 0, 0.05);
 }
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
