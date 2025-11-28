@@ -1,288 +1,298 @@
+
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
 <head>
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Rosean Frank-Alexander | Case Studies</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BruVue Case Study | RJFA</title>
   
-  <!-- Google Fonts -->
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;800&display=swap" rel="stylesheet">
-
-  <!-- Bootstrap CSS -->
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-
-  <!-- Font Awesome for more icons -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-
-  <!-- Feather Icons -->
-  <script src="https://unpkg.com/feather-icons"></script>
-
-  <!-- Custom CSS -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;700;900&family=Raleway:wght@400;700&display=swap" rel="stylesheet">
+  <script src="assets/js/tailwind-config.js"></script>
+  <script src="https://cdn.tailwindcss.com"></script>
   <link rel="stylesheet" href="assets/css/style.css">
   <link rel="stylesheet" href="assets/css/case-study.css">
-
-  <!-- Theme + Navbar + Darkmode -->
-  <script src="assets/js/theme.js"></script>
+  <script src="https://unpkg.com/lucide@latest"></script>
 </head>
+<body class="bg-bg text-text antialiased transition-colors duration-300">
 
-`
+  <!-- Navbar -->
+  <nav id="navbar" class="fixed w-full z-50 transition-all duration-300 py-6">
+    <div class="container mx-auto px-4 md:px-6">
+      <div class="flex justify-between items-center">
+        <!-- Logo -->
+        <a href="index.html" class="flex items-center group">
+           <img src="assets/img/rjfa_logo_grey_svg.svg" alt="RJFA" class="h-8 w-auto transition-all duration-300 dark:brightness-150 brightness-50 group-hover:opacity-80">
+        </a>
 
-<body>
-  <!-- Scroll Progress -->
-  <div class="scroll-progress">
-    <div class="scroll-progress-bar"></div>
-  </div>
+        <!-- Desktop Menu -->
+        <div class="hidden md:flex items-center space-x-10">
+          <div class="flex space-x-8">
+            <a href="index.html" class="nav-link">Home</a>
+            <a href="about.html" class="nav-link">About Me</a>
+            <a href="gallery.html" class="nav-link">Gallery</a>
+            <a href="music.html" class="nav-link">Music</a>
+            <a href="connect.html" class="nav-link">Connect</a>
+          </div>
+          
+          <!-- Icons & Toggle -->
+          <div class="flex items-center space-x-5 border-l pl-8 border-gray-300 dark:border-gray-700">
+            <a href="https://www.linkedin.com/in/rfrankale/" target="_blank" class="text-text hover:text-accent transition-colors transform hover:-translate-y-1"><i data-lucide="linkedin" class="w-4 h-4"></i></a>
+            <a href="https://github.com/roseanfrankale" target="_blank" class="text-text hover:text-accent transition-colors transform hover:-translate-y-1"><i data-lucide="github" class="w-4 h-4"></i></a>
+            <a href="https://dribbble.com/rjfa" target="_blank" class="text-text hover:text-accent transition-colors transform hover:-translate-y-1"><i data-lucide="dribbble" class="w-4 h-4"></i></a>
+            
+            <button id="theme-toggle" class="ml-4 p-2 rounded-full bg-bg text-text hover:text-accent transition-all hover:rotate-90">
+              <i data-lucide="moon" class="w-5 h-5"></i>
+            </button>
+          </div>
+        </div>
 
-  <!-- Navigation -->
-  <nav class="navbar navbar-expand-lg fixed-top">
-    <div class="container">
-      <a class="navbar-brand fw-bold" href="index.html">
-        <img src="assets/img/rjfa_logo_grey_svg.svg" width="34" height="34" alt="Logo">
-      </a>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
-        <ul class="navbar-nav">
-          <li class="nav-item">
-            <a class="nav-link" href="index.html">← Back to Portfolio</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#overview">Overview</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#process">Process</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#results">Results</a>
-          </li>
-        </ul>
-        <button id="theme-toggle" class="ms-3">
-          <i data-feather="moon"></i>
-        </button>
+        <!-- Mobile Toggle -->
+        <div class="flex items-center gap-4 md:hidden">
+          <button id="mobile-menu-btn" class="hamburger-btn focus:outline-none" aria-label="Toggle menu">
+            <span class="hamburger-line top"></span>
+            <span class="hamburger-line middle"></span>
+            <span class="hamburger-line bottom"></span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Mobile Menu -->
+      <div id="mobile-menu" class="hidden md:hidden absolute top-full left-0 w-full bg-bg/95 backdrop-blur-xl shadow-2xl py-6 px-6 flex flex-col space-y-6 border-t border-gray-100 dark:border-gray-800">
+        <a href="index.html" class="text-sm uppercase tracking-wider font-bold text-text hover:text-accent">Home</a>
+        <a href="about.html" class="text-sm uppercase tracking-wider font-bold text-text hover:text-accent">About Me</a>
+        <a href="gallery.html" class="text-sm uppercase tracking-wider font-bold text-text hover:text-accent">Gallery</a>
+        <a href="music.html" class="text-sm uppercase tracking-wider font-bold text-text hover:text-accent">Music</a>
+        <a href="connect.html" class="text-sm uppercase tracking-wider font-bold text-text hover:text-accent">Connect</a>
       </div>
     </div>
   </nav>
 
   <!-- Hero Section -->
-  <section class="case-hero mb-5" style="padding-top: 5rem;">
-    <div class="container-fluid">
-      <div class="row  justify-content-center">
-        <div class="col-12 text-center">
-          <h1 class="case-title">BruVue</h1>
-        </div>
-
-         <div class="hero-content mt-3 row">
-        <!-- Left Column: Image -->
-        <div class="col-lg-6 text-center">
-          <div class="hero-image-container">
-            <div class="hero-mockup">
-            <img src="assets/img/bruvue_photos/BruVue_Landing_1.png" alt="BruVue Landing Page" class="hero-case-image">
-          </div>
-        </div>
-         </div>
-
-        <!-- Right Column: Content -->
-        <div class="col-lg-5 align-items-center justify-content-center">
-          <div class="hero-case-content">
-            <img src="assets/img/bruvue_photos/BruVue_Logo.png" alt="BruVue Logo" class="hero-case-logo">
-            
-            <p class="case-subtitle">IoT-powered beverage inventory management for bars and breweries.</p>
-            <a href="https://www.facebook.com/BruVue/" target="_blank" rel="noreferrer" class="btn-primary d-inline-flex align-items-center gap-2">
-              View Site <i data-feather="arrow-right"></i>
+  <div class="pt-32 pb-20 container mx-auto px-4">
+     <div class="hero-content opacity-0 translate-y-10 text-center max-w-5xl mx-auto">
+        <!-- Breadcrumb Back Link -->
+        <div class="mb-8 flex justify-center">
+            <a href="index.html" class="flex items-center text-text-muted hover:text-accent transition-colors font-bold uppercase text-xs tracking-widest">
+                <i data-lucide="arrow-left" class="w-4 h-4 mr-2"></i> Back to Portfolio
             </a>
+        </div>
 
-            <div class="hero-case-details mt-5">
-              <div class="meta-item">
-                <p class="meta-label">My Role</p>
-                <p class="meta-value">Director of Customer Success, Product Contributor</p>
-                            <p class="hero-case-badge">Hospitality, Food & Beverage Tech</p>
+        <h1 class="text-6xl md:text-8xl font-black mb-6 tracking-tighter uppercase leading-none text-text">BRUVUE</h1>
+        <p class="text-xl md:text-2xl text-text-muted font-light mb-12 max-w-3xl mx-auto">IoT-Powered Beverage Inventory Management</p>
+        
+        <div class="relative rounded-2xl overflow-hidden shadow-2xl border border-gray-200 dark:border-gray-800 mb-12 group">
+            <img src="assets/img/bruvue_photos/BruVue_Landing_1.png" alt="BruVue Hero" class="w-full max-h-[700px] object-cover object-top transform transition-transform duration-1000 group-hover:scale-105" />
+        </div>
 
-              </div>
-                <div class="meta-item">
-            <p class="meta-label">Industry</p>
-            <div class="tech-badges hero-case-badge">
-              <span class="badge">Retail</span>
-          </div>
-          </div>
-              
-              <div class="meta-item">
-                <p class="meta-label">Tech Stack</p>
-                <div class="tech-badges hero-case-badge">
-                  <span class="badge">Node.js</span>
-                  <span class="badge">React</span>
-                  <span class="badge">IoT</span>
-                </div>
-              </div>
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-8 text-left border-t border-gray-200 dark:border-gray-800 pt-8">
+            <div>
+                <h3 class="text-xs font-black uppercase tracking-widest mb-2 text-accent">Role</h3>
+                <p class="text-sm font-medium">Director of Customer Success</p>
             </div>
-          </div>
+            <div>
+                <h3 class="text-xs font-black uppercase tracking-widest mb-2 text-accent">Timeline</h3>
+                <p class="text-sm font-medium">Jan 2019 - July 2019</p>
+            </div>
+            <div>
+                <h3 class="text-xs font-black uppercase tracking-widest mb-2 text-accent">Stack</h3>
+                <p class="text-sm font-medium">Node.js, React, IoT</p>
+            </div>
+             <div>
+                 <h3 class="text-xs font-black uppercase tracking-widest mb-2 text-accent">Social</h3>
+                <a href="https://www.facebook.com/BruVue/" target="_blank" class="text-sm font-bold hover:text-accent inline-flex items-center">
+                    Facebook <i data-lucide="external-link" class="ml-1 w-3 h-3"></i>
+                </a>
+            </div>
         </div>
-      </div>
-    </div>
-  </section>
-
-    <!-- Overview Section -->
-  <section id="overview" class="case-section">
-    <div class="container">
-      <div class="section-header">
-        <div class="section-number">01 — Overview</div>
-        <h2 class="section-title">The Challenge</h2>
-        <p class="section-description">
-          The rapid growth of craft beer created new inventory and sales tracking challenges for bars, distributors, and breweries, making it difficult to know what consumers were drinking in real-time.
-        </p>
-      </div>
-
-      <div class="problem-solution-grid">
-        <div class="problem-card">
-          <div class="card-icon">
-            <i data-feather="alert-triangle"></i>
-          </div>
-          <h3 class="card-title">The Problem</h3>
-          <p class="card-text">
-            Manual inventory tracking was inefficient and prone to error, leading to beer wastage, theft, and a lack of accurate data for sales and production planning across the three-tier supply chain.
-          </p>
-        </div>
-
-        <div class="solution-card">
-          <div class="card-icon">
-            <i data-feather="thumbs-up"></i>
-          </div>
-          <h3 class="card-title">Our Solution</h3>
-          <p class="card-text">
-            BruVue developed an IoT data inventory system with faucet-mounted sensors to track beer movement in real-time, providing a SaaS dashboard with analytics, waste detection, and digital menus.
-          </p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Process Section -->
-  <section id="process" class="case-section">
-    <div class="container">
-      <div class="section-header">
-        <div class="section-number">02 — Process</div>
-        <h2 class="section-title">My Journey</h2>
-        <p class="section-description">
-          As Director of Customer Success, my role evolved to include product and design contributions, starting with a simple question from the product manager: "Have you ever used Adobe...?"
-        </p>
-      </div>
-
-      <div class="process-timeline">
-        <div class="process-step">
-          <div class="step-content">
-            <h3 class="step-title">Customer Onboarding & Support</h3>
-            <p>My primary responsibility was to focus on customer retention by streamlining the onboarding process and defining areas where the product could be improved based on user feedback.</p>
-          </div>
-          <div class="step-number">1</div>
-          <div class="step-content">
-            <img src="assets/img/bruvue_photos/BruVue Dashboard.png" alt="BruVue Dashboard" class="img-fluid rounded">
-          </div>
-        </div>
-
-        <div class="process-step">
-          <div class="step-content">
-            <img src="assets/img/bruvue_photos/bruvue_mockup.png" alt="BruVue Mockup" class="img-fluid rounded">
-          </div>
-          <div class="step-number">2</div>
-          <div class="step-content">
-            <h3 class="step-title">Design & Marketing Contribution</h3>
-            <p>As the team shifted priorities, I was pulled into design tasks, learning to use tools like Adobe Creative Cloud and Canva to edit and create marketing collateral and product mockups.</p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Results Section -->
-  <section id="results" class="case-section">
-    <div class="container">
-      <div class="section-header">
-        <div class="section-number">03 — Results</div>
-        <h2 class="section-title">Impact & Gallery</h2>
-        <p class="section-description">
-          This project was my entry into the world of product design, providing foundational experience that I would leverage in all subsequent projects.
-        </p>
-      </div>
-
-      <div class="case-study-showcase">
-        <div class="showcase-row">
-          <div class="showcase-item"><a href="assets/img/bruvue_photos/bruvue_dashboard_sensor.png"><img src="assets/img/bruvue_photos/bruvue_dashboard_sensor.png" alt="BruVue Dashboard and Sensor"></a></div>
-        </div>
-        <div class="showcase-row">
-          <div class="showcase-item showcase-item--half"><a href="assets/img/bruvue_photos/BruVue_Restuarants_&_Bars.png"><img src="assets/img/bruvue_photos/BruVue_Restuarants_&_Bars.png" alt="BruVue for Restaurants"></a></div>
-          <div class="showcase-item showcase-item--half"><a href="assets/img/bruvue_photos/BVUE_CONTENT_4.png"><img src="assets/img/bruvue_photos/BVUE_CONTENT_4.png" alt="BruVue Content"></a></div>
-        </div>
-        <div class="showcase-row">
-          <div class="showcase-item"><a href="assets/img/bruvue_photos/Industrial+Design+Markting+BruVue+Large+Stand+Sign.png"><img src="assets/img/bruvue_photos/Industrial+Design+Markting+BruVue+Large+Stand+Sign.png" alt="BruVue Signage"></a></div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-                 
-
-                   
-                  <!-- CTA Section -->
-  <section class="cta-section">
-    <div class="container">
-      <h2 class="cta-title">Interested in Working Together?</h2>
-      <p class="cta-text">Let's discuss how I can help bring your next project to life</p>
-      <form action="mailto:rosean.frankalexander@gmail.com" method="get" enctype="text/plain" class="cta-form">
-        <input type="email" name="email" placeholder="Enter your email address" required>
-        <input type="hidden" name="subject" value="Project Inquiry from your Portfolio">
-        <button type="submit" class="btn-primary">Get in Touch</button>
-      </form>
-    </div>
-  </section>
-
-  <!-- Lightbox -->
-  <div id="lightbox" class="lightbox hidden">
-    <button id="lightbox-close" class="lightbox-close">&times;</button>
-    <button id="lightbox-prev" class="lightbox-prev nav-btn">‹</button>
-    <button id="lightbox-next" class="lightbox-next nav-btn">›</button>
-    <div class="lightbox-content">
-      <img id="lightbox-img" src="" alt="Gallery Preview" class="lightbox-zoomable" />
-      <div id="lightbox-caption" class="lightbox-caption"></div>
-    </div>
+     </div>
   </div>
 
-  <!-- FOOTER -->
-  <footer class="footer p-3 pt-4">
-    <div class="container">
-      <div class="row align-items-center pb-4">
-        <div class="col-md-4 col-sm-6 mb-3">
-          <a href="index.html"><img src="assets/img/rjfa_logo_grey_svg.svg" width="34" height="34" alt="RJFA Logo" /></a>
-          <span class="ms-2">&copy; 2025</span>
+  <!-- Overview -->
+  <section class="container mx-auto px-4 mb-32">
+    <div class="grid md:grid-cols-12 gap-12">
+        <div class="md:col-span-4">
+            <div class="sticky top-32">
+                <h2 class="text-4xl font-bold mb-6 text-text">Overview</h2>
+                <div class="h-1 w-20 bg-accent mb-6"></div>
+            </div>
         </div>
-        <div class="col-md-4 col-sm-6">
-          <h3 class="mb-2 fs-base">Navigation</h3>
-          <ul class="list-unstyled">
-            <li><a class="nav-link" href="index.html">Home</a></li>
-            <li><a class="nav-link" href="index.html#about">About Me</a></li>
-            <li><a class="nav-link" href="index.html#work">Featured Work</a></li>
-            <li><a class="nav-link" href="gallery.html">Gallery</a></li>
-            <li><a class="nav-link" href="mailto:rosean.frankalexander@gmail.com">Contact</a></li>
-          </ul>
+        <div class="md:col-span-8">
+            <p class="text-lg md:text-xl text-text-muted font-light leading-relaxed mb-8">
+                The rapid growth of craft beer created new inventory and sales tracking challenges for bars, distributors, and breweries, making it difficult to know what consumers were drinking in real-time.
+            </p>
+            
+            <div class="grid md:grid-cols-2 gap-8 mt-12">
+                <div class="bg-card-bg p-8 rounded-2xl border border-gray-200 dark:border-gray-800 shadow-sm">
+                     <div class="w-12 h-12 bg-red-100 dark:bg-red-900/20 rounded-full flex items-center justify-center mb-6">
+                        <i data-lucide="alert-triangle" class="text-accent w-6 h-6"></i>
+                     </div>
+                     <h3 class="text-xl font-bold mb-4 text-text">The Problem</h3>
+                     <p class="text-text-muted leading-relaxed">Manual inventory tracking was inefficient and prone to error, leading to beer wastage, theft, and a lack of accurate data for sales and production planning.</p>
+                </div>
+                <div class="bg-card-bg p-8 rounded-2xl border border-gray-200 dark:border-gray-800 shadow-sm">
+                     <div class="w-12 h-12 bg-green-100 dark:bg-green-900/20 rounded-full flex items-center justify-center mb-6">
+                        <i data-lucide="thumbs-up" class="text-green-600 dark:text-green-400 w-6 h-6"></i>
+                     </div>
+                     <h3 class="text-xl font-bold mb-4 text-text">The Solution</h3>
+                     <p class="text-text-muted leading-relaxed">BruVue developed an IoT data inventory system with faucet-mounted sensors to track beer movement in real-time, providing a SaaS dashboard with analytics.</p>
+                </div>
+            </div>
         </div>
-        <div class="col-md-4 col-sm-6">
-          <h3 class="mb-2 fs-base">Socials</h3>
-          <ul class="list-unstyled d-flex gap-3">
-            <li><a href="https://www.linkedin.com/in/rfrankale/" target="_blank"><i data-feather="linkedin"></i></a></li>
-            <li><a href="https://github.com/roseanfrankale/" target="_blank"><i data-feather="github"></i></a></li>
-            <li><a href="https://dribbble.com/rjfa/" target="_blank"><i data-feather="dribbble"></i></a></li>
-          </ul>
+    </div>
+  </section>
+
+  <!-- Process -->
+  <section class="bg-section-bg py-32 mb-32">
+    <div class="container mx-auto px-4">
+        <div class="text-center mb-20">
+            <h2 class="text-4xl md:text-5xl font-black mb-4 uppercase tracking-tight text-text">My Journey</h2>
+            <p class="text-text-muted">From Customer Success to Product Design</p>
+        </div>
+
+        <div class="space-y-32">
+            <!-- Step 1 -->
+            <div class="process-step flex flex-col md:flex-row gap-16 items-center">
+                <div class="flex-1 w-full">
+                    <div class="lightbox-trigger relative rounded-2xl overflow-hidden shadow-xl border border-gray-200 dark:border-gray-700 group cursor-zoom-in">
+                        <img src="assets/img/bruvue_photos/BruVue Dashboard.png" alt="BruVue Dashboard" class="w-full h-auto transform group-hover:scale-105 transition-transform duration-700" />
+                        <div class="absolute inset-0 bg-black/30 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                            <i data-lucide="zoom-in" class="text-white w-8 h-8"></i>
+                        </div>
+                    </div>
+                </div>
+                <div class="flex-1">
+                    <div class="flex items-center gap-4 mb-6">
+                        <span class="text-6xl font-black text-gray-200 dark:text-gray-800">01</span>
+                        <h3 class="text-2xl font-bold text-text">Onboarding & Support</h3>
+                    </div>
+                    <p class="text-lg text-text-muted leading-relaxed">
+                        My primary responsibility was to focus on customer retention by streamlining the onboarding process. I worked directly with clients to define areas where the product could be improved based on real-world user feedback.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Step 2 -->
+            <div class="process-step flex flex-col md:flex-row-reverse gap-16 items-center">
+                <div class="flex-1 w-full">
+                    <div class="lightbox-trigger relative rounded-2xl overflow-hidden shadow-xl border border-gray-200 dark:border-gray-700 group cursor-zoom-in">
+                        <img src="assets/img/bruvue_photos/bruvue_mockup.png" alt="BruVue Mockup" class="w-full h-auto transform group-hover:scale-105 transition-transform duration-700" />
+                        <div class="absolute inset-0 bg-black/30 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                            <i data-lucide="zoom-in" class="text-white w-8 h-8"></i>
+                        </div>
+                    </div>
+                </div>
+                <div class="flex-1">
+                    <div class="flex items-center gap-4 mb-6">
+                        <span class="text-6xl font-black text-gray-200 dark:text-gray-800">02</span>
+                        <h3 class="text-2xl font-bold text-text">Design & Marketing</h3>
+                    </div>
+                    <p class="text-lg text-text-muted leading-relaxed">
+                        As the team shifted priorities, I was pulled into design tasks. I learned to use tools like Adobe Creative Cloud and Canva to edit and create marketing collateral, product mockups, and sales materials.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+  </section>
+
+  <!-- Gallery -->
+  <section class="container mx-auto px-4 mb-20 project-gallery">
+    <h3 class="text-2xl font-bold mb-8 text-text border-b border-gray-200 dark:border-gray-800 pb-4">Gallery & Impact</h3>
+    
+    <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+        
+        <div class="lightbox-trigger relative group rounded-xl overflow-hidden cursor-zoom-in shadow-md bg-card-bg lg:col-span-2">
+            <img src="assets/img/bruvue_photos/bruvue_dashboard_sensor.png" alt="Dashboard and Sensor" class="w-full h-full object-cover">
+            <div class="absolute inset-0 bg-black/30 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                <i data-lucide="zoom-in" class="text-white w-8 h-8"></i>
+            </div>
+        </div>
+
+        <div class="lightbox-trigger relative group rounded-xl overflow-hidden cursor-zoom-in shadow-md bg-card-bg">
+            <img src="assets/img/bruvue_photos/BruVue_Logo.png" alt="BruVue Logo" class="w-full h-full object-contain p-8 bg-white">
+            <div class="absolute inset-0 bg-black/30 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                <i data-lucide="zoom-in" class="text-white w-8 h-8"></i>
+            </div>
+        </div>
+
+        <div class="lightbox-trigger relative group rounded-xl overflow-hidden cursor-zoom-in shadow-md bg-card-bg">
+            <img src="assets/img/bruvue_photos/BruVue_Restuarants_&_Bars.png" alt="Restaurants & Bars" class="w-full h-full object-cover">
+            <div class="absolute inset-0 bg-black/30 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                <i data-lucide="zoom-in" class="text-white w-8 h-8"></i>
+            </div>
+        </div>
+
+        <div class="lightbox-trigger relative group rounded-xl overflow-hidden cursor-zoom-in shadow-md bg-card-bg">
+            <img src="assets/img/bruvue_photos/BVUE_CONTENT_4.png" alt="Marketing Content" class="w-full h-full object-cover">
+            <div class="absolute inset-0 bg-black/30 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                <i data-lucide="zoom-in" class="text-white w-8 h-8"></i>
+            </div>
+        </div>
+
+        <div class="lightbox-trigger relative group rounded-xl overflow-hidden cursor-zoom-in shadow-md bg-card-bg">
+            <img src="assets/img/bruvue_photos/Industrial+Design+Markting+BruVue+Large+Stand+Sign.png" alt="Stand Sign" class="w-full h-full object-cover">
+            <div class="absolute inset-0 bg-black/30 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                <i data-lucide="zoom-in" class="text-white w-8 h-8"></i>
+            </div>
+        </div>
+
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="bg-footer-bg text-text py-12 border-t border-gray-200 dark:border-gray-800">
+    <div class="container mx-auto px-4 md:px-6">
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <!-- Brand -->
+        <div class="flex flex-col items-start">
+          <img src="assets/img/rjfa_logo_grey_svg.svg" alt="RJFA" class="h-10 w-auto mb-4 grayscale opacity-80">
+          <p class="text-text-muted text-sm">
+            &copy; 2025 Rosean Frank-Alexander.<br>All rights reserved.
+          </p>
+        </div>
+
+        <!-- Navigation -->
+        <div>
+           <h3 class="text-lg font-bold mb-4 text-text tracking-widest uppercase opacity-60">Navigation</h3>
+           <ul class="space-y-2 text-text-muted text-sm uppercase tracking-wide">
+             <li><a href="index.html" class="hover:text-accent transition-colors">Home</a></li>
+             <li><a href="about.html" class="hover:text-accent transition-colors">About Me</a></li>
+             <li><a href="gallery.html" class="hover:text-accent transition-colors">Gallery</a></li>
+             <li><a href="mailto:rosean.frankalexander@gmail.com" class="hover:text-accent transition-colors flex items-center gap-2"><i data-lucide="mail" class="w-3 h-3"></i> Contact</a></li>
+           </ul>
+        </div>
+
+        <!-- Socials -->
+        <div>
+          <h3 class="text-lg font-bold mb-4 text-text tracking-widest uppercase opacity-60">Connect</h3>
+          <div class="flex space-x-4">
+            <a href="https://www.linkedin.com/in/rfrankale/" target="_blank" class="text-text-muted hover:text-accent transition-colors"><i data-lucide="linkedin" class="w-6 h-6"></i></a>
+            <a href="https://github.com/roseanfrankale" target="_blank" class="text-text-muted hover:text-accent transition-colors"><i data-lucide="github" class="w-6 h-6"></i></a>
+            <a href="https://dribbble.com/rjfa" target="_blank" class="text-text-muted hover:text-accent transition-colors"><i data-lucide="dribbble" class="w-6 h-6"></i></a>
+          </div>
         </div>
       </div>
     </div>
   </footer>
 
+  <!-- Lightbox Container -->
+  <div id="lightbox" class="fixed inset-0 z-[100] bg-black/95 backdrop-blur-sm hidden flex items-center justify-center opacity-0 transition-opacity duration-300">
+    <button id="lightbox-close" class="absolute top-6 right-6 text-white/70 hover:text-white transition-colors p-2 z-50">
+      <i data-lucide="x" class="w-8 h-8"></i>
+    </button>
+    <button id="lightbox-prev" class="absolute left-4 text-white/70 hover:text-white p-4 z-50 hover:bg-white/10 rounded-full transition-all">
+        <i data-lucide="chevron-left" class="w-10 h-10"></i>
+    </button>
+    <button id="lightbox-next" class="absolute right-4 text-white/70 hover:text-white p-4 z-50 hover:bg-white/10 rounded-full transition-all">
+        <i data-lucide="chevron-right" class="w-10 h-10"></i>
+    </button>
+    <img id="lightbox-img" src="" alt="Project Visual" class="max-w-[90%] max-h-[90vh] object-contain rounded shadow-2xl transition-transform duration-300">
+  </div>
+
   <!-- Scripts -->
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.2/dist/gsap.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.2/dist/ScrollTrigger.min.js"></script>
-  <script src="https://unpkg.com/imagesloaded@5/imagesloaded.pkgd.min.js"></script>
-  <script src="https://unpkg.com/isotope-layout@3/dist/isotope.pkgd.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/color-thief/2.3.0/color-thief.umd.js"></script>
-  <script src="assets/js/gallery.js"></script> 
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+  <script src="assets/js/main.js"></script>
   <script src="assets/js/case-study.js"></script>
 </body>
 </html>

@@ -3,271 +3,376 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Rosean Frank-Alexander</title>
+  <title>Music & Sound | Rosean Frank-Alexander</title>
   
-  <!-- Google Fonts -->
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;800&display=swap" rel="stylesheet">
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700;900&display=swap" rel="stylesheet">
 
-  <!-- Bootstrap CSS -->
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Tailwind CSS & Config -->
+  <script src="assets/js/tailwind-config.js"></script>
+  <script src="https://cdn.tailwindcss.com"></script>
 
-  <!-- Font Awesome for more icons -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-
-  <!-- Feather Icons -->
-  <script src="https://unpkg.com/feather-icons"></script>
-
-  <!-- Custom CSS -->
-  <link rel="stylesheet" href="assets/css/style.css">
+  <!-- Custom CSS for specific effects -->
   <link rel="stylesheet" href="assets/css/music.css">
+  <!-- Include Global Style for Navbar/Footer -->
+  <link rel="stylesheet" href="assets/css/style.css">
 
-  <!-- Theme + Navbar + Darkmode -->
-  <script src="assets/js/theme.js"></script>
-
+  <!-- Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
 </head>
-<body>
-  <!-- NAVBAR -->
-  <nav class="navbar navbar-expand-lg fixed-top">
-    <div class="container">
-      <a class="navbar-brand fw-bold" href="index.html">
-        <img src="assets/img/rjfa_logo_grey_svg.svg" width="34" height="34" alt="Logo" />
-      </a>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
-        <ul class="navbar-nav">
-          <li class="nav-item">
-            <a class="nav-link" href="index.html">← Back to Portfolio</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#about">About</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#work">My Bands</a>
-          </li>
-        </ul>
-        <button id="theme-toggle" class="ms-3">
-          <i data-feather="moon"></i>
-        </button>
+<body class="bg-black text-white antialiased overflow-x-hidden selection:bg-accent selection:text-white">
+
+  <!-- Navigation -->
+  <nav id="navbar" class="fixed w-full z-50 transition-all duration-300 py-6">
+    <div class="container mx-auto px-4 md:px-6">
+      <div class="flex justify-between items-center">
+        <!-- Logo -->
+        <a href="index.html" class="flex items-center group">
+           <img src="assets/img/rjfa_logo_grey_svg.svg" alt="RJFA" class="h-8 w-auto transition-all duration-300 brightness-200 group-hover:opacity-80">
+        </a>
+
+        <!-- Desktop Menu -->
+        <div class="hidden md:flex items-center space-x-10">
+          <div class="flex space-x-8">
+            <a href="index.html" class="nav-link text-white">Home</a>
+            <a href="about.html" class="nav-link text-white">About Me</a>
+            <a href="gallery.html" class="nav-link text-white">Gallery</a>
+            <a href="music.html" class="nav-link text-accent">Music</a>
+            <a href="connect.html" class="nav-link text-white">Connect</a>
+          </div>
+          
+          <button id="theme-toggle" class="ml-4 p-2 rounded-full bg-black/50 text-white hover:text-accent transition-all hover:rotate-90">
+            <i data-lucide="moon" class="w-5 h-5"></i>
+          </button>
+        </div>
+
+        <!-- Mobile Toggle -->
+        <div class="flex items-center gap-4 md:hidden">
+          <button id="mobile-menu-btn" class="hamburger-btn focus:outline-none">
+            <span class="hamburger-line top bg-white"></span>
+            <span class="hamburger-line middle bg-white"></span>
+            <span class="hamburger-line bottom bg-white"></span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Mobile Menu -->
+      <div id="mobile-menu" class="hidden md:hidden absolute top-full left-0 w-full bg-black/95 backdrop-blur-xl shadow-2xl py-6 px-6 flex flex-col space-y-6 border-t border-gray-800">
+        <a href="index.html" class="text-sm uppercase tracking-wider font-bold text-white hover:text-accent">Home</a>
+        <a href="about.html" class="text-sm uppercase tracking-wider font-bold text-white hover:text-accent">About Me</a>
+        <a href="gallery.html" class="text-sm uppercase tracking-wider font-bold text-white hover:text-accent">Gallery</a>
+        <a href="music.html" class="text-sm uppercase tracking-wider font-bold text-accent">Music</a>
+        <a href="connect.html" class="text-sm uppercase tracking-wider font-bold text-white hover:text-accent">Connect</a>
       </div>
     </div>
   </nav>
-    <section id="hero" class="d-flex align-items-center justify-content-center text-white text-center">
-      <div class="bg-holder overlay" style="background-image:url(assets/img/headers/studio-music.jpg);">
-        <iframe
-          src="https://www.youtube.com/embed/wwLvEgEkERI?autoplay=1&mute=1&controls=0&start=11&end=53&playlist=wwLvEgEkERI&loop=1"
-          frameborder="0"
-          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-          allowfullscreen
-        ></iframe>
-      </div>
-      <div class="container position-relative z-2">
-        <h1 class="display-3 fw-bold">Music & Sound</h1>
-        <p class="lead fst-italic">A look back at a decade behind the bass.</p>
-      </div>
-    </section>
 
-    <!-- About Music -->
-    <section id="about" class="py-5">
-      <div class="container text-center">
-        <p class="fs-4 col-lg-9 mx-auto">
-          As a professional bass player, I had the privilege of performing with
-          various talented musicians and bands. My responsibilities included
-          <span class="fw-bold" style="color: var(--accent);">maintaining rhythm, composing bass lines</span>,
-          coordinating with drummers, rehearsing with ensembles, recording sessions, and touring.
-        </p>
-      </div>
-    </section>
-
-    <!-- Band Showcase -->
-    <div id="work">
-      <!-- BoxBomb -->
-      <section class="music-showcase">
-        <div class="container">
-          <div class="row g-5 align-items-center">
-            <div class="col-lg-6">
-              <h2 class="band-title">BoxBomb</h2>
-              <p class="band-meta">Bass Guitarist • 2003–2009</p>
-              <p class="band-description">This project gave me the foundational skills that transformed into a 10-year career. We released three albums and were signed to Tragic Hero Records, a sub-label of Warner Bros. Records.</p>
-              <p class="notable-performances">Notable Performances:</p>
-              <p class="performance-list"> Thrice, Toadies, The Get Up Kids, American Aquarium, Killa Priest, He is Legend, MuteMath, Will Hoge, Copeland, Underoath, Colossus, House of Fools, Hobex, The Enemy Lovers, Telescreen, Bayside, Veara</p>
-              <div class="band-links">
-                <a href="https://open.spotify.com/artist/1Bq0OrnNdaUsQU1UANmdJP" target="_blank"><i class="fab fa-spotify"></i></a>
-                <a href="https://music.apple.com/es/artist/boxbomb/id269432768" target="_blank"><i class="fab fa-apple"></i></a>
-                <a href="https://en.wikipedia.org/wiki/Boxbomb" target="_blank"><i class="fab fa-wikipedia-w"></i></a>
-              </div>
-              <div class="spotify-embed mt-4">
-                <iframe style="border-radius:12px" src="https://open.spotify.com/embed/artist/1Bq0OrnNdaUsQU1UANmdJP?utm_source=generator&theme=0" width="100%" height="152" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
-              </div>
-            </div>
-            <div class="col-lg-6">
-              <div class="video-card" data-youtube-id="4RnGB5ibIos">
-                <img src="https://i.ytimg.com/vi/4RnGB5ibIos/hqdefault.jpg" alt="BoxBomb Video Thumbnail" class="img-fluid rounded">
-                <div class="play-icon"><i data-feather="play"></i></div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <!-- Lila -->
-      <section class="music-showcase alt-bg">
-        <div class="container">
-          <div class="row g-5 align-items-center">
-            <div class="col-lg-6 order-lg-2">
-              <h2 class="band-title">Lila</h2>
-              <p class="band-meta">Bass Guitarist • 2011–2016</p>
-              <p class="band-description">LiLa's sound can be described as "Hip-Folk," blending the diverse musical backgrounds of its members to mix rap, folk, rock, and even dubstep. We garnered significant local attention, leading to dynamic and energetic performances.</p>
-              <p class="notable-performances">Notable Performances:</p>
-              <p class="performance-list">Girl Talk, Who's Bad</p>
-              <div class="band-links">
-                <a href="https://open.spotify.com/artist/4Tqbi88O2bCIcBU9WyKmlz" target="_blank"><i class="fab fa-spotify"></i></a>
-                <a href="https://www.facebook.com/LiLaWho" target="_blank"><i class="fab fa-facebook"></i></a>
-                <a href="https://lilamusic.bandcamp.com/" target="_blank"><i class="fab fa-bandcamp"></i></a>
-              </div>
-              <div class="spotify-embed mt-4">
-                <iframe style="border-radius:12px" src="https://open.spotify.com/embed/artist/4Tqbi88O2bCIcBU9WyKmlz?utm_source=generator" width="100%" height="152" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
-              </div>
-            </div>
-            <div class="col-lg-6 order-lg-1">
-              <div class="video-card" data-youtube-id="00Vish8tq9g">
-                <img src="https://i.ytimg.com/vi/00Vish8tq9g/hqdefault.jpg" alt="Lila Video Thumbnail" class="img-fluid rounded">
-                <div class="play-icon"><i data-feather="play"></i></div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <!-- Toon & The Real Laww -->
-      <section class="music-showcase">
-        <div class="container">
-          <div class="row g-5 align-items-center">
-            <div class="col-lg-6">
-              <h2 class="band-title">Toon & The Real Laww</h2>
-              <p class="band-meta">Bass Guitarist • 2013–2015</p>
-              <p class="band-description">This was a hip-hop duo that formed a short-term backing band. We performed at various venues and events in the Triangle area, mixing conscious rap with boom-bap beats.</p>
-              <p class="notable-performances">Notable Performances:</p>
-              <p class="performance-list">Run the Jewels, 2 Live Crew, Meek Mill, Machine Gun Kelly, GZA, Gym Class Heroes, Big Sean, Mike Posner, Rapsody, King Mez, Kooley High</p>
-              <div class="band-links">
-                <a href="https://soundcloud.com/toonandthereallaww" target="_blank"><i class="fab fa-soundcloud"></i></a>
-                <a href="https://open.spotify.com/album/1hui6go1rSgNZKRg9M6X1W" target="_blank"><i class="fab fa-spotify"></i></a>
-                <a href="https://music.apple.com/mx/search?term=Toon%20%26%20The%20Real%20Laww" target="_blank"><i class="fab fa-apple"></i></a>
-              </div>
-              <div class="spotify-embed mt-4">
-                <iframe style="border-radius:12px" src="https://open.spotify.com/embed/album/1hui6go1rSgNZKRg9M6X1W?utm_source=generator" width="100%" height="152" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
-              </div>
-            </div>
-            <div class="col-lg-6">
-              <div class="row g-3 align-items-center">
-                <div class="col-12">
-                  <img src="assets/img/toon_laww_photos/toon_laww_full_band.jpg" alt="Toon & The Real Laww full band" class="img-fluid rounded shadow-sm">
-                </div>
-                <div class="col-12">
-                   <img src="assets/img/toon_laww_photos/grif_chit_sean.jpg" alt="Toon & The Real Laww members" class="img-fluid rounded shadow-sm">
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <!-- Erik Smallwood -->
-      <section class="music-showcase alt-bg">
-        <div class="container">
-          <div class="row g-5 align-items-center">
-            <div class="col-lg-6 order-lg-2">
-              <h2 class="band-title">Erik Smallwood</h2>
-              <p class="band-meta">Touring / 
-                Session Bassist</p>
-              <p class="band-description">Erik is an Alabama-born (Muscle Shoals) Singer-Songwriter, Producer, and Worship Leader that I played with in a cover band and also recorded bass tracks for his albums. No notable performances to list.</p>
-              <div class="band-links">
-                <a href="https://open.spotify.com/artist/2PbLtUwd6StVpuvXIPluUm" target="_blank"><i class="fab fa-spotify"></i></a>
-                <a href="https://music.apple.com/us/artist/erik-smallwood/303085051" target="_blank"><i class="fab fa-apple"></i></a>
-                <a href="https://www.facebook.com/eriksmallwood" target="_blank"><i class="fab fa-facebook"></i></a>
-                <a href="https://www.reverbnation.com/eriksmallwood" target="_blank"><i class="fa fa-star"></i></a>
-              </div>
-              <div class="spotify-embed mt-4">
-                <iframe style="border-radius:12px" src="https://open.spotify.com/embed/artist/2PbLtUwd6StVpuvXIPluUm?utm_source=generator" width="100%" height="152" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
-              </div>
-            </div>
-            <div class="col-lg-6 order-lg-1">
-              <div class="video-card" data-youtube-id="u16gBG8wbx8">
-                <img src="https://i.ytimg.com/vi/u16gBG8wbx8/hqdefault.jpg" alt="Erik Smallwood Video Thumbnail" class="img-fluid rounded">
-                <div class="play-icon"><i data-feather="play"></i></div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <!-- Lions at Lunchtime -->
-      <section class="music-showcase">
-        <div class="container">
-          <div class="row g-5 align-items-center">
-            <div class="col-lg-6">
-              <h2 class="band-title">Lions at Lunchtime</h2>
-              <p class="band-meta">Bass Guitarist • 2010–2011</p>
-              <p class="band-description">Lions at Lunchtime asked me to hop on for a few shows, and I spent a year working with them on several songs to complete their EP. This project was more of a hobby and a relaxed, creative experience. No notable performances to list.</p>
-              <div class="band-links">
-                <a href="https://www.facebook.com/Lions-at-Lunchtime-58181339427" target="_blank"><i class="fab fa-facebook"></i></a>
-                <a href="https://www.reverbnation.com/lionsatlunchtime" target="_blank"><i class="fa fa-star"></i></a>
-              </div>
-            </div>
-            <div class="col-lg-6">
-              <div class="row g-3 align-items-center">
-                <div class="col-12">
-                  <img src="assets/img/lions_at_lunchtime/lions_1.jpg" alt="Lions at Lunchtime band photo" class="img-fluid rounded shadow-sm">
-                </div>
-                <div class="col-12">
-                   <img src="assets/img/lions_at_lunchtime/lions_2.jpg" alt="Lions at Lunchtime live performance" class="img-fluid rounded shadow-sm">
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
+  <!-- Hero Section -->
+  <section class="relative h-[80vh] min-h-[600px] flex items-center justify-center overflow-hidden">
+    <!-- Background Image with Parallax Effect handled by CSS/JS -->
+    <div class="absolute inset-0 z-0">
+      <img src="assets/img/headers/studio-music.jpg" alt="Studio" class="w-full h-full object-cover opacity-40 grayscale">
+      <div class="absolute inset-0 bg-gradient-to-b from-black/60 via-black/20 to-black"></div>
     </div>
 
+    <div class="container mx-auto px-4 relative z-10 text-center hero-content">
+      <h1 class="text-6xl md:text-9xl font-black mb-2 uppercase tracking-tighter mix-blend-overlay opacity-80">
+        Music
+      </h1>
+      <h1 class="text-6xl md:text-9xl font-black mb-8 uppercase tracking-tighter text-transparent bg-clip-text bg-gradient-to-r from-white to-gray-500">
+        & Sound
+      </h1>
+      <div class="w-24 h-1.5 bg-accent mx-auto mb-8 rounded-full"></div>
+      <p class="text-gray-300 max-w-xl mx-auto text-xl font-light tracking-wide uppercase">
+        A decade behind the bass
+      </p>
+    </div>
+  </section>
 
+  <!-- Intro Quote -->
+  <div class="container mx-auto px-4 py-24 text-center">
+    <p class="text-2xl md:text-4xl text-gray-500 font-thin leading-relaxed max-w-5xl mx-auto reveal-text">
+      From touring with bands to session recordings. My journey in music taught me <span class="text-white font-normal">collaboration</span>, <span class="text-white font-normal">rhythm</span>, and the art of <span class="text-white font-normal">listening</span>.
+    </p>
+  </div>
 
-  <!-- FOOTER -->
-  <footer class="footer p-3 pt-4">
-    <div class="container">
-      <div class="row align-items-center pb-4">
-        <div class="col-md-4 col-sm-6 mb-3">
-          <a href="index.html"><img src="assets/img/rjfa_logo_grey_svg.svg" width="34" height="34" alt="RJFA Logo" /></a>
-          <span class="ms-2">&copy; 2025</span>
+  <!-- Projects Container -->
+  <div class="container mx-auto px-4 md:px-6 pb-40 space-y-40">
+
+    <!-- 01 BOXBOMB -->
+    <section class="project-section relative grid md:grid-cols-2 gap-12 items-center">
+      <!-- Huge Number Background -->
+      <div class="absolute -top-32 -left-10 text-[15rem] font-black text-white/5 select-none -z-10 leading-none">01</div>
+      
+      <!-- Visual Content (Left) -->
+      <div class="relative group cursor-pointer video-trigger" data-video-id="4RnGB5ibIos">
+        <div class="relative rounded-lg overflow-hidden shadow-2xl aspect-video bg-gray-900 border border-white/10">
+          <img src="assets/img/headers/header-split-youtube-background.jpg" alt="Boxbomb" class="w-full h-full object-cover opacity-80 group-hover:opacity-100 group-hover:scale-105 transition-all duration-700">
+          
+          <!-- Play Button Overlay -->
+          <div class="absolute inset-0 flex items-center justify-center">
+            <div class="w-16 h-16 bg-white/10 backdrop-blur-md rounded-full flex items-center justify-center border border-white/20 group-hover:bg-accent group-hover:border-accent transition-all duration-300 group-hover:scale-110">
+              <i data-lucide="play" class="text-white w-6 h-6 fill-white"></i>
+            </div>
+          </div>
         </div>
-        <div class="col-md-4 col-sm-6">
-          <h3 class="mb-2 fs-base">Navigation</h3>
-          <ul class="list-unstyled">
-            <li><a class="nav-link" href="index.html">Home</a></li>
-            <li><a class="nav-link" href="index.html#about">About Me</a></li>
-            <li><a class="nav-link" href="index.html#work">Featured Work</a></li>
-            <li><a class="nav-link" href="gallery.html">Gallery</a></li>
-            <li><a class="nav-link" href="mailto:rosean.frankalexander@gmail.com">Contact</a></li>
+        <p class="mt-3 text-xs text-center text-gray-500 uppercase tracking-widest font-mono group-hover:text-accent transition-colors">Click to watch video</p>
+      </div>
+
+      <!-- Text Content (Right) -->
+      <div class="space-y-6 md:pl-10">
+        <div>
+          <h2 class="text-5xl font-black text-white mb-2">Boxbomb</h2>
+          <p class="text-accent text-sm font-bold uppercase tracking-[0.2em]">2003-2009 • Bass Guitarist</p>
+        </div>
+        
+        <!-- Socials -->
+        <div class="flex gap-4 border-b border-white/10 pb-6">
+            <a href="https://open.spotify.com/artist/1Bq0OrnNdaUsQU1UANmdJP" target="_blank" class="text-gray-400 hover:text-accent transition-colors"><i data-lucide="music" class="w-5 h-5"></i></a>
+            <a href="https://music.apple.com/es/artist/boxbomb/id269432768" target="_blank" class="text-gray-400 hover:text-accent transition-colors"><i data-lucide="disc" class="w-5 h-5"></i></a>
+            <a href="https://en.wikipedia.org/wiki/Boxbomb" target="_blank" class="text-gray-400 hover:text-accent transition-colors"><i data-lucide="globe" class="w-5 h-5"></i></a>
+        </div>
+
+        <p class="text-gray-400 text-lg leading-relaxed border-l-2 border-white/10 pl-6">
+          To complete Boxbomb's lineup, I took a hiatus from college to pursue a career as a bass guitarist. We released three albums and signed to Tragic Hero Records. This experience gave me foundational skills that transformed into a 10-year career.
+        </p>
+        <div>
+          <h4 class="text-xs font-bold uppercase tracking-widest text-gray-500 mb-2">Notable Performances</h4>
+          <p class="text-white text-sm">Thrice, Toadies, The Get Up Kids, Underoath, Paramore</p>
+        </div>
+        <div class="pt-4">
+          <iframe style="border-radius:12px" src="https://open.spotify.com/embed/artist/1Bq0OrnNdaUsQU1UANmdJP?utm_source=generator&theme=0" width="100%" height="80" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy" class="bg-gray-900"></iframe>
+        </div>
+      </div>
+    </section>
+
+    <!-- 02 LILA -->
+    <section class="project-section relative grid md:grid-cols-2 gap-12 items-center md:grid-flow-dense">
+      <!-- Huge Number -->
+      <div class="absolute -top-32 -right-10 text-[15rem] font-black text-white/5 select-none -z-10 leading-none">02</div>
+
+      <!-- Visual Content (Right due to grid-flow-dense order in logic, styled to appear right) -->
+      <div class="md:col-start-2 relative group cursor-pointer video-trigger" data-video-id="00Vish8tq9g">
+        <div class="relative rounded-lg overflow-hidden shadow-2xl aspect-[4/3] bg-gray-900 border border-white/10">
+          <img src="assets/img/lila_photos/LILACOMICCOVER.jpeg" alt="LiLa" class="w-full h-full object-cover opacity-80 group-hover:opacity-100 group-hover:scale-105 transition-all duration-700">
+          
+           <div class="absolute inset-0 flex items-center justify-center">
+            <div class="w-16 h-16 bg-white/10 backdrop-blur-md rounded-full flex items-center justify-center border border-white/20 group-hover:bg-purple-500 group-hover:border-purple-500 transition-all duration-300 group-hover:scale-110">
+              <i data-lucide="play" class="text-white w-6 h-6 fill-white"></i>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Text Content (Left) -->
+      <div class="space-y-6 md:pr-10 md:col-start-1">
+        <div>
+          <h2 class="text-5xl font-black text-white mb-2">LiLa</h2>
+          <p class="text-purple-400 text-sm font-bold uppercase tracking-[0.2em]">2011-2016 • Bass Guitarist</p>
+        </div>
+
+        <!-- Socials -->
+        <div class="flex gap-4 border-b border-white/10 pb-6">
+            <a href="https://open.spotify.com/artist/4Tqbi88O2bCIcBU9WyKmlz" target="_blank" class="text-gray-400 hover:text-purple-400 transition-colors"><i data-lucide="music" class="w-5 h-5"></i></a>
+            <a href="https://www.facebook.com/LiLaWho" target="_blank" class="text-gray-400 hover:text-purple-400 transition-colors"><i data-lucide="facebook" class="w-5 h-5"></i></a>
+            <a href="https://lilamusic.bandcamp.com/" target="_blank" class="text-gray-400 hover:text-purple-400 transition-colors"><i data-lucide="disc" class="w-5 h-5"></i></a>
+        </div>
+
+        <p class="text-gray-400 text-lg leading-relaxed border-l-2 border-white/10 pl-6">
+          LiLa's sound can be described as "Hip-Folk". The band's diverse musical backgrounds mixed rap, folk, rock and even dubstep. We garnered local attention and support from our community, leading to dynamic and energetic performances.
+        </p>
+        <div>
+          <h4 class="text-xs font-bold uppercase tracking-widest text-gray-500 mb-2">Notable Performances</h4>
+          <p class="text-white text-sm">Girl Talk, Who's Bad</p>
+        </div>
+        <div class="pt-4">
+          <iframe style="border-radius:12px" src="https://open.spotify.com/embed/artist/4Tqbi88O2bCIcBU9WyKmlz?utm_source=generator&theme=0" width="100%" height="80" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+        </div>
+      </div>
+    </section>
+
+    <!-- 03 TOON -->
+    <section class="project-section relative grid md:grid-cols-2 gap-12 items-center">
+      <div class="absolute -top-32 -left-10 text-[15rem] font-black text-white/5 select-none -z-10 leading-none">03</div>
+      
+      <!-- Image Left -->
+      <div class="relative group cursor-pointer video-trigger" data-video-id="1hui6go1rSgNZKRg9M6X1W">
+        <div class="relative rounded-lg overflow-hidden shadow-2xl aspect-square bg-gray-900 border border-white/10">
+          <img src="assets/img/toon_laww_photos/toon_laww_full_band.jpg" alt="Toon" class="w-full h-full object-cover opacity-80 group-hover:opacity-100 group-hover:scale-105 transition-all duration-700">
+           <div class="absolute inset-0 flex items-center justify-center">
+            <div class="w-16 h-16 bg-white/10 backdrop-blur-md rounded-full flex items-center justify-center border border-white/20 group-hover:bg-yellow-500 group-hover:border-yellow-500 transition-all duration-300 group-hover:scale-110">
+              <i data-lucide="play" class="text-white w-6 h-6 fill-white"></i>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Text Right -->
+      <div class="space-y-6 md:pl-10">
+        <div>
+          <h2 class="text-5xl font-black text-white mb-2">Toon & The Real Laww</h2>
+          <p class="text-yellow-500 text-sm font-bold uppercase tracking-[0.2em]">2013-2015 • Bass Guitarist</p>
+        </div>
+
+        <!-- Socials -->
+        <div class="flex gap-4 border-b border-white/10 pb-6">
+            <a href="https://soundcloud.com/toonandthereallaww" target="_blank" class="text-gray-400 hover:text-yellow-500 transition-colors"><i data-lucide="cloud" class="w-5 h-5"></i></a>
+            <a href="https://open.spotify.com/album/1hui6go1rSgNZKRg9M6X1W" target="_blank" class="text-gray-400 hover:text-yellow-500 transition-colors"><i data-lucide="music" class="w-5 h-5"></i></a>
+            <a href="https://music.apple.com/mx/search?term=Toon%20%26%20The%20Real%20Laww" target="_blank" class="text-gray-400 hover:text-yellow-500 transition-colors"><i data-lucide="disc" class="w-5 h-5"></i></a>
+        </div>
+
+        <p class="text-gray-400 text-lg leading-relaxed border-l-2 border-white/10 pl-6">
+          A Hip-Hop duo backed by a live band. We performed at various venues in the Triangle area, mixing conscious rap with boom-bap beats.
+        </p>
+        <div>
+          <h4 class="text-xs font-bold uppercase tracking-widest text-gray-500 mb-2">Notable Performances</h4>
+          <p class="text-white text-sm">Run the Jewels, 2 Live Crew, Meek Mill, Machine Gun Kelly</p>
+        </div>
+        <div class="pt-4">
+          <iframe style="border-radius:12px" src="https://open.spotify.com/embed/album/1hui6go1rSgNZKRg9M6X1W?utm_source=generator" width="100%" height="80" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+        </div>
+      </div>
+    </section>
+
+    <!-- 04 ERIK -->
+    <section class="project-section relative grid md:grid-cols-2 gap-12 items-center md:grid-flow-dense">
+      <div class="absolute -top-32 -right-10 text-[15rem] font-black text-white/5 select-none -z-10 leading-none">04</div>
+
+      <!-- Image Right -->
+      <div class="md:col-start-2 relative group cursor-pointer video-trigger" data-video-id="u16gBG8wbx8">
+        <div class="relative rounded-lg overflow-hidden shadow-2xl aspect-video bg-gray-900 border border-white/10">
+          <img src="assets/img/headers/studio-music.jpg" alt="Erik Smallwood" class="w-full h-full object-cover opacity-80 group-hover:opacity-100 group-hover:scale-105 transition-all duration-700">
+           <div class="absolute inset-0 flex items-center justify-center">
+            <div class="w-16 h-16 bg-white/10 backdrop-blur-md rounded-full flex items-center justify-center border border-white/20 group-hover:bg-blue-500 group-hover:border-blue-500 transition-all duration-300 group-hover:scale-110">
+              <i data-lucide="play" class="text-white w-6 h-6 fill-white"></i>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Text Left -->
+      <div class="space-y-6 md:pr-10 md:col-start-1">
+        <div>
+          <h2 class="text-5xl font-black text-white mb-2">Erik Smallwood</h2>
+          <p class="text-blue-400 text-sm font-bold uppercase tracking-[0.2em]">Session • Touring</p>
+        </div>
+
+        <!-- Socials -->
+        <div class="flex gap-4 border-b border-white/10 pb-6">
+            <a href="https://open.spotify.com/artist/2PbLtUwd6StVpuvXIPluUm" target="_blank" class="text-gray-400 hover:text-blue-400 transition-colors"><i data-lucide="music" class="w-5 h-5"></i></a>
+            <a href="https://music.apple.com/us/artist/erik-smallwood/303085051" target="_blank" class="text-gray-400 hover:text-blue-400 transition-colors"><i data-lucide="disc" class="w-5 h-5"></i></a>
+            <a href="https://www.facebook.com/eriksmallwood" target="_blank" class="text-gray-400 hover:text-blue-400 transition-colors"><i data-lucide="facebook" class="w-5 h-5"></i></a>
+        </div>
+
+        <p class="text-gray-400 text-lg leading-relaxed border-l-2 border-white/10 pl-6">
+          Erik is an Alabama-born Singer-Songwriter. I played with his cover band and recorded bass tracks for his albums.
+        </p>
+        <div class="pt-4">
+          <iframe style="border-radius:12px" src="https://open.spotify.com/embed/artist/2PbLtUwd6StVpuvXIPluUm?utm_source=generator" width="100%" height="80" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+        </div>
+      </div>
+    </section>
+
+    <!-- 05 LIONS AT LUNCHTIME -->
+    <section class="project-section relative grid md:grid-cols-2 gap-12 items-center">
+      <div class="absolute -top-32 -left-10 text-[15rem] font-black text-white/5 select-none -z-10 leading-none">05</div>
+      
+      <!-- Image Left -->
+      <div class="relative group">
+        <div class="relative rounded-lg overflow-hidden shadow-2xl aspect-[4/3] bg-gray-900 border border-white/10">
+          <img src="assets/img/lions_at_lunchtime/lions_1.jpg" alt="Lions at Lunchtime" class="w-full h-full object-cover opacity-80 group-hover:opacity-100 group-hover:scale-105 transition-all duration-700">
+        </div>
+      </div>
+
+      <!-- Text Right -->
+      <div class="space-y-6 md:pl-10">
+        <div>
+          <h2 class="text-5xl font-black text-white mb-2">Lions at Lunchtime</h2>
+          <p class="text-green-400 text-sm font-bold uppercase tracking-[0.2em]">2010-2011 • Bass Guitarist</p>
+        </div>
+
+        <!-- Socials -->
+        <div class="flex gap-4 border-b border-white/10 pb-6">
+            <a href="https://www.facebook.com/Lions-at-Lunchtime-58181339427" target="_blank" class="text-gray-400 hover:text-green-400 transition-colors"><i data-lucide="facebook" class="w-5 h-5"></i></a>
+            <a href="https://www.reverbnation.com/lionsatlunchtime" target="_blank" class="text-gray-400 hover:text-green-400 transition-colors"><i data-lucide="star" class="w-5 h-5"></i></a>
+        </div>
+
+        <p class="text-gray-400 text-lg leading-relaxed border-l-2 border-white/10 pl-6">
+          Lions at Lunchtime asked me to hop on for a few shows, and I spent a year working with them on several songs to complete their EP. This project was more of a hobby and a relaxed, creative experience.
+        </p>
+        <div class="pt-4">
+            <!-- Reverbnation or Generic Embed fallback if needed, keeping spacing -->
+            <div class="h-20 w-full bg-white/5 rounded-lg flex items-center justify-center border border-white/10">
+                <span class="text-white/30 text-xs font-mono uppercase tracking-widest">EP Content Available on Reverbnation</span>
+            </div>
+        </div>
+      </div>
+    </section>
+
+  </div>
+
+  <!-- Video Modal -->
+  <div id="video-modal" class="fixed inset-0 z-[100] bg-black/95 backdrop-blur-lg flex items-center justify-center opacity-0 pointer-events-none transition-opacity duration-300">
+    <!-- Close Button -->
+    <button id="close-modal" class="absolute top-8 right-8 text-white/50 hover:text-white hover:rotate-90 transition-all duration-300">
+      <i data-lucide="x" class="w-10 h-10"></i>
+    </button>
+
+    <!-- Video Container -->
+    <div class="w-full max-w-5xl aspect-video bg-black rounded-xl overflow-hidden shadow-2xl border border-white/10 mx-4">
+      <iframe 
+        id="youtube-player" 
+        width="100%" 
+        height="100%" 
+        src="" 
+        title="YouTube video player" 
+        frameborder="0" 
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+        allowfullscreen>
+      </iframe>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="bg-black text-white py-12 border-t border-white/10">
+    <div class="container mx-auto px-4 md:px-6">
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div class="flex flex-col items-start">
+          <img src="assets/img/rjfa_logo_grey_svg.svg" alt="RJFA" class="h-10 w-auto mb-4 grayscale brightness-200 opacity-80">
+          <p class="text-gray-500 text-sm">
+            &copy; 2025 Rosean Frank-Alexander.<br>All rights reserved.
+          </p>
+        </div>
+
+        <div>
+          <h3 class="text-lg font-bold mb-4 text-white tracking-widest uppercase opacity-60">Navigation</h3>
+          <ul class="space-y-2 text-gray-500 text-sm uppercase tracking-wide">
+            <li><a href="index.html" class="hover:text-accent transition-colors">Home</a></li>
+            <li><a href="about.html" class="hover:text-accent transition-colors">About Me</a></li>
+            <li><a href="gallery.html" class="hover:text-accent transition-colors">Gallery</a></li>
+            <li><a href="connect.html" class="hover:text-accent transition-colors">Contact</a></li>
           </ul>
         </div>
-        <div class="col-md-4 col-sm-6">
-          <h3 class="mb-2 fs-base">Socials</h3>
-          <ul class="list-unstyled d-flex gap-3">
-            <li><a href="https://www.linkedin.com/in/rfrankale/" target="_blank"><i data-feather="linkedin"></i></a></li>
-            <li><a href="https://github.com/roseanfrankale/" target="_blank"><i data-feather="github"></i></a></li>
-            <li><a href="https://dribbble.com/rjfa/" target="_blank"><i data-feather="dribbble"></i></a></li>
-          </ul>
+
+        <div>
+          <h3 class="text-lg font-bold mb-4 text-white tracking-widest uppercase opacity-60">Socials</h3>
+          <div class="flex gap-4">
+            <a href="https://www.linkedin.com/in/rfrankale/" target="_blank" class="text-gray-500 hover:text-accent transition-colors"><i data-lucide="linkedin" class="w-5 h-5"></i></a>
+            <a href="https://github.com/roseanfrankale/" target="_blank" class="text-gray-500 hover:text-accent transition-colors"><i data-lucide="github" class="w-5 h-5"></i></a>
+            <a href="https://dribbble.com/rjfa/" target="_blank" class="text-gray-500 hover:text-accent transition-colors"><i data-lucide="dribbble" class="w-5 h-5"></i></a>
+          </div>
         </div>
       </div>
     </div>
   </footer>
 
   <!-- Scripts -->
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+  <!-- Main JS for Mobile Menu logic -->
+  <script src="assets/js/main.js"></script>
 
-  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.2/dist/gsap.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.2/dist/ScrollTrigger.min.js"></script>
-  <script src="assets/js/animations.js"></script>
-  <script src="assets/js/music-animations.js"></script>
-  </body>
+  <!-- Page Logic -->
+  <script src="assets/js/music.js"></script>
+</body>
 </html>

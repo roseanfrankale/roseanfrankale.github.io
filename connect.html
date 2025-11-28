@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Connect | Rosean Frank-Alexander</title>
+  
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;700;900&family=Raleway:wght@400;700&display=swap" rel="stylesheet">
+
+  <!-- Tailwind & Config -->
+  <script src="assets/js/tailwind-config.js"></script>
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="assets/css/style.css">
+
+  <!-- Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body class="bg-bg text-text antialiased transition-colors duration-300">
+
+  <!-- Navbar -->
+  <nav id="navbar" class="fixed w-full z-50 transition-all duration-300 py-6">
+    <div class="container mx-auto px-4 md:px-6">
+      <div class="flex justify-between items-center">
+        <!-- Logo -->
+        <a href="index.html" class="flex items-center group">
+           <img src="assets/img/rjfa_logo_grey_svg.svg" alt="RJFA" class="h-8 w-auto transition-all duration-300 dark:brightness-150 brightness-50 group-hover:opacity-80">
+        </a>
+
+        <!-- Desktop Menu -->
+        <div class="hidden md:flex items-center space-x-10">
+          <div class="flex space-x-8">
+            <a href="index.html" class="nav-link">Home</a>
+            <a href="about.html" class="nav-link">About Me</a>
+            <a href="gallery.html" class="nav-link">Gallery</a>
+            <a href="music.html" class="nav-link">Music</a>
+            <a href="connect.html" class="nav-link text-accent">Connect</a>
+          </div>
+          
+          <!-- Icons & Toggle -->
+          <div class="flex items-center space-x-5 border-l pl-8 border-gray-300 dark:border-gray-700">
+            <a href="https://www.linkedin.com/in/rfrankale/" target="_blank" class="text-text hover:text-accent transition-colors transform hover:-translate-y-1"><i data-lucide="linkedin" class="w-4 h-4"></i></a>
+            <a href="https://github.com/roseanfrankale" target="_blank" class="text-text hover:text-accent transition-colors transform hover:-translate-y-1"><i data-lucide="github" class="w-4 h-4"></i></a>
+            
+            <button id="theme-toggle" class="ml-4 p-2 rounded-full bg-bg text-text hover:text-accent transition-all hover:rotate-90">
+              <i data-lucide="moon" class="w-5 h-5"></i>
+            </button>
+          </div>
+        </div>
+
+        <!-- Mobile Hamburger -->
+        <div class="flex items-center gap-4 md:hidden">
+          <button id="mobile-menu-btn" class="hamburger-btn focus:outline-none" aria-label="Toggle menu">
+            <span class="hamburger-line top"></span>
+            <span class="hamburger-line middle"></span>
+            <span class="hamburger-line bottom"></span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Mobile Menu -->
+      <div id="mobile-menu" class="hidden md:hidden absolute top-full left-0 w-full bg-bg/95 backdrop-blur-xl shadow-2xl py-6 px-6 flex flex-col space-y-6 border-t border-gray-100 dark:border-gray-800">
+        <a href="index.html" class="text-sm uppercase tracking-wider font-bold text-text hover:text-accent">Home</a>
+        <a href="about.html" class="text-sm uppercase tracking-wider font-bold text-text hover:text-accent">About Me</a>
+        <a href="gallery.html" class="text-sm uppercase tracking-wider font-bold text-text hover:text-accent">Gallery</a>
+        <a href="music.html" class="text-sm uppercase tracking-wider font-bold text-text hover:text-accent">Music</a>
+        <a href="connect.html" class="text-sm uppercase tracking-wider font-bold text-accent">Connect</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Connect Content -->
+  <div class="pt-32 pb-20 container mx-auto px-4 min-h-screen flex flex-col justify-center">
+    
+    <div class="grid md:grid-cols-12 gap-12 md:gap-24 items-center max-w-6xl mx-auto w-full">
+        
+        <!-- Left Side: Text Info -->
+        <div class="md:col-span-5 space-y-8 animate-fade-up">
+            <div>
+                <h1 class="text-6xl md:text-7xl font-black mb-4 text-text uppercase tracking-tighter leading-none">
+                    Let's <br>
+                    <span class="text-transparent bg-clip-text bg-gradient-to-r from-accent to-accent-light">Connect</span>
+                </h1>
+                <div class="w-20 h-1.5 bg-accent mb-8"></div>
+                <p class="text-xl text-text-muted font-light leading-relaxed">
+                    Have a project in mind, a question about my work, or just want to talk music and tech? I'm always open to discussing new opportunities and creative collaborations.
+                </p>
+            </div>
+
+            <div class="space-y-4 pt-4">
+                <a href="mailto:rosean.frankalexander@gmail.com" class="flex items-center text-text hover:text-accent transition-colors group">
+                    <div class="w-12 h-12 rounded-full bg-card-bg border border-gray-200 dark:border-gray-700 flex items-center justify-center mr-4 group-hover:border-accent transition-colors">
+                        <i data-lucide="mail" class="w-5 h-5"></i>
+                    </div>
+                    <span class="text-sm font-bold uppercase tracking-widest">rosean.frankalexander@gmail.com</span>
+                </a>
+                <a href="https://www.linkedin.com/in/rfrankale/" target="_blank" class="flex items-center text-text hover:text-accent transition-colors group">
+                    <div class="w-12 h-12 rounded-full bg-card-bg border border-gray-200 dark:border-gray-700 flex items-center justify-center mr-4 group-hover:border-accent transition-colors">
+                        <i data-lucide="linkedin" class="w-5 h-5"></i>
+                    </div>
+                    <span class="text-sm font-bold uppercase tracking-widest">LinkedIn Profile</span>
+                </a>
+            </div>
+        </div>
+
+        <!-- Right Side: Custom Form -->
+        <div class="md:col-span-7 w-full animate-fade-up" style="animation-delay: 0.2s;">
+            <div class="bg-card-bg p-8 md:p-10 rounded-3xl border border-gray-200 dark:border-gray-800 shadow-2xl relative overflow-hidden">
+                <!-- Decorative Blur -->
+                <div class="absolute top-0 right-0 w-64 h-64 bg-accent/5 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2 pointer-events-none"></div>
+
+                <h3 class="text-2xl font-black text-text mb-8 uppercase tracking-wide">Send a Message</h3>
+                
+                <form id="my-modern-form" class="space-y-6 relative z-10">
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <div class="space-y-2">
+                            <label for="firstname" class="text-xs font-bold uppercase tracking-widest text-text-muted">First Name</label>
+                            <input type="text" id="firstname" name="firstname" placeholder="Jane" required 
+                                class="w-full bg-section-bg border border-gray-200 dark:border-gray-700 rounded-xl px-4 py-3 text-text focus:outline-none focus:border-accent focus:ring-1 focus:ring-accent transition-all">
+                        </div>
+                        <div class="space-y-2">
+                            <label for="lastname" class="text-xs font-bold uppercase tracking-widest text-text-muted">Last Name</label>
+                            <input type="text" id="lastname" name="lastname" placeholder="Doe" required 
+                                class="w-full bg-section-bg border border-gray-200 dark:border-gray-700 rounded-xl px-4 py-3 text-text focus:outline-none focus:border-accent focus:ring-1 focus:ring-accent transition-all">
+                        </div>
+                    </div>
+
+                    <div class="space-y-2">
+                        <label for="email" class="text-xs font-bold uppercase tracking-widest text-text-muted">Email Address</label>
+                        <input type="email" id="email" name="email" placeholder="jane@example.com" required 
+                            class="w-full bg-section-bg border border-gray-200 dark:border-gray-700 rounded-xl px-4 py-3 text-text focus:outline-none focus:border-accent focus:ring-1 focus:ring-accent transition-all">
+                    </div>
+
+                    <div class="space-y-2">
+                        <label for="message_field" class="text-xs font-bold uppercase tracking-widest text-text-muted">Message</label>
+                        <textarea id="message_field" name="message_field" rows="4" placeholder="How can we work together?" required 
+                            class="w-full bg-section-bg border border-gray-200 dark:border-gray-700 rounded-xl px-4 py-3 text-text focus:outline-none focus:border-accent focus:ring-1 focus:ring-accent transition-all resize-none"></textarea>
+                    </div>
+
+                    <button type="submit" class="w-full bg-accent hover:bg-accent-light text-white font-bold uppercase tracking-widest py-4 rounded-xl transition-all duration-300 shadow-lg shadow-accent/20 hover:scale-[1.02] flex justify-center items-center gap-2">
+                        Send Message <i data-lucide="send" class="w-4 h-4"></i>
+                    </button>
+
+                    <div id="form-message" class="text-center text-sm font-medium mt-4 min-h-[20px]"></div>
+                </form>
+            </div>
+        </div>
+
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="bg-footer-bg text-text py-12 border-t border-gray-200 dark:border-gray-800">
+    <div class="container mx-auto px-4 md:px-6">
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div class="flex flex-col items-start">
+          <img src="assets/img/rjfa_logo_grey_svg.svg" alt="RJFA" class="h-10 w-auto mb-4 grayscale opacity-80">
+          <p class="text-text-muted text-sm">
+            &copy; 2025 Rosean Frank-Alexander.<br>All rights reserved.
+          </p>
+        </div>
+
+        <div>
+          <h3 class="text-lg font-bold mb-4 text-text tracking-widest uppercase opacity-60">Navigation</h3>
+          <ul class="space-y-2 text-text-muted text-sm uppercase tracking-wide">
+            <li><a href="index.html" class="hover:text-accent transition-colors">Home</a></li>
+            <li><a href="about.html" class="hover:text-accent transition-colors">About Me</a></li>
+            <li><a href="gallery.html" class="hover:text-accent transition-colors">Gallery</a></li>
+            <li><a href="connect.html" class="hover:text-accent transition-colors">Contact</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h3 class="text-lg font-bold mb-4 text-text tracking-widest uppercase opacity-60">Socials</h3>
+          <div class="flex gap-4">
+            <a href="https://www.linkedin.com/in/rfrankale/" target="_blank" class="text-text-muted hover:text-accent transition-colors"><i data-lucide="linkedin" class="w-5 h-5"></i></a>
+            <a href="https://github.com/roseanfrankale/" target="_blank" class="text-text-muted hover:text-accent transition-colors"><i data-lucide="github" class="w-5 h-5"></i></a>
+            <a href="https://dribbble.com/rjfa/" target="_blank" class="text-text-muted hover:text-accent transition-colors"><i data-lucide="dribbble" class="w-5 h-5"></i></a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+  <script src="assets/js/main.js"></script>
+  <script src="assets/js/hubspot-form.js"></script>
+  <script src="assets/js/connect.js"></script>
+</body>
+</html>

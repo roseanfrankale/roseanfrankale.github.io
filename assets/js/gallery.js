@@ -1,142 +1,146 @@
-document.addEventListener("DOMContentLoaded", () => {
-  const typeTabs = document.querySelectorAll("#galleryTypeTabs .gallery-filter-btn");
-  const galleryGrid = document.querySelector("#gallery-grid");
-  let iso;
 
-  let activeTypeFilter = "*";
+document.addEventListener('DOMContentLoaded', () => {
+    
+    // 1. Initialize Isotope
+    const grid = document.querySelector('#gallery-grid');
+    let iso;
 
-  // Exit if there's no gallery on the page
-  if (!galleryGrid) return;
-
-  // Initialize Isotope after images are loaded
-  imagesLoaded(galleryGrid, function () {
-    iso = new Isotope(galleryGrid, {
-      itemSelector: ".gallery-item",
-      layoutMode: "masonry",
-      percentPosition: true,
-      masonry: {
-        columnWidth: ".grid-sizer",
-        gutter: 10
-      },
-      transitionDuration: "0.6s"
-    });
-  });
-
-  /**
-   * Applies filters to the gallery.
-   */
-  function applyGalleryFilters() {
-    if (!iso) return;
-
-    const filterType = activeTypeFilter === "*" ? "*" : `.${activeTypeFilter}`;
-    iso.arrange({ filter: filterType });
-  }
-
-  // Add click handlers to filter buttons
-  if (typeTabs.length > 0) {
-    typeTabs.forEach((tab) => {
-      tab.addEventListener("click", () => {
-        typeTabs.forEach((t) => t.classList.remove("active"));
-        tab.classList.add("active");
-        activeTypeFilter = tab.dataset.category;
-        applyFilters();
-      });
-    });
-  }
-
-  // Lightbox Logic
-  const lightbox = document.getElementById("lightbox");
-  const lightboxImg = document.getElementById("lightbox-img");
-  const lightboxCaption = document.getElementById("lightbox-caption");
-  const closeBtn = document.getElementById("lightbox-close");
-  const lightboxPrev = document.getElementById("lightbox-prev");
-  const lightboxNext = document.getElementById("lightbox-next");
-  // Select links from the main gallery AND all relevant sections in case studies
-  const galleryLinks = document.querySelectorAll(
-    ".gallery-item a, " +
-    ".showcase-item a, " +
-    ".step-image-wrapper a, " +
-    ".hero-mockup a, " + // For the hero image in case studies
-    ".visual-comparison a, " + // For before/after images in case studies
-    ".process-image-caption a" // For images in the research section of case studies
-  );
-
-
-  let currentIndex = 0;
-
-  /**
-   * Shows the lightbox with the image at the specified index.
-   * @param {number} index The index of the image to show.
-   */
-  function showLightbox(index) {
-    const totalImages = galleryLinks.length;
-    if (totalImages === 0) return;
-
-    currentIndex = (index % totalImages + totalImages) % totalImages;
-    const currentLink = galleryLinks[currentIndex];
-    const image = currentLink.querySelector("img");
-    const caption = image ? image.alt : "";
-
-    lightboxImg.src = currentLink.href;
-    lightboxCaption.textContent = caption;
-    lightbox.classList.remove("hidden");
-    document.body.style.overflow = "hidden";
-  }
-
-  if (galleryLinks.length === 0) {
-    console.log("No gallery links found for lightbox.");
-  }
-
-  function hideLightbox() {
-    lightbox.classList.add("hidden");
-    document.body.style.overflow = "";
-  }
-
-  // Open lightbox on image click
-  if (lightbox) { // Removed galleryGrid check
-    galleryLinks.forEach((link, index) => {
-      link.addEventListener("click", (e) => {
-        e.preventDefault();
-        showLightbox(index);
-      });
-    });
-
-    // Add zoom functionality
-    if (lightboxImg) {
-      lightboxImg.addEventListener('click', () => {
-        // Prevent zoom-out when clicking to zoom-in
-        if (!lightboxImg.classList.contains('zoomed')) {
-          lightboxImg.classList.add('zoomed');
-        }
-      });
+    if (grid) {
+        // Wait for images to load before initializing layout
+        imagesLoaded(grid, function() {
+            iso = new Isotope(grid, {
+                itemSelector: '.gallery-item',
+                layoutMode: 'masonry',
+                percentPosition: true,
+                masonry: {
+                    columnWidth: '.grid-sizer',
+                    gutter: '4%' // Match the CSS gap logic roughly (handled by width % in css)
+                }
+            });
+            
+            // Trigger layout once to fix any initial overlaps
+            iso.layout();
+        });
     }
 
-    // Close button
-    if (closeBtn) closeBtn.addEventListener("click", hideLightbox);
+    // 2. Filter Logic
+    const filterBtns = document.querySelectorAll('.filter-btn');
+    const noResultsMsg = document.getElementById('no-results');
 
-    // Navigation buttons
-    if (lightboxPrev) lightboxPrev.addEventListener("click", (e) => { e.stopPropagation(); showLightbox(currentIndex - 1); });
-    if (lightboxNext) lightboxNext.addEventListener("click", (e) => { e.stopPropagation(); showLightbox(currentIndex + 1); });
+    filterBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+            // Active Class Logic
+            filterBtns.forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
 
-    // Close on background click
-    lightbox.addEventListener("click", (event) => {
-      if (event.target === lightbox) {
-        hideLightbox();
-        if (lightboxImg.classList.contains('zoomed')) {
-          lightboxImg.classList.remove('zoomed');
-        } else if (event.target.classList.contains('zoomed')) {
-          event.target.classList.remove('zoomed');
+            // Filter Isotope
+            const filterValue = btn.getAttribute('data-filter');
+            iso.arrange({ filter: filterValue });
+
+            // Show/Hide "No Results" message
+            // Isotope doesn't have a direct "empty" callback easily, so we check filtered items length
+            const filteredItems = iso.getFilteredItemElements();
+            if (filteredItems.length === 0) {
+                noResultsMsg.classList.remove('hidden');
+            } else {
+                noResultsMsg.classList.add('hidden');
+            }
+        });
+    });
+
+    // 3. Lightbox Logic
+    const lightbox = document.getElementById('lightbox');
+    const lightboxImg = document.getElementById('lightbox-img');
+    const lightboxCaption = document.getElementById('lightbox-caption');
+    const closeBtn = document.getElementById('lightbox-close');
+    const prevBtn = document.getElementById('lightbox-prev');
+    const nextBtn = document.getElementById('lightbox-next');
+    
+    // Collect all current visible images for navigation
+    let currentGalleryImages = [];
+    let currentIndex = 0;
+
+    // Open Lightbox
+    const openLightbox = (imgSrc, caption, index) => {
+        lightboxImg.src = imgSrc;
+        lightboxCaption.textContent = caption;
+        currentIndex = index;
+        
+        lightbox.classList.remove('hidden');
+        setTimeout(() => lightbox.classList.remove('opacity-0'), 10);
+        document.body.style.overflow = 'hidden';
+    };
+
+    // Close Lightbox
+    const closeLightbox = () => {
+        lightbox.classList.add('opacity-0');
+        setTimeout(() => {
+            lightbox.classList.add('hidden');
+            document.body.style.overflow = '';
+        }, 300);
+    };
+
+    // Update Gallery List based on current filter
+    const updateGalleryList = () => {
+        // Get only currently visible items from Isotope
+        const visibleItems = iso ? iso.getFilteredItemElements() : document.querySelectorAll('.gallery-item');
+        currentGalleryImages = Array.from(visibleItems).map(item => {
+            const img = item.querySelector('img');
+            const title = item.querySelector('.gallery-overlay span:first-child').textContent;
+            return { src: img.src, caption: title };
+        });
+    };
+
+    // Attach Click Listeners to Items using Event Delegation
+    grid.addEventListener('click', (e) => {
+        const itemLink = e.target.closest('a');
+        if (itemLink) {
+            e.preventDefault();
+            updateGalleryList(); // Refresh list in case filters changed
+            
+            const imgSrc = itemLink.querySelector('img').src;
+            // Find index in the current list
+            const index = currentGalleryImages.findIndex(img => img.src === imgSrc);
+            const caption = currentGalleryImages[index].caption;
+
+            openLightbox(imgSrc, caption, index);
         }
-      }
     });
 
-    // Keyboard navigation
-    document.addEventListener("keydown", (e) => {
-      if (!lightbox.classList.contains("hidden")) {
-        if (e.key === "Escape") hideLightbox();
-        if (e.key === "ArrowLeft") showLightbox(currentIndex - 1);
-        if (e.key === "ArrowRight") showLightbox(currentIndex + 1);
-      }
+    // Navigation Logic
+    const showImage = (index) => {
+        if (index < 0) index = currentGalleryImages.length - 1;
+        if (index >= currentGalleryImages.length) index = 0;
+        
+        currentIndex = index;
+        const imgData = currentGalleryImages[currentIndex];
+        
+        // Fade out slightly
+        lightboxImg.style.opacity = 0.5;
+        
+        setTimeout(() => {
+            lightboxImg.src = imgData.src;
+            lightboxCaption.textContent = imgData.caption;
+            lightboxImg.style.opacity = 1;
+        }, 200);
+    };
+
+    // Event Listeners for Lightbox
+    closeBtn.addEventListener('click', closeLightbox);
+    prevBtn.addEventListener('click', (e) => { e.stopPropagation(); showImage(currentIndex - 1); });
+    nextBtn.addEventListener('click', (e) => { e.stopPropagation(); showImage(currentIndex + 1); });
+    
+    lightbox.addEventListener('click', (e) => {
+        if (e.target === lightbox || e.target.closest('#lightbox-img')) return; // Allow clicking image (maybe for zoom later)
+        // closeLightbox(); // Optional: close on background click, but nav buttons are on background
     });
-  }
+
+    // Keyboard Nav
+    document.addEventListener('keydown', (e) => {
+        if (lightbox.classList.contains('hidden')) return;
+        if (e.key === 'Escape') closeLightbox();
+        if (e.key === 'ArrowLeft') showImage(currentIndex - 1);
+        if (e.key === 'ArrowRight') showImage(currentIndex + 1);
+    });
+
 });

@@ -3,429 +3,214 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Rosean Frank-Alexander | Case Studies</title>
+  <title>Qurado Case Study | RJFA</title>
   
-  <!-- Google Fonts -->
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;800&display=swap" rel="stylesheet">
-
-  <!-- Bootstrap CSS -->
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-
-  <!-- Font Awesome for more icons -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-
-  <!-- Feather Icons -->
-  <script src="https://unpkg.com/feather-icons"></script>
-
-  <!-- Custom CSS -->
-  <!-- Note: These file paths are preserved as requested, but may not exist in your environment -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;700;900&family=Raleway:wght@400;700&display=swap" rel="stylesheet">
+  <script src="assets/js/tailwind-config.js"></script>
+  <script src="https://cdn.tailwindcss.com"></script>
   <link rel="stylesheet" href="assets/css/style.css">
-  <link rel="stylesheet" href="assets/css/case-study.css">
-  <link rel="stylesheet" href="assets/css/gallery.css">
-
-  <!-- Theme + Navbar + Darkmode -->
-  <script src="assets/js/theme.js"></script>
+  <script src="https://unpkg.com/lucide@latest"></script>
 </head>
-<body>
+<body class="bg-bg text-text antialiased transition-colors duration-300">
 
-  <!-- Scroll Progress -->
-  <div class="scroll-progress">
-    <div class="scroll-progress-bar"></div>
-  </div>
+  <!-- Navbar -->
+  <nav id="navbar" class="fixed w-full z-50 transition-all duration-300 py-6">
+    <div class="container mx-auto px-4 md:px-6">
+      <div class="flex justify-between items-center">
+        <!-- Logo -->
+        <a href="index.html" class="flex items-center group">
+           <img src="assets/img/rjfa_logo_grey_svg.svg" alt="RJFA" class="h-8 w-auto transition-all duration-300 dark:brightness-150 brightness-50 group-hover:opacity-80">
+        </a>
 
-  <!-- NAVBAR -->
-  <nav class="navbar navbar-expand-lg fixed-top">
-    <div class="container">
-      <a class="navbar-brand fw-bold" href="/">
-        <img src="assets/img/rjfa_logo_grey_svg.svg" width="34" height="34" alt="Logo">
-      </a>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
-        <ul class="navbar-nav">
-          <li class="nav-item">
-            <a class="nav-link" href="index.html">← Back to Portfolio</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#overview">Overview</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#process">Process</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#results">Results</a>
-          </li>
-        </ul>
-        <button id="theme-toggle" class="ms-3">
-          <i data-feather="moon"></i>
-        </button>
+        <!-- Desktop Menu -->
+        <div class="hidden md:flex items-center space-x-10">
+          <div class="flex space-x-8">
+            <a href="index.html" class="text-text hover:text-accent text-xs uppercase tracking-widest font-bold transition-all relative group">
+              Home
+              <span class="absolute -bottom-2 left-0 w-full h-0.5 bg-accent transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300"></span>
+            </a>
+            <a href="about.html" class="text-text hover:text-accent text-xs uppercase tracking-widest font-bold transition-all relative group">
+              About Me
+              <span class="absolute -bottom-2 left-0 w-full h-0.5 bg-accent transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300"></span>
+            </a>
+            <a href="gallery.html" class="text-text hover:text-accent text-xs uppercase tracking-widest font-bold transition-all relative group">
+              Gallery
+              <span class="absolute -bottom-2 left-0 w-full h-0.5 bg-accent transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300"></span>
+            </a>
+            <a href="music.html" class="text-text hover:text-accent text-xs uppercase tracking-widest font-bold transition-all relative group">
+              Music
+              <span class="absolute -bottom-2 left-0 w-full h-0.5 bg-accent transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300"></span>
+            </a>
+            <a href="connect.html" class="text-text hover:text-accent text-xs uppercase tracking-widest font-bold transition-all relative group">
+              Connect
+              <span class="absolute -bottom-2 left-0 w-full h-0.5 bg-accent transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300"></span>
+            </a>
+          </div>
+          
+          <!-- Icons & Toggle -->
+          <div class="flex items-center space-x-5 border-l pl-8 border-gray-300 dark:border-gray-700">
+            <a href="https://www.linkedin.com/in/rfrankale/" target="_blank" class="text-text hover:text-accent transition-colors transform hover:-translate-y-1"><i data-lucide="linkedin" class="w-4 h-4"></i></a>
+            <a href="https://github.com/roseanfrankale" target="_blank" class="text-text hover:text-accent transition-colors transform hover:-translate-y-1"><i data-lucide="github" class="w-4 h-4"></i></a>
+            <a href="https://dribbble.com/rjfa" target="_blank" class="text-text hover:text-accent transition-colors transform hover:-translate-y-1"><i data-lucide="dribbble" class="w-4 h-4"></i></a>
+            
+            <button id="theme-toggle" class="ml-4 p-2 rounded-full bg-bg text-text hover:text-accent transition-all hover:rotate-90">
+              <i data-lucide="moon" class="w-5 h-5"></i>
+            </button>
+          </div>
+        </div>
+
+        <!-- Mobile Toggle -->
+        <div class="flex items-center gap-4 md:hidden">
+          <button id="mobile-menu-btn" class="hamburger-btn focus:outline-none" aria-label="Toggle menu">
+            <span class="hamburger-line top"></span>
+            <span class="hamburger-line middle"></span>
+            <span class="hamburger-line bottom"></span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Mobile Menu -->
+      <div id="mobile-menu" class="hidden md:hidden absolute top-full left-0 w-full bg-bg shadow-2xl py-6 px-6 flex flex-col space-y-6 border-t border-gray-100 dark:border-gray-800">
+        <a href="index.html" class="text-sm uppercase tracking-wider font-bold text-text hover:text-accent">Home</a>
+        <a href="about.html" class="text-sm uppercase tracking-wider font-bold text-text hover:text-accent">About Me</a>
+        <a href="gallery.html" class="text-sm uppercase tracking-wider font-bold text-text hover:text-accent">Gallery</a>
+        <a href="music.html" class="text-sm uppercase tracking-wider font-bold text-text hover:text-accent">Music</a>
+        <a href="connect.html" class="text-sm uppercase tracking-wider font-bold text-text hover:text-accent">Connect</a>
       </div>
     </div>
   </nav>
 
-  <!-- Hero Section -->
-  <section class="case-hero">
-    <div class="container">
-      <div class="hero-content text-center">
-        <h1 class="case-title">Qurado</h1>
-        <p class="case-subtitle">E-commerce platform redesign for small businesses.</p>
-
-        <div class="hero-mockup text-center">
-          <img src="assets/img/qurado/Qurado_Dribble_Landing.png" alt="Qurado Mockup">
-        </div>
-
-        <div class="hero-meta">
-          <div class="meta-item">
-            <div class="meta-label">My Role</div>
-            <div class="meta-value">UI/UX Consultant</div>
-          </div>
-          <div class="meta-item">
-            <div class="meta-label">Timeline</div>
-            <div class="meta-value">October 2022 - November 2022</div>
-          </div>
-          <div class="meta-item">
-            <div class="meta-label">Platform</div>
-            <div class="meta-value">E-commerce Website</div>
-          </div>
-          <div class="meta-item">
-            <div class="meta-label">Industry</div>
-            <div class="meta-value">Retail</div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-  <section class="case-hero">
-    <div class="container-fluid">
-      <div class="hero-content row ">
-        <!-- Left Column: Image -->
-        <div class="col-lg-6 text-center">
-          <div class="hero-image-container">
-            <div class="hero-mockup">
-            <img src="assets/img/qurado/Qurado_Dribble_Landing.png" alt="Qurado Mockup" class="hero-case-image">
-          </div>
-        </div>
-        </div>
-
-        <!-- Right Column: Content -->
-        <div class="col-lg-5 align-items-center justify-content-center">
-          <div class="hero-case-content">
-            <div class="badge hero-case-badge mb-3">E-commerce, Retail</div>
-            <h1 class="case-title">Qurado</h1>
-            <p class="case-subtitle">E-commerce platform redesign for small businesses.</p>
-            <a href="https://qurado.es/" target="_blank" rel="noreferrer" class="btn-primary d-inline-flex align-items-center gap-2">
-              View Site <i data-feather="arrow-right"></i>
+  <div class="pt-32 pb-20 container mx-auto px-4">
+     <div class="hero-content opacity-0 translate-y-10 text-center max-w-5xl mx-auto">
+        <!-- Breadcrumb Back Link -->
+        <div class="mb-8 flex justify-center">
+            <a href="index.html" class="flex items-center text-text-muted hover:text-accent transition-colors font-bold uppercase text-xs tracking-widest">
+                <i data-lucide="arrow-left" class="w-4 h-4 mr-2"></i> Back to Portfolio
             </a>
+        </div>
 
-            <div class="hero-case-details">
-              <div class="meta-item">
-                <p class="meta-label">My Role</p>
-                <p class="meta-value" style="font-size: 1rem; font-weight: 700;">UI/UX Consultant</p>
-              </div>
-              <div class="meta-item">
-            <p class="meta-label">Timeline</p>
-            <p class="meta-value" style="font-size: 1rem; font-weight: 700;">October 2022 - November 2022</p>
-              </div>
-          <div class="meta-item">
-            <p class="meta-label">Platform</p>
-            <div class="tech-badges hero-case-badge">
-              <span class="badge">E-commerce</span>
-          </div>
-          </div>
-           <div class="meta-item">
-            <p class="meta-label">Industry</p>
-            <div class="tech-badges hero-case-badge">
-              <span class="badge">Retail</span>
-          </div>
-          </div>
-              <div class="meta-item">
-                <p class="meta-label">Tech Stack</p>
-                <div class="tech-badges hero-case-badge">
-                  <span class="badge">Figma</span>
-                  <span class="badge">Adobe Creative Cloud (XD)</span>
-                  <span class="badge">Notion</span>
-                  <span class="badge">Sketch</span>
-                </div>
-              </div>
+        <h1 class="text-6xl md:text-8xl font-black mb-6 tracking-tighter uppercase leading-none text-text">QURADO</h1>
+        <p class="text-xl md:text-2xl text-text-muted font-light mb-12 max-w-3xl mx-auto">E-commerce Platform Optimization</p>
+        
+        <div class="relative rounded-2xl overflow-hidden shadow-2xl border border-gray-200 dark:border-gray-800 mb-12 group">
+            <img src="assets/img/qurado/Qurado_Dribble_Landing.png" alt="Qurado Hero" class="w-full max-h-[700px] object-cover object-top transform transition-transform duration-1000 group-hover:scale-105" />
+        </div>
+
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-8 text-left border-t border-gray-200 dark:border-gray-800 pt-8">
+            <div>
+                <h3 class="text-xs font-black uppercase tracking-widest mb-2 text-accent">Role</h3>
+                <p class="text-sm font-medium">UI/UX Consultant</p>
             </div>
-          </div>
+            <div>
+                <h3 class="text-xs font-black uppercase tracking-widest mb-2 text-accent">Timeline</h3>
+                <p class="text-sm font-medium">Oct 2022 - Nov 2022</p>
+            </div>
+            <div>
+                <h3 class="text-xs font-black uppercase tracking-widest mb-2 text-accent">Tools</h3>
+                <p class="text-sm font-medium">Figma, Adobe XD</p>
+            </div>
+             <div>
+                 <h3 class="text-xs font-black uppercase tracking-widest mb-2 text-accent">Link</h3>
+                <a href="https://qurado.es" target="_blank" class="text-sm font-bold hover:text-accent inline-flex items-center">
+                    Live Site <i data-lucide="external-link" class="ml-1 w-3 h-3"></i>
+                </a>
+            </div>
         </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Overview Section -->
-  <section id="overview" class="case-section">
-    <div class="container">
-      <div class="section-header">
-        <div class="section-number">01 — Overview</div>
-        <h2 class="section-title">The Challenge</h2>
-        <p class="section-description">
-          Qurado, an emerging e-commerce platform, needed a complete overhaul of its user interface and checkout process to compete in a crowded market.
-        </p>
-      </div>
-
-      <div class="problem-solution-grid">
-        <div class="problem-card">
-          <div class="card-icon">
-            <i data-feather="alert-triangle"></i>
-          </div>
-          <h3 class="card-title">The Problem</h3>
-          <p class="card-text">
-            The existing site had a confusing sitemap and a cumbersome checkout flow, leading to high cart abandonment rates. The branding was inconsistent and failed to build trust with users.
-          </p>
-        </div>
-
-        <div class="solution-card">
-          <div class="card-icon">
-            <i data-feather="thumbs-up"></i>
-          </div>
-          <h3 class="card-title">Our Solution</h3>
-          <p class="card-text">
-            As a UI/UX consultant, I redesigned the entire sitemap, checkout, and payment flows. I also collaborated on creating a modern branding identity with new typography and a cohesive look and feel.
-          </p>
-        </div>
-      </div>
-    </div>
-  </section>
-  
-
-  <!-- Process Section -->
-  <section id="process" class="case-section">
-    <div class="container">
-      <div class="section-header">
-        <div class="section-number">02 — Process</div>
-        <h2 class="section-title">Design Journey</h2>
-        <p class="section-description">
-          A focused consultancy project to rapidly improve the user experience.
-        </p>
-      </div>
-
-      <div class="process-timeline">
-        <div class="process-step">
-          <div class="step-content">
-            <h3 class="step-title" data-step="01">Sitemap & Flow Redesign</h3>
-            <p>Analyzed the existing user journey to identify bottlenecks. Created a new, simplified sitemap and redesigned the checkout and payment flows for efficiency.</p>
-          </div>
-          <div class="step-image-wrapper">
-            <a href="assets/img/qurado/Documentation/Quravío_Sitemap.png">
-              <div class="hoverbox">
-                <img src="assets/img/qurado/Documentation/Quravío_Sitemap.png" alt="Qurado Sitemap Wireframe" class="img-fluid rounded">
-                <div class="hoverbox-content">
-                  <i class="text-white" data-feather="plus"></i>
-                </div>
-              </div>
-            </a>
-          </div>
-        </div>
-
-        <div class="process-step">
-          <div class="step-content">
-            <h3 class="step-title" data-step="02">Branding & Visual Identity</h3>
-            <p>Collaborated with the Qurado team to develop a new branding concept, selecting modern typography and a fresh color palette to build a trustworthy and appealing brand image.</p>
-          </div>
-          <div class="step-image-wrapper step-image-wrapper--no-style">
-            <a href="assets/img/qurado/Documentation/QURADO - Branding + Look&Feel v2.png">
-              <div class="hoverbox">
-                <img src="assets/img/qurado/Documentation/QURADO - Branding + Look&Feel v2.png" alt="Qurado Branding Guidelines" class="img-fluid rounded tall-image">
-                <div class="hoverbox-content">
-                  <i class="text-white" data-feather="plus"></i>
-                </div>
-              </div>
-            </a>
-          </div>
-        </div>
-
-        <div class="process-step">
-          <div class="step-content">
-            <h3 class="step-title" data-step="03">Sitemap & Flow Redesign</h3>
-            <p>Analyzed the existing user journey to identify bottlenecks. Created a new, simplified sitemap and redesigned the checkout and payment flows for efficiency.</p>
-          </div>
-          <div class="step-image-wrapper">
-            <a href="assets/img/qurado/Documentation/Quravío_Sitemap.png">
-              <div class="hoverbox">
-                <img src="assets/img/qurado/Documentation/Quravío_Sitemap.png" alt="Qurado Sitemap Wireframe" class="img-fluid rounded">
-                <div class="hoverbox-content">
-                  <i class="text-white" data-feather="plus"></i>
-                </div>
-              </div>
-            </a>
-          </div>
-        </div>
-
-      </div>
-    </div>
-  </section>
-
-  <!-- Results Section -->
-  <section id="results" class="case-section">
-    <div class="container">
-      <div class="section-header">
-        <div class="section-number">03 — Results</div>
-        <h2 class="section-title">Impact & Outcomes</h2>
-        <p class="section-description">
-          The focused UI/UX improvements led to a significant increase in site traffic and user satisfaction.
-        </p>
-      </div>
-
-      <div class="results-grid">
-        <div class="result-item">
-          <div class="result-number">25%</div>
-          <div class="result-label">Increase in Site Traffic</div>
-        </div>
-        <div class="result-item">
-          <div class="result-number">40%</div>
-          <div class="result-label">Reduction in Cart Abandonment</div>
-        </div>
-      </div>
-
-      <div class="case-study-showcase">
-        <div class="showcase-row">
-          <div class="showcase-item">
-            <a href="assets/img/qurado/Qurado_Dribble_Landing.png">
-              <div class="hoverbox">
-                <img src="assets/img/qurado/Qurado_Dribble_Landing.png" alt="Qurado Dribble landing page">
-                <div class="hoverbox-content">
-                  <i class="text-white" data-feather="plus"></i>
-                </div>
-              </div>
-            </a>
-          </div>
-        </div>
-        <div class="showcase-row">
-          <div class="showcase-item showcase-item--half">
-            <a href="assets/img/qurado/Documentation/concept_1.png">
-              <div class="hoverbox">
-                <img src="assets/img/qurado/Documentation/concept_1.png" alt="Qurado concept design 1">
-                <div class="hoverbox-content">
-                  <i class="text-white" data-feather="plus"></i>
-                </div>
-              </div>
-            </a>
-          </div>
-          <div class="showcase-item showcase-item--half">
-            <a href="assets/img/qurado/Documentation/concept_2.png">
-              <div class="hoverbox">
-                <img src="assets/img/qurado/Documentation/concept_2.png" alt="Qurado concept design 2">
-                <div class="hoverbox-content">
-                  <i class="text-white" data-feather="plus"></i>
-                </div>
-              </div>
-            </a>
-          </div>
-        </div>
-        <div class="showcase-row">
-          <div class="showcase-item">
-            <a href="assets/img/qurado/Documentation/prototype_final.png">
-              <div class="hoverbox">
-                <img src="assets/img/qurado/Documentation/prototype_final.png" alt="Qurado final prototype">
-                <div class="hoverbox-content">
-                  <i class="text-white" data-feather="plus"></i>
-                </div>
-              </div>
-            </a>
-          </div>
-        </div>
-        <div class="showcase-row">
-          <div class="showcase-item showcase-item--half">
-            <a href="assets/img/qurado/Documentation/wireframe-1.png">
-              <div class="hoverbox">
-                <img src="assets/img/qurado/Documentation/wireframe-1.png" alt="Qurado wireframe">
-                <div class="hoverbox-content">
-                  <i class="text-white" data-feather="plus"></i>
-                </div>
-              </div>
-            </a>
-          </div>
-          <div class="showcase-item showcase-item--half">
-            <a href="assets/img/qurado/Documentation/Product_description.png">
-              <div class="hoverbox">
-                <img src="assets/img/qurado/Documentation/Product_description.png" alt="Qurado product description page">
-                <div class="hoverbox-content">
-                  <i class="text-white" data-feather="plus"></i>
-                </div>
-              </div>
-            </a>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- CTA Section -->
-  <section class="cta-section">
-    <div class="container">
-      <h2 class="cta-title">Interested in Working Together?</h2>
-      <p class="cta-text">Let's discuss how I can help bring your next project to life</p>
-       <form action="mailto:rosean.frankalexander@gmail.com" method="get" enctype="text/plain" class="cta-form">
-        <input type="email" name="email" placeholder="Enter your email address" required>
-        <input type="hidden" name="subject" value="Project Inquiry from your Portfolio">
-        <button type="submit" class="btn-primary">Get in Touch</button>
-      </form>
      </div>
-  </section>
-
-  <!-- Lightbox -->
-  <div id="lightbox" class="lightbox hidden">
-    <button id="lightbox-close" class="lightbox-close">&times;</button>
-    <button id="lightbox-prev" class="lightbox-prev nav-btn">‹</button>
-    <button id="lightbox-next" class="lightbox-next nav-btn">›</button>
-    <div class="lightbox-content">
-      <img id="lightbox-img" src="" alt="Gallery Preview" class="lightbox-zoomable" />
-      <div id="lightbox-caption" class="lightbox-caption"></div>
-    </div>
   </div>
 
+  <section class="container mx-auto px-4 mb-32">
+    <div class="grid md:grid-cols-12 gap-12">
+        <div class="md:col-span-4">
+            <div class="sticky top-32">
+                <h2 class="text-4xl font-bold mb-6 text-text">Overview</h2>
+                <div class="h-1 w-20 bg-accent mb-6"></div>
+            </div>
+        </div>
+        <div class="md:col-span-8">
+            <p class="text-lg md:text-xl text-text-muted font-light leading-relaxed mb-8">
+                Consulting project to improve website traffic and engagement through UI/UX enhancements.
+            </p>
+            
+            <div class="grid md:grid-cols-2 gap-8 mt-12">
+                <div class="bg-card-bg p-8 rounded-2xl border border-gray-200 dark:border-gray-800 shadow-sm">
+                     <div class="w-12 h-12 bg-red-100 dark:bg-red-900/20 rounded-full flex items-center justify-center mb-6">
+                        <i data-lucide="trending-down" class="text-accent w-6 h-6"></i>
+                     </div>
+                     <h3 class="text-xl font-bold mb-4 text-text">The Problem</h3>
+                     <p class="text-text-muted leading-relaxed">The original platform suffered from low conversion rates due to a confusing checkout process and a lack of mobile optimization.</p>
+                </div>
+                <div class="bg-card-bg p-8 rounded-2xl border border-gray-200 dark:border-gray-800 shadow-sm">
+                     <div class="w-12 h-12 bg-green-100 dark:bg-green-900/20 rounded-full flex items-center justify-center mb-6">
+                        <i data-lucide="shopping-cart" class="text-green-600 dark:text-green-400 w-6 h-6"></i>
+                     </div>
+                     <h3 class="text-xl font-bold mb-4 text-text">The Solution</h3>
+                     <p class="text-text-muted leading-relaxed">We implemented a streamlined checkout flow, modernized the branding to reflect the premium quality of the products, and fully optimized the site for mobile commerce.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+  </section>
 
-
-    <!-- FOOTER -->
-  <footer class="footer p-3 pt-4">
-    <div class="container">
-      <div class="row align-items-center pb-4">
-        <div class="col-md-4 col-sm-6 mb-3">
-          <a href="index.html"><img src="assets/img/rjfa_logo_grey_svg.svg" width="34" height="34" alt="RJFA Logo" /></a>
-          <span class="ms-2">&copy; 2025</span>
+  <section class="bg-section-bg py-32 mb-32">
+    <div class="container mx-auto px-4">
+        <div class="text-center mb-20">
+            <h2 class="text-4xl md:text-5xl font-black mb-4 uppercase tracking-tight text-text">Visuals</h2>
         </div>
 
-        <div class="col-md-4 col-sm-6">
-          <h3 class="mb-2 fs-base">Navigation</h3>
-          <ul class="list-unstyled">
-            <li><a class="nav-link" href="#hero">Home</a></li>
-            <li><a class="nav-link" href="#about">About Me</a></li>
-            <li><a class="nav-link" href="#work">Featured Work</a></li>
-            <li><a class="nav-link" href="gallery.html">Gallery</a></li>
-            <li><a class="nav-link" href="mailto:rosean.frankalexander@gmail.com">Contact</a></li>
-          </ul>
+        <div class="grid md:grid-cols-2 gap-8 project-gallery">
+             <div class="rounded-xl overflow-hidden shadow-lg border border-gray-200 dark:border-gray-700">
+                <img src="assets/img/qurado/Documentation/web_intro_mockup_1.png" alt="Web Intro" class="w-full h-auto">
+             </div>
+             <div class="rounded-xl overflow-hidden shadow-lg border border-gray-200 dark:border-gray-700">
+                <img src="assets/img/qurado/Documentation/discover_ipad.png" alt="iPad Discover" class="w-full h-auto">
+             </div>
+             <div class="rounded-xl overflow-hidden shadow-lg border border-gray-200 dark:border-gray-700 md:col-span-2">
+                <img src="assets/img/qurado/Documentation/prototype_1.png" alt="Prototype" class="w-full h-auto">
+             </div>
+        </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="bg-footer-bg text-text py-12 border-t border-gray-200 dark:border-gray-800">
+    <div class="container mx-auto px-4 md:px-6">
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <!-- Brand -->
+        <div class="flex flex-col items-start">
+          <img src="assets/img/rjfa_logo_grey_svg.svg" alt="RJFA" class="h-10 w-auto mb-4 grayscale opacity-80">
+          <p class="text-text-muted text-sm">
+            &copy; 2025 Rosean Frank-Alexander.<br>All rights reserved.
+          </p>
         </div>
 
-        <div class="col-md-4 col-sm-6">
-          <h3 class="mb-2 fs-base">Socials</h3>
-          <ul class="list-unstyled d-flex gap-3">
-            <li><a href="https://www.linkedin.com/in/rfrankale/" target="_blank"><i data-feather="linkedin"></i></a></li>
-            <li><a href="https://github.com/roseanfrankale/" target="_blank"><i data-feather="github"></i></a></li>
-            <li><a href="https://dribbble.com/rjfa/" target="_blank"><i data-feather="dribbble"></i></a></li>
-          </ul>
+        <!-- Navigation -->
+        <div>
+           <h3 class="text-lg font-serif font-bold mb-4 text-text">Navigation</h3>
+           <ul class="space-y-2 text-text-muted text-sm">
+             <li><a href="index.html" class="hover:text-accent transition-colors">Home</a></li>
+             <li><a href="about.html" class="hover:text-accent transition-colors">About Me</a></li>
+             <li><a href="gallery.html" class="hover:text-accent transition-colors">Gallery</a></li>
+             <li><a href="mailto:rosean.frankalexander@gmail.com" class="hover:text-accent transition-colors flex items-center gap-2"><i data-lucide="mail" class="w-3 h-3"></i> Contact</a></li>
+           </ul>
+        </div>
+
+        <!-- Socials -->
+        <div>
+          <h3 class="text-lg font-serif font-bold mb-4 text-text">Connect</h3>
+          <div class="flex space-x-4">
+            <a href="https://www.linkedin.com/in/rfrankale/" target="_blank" class="text-text-muted hover:text-accent transition-colors"><i data-lucide="linkedin" class="w-6 h-6"></i></a>
+            <a href="https://github.com/roseanfrankale" target="_blank" class="text-text-muted hover:text-accent transition-colors"><i data-lucide="github" class="w-6 h-6"></i></a>
+            <a href="https://dribbble.com/rjfa" target="_blank" class="text-text-muted hover:text-accent transition-colors"><i data-lucide="dribbble" class="w-6 h-6"></i></a>
+          </div>
         </div>
       </div>
     </div>
   </footer>
 
-
-
-  <!-- Scripts -->
-  <!-- Bootstrap JS Bundle (includes Popper) -->
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-
-  <!-- GSAP + ScrollTrigger -->
-  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.2/dist/gsap.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.2/dist/ScrollTrigger.min.js"></script>
-  <script src="https://unpkg.com/imagesloaded@5/imagesloaded.pkgd.min.js"></script>
-  <script src="https://unpkg.com/isotope-layout@3/dist/isotope.pkgd.min.js"></script>
-
- <!-- Custom Animations -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/color-thief/2.3.0/color-thief.umd.js"></script>
-  <script src="assets/js/gallery.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+  <script src="assets/js/main.js"></script>
   <script src="assets/js/case-study.js"></script>
-   </body>
+</body>
 </html>

@@ -1,0 +1,84 @@
+
+/* ===========================
+   ABOUT PAGE STYLES
+   =========================== */
+
+/* --- 1. Profile Image Blob Animation --- */
+/* This handles the glowing gradient behind the profile pic */
+.animate-blob {
+    animation: blob 7s infinite;
+}
+
+@keyframes blob {
+    0% {
+        transform: translate(-50%, -50%) scale(1);
+    }
+    33% {
+        transform: translate(-50%, -50%) scale(1.1) translate(10px, -10px);
+    }
+    66% {
+        transform: translate(-50%, -50%) scale(0.9) translate(-10px, 10px);
+    }
+    100% {
+        transform: translate(-50%, -50%) scale(1);
+    }
+}
+
+/* --- 2. Tab Button Styles --- */
+.tab-btn {
+    position: relative;
+    overflow: hidden;
+    z-index: 1;
+}
+
+/* Active state pulse */
+.tab-btn.active::after {
+    content: '';
+    position: absolute;
+    inset: -5px;
+    background: var(--accent);
+    filter: blur(10px);
+    opacity: 0.4;
+    z-index: -1;
+    animation: tabPulse 2s infinite;
+}
+
+@keyframes tabPulse {
+    0% { opacity: 0.2; transform: scale(0.95); }
+    50% { opacity: 0.4; transform: scale(1.05); }
+    100% { opacity: 0.2; transform: scale(0.95); }
+}
+
+/* --- 3. Experience Timeline (Desktop) --- */
+/* Creates the vertical line connecting job entries */
+@media (min-width: 1024px) {
+    .timeline-container {
+        position: relative;
+    }
+    
+    .timeline-container::before {
+        content: '';
+        position: absolute;
+        left: 2rem; /* Aligns with the dot */
+        top: 2rem;
+        bottom: 0;
+        width: 1px;
+        background: linear-gradient(to bottom, var(--accent) 0%, rgba(255,255,255,0.1) 100%);
+        z-index: 0;
+        opacity: 0.3;
+    }
+
+    [data-theme="light"] .timeline-container::before {
+        background: linear-gradient(to bottom, var(--accent) 0%, rgba(0,0,0,0.1) 100%);
+    }
+}
+
+/* --- 4. Skill Badge Hover --- */
+.skill-badge {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.skill-badge:hover {
+    transform: translateY(-3px) scale(1.05);
+    box-shadow: 0 5px 15px rgba(184, 26, 29, 0.2);
+}

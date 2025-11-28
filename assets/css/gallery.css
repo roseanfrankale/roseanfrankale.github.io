@@ -1,229 +1,150 @@
+
 /* ===========================
-   GALLERY PAGE
+   GALLERY PAGE STYLES
    =========================== */
 
-/* Gallery Hero */
-.gallery-hero {
-  padding: 10rem 0 5rem;
-  background: var(--bg);
-  transition: background 0.4s ease;
-  position: relative;
-  overflow: hidden;
+/* --- 1. Liquid Glass Filter Bar --- */
+.glass-filter-container {
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.1);
 }
 
-.gallery-hero h1, 
-.gallery-hero p {
-  color: var(--text);
-  transition: color 0.4s ease;
+[data-theme="dark"] .glass-filter-container {
+    background: rgba(0, 0, 0, 0.4);
+    border-color: rgba(255, 255, 255, 0.05);
 }
 
 /* Filter Buttons */
-.gallery-filter-btn {
-  background: transparent;
-  color: var(--text-muted);
-  border: 1px solid transparent;
-  border-radius: 0;
-  padding: 0.75rem 1.5rem;
-  margin: 0 0.25rem;
-  font-weight: 600;
-  transition: all 0.3s ease;
-  font-size: 0.875rem;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-  cursor: pointer;
+.filter-btn {
+    padding: 0.5rem 1.25rem;
+    border-radius: 9999px;
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--text-muted);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    border: 1px solid transparent;
 }
 
-.gallery-filter-btn.active,
-.gallery-filter-btn:hover {
-  color: var(--accent);
-  background-color: transparent;
-  border-bottom: 2px solid var(--accent);
+.filter-btn:hover {
+    color: var(--text);
+    background: rgba(255, 255, 255, 0.1);
 }
 
-/* Gallery Container */
-.image-gallery {
-  max-width: 1400px;
-  margin:  3rem auto;
-  padding: 0 15px;
+.filter-btn.active {
+    background: var(--accent);
+    color: white;
+    box-shadow: 0 4px 15px rgba(184, 26, 29, 0.3);
+    transform: scale(1.05);
 }
 
-/* Masonry Grid Sizing */
+/* --- 2. Masonry Grid Layout --- */
+.gallery-grid {
+    margin: 0 auto;
+    width: 100%;
+}
+
+/* Grid Sizing - CRITICAL FOR ISOTOPE */
 .grid-sizer,
 .gallery-item {
-  padding: 3px 3px; /* Half of JS gutter value (10px / 2) */
-  width: 100%;
+    width: 100%;
+    margin-bottom: 24px; /* Vertical gap */
+    padding: 0 12px; /* Horizontal gap */
 }
 
-/* Responsive widths for Masonry */
-@media (min-width: 576px) {
-  .grid-sizer,
-  .gallery-item {
-    width: 50%;
-  }
-}
-
+/* Responsive Columns */
 @media (min-width: 768px) {
-  .grid-sizer,
-  .gallery-item {
-    width: 33.333%;
-  }
+    .grid-sizer,
+    .gallery-item {
+        width: 50%; /* 2 Columns */
+    }
 }
 
-@media (min-width: 992px) {
-  .grid-sizer,
-  .gallery-item {
-    width: 25%;
-  }
+@media (min-width: 1024px) {
+    .grid-sizer,
+    .gallery-item {
+        width: 33.333%; /* 3 Columns */
+    }
 }
 
-@media (min-width: 1200px) {
-  .grid-sizer,
-  .gallery-item {
-    width: 20%;
-  }
+/* --- 3. Gallery Items & Interactions --- */
+/* Reset any project-card heights inherited from global style */
+.gallery-item .project-card {
+    height: auto !important; /* Allow masonry to dictate height */
 }
 
-/* Gallery Item Images */
+.gallery-item a {
+    display: block;
+    width: 100%;
+    height: auto; /* Let content dictate height */
+    box-shadow: 0 10px 30px -10px rgba(0,0,0,0.2);
+    transition: transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94), box-shadow 0.5s ease;
+    border-radius: 16px;
+    overflow: hidden;
+    position: relative;
+    background: var(--card-bg);
+}
+
+.gallery-item:hover a {
+    transform: translateY(-5px);
+    box-shadow: 0 20px 40px -10px rgba(0,0,0,0.4);
+}
+
+/* Fix for Isotope overlapping: Ensure image takes up space */
 .gallery-item img {
-  width: 100%;
-  height: auto;
-  display: block;
-  transition: transform 0.4s ease, filter 0.3s ease;
-  border-radius: 12px;
+    width: 100% !important;
+    height: auto !important;
+    display: block;
+    transition: transform 0.7s ease;
 }
 
-/* Hoverbox Effects */
-.hoverbox {
-  position: relative;
-  overflow: hidden;
-  border-radius: 12px;
-  cursor: pointer;
-  isolation: isolate;
+.gallery-item:hover img {
+    transform: scale(1.05);
 }
 
-.hoverbox img {
-  display: block;
-  width: 100%;
-  height: auto;
-  transition: transform 0.4s ease, filter 0.3s ease;
+/* Overlay Animation */
+.gallery-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0.2) 50%, transparent 100%);
+    opacity: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: 1.5rem;
+    transition: opacity 0.4s ease;
+    pointer-events: none; /* Let clicks pass through to anchor */
 }
 
-.hoverbox-content {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  opacity: 0;
-  transition: opacity 0.3s ease-in-out;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: rgba(0, 0, 0, 0.7); /* A dark overlay for the content */
-  z-index: 1;
+.gallery-item:hover .gallery-overlay {
+    opacity: 1;
 }
 
-.hoverbox:hover .hoverbox-content {
-  opacity: 0.8; /* Fade in to 80% opacity */
+.gallery-overlay span {
+    transform: translateY(20px);
+    opacity: 0;
+    transition: transform 0.4s ease, opacity 0.4s ease;
 }
 
-.hoverbox:hover img {
-  transform: scale(1.05);
+.gallery-item:hover .gallery-overlay span {
+    transform: translateY(0);
+    opacity: 1;
 }
 
-/* Make the plus icon more visible with a background */
-.hoverbox-content i {
-  width: 48px;
-  height: 48px;
-  color: white;
-  z-index: 2;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 8px;
+.gallery-item:hover .gallery-overlay span:nth-child(2) {
+    transition-delay: 0.1s;
 }
 
-/* Lightbox */
-.lightbox {
-  position: fixed;
-  inset: 0;
-  background: rgba(0, 0, 0, 0.95);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 9999;
-  opacity: 1;
-  transition: opacity 0.3s ease;
+/* --- 4. Animation Utility --- */
+.animate-fade-in {
+    animation: fadeIn 1s ease-out forwards;
 }
 
-.lightbox.hidden {
-  opacity: 0;
-  pointer-events: none;
-}
-
-.lightbox img {
-  max-width: 90%;
-  max-height: 90vh;
-  border-radius: 12px;
-  box-shadow: 0 10px 50px rgba(0, 0, 0, 0.5);
-}
-
-.lightbox-close {
-  position: absolute;
-  top: 2rem;
-  right: 2rem;
-  font-size: 2.5rem;
-  color: white;
-  background: transparent;
-  border: none;
-  cursor: pointer;
-  transition: color 0.3s ease, transform 0.3s ease;
-  z-index: 10000;
-}
-
-.lightbox-close:hover {
-  color: var(--accent);
-  transform: scale(1);
-}
-
-/* Lightbox Caption */
-.lightbox-caption {
-  position: absolute;
-  bottom: 2rem;
-  left: 50%;
-  transform: translateX(-50%);
-  color: white;
-  background: rgba(0, 0, 0, 0.5);
-  padding: 0.5rem 1rem;
-  border-radius: 6px;
-  font-size: 0.9rem;
-}
-
-/* Optional: Navigation arrows for lightbox */
-.lightbox-prev,
-.lightbox-next {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  font-size: 3rem;
-  color: white;
-  background: transparent;
-  border: none;
-  cursor: pointer;
-  transition: color 0.3s ease;
-  padding: 1rem;
-  z-index: 10000;
-}
-
-.lightbox-prev {
-  left: 2rem;
-}
-
-.lightbox-next {
-  right: 2rem;
-}
-
-.lightbox-prev:hover,
-.lightbox-next:hover {
-  color: var(--accent);
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
 }

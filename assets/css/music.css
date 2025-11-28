@@ -1,160 +1,35 @@
-/* MUSIC PAGE EXCLUSIVE STYLING */
 
-#hero {
-  position: relative; /* Container for the overlay */
-  min-height: 100vh; /* Make sure the section is at least full height */
-  overflow: hidden; /* Prevents video overflow */
+/* ===========================
+   MUSIC PAGE STYLES
+   =========================== */
+
+/* Video Modal */
+#video-modal {
+    pointer-events: none;
 }
 
-.bg-holder {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
+#video-modal.active {
+    opacity: 1;
+    pointer-events: auto;
 }
 
-.bg-holder iframe {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  width: 100%;
-  height: 100%;
-  transform: translate(-50%, -50%);
-  min-width: 100vw;
-  min-height: 100vh;
-  pointer-events: none; /* Allows clicks to pass through to the overlay/text */
+/* Play Button Hover Effect */
+.video-trigger .absolute.inset-0 div {
+    transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 
-.overlay::after {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0, 0, 0, 0.5); /* Semi-transparent black overlay */
-  z-index: 1; /* Make sure the overlay is above the video */
+/* Typography Overrides for the huge aesthetic */
+.hero-content h1 {
+    line-height: 0.9;
 }
 
-/* Ensure text is on top of the overlay */
-#hero .d-flex {
-  position: relative;
-  z-index: 2; 
+/* Aspect Ratio Utility */
+.aspect-video {
+    aspect-ratio: 16 / 9;
 }
 
-/* --- Band Showcase Layout --- */
-.music-showcase {
-  padding: 8rem 0; /* Increased padding for more space */
-}
-
-.music-showcase.alt-bg {
-  background-color: var(--section-bg);
-}
-
-.band-title {
-  font-size: clamp(2rem, 8vw, 5rem); /* Match .title-main */
-  font-weight: 800;
-  color: var(--text);
-  text-transform: uppercase;
-  line-height: 1;
-}
-
-.band-meta {
-  font-size: 1.4rem; /* Match .title-sub */
-  font-weight: 700;
-  color: var(--accent);
-  text-transform: uppercase;
-  letter-spacing: 0.5em; /* Match .title-sub */
-  padding-left: 0.25em; /* Match .title-sub */
-  margin-bottom: 1.5rem;
-}
-
-.band-description {
-  font-size: 1.2rem;
-  color: var(--text-muted);
-  line-height: 1.7;
-}
-
-.notable-performances {
-  color: var(--accent);
-  font-weight: 700;
-  font-size: 1.3rem;
-}
-
-.performance-list {
-  font-size: 1.2rem;
-  line-height: 1.5;
-  color: var(--text-muted);
-  font-weight: 600;
-    text-transform: uppercase;
-}
-
-.band-links {
-  display: flex;
-  gap: 1rem;
-  margin-top: 2rem;
-}
-
-.band-links a:hover {
-  background-color: var(--accent);
-  border-color: var(--accent);
-  color: white;
-  transform: translateY(-3px);
-}
-
-/* --- Video Card Styling --- */
-.video-card {
-  position: relative;
-  cursor: pointer;
-  border-radius: 12px;
-  overflow: hidden;
-  max-width: 400px; /* Constrain the width */
-  margin: 0 auto; /* Center the card within its column */
-  
-}
-
-.video-card img {
-  transition: transform 0.4s ease;
-}
-
-.video-card:hover img {
-  transform: scale(1.05);
-}
-
-.play-icon {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 70px;
-  height: 70px;
-  background: rgba(255, 255, 255, 0.8);
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: all 0.3s ease;
-}
-
-.play-icon i {
-  color: var(--accent);
-  width: 30px;
-  height: 30px;
-}
-
-.video-card:hover .play-icon {
-  transform: translate(-50%, -50%) scale(1.1);
-  background: white;
-}
-
-/* --- Video Lightbox --- */
-.lightbox-content {
-  width: 90%;
-  max-width: 960px;
-}
-/* Add a hover effect to the video card */
-.video-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+/* Custom Selection Color for Music Page */
+::selection {
+    background: var(--accent);
+    color: white;
 }
