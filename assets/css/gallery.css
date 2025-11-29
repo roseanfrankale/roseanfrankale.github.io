@@ -49,11 +49,13 @@
 }
 
 /* Grid Sizing - CRITICAL FOR ISOTOPE */
+/* padding creates the gutter visually */
 .grid-sizer,
 .gallery-item {
     width: 100%;
     margin-bottom: 24px; /* Vertical gap */
     padding: 0 12px; /* Horizontal gap */
+    box-sizing: border-box; /* Important so padding is included in width */
 }
 
 /* Responsive Columns */
