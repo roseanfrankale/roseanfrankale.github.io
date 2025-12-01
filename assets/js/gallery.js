@@ -135,7 +135,7 @@ document.addEventListener('DOMContentLoaded', () => {
             if (e.target === lightbox || e.target.closest('#lightbox-img')) return;
         });
     }
-
+ 
     // Keyboard Nav
     document.addEventListener('keydown', (e) => {
         if (lightbox && lightbox.classList.contains('hidden')) return;
