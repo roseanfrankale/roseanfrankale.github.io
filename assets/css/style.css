@@ -100,7 +100,7 @@ body {
    =========================== */
 .hero-title {
   font-size: clamp(3.5rem, 10vw, 7rem);
-  font-weight: 600;
+  font-weight: 900;
   line-height: 1;
   letter-spacing: -0.04em;
   margin-bottom: 1rem;
@@ -115,9 +115,8 @@ body {
 
 /* Updated Huge Section Titles */
 .title-main {
-    font-size: clamp(4rem, 12vw, 7rem);
- 
-  font-weight: 700;
+  font-size: clamp(4rem, 12vw, 9rem);
+  font-weight: 900;
   text-transform: uppercase;
   line-height: 0.9;
   letter-spacing: -0.05em;
@@ -126,8 +125,8 @@ body {
 }
 
 .title-sub {
-  font-size: clamp(4rem, 12vw, 7rem);
-  font-weight: 500;
+  font-size: clamp(4rem, 12vw, 9rem);
+  font-weight: 900;
   text-transform: uppercase;
   line-height: 0.9;
   letter-spacing: -0.05em;
@@ -244,13 +243,17 @@ body {
   align-items: center;
   width: 40px;
   height: 40px;
+  border-radius: 50%;
+  border: 1px solid var(--text-muted);
   color: var(--text-muted);
   text-decoration: none;
   /* Smoother Transition */
   transition: all 0.4s ease-out; 
 }
 .hero-socials a:hover {
-  color: var(--accent);
+  background-color: var(--accent);
+  border-color: var(--accent);
+  color: white;
   transform: translateY(-3px);
 }
 

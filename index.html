@@ -9,15 +9,27 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;700;800;900&family=Raleway:wght@400;700&display=swap" rel="stylesheet">
 
   <!-- Tailwind CSS & Config -->
-  <script src="https://cdn.tailwindcss.com"></script>
   <script src="assets/js/tailwind-config.js"></script>
+  <script src="https://cdn.tailwindcss.com"></script>
 
   <!-- Custom CSS -->
   <link rel="stylesheet" href="assets/css/style.css">
 
   <!-- Icons -->
   <script src="https://unpkg.com/lucide@latest"></script>
-
+<script type="importmap">
+{
+  "imports": {
+    "react": "https://aistudiocdn.com/react@^19.2.0",
+    "react-dom/": "https://aistudiocdn.com/react-dom@^19.2.0/",
+    "react/": "https://aistudiocdn.com/react@^19.2.0/",
+    "react-router-dom": "https://aistudiocdn.com/react-router-dom@^7.9.6",
+    "lucide-react": "https://aistudiocdn.com/lucide-react@^0.555.0",
+    "@google/genai": "https://aistudiocdn.com/@google/genai@^1.30.0",
+    "framer-motion": "https://aistudiocdn.com/framer-motion@^12.23.24"
+  }
+}
+</script>
 </head>
 <body class="bg-bg text-text antialiased transition-colors duration-300">
 
@@ -102,6 +114,16 @@
       </div>
     </div>
 
+    <!-- Scroll Indicator -->
+    <div class="absolute bottom-20 left-1/2 transform -translate-x-1/2 animate-bounce z-20">
+        <a href="#work" class="flex flex-col items-center text-text-muted hover:text-accent transition-colors group">
+           
+            <!-- Bouncing Line -->
+            <div class="w-[2px] h-12 bg-gradient-to-b from-text to-transparent opacity-50 group-hover:from-accent group-hover:opacity-100 transition-all"></div>
+            <!-- Arrow Head -->
+            <i data-lucide="chevron-down" class="w-4 h-4 -mt-2 text-text opacity-50 group-hover:text-accent group-hover:opacity-100 transition-all"></i>
+        </a>
+    </div>
 
     <!-- Connector Line (Static Base) -->
     <div class="absolute bottom-0 left-1/2 transform -translate-x-1/2 w-[1px] h-20 bg-gradient-to-b from-transparent to-accent z-10"></div>
@@ -252,7 +274,7 @@
                 <a href="bruvue.html" class="project-card-link">
                     <div class="project-card bg-gray-900 h-[400px]">
                         <div class="project-bg">
-                            <img src="assets/img/bruvue_photos/BruVue_Landing_1.png" alt="BruVue">
+                            <img src="assets/img/bruvue_photos/BruVue_line_of_sensors_2_G1.png" alt="BruVue">
                         </div>
                         <div class="overlay"></div>
                         <div class="project-content">
