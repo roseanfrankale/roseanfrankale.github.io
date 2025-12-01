@@ -124,7 +124,7 @@
 
 .gallery-item:hover .gallery-overlay {
     opacity: 1;
-}
+} 
 
 .gallery-overlay span {
     transform: translateY(20px);
