@@ -1,97 +1,84 @@
 document.addEventListener('DOMContentLoaded', () => {
-    
-    // 1. Initial Animations (Header elements)
-    gsap.from(".animate-fade-up", {
-        opacity: 0,
-        y: 30,
-        duration: 0.8,
-        stagger: 0.2,
-        ease: "power3.out"
-    });
 
-    // 2. Tab Switching Logic
-    const tabBtns = document.querySelectorAll('.tab-btn');
-    const tabContents = document.querySelectorAll('.tab-content');
+  // --- 1. Tab Functionality ---
+  const tabButtons = document.querySelectorAll('.tab-btn');
+  const tabContents = document.querySelectorAll('.tab-content');
 
-    function switchTab(targetId) {
-        // Hide all contents
-        tabContents.forEach(content => {
-            if (!content.classList.contains('hidden')) {
-                // Fade out animation
-                gsap.to(content, {
-                    opacity: 0,
-                    y: -10,
-                    duration: 0.2,
-                    onComplete: () => {
-                        content.classList.add('hidden');
-                        // Show new content after hide is done
-                        showNewContent(targetId);
-                    }
-                });
-            }
-        });
+  tabButtons.forEach(button => {
+    button.addEventListener('click', () => {
+      const targetId = button.dataset.target;
+      const targetContent = document.getElementById(targetId);
 
-        // Update buttons state
-        tabBtns.forEach(btn => {
-            if (btn.dataset.target === targetId) {
-                // Active Styling
-                btn.classList.remove('bg-transparent', 'text-text-muted');
-                btn.classList.add('bg-accent', 'text-white', 'border-accent', 'shadow-lg', 'scale-105');
-            } else {
-                // Inactive Styling
-                btn.classList.add('bg-transparent', 'text-text-muted');
-                btn.classList.remove('bg-accent', 'text-white', 'border-accent', 'shadow-lg', 'scale-105');
-            }
-        });
-    }
+      // Update button styles
+      tabButtons.forEach(btn => {
+        btn.classList.remove('bg-accent', 'text-white', 'border-accent', 'shadow-lg', 'shadow-accent/25', 'scale-105');
+        btn.classList.add('bg-transparent', 'text-text-muted', 'border-gray-200', 'dark:border-gray-800', 'hover:border-accent', 'hover:text-accent');
+      });
+      button.classList.add('bg-accent', 'text-white', 'border-accent', 'shadow-lg', 'shadow-accent/25', 'scale-105');
+      button.classList.remove('bg-transparent', 'text-text-muted', 'border-gray-200', 'dark:border-gray-800', 'hover:border-accent', 'hover:text-accent');
 
-    function showNewContent(targetId) {
-        const targetContent = document.getElementById(targetId);
-        if (targetContent) {
-            targetContent.classList.remove('hidden');
-            gsap.fromTo(targetContent, 
-                { opacity: 0, y: 10 }, 
-                { opacity: 1, y: 0, duration: 0.4, ease: "power2.out" }
-            );
+      // Show/hide content with a fade effect
+      tabContents.forEach(content => {
+        if (content.id === targetId) {
+          content.classList.remove('hidden');
+          // Simple fade-in animation
+          setTimeout(() => content.style.opacity = 1, 10); 
+        } else {
+          content.classList.add('hidden');
+          content.style.opacity = 0;
         }
-    }
-
-    // Attach Click Listeners
-    tabBtns.forEach(btn => {
-        btn.addEventListener('click', () => {
-            const target = btn.dataset.target;
-            // Only switch if not already active (logic simplified here for clarity)
-            switchTab(target);
-        });
+      });
     });
+  });
 
-    // 3. Lightbox Logic for Profile Image
-    const lightbox = document.getElementById('lightbox');
-    const lightboxImg = document.getElementById('lightbox-img');
-    const closeBtn = document.getElementById('lightbox-close');
-    const trigger = document.querySelector('.lightbox-trigger');
-
-    if (trigger && lightbox && lightboxImg) {
-        trigger.addEventListener('click', () => {
-            const imgSource = trigger.querySelector('img').src;
-            lightboxImg.src = imgSource;
-            lightbox.classList.remove('hidden');
-            // Small timeout to allow display:block to apply before opacity transition
-            setTimeout(() => lightbox.classList.remove('opacity-0'), 10);
-            document.body.style.overflow = 'hidden';
-        });
-
-        const closeLightbox = () => {
-            lightbox.classList.add('opacity-0');
-            setTimeout(() => {
-                lightbox.classList.add('hidden');
-                document.body.style.overflow = '';
-            }, 300);
-        };
-
-        closeBtn.addEventListener('click', closeLightbox);
-        lightbox.addEventListener('click', (e) => {
-            if (e.target === lightbox) closeLightbox();
-        });
+  // Initialize opacity for tab contents for fade-in effect
+  tabContents.forEach(content => {
+    if (!content.classList.contains('hidden')) {
+      content.style.opacity = 1;
+    } else {
+      content.style.opacity = 0;
     }
+    content.style.transition = 'opacity 0.4s ease-in-out';
+  });
+
+
+  // --- 2. Lightbox Functionality ---
+  const lightbox = document.getElementById('lightbox');
+  const lightboxImg = document.getElementById('lightbox-img');
+  const lightboxTrigger = document.querySelector('.lightbox-trigger');
+  const lightboxClose = document.getElementById('lightbox-close');
+
+  const openLightbox = () => {
+    const profileImgSrc = document.querySelector('.lightbox-trigger img').src;
+    lightboxImg.src = profileImgSrc;
+    lightbox.classList.remove('hidden');
+    document.body.style.overflow = 'hidden'; // Prevent background scrolling
+    setTimeout(() => lightbox.classList.remove('opacity-0'), 10); // Fade in
+  };
+
+  const closeLightbox = () => {
+    lightbox.classList.add('opacity-0');
+    document.body.style.overflow = ''; // Restore scrolling
+    setTimeout(() => lightbox.classList.add('hidden'), 300); // Hide after fade out
+  };
+
+  if (lightboxTrigger) {
+    lightboxTrigger.addEventListener('click', openLightbox);
+  }
+  if (lightboxClose) {
+    lightboxClose.addEventListener('click', closeLightbox);
+  }
+  if (lightbox) {
+    // Close lightbox if clicking on the dark background
+    lightbox.addEventListener('click', (e) => {
+      if (e.target === lightbox) closeLightbox();
+    });
+  }
+  // Close with Escape key
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && !lightbox.classList.contains('hidden')) {
+      closeLightbox();
+    }
+  });
+
 });

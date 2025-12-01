@@ -8,13 +8,13 @@
   <!-- Fonts -->
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;700;900&family=Raleway:wght@400;700&display=swap" rel="stylesheet">
 
- 
-<!-- Tailwind & Config -->
+  <!-- Tailwind & Config -->
   <script src="assets/js/tailwind-config.js"></script>
   <script src="https://cdn.tailwindcss.com"></script>
 
   <!-- Custom CSS -->
   <link rel="stylesheet" href="assets/css/style.css">
+  <link rel="stylesheet" href="assets/css/about.css">
 
   <!-- Icons -->
   <script src="https://unpkg.com/lucide@latest"></script>
@@ -75,14 +75,16 @@
 
   <!-- Header Section -->
   <div class="pt-32 pb-12 container mx-auto px-4">
-    <div class="text-center mb-16 opacity-0 translate-y-10 animate-fade-up">
+    <!-- Removed opacity-0 and translate-y-10 to fix visibility issue -->
+    <div class="text-center mb-16 animate-fade-up">
         <h1 class="text-6xl md:text-9xl font-black mb-6 text-text uppercase tracking-tighter leading-none">
-          About <span class="text-transparent bg-clip-text bg-gradient-to-r from-text to-text-muted">Me</span>
+          About <span class="text-accent ">Me</span>
         </h1>
     </div>
 
     <!-- Tabs Navigation -->
-    <div class="flex justify-center mb-24 opacity-0 translate-y-10 animate-fade-up" style="animation-delay: 0.2s;">
+    <!-- Removed opacity-0 and translate-y-10 to fix visibility issue -->
+    <div class="flex justify-center mb-24 animate-fade-up">
         <div class="flex flex-wrap justify-center gap-4">
             <button class="tab-btn px-8 py-3 rounded-full text-xs md:text-sm font-bold uppercase tracking-widest transition-all duration-300 border bg-accent text-white border-accent shadow-lg shadow-accent/25 scale-105" data-target="story">
                 My Story
@@ -105,8 +107,8 @@
                 <!-- Profile Image -->
                 <div class="md:col-span-4 flex justify-center order-1">
                     <div class="relative group cursor-zoom-in w-64 h-64 md:w-80 md:h-80 lightbox-trigger">
-                        <!-- Blurred Gradient Circle Backdrop -->
-                        <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[120%] h-[120%] bg-gradient-to-br from-accent/40 to-purple-500/40 rounded-full blur-3xl opacity-70 animate-pulse"></div>
+                        <!-- Blurred Gradient Circle Backdrop (Animated via CSS) -->
+                        <div class="absolute top-1/2 left-1/2 w-[120%] h-[120%] bg-gradient-to-br from-accent/40 to-purple-500/40 rounded-full blur-3xl opacity-70 animate-blob"></div>
                         
                         <div class="relative overflow-hidden rounded-full w-full h-full border-4 border-bg shadow-2xl">
                              <img 
@@ -136,10 +138,10 @@
                         With over a decade as a professional bass guitarist and deep knowledge in audio/visual production, I approach every project with a musician's discipline: finding the rhythm, establishing the structure, and ensuring every component plays together perfectly. I bring creativity, technical precision, and a unique perspective to every team.</p>
                     </div>
                     <div class="mt-12 flex flex-wrap gap-6">
-                        <a href="music.html" class="group inline-flex items-center px-8 py-4 bg-text text-bg rounded-full uppercase tracking-widest text-xs font-bold hover:scale-105 transition-transform duration-300">
+                        <a href="music.html" class="custom-btn group inline-flex items-center">
                             Musical Portfolio <i data-lucide="arrow-up-right" class="ml-2 w-4 h-4"></i>
                         </a>
-                        <a href="resume.html" class="group inline-flex items-center px-8 py-4 border border-text/20 text-text rounded-full uppercase tracking-widest text-xs font-bold hover:border-accent hover:text-accent transition-colors duration-300">
+                        <a href="resume.html" class="custom-btn-outline group inline-flex items-center">
                             Download CV <i data-lucide="download" class="ml-2 w-4 h-4 group-hover:translate-y-1 transition-transform"></i>
                         </a>
                     </div>
@@ -154,16 +156,16 @@
                 <div class="bg-card-bg p-10 rounded-3xl border border-gray-200 dark:border-gray-800 hover:border-accent/50 transition-colors duration-300 group">
                     <h3 class="text-xl font-black uppercase tracking-widest mb-8 text-text border-b border-gray-200 dark:border-gray-800 pb-4 group-hover:border-accent transition-colors">Development</h3>
                     <div class="flex flex-wrap gap-3">
-                        <span class="px-4 py-2 border border-text/10 text-text-muted text-xs font-bold uppercase tracking-wide rounded-full hover:bg-accent hover:text-white hover:border-accent transition-all cursor-default">HTML5</span>
-                        <span class="px-4 py-2 border border-text/10 text-text-muted text-xs font-bold uppercase tracking-wide rounded-full hover:bg-accent hover:text-white hover:border-accent transition-all cursor-default">CSS3</span>
-                        <span class="px-4 py-2 border border-text/10 text-text-muted text-xs font-bold uppercase tracking-wide rounded-full hover:bg-accent hover:text-white hover:border-accent transition-all cursor-default">JavaScript</span>
-                        <span class="px-4 py-2 border border-text/10 text-text-muted text-xs font-bold uppercase tracking-wide rounded-full hover:bg-accent hover:text-white hover:border-accent transition-all cursor-default">jQuery</span>
-                        <span class="px-4 py-2 border border-text/10 text-text-muted text-xs font-bold uppercase tracking-wide rounded-full hover:bg-accent hover:text-white hover:border-accent transition-all cursor-default">MySQL</span>
-                        <span class="px-4 py-2 border border-text/10 text-text-muted text-xs font-bold uppercase tracking-wide rounded-full hover:bg-accent hover:text-white hover:border-accent transition-all cursor-default">Node.js</span>
-                        <span class="px-4 py-2 border border-text/10 text-text-muted text-xs font-bold uppercase tracking-wide rounded-full hover:bg-accent hover:text-white hover:border-accent transition-all cursor-default">React</span>
-                        <span class="px-4 py-2 border border-text/10 text-text-muted text-xs font-bold uppercase tracking-wide rounded-full hover:bg-accent hover:text-white hover:border-accent transition-all cursor-default">GitHub</span>
-                        <span class="px-4 py-2 border border-text/10 text-text-muted text-xs font-bold uppercase tracking-wide rounded-full hover:bg-accent hover:text-white hover:border-accent transition-all cursor-default">Vue</span>
-                        <span class="px-4 py-2 border border-text/10 text-text-muted text-xs font-bold uppercase tracking-wide rounded-full hover:bg-accent hover:text-white hover:border-accent transition-all cursor-default">Tailwind</span>
+                        <span class="skill-badge px-4 py-2 border border-text/10 text-text-muted text-xs font-bold uppercase tracking-wide rounded-full hover:bg-accent hover:text-white hover:border-accent cursor-default">HTML5</span>
+                        <span class="skill-badge px-4 py-2 border border-text/10 text-text-muted text-xs font-bold uppercase tracking-wide rounded-full hover:bg-accent hover:text-white hover:border-accent cursor-default">CSS3</span>
+                        <span class="skill-badge px-4 py-2 border border-text/10 text-text-muted text-xs font-bold uppercase tracking-wide rounded-full hover:bg-accent hover:text-white hover:border-accent cursor-default">JavaScript</span>
+                        <span class="skill-badge px-4 py-2 border border-text/10 text-text-muted text-xs font-bold uppercase tracking-wide rounded-full hover:bg-accent hover:text-white hover:border-accent cursor-default">jQuery</span>
+                        <span class="skill-badge px-4 py-2 border border-text/10 text-text-muted text-xs font-bold uppercase tracking-wide rounded-full hover:bg-accent hover:text-white hover:border-accent cursor-default">MySQL</span>
+                        <span class="skill-badge px-4 py-2 border border-text/10 text-text-muted text-xs font-bold uppercase tracking-wide rounded-full hover:bg-accent hover:text-white hover:border-accent cursor-default">Node.js</span>
+                        <span class="skill-badge px-4 py-2 border border-text/10 text-text-muted text-xs font-bold uppercase tracking-wide rounded-full hover:bg-accent hover:text-white hover:border-accent cursor-default">React</span>
+                        <span class="skill-badge px-4 py-2 border border-text/10 text-text-muted text-xs font-bold uppercase tracking-wide rounded-full hover:bg-accent hover:text-white hover:border-accent cursor-default">GitHub</span>
+                        <span class="skill-badge px-4 py-2 border border-text/10 text-text-muted text-xs font-bold uppercase tracking-wide rounded-full hover:bg-accent hover:text-white hover:border-accent cursor-default">Vue</span>
+                        <span class="skill-badge px-4 py-2 border border-text/10 text-text-muted text-xs font-bold uppercase tracking-wide rounded-full hover:bg-accent hover:text-white hover:border-accent cursor-default">Tailwind</span>
                     </div>
                 </div>
 
@@ -171,15 +173,15 @@
                 <div class="bg-card-bg p-10 rounded-3xl border border-gray-200 dark:border-gray-800 hover:border-accent/50 transition-colors duration-300 group">
                     <h3 class="text-xl font-black uppercase tracking-widest mb-8 text-text border-b border-gray-200 dark:border-gray-800 pb-4 group-hover:border-accent transition-colors">Design</h3>
                     <div class="flex flex-wrap gap-3">
-                        <span class="px-4 py-2 border border-text/10 text-text-muted text-xs font-bold uppercase tracking-wide rounded-full hover:bg-accent hover:text-white hover:border-accent transition-all cursor-default">Figma</span>
-                        <span class="px-4 py-2 border border-text/10 text-text-muted text-xs font-bold uppercase tracking-wide rounded-full hover:bg-accent hover:text-white hover:border-accent transition-all cursor-default">Sketch</span>
-                        <span class="px-4 py-2 border border-text/10 text-text-muted text-xs font-bold uppercase tracking-wide rounded-full hover:bg-accent hover:text-white hover:border-accent transition-all cursor-default">Miro</span>
-                        <span class="px-4 py-2 border border-text/10 text-text-muted text-xs font-bold uppercase tracking-wide rounded-full hover:bg-accent hover:text-white hover:border-accent transition-all cursor-default">Framer</span>
-                        <span class="px-4 py-2 border border-text/10 text-text-muted text-xs font-bold uppercase tracking-wide rounded-full hover:bg-accent hover:text-white hover:border-accent transition-all cursor-default">Photoshop</span>
-                        <span class="px-4 py-2 border border-text/10 text-text-muted text-xs font-bold uppercase tracking-wide rounded-full hover:bg-accent hover:text-white hover:border-accent transition-all cursor-default">InDesign</span>
-                        <span class="px-4 py-2 border border-text/10 text-text-muted text-xs font-bold uppercase tracking-wide rounded-full hover:bg-accent hover:text-white hover:border-accent transition-all cursor-default">Adobe XD</span>
-                        <span class="px-4 py-2 border border-text/10 text-text-muted text-xs font-bold uppercase tracking-wide rounded-full hover:bg-accent hover:text-white hover:border-accent transition-all cursor-default">Illustrator</span>
-                        <span class="px-4 py-2 border border-text/10 text-text-muted text-xs font-bold uppercase tracking-wide rounded-full hover:bg-accent hover:text-white hover:border-accent transition-all cursor-default">Canva</span>
+                        <span class="skill-badge px-4 py-2 border border-text/10 text-text-muted text-xs font-bold uppercase tracking-wide rounded-full hover:bg-accent hover:text-white hover:border-accent cursor-default">Figma</span>
+                        <span class="skill-badge px-4 py-2 border border-text/10 text-text-muted text-xs font-bold uppercase tracking-wide rounded-full hover:bg-accent hover:text-white hover:border-accent cursor-default">Sketch</span>
+                        <span class="skill-badge px-4 py-2 border border-text/10 text-text-muted text-xs font-bold uppercase tracking-wide rounded-full hover:bg-accent hover:text-white hover:border-accent cursor-default">Miro</span>
+                        <span class="skill-badge px-4 py-2 border border-text/10 text-text-muted text-xs font-bold uppercase tracking-wide rounded-full hover:bg-accent hover:text-white hover:border-accent cursor-default">Framer</span>
+                        <span class="skill-badge px-4 py-2 border border-text/10 text-text-muted text-xs font-bold uppercase tracking-wide rounded-full hover:bg-accent hover:text-white hover:border-accent cursor-default">Photoshop</span>
+                        <span class="skill-badge px-4 py-2 border border-text/10 text-text-muted text-xs font-bold uppercase tracking-wide rounded-full hover:bg-accent hover:text-white hover:border-accent cursor-default">InDesign</span>
+                        <span class="skill-badge px-4 py-2 border border-text/10 text-text-muted text-xs font-bold uppercase tracking-wide rounded-full hover:bg-accent hover:text-white hover:border-accent cursor-default">Adobe XD</span>
+                        <span class="skill-badge px-4 py-2 border border-text/10 text-text-muted text-xs font-bold uppercase tracking-wide rounded-full hover:bg-accent hover:text-white hover:border-accent cursor-default">Illustrator</span>
+                        <span class="skill-badge px-4 py-2 border border-text/10 text-text-muted text-xs font-bold uppercase tracking-wide rounded-full hover:bg-accent hover:text-white hover:border-accent cursor-default">Canva</span>
                     </div>
                 </div>
 
@@ -187,17 +189,17 @@
                  <div class="bg-card-bg p-10 rounded-3xl border border-gray-200 dark:border-gray-800 hover:border-accent/50 transition-colors duration-300 group">
                     <h3 class="text-xl font-black uppercase tracking-widest mb-8 text-text border-b border-gray-200 dark:border-gray-800 pb-4 group-hover:border-accent transition-colors">Productivity</h3>
                     <div class="flex flex-wrap gap-3">
-                        <span class="px-4 py-2 border border-text/10 text-text-muted text-xs font-bold uppercase tracking-wide rounded-full hover:bg-accent hover:text-white hover:border-accent transition-all cursor-default">GSuite</span>
-                        <span class="px-4 py-2 border border-text/10 text-text-muted text-xs font-bold uppercase tracking-wide rounded-full hover:bg-accent hover:text-white hover:border-accent transition-all cursor-default">HubSpot</span>
-                        <span class="px-4 py-2 border border-text/10 text-text-muted text-xs font-bold uppercase tracking-wide rounded-full hover:bg-accent hover:text-white hover:border-accent transition-all cursor-default">Salesforce</span>
-                        <span class="px-4 py-2 border border-text/10 text-text-muted text-xs font-bold uppercase tracking-wide rounded-full hover:bg-accent hover:text-white hover:border-accent transition-all cursor-default">Slack</span>
-                        <span class="px-4 py-2 border border-text/10 text-text-muted text-xs font-bold uppercase tracking-wide rounded-full hover:bg-accent hover:text-white hover:border-accent transition-all cursor-default">Trello</span>
-                        <span class="px-4 py-2 border border-text/10 text-text-muted text-xs font-bold uppercase tracking-wide rounded-full hover:bg-accent hover:text-white hover:border-accent transition-all cursor-default">Mailchimp</span>
-                        <span class="px-4 py-2 border border-text/10 text-text-muted text-xs font-bold uppercase tracking-wide rounded-full hover:bg-accent hover:text-white hover:border-accent transition-all cursor-default">Jira</span>
-                        <span class="px-4 py-2 border border-text/10 text-text-muted text-xs font-bold uppercase tracking-wide rounded-full hover:bg-accent hover:text-white hover:border-accent transition-all cursor-default">Asana</span>
-                        <span class="px-4 py-2 border border-text/10 text-text-muted text-xs font-bold uppercase tracking-wide rounded-full hover:bg-accent hover:text-white hover:border-accent transition-all cursor-default">Teams</span>
-                        <span class="px-4 py-2 border border-text/10 text-text-muted text-xs font-bold uppercase tracking-wide rounded-full hover:bg-accent hover:text-white hover:border-accent transition-all cursor-default">Confluence</span>
-                        <span class="px-4 py-2 border border-text/10 text-text-muted text-xs font-bold uppercase tracking-wide rounded-full hover:bg-accent hover:text-white hover:border-accent transition-all cursor-default">Notion</span>
+                        <span class="skill-badge px-4 py-2 border border-text/10 text-text-muted text-xs font-bold uppercase tracking-wide rounded-full hover:bg-accent hover:text-white hover:border-accent cursor-default">GSuite</span>
+                        <span class="skill-badge px-4 py-2 border border-text/10 text-text-muted text-xs font-bold uppercase tracking-wide rounded-full hover:bg-accent hover:text-white hover:border-accent cursor-default">HubSpot</span>
+                        <span class="skill-badge px-4 py-2 border border-text/10 text-text-muted text-xs font-bold uppercase tracking-wide rounded-full hover:bg-accent hover:text-white hover:border-accent cursor-default">Salesforce</span>
+                        <span class="skill-badge px-4 py-2 border border-text/10 text-text-muted text-xs font-bold uppercase tracking-wide rounded-full hover:bg-accent hover:text-white hover:border-accent cursor-default">Slack</span>
+                        <span class="skill-badge px-4 py-2 border border-text/10 text-text-muted text-xs font-bold uppercase tracking-wide rounded-full hover:bg-accent hover:text-white hover:border-accent cursor-default">Trello</span>
+                        <span class="skill-badge px-4 py-2 border border-text/10 text-text-muted text-xs font-bold uppercase tracking-wide rounded-full hover:bg-accent hover:text-white hover:border-accent cursor-default">Mailchimp</span>
+                        <span class="skill-badge px-4 py-2 border border-text/10 text-text-muted text-xs font-bold uppercase tracking-wide rounded-full hover:bg-accent hover:text-white hover:border-accent cursor-default">Jira</span>
+                        <span class="skill-badge px-4 py-2 border border-text/10 text-text-muted text-xs font-bold uppercase tracking-wide rounded-full hover:bg-accent hover:text-white hover:border-accent cursor-default">Asana</span>
+                        <span class="skill-badge px-4 py-2 border border-text/10 text-text-muted text-xs font-bold uppercase tracking-wide rounded-full hover:bg-accent hover:text-white hover:border-accent cursor-default">Teams</span>
+                        <span class="skill-badge px-4 py-2 border border-text/10 text-text-muted text-xs font-bold uppercase tracking-wide rounded-full hover:bg-accent hover:text-white hover:border-accent cursor-default">Confluence</span>
+                        <span class="skill-badge px-4 py-2 border border-text/10 text-text-muted text-xs font-bold uppercase tracking-wide rounded-full hover:bg-accent hover:text-white hover:border-accent cursor-default">Notion</span>
                     </div>
                 </div>
             </div>
@@ -205,9 +207,9 @@
 
         <!-- 3. EXPERIENCE -->
         <div id="experience" class="tab-content hidden">
-            <div class="space-y-6">
+            <div class="space-y-6 timeline-container">
                 <!-- Nebusis -->
-                <div class="group relative bg-card-bg p-8 md:p-10 rounded-3xl border border-gray-200 dark:border-gray-800 hover:border-accent/30 transition-all duration-300">
+                <div class="group relative bg-card-bg p-8 md:p-10 rounded-3xl border border-gray-200 dark:border-gray-800 hover:border-accent/30 transition-all duration-300 z-10">
                     <div class="grid md:grid-cols-12 gap-6 md:gap-12 items-start">
                         <div class="md:col-span-4">
                             <h3 class="font-black text-2xl text-text mb-2 group-hover:text-accent transition-colors">Nebusis Cloud Services</h3>
@@ -224,7 +226,7 @@
                 </div>
 
                 <!-- NewSoil -->
-                <div class="group relative bg-card-bg p-8 md:p-10 rounded-3xl border border-gray-200 dark:border-gray-800 hover:border-accent/30 transition-all duration-300">
+                <div class="group relative bg-card-bg p-8 md:p-10 rounded-3xl border border-gray-200 dark:border-gray-800 hover:border-accent/30 transition-all duration-300 z-10">
                     <div class="grid md:grid-cols-12 gap-6 md:gap-12 items-start">
                         <div class="md:col-span-4">
                             <h3 class="font-black text-2xl text-text mb-2 group-hover:text-accent transition-colors">NewSoil, LLC.</h3>
@@ -241,7 +243,7 @@
                 </div>
 
                 <!-- CureMint -->
-                <div class="group relative bg-card-bg p-8 md:p-10 rounded-3xl border border-gray-200 dark:border-gray-800 hover:border-accent/30 transition-all duration-300">
+                <div class="group relative bg-card-bg p-8 md:p-10 rounded-3xl border border-gray-200 dark:border-gray-800 hover:border-accent/30 transition-all duration-300 z-10">
                     <div class="grid md:grid-cols-12 gap-6 md:gap-12 items-start">
                         <div class="md:col-span-4">
                             <h3 class="font-black text-2xl text-text mb-2 group-hover:text-accent transition-colors">CureMint</h3>
@@ -258,7 +260,7 @@
                 </div>
 
                 <!-- BruVue -->
-                <div class="group relative bg-card-bg p-8 md:p-10 rounded-3xl border border-gray-200 dark:border-gray-800 hover:border-accent/30 transition-all duration-300">
+                <div class="group relative bg-card-bg p-8 md:p-10 rounded-3xl border border-gray-200 dark:border-gray-800 hover:border-accent/30 transition-all duration-300 z-10">
                     <div class="grid md:grid-cols-12 gap-6 md:gap-12 items-start">
                         <div class="md:col-span-4">
                             <h3 class="font-black text-2xl text-text mb-2 group-hover:text-accent transition-colors">BruVue</h3>
@@ -275,7 +277,7 @@
                 </div>
 
                 <!-- Marca Global -->
-                <div class="group relative bg-card-bg p-8 md:p-10 rounded-3xl border border-gray-200 dark:border-gray-800 hover:border-accent/30 transition-all duration-300">
+                <div class="group relative bg-card-bg p-8 md:p-10 rounded-3xl border border-gray-200 dark:border-gray-800 hover:border-accent/30 transition-all duration-300 z-10">
                     <div class="grid md:grid-cols-12 gap-6 md:gap-12 items-start">
                         <div class="md:col-span-4">
                             <h3 class="font-black text-2xl text-text mb-2 group-hover:text-accent transition-colors">Marca Global, LLC.</h3>
@@ -292,7 +294,7 @@
                 </div>
 
                 <!-- Spreedly -->
-                <div class="group relative bg-card-bg p-8 md:p-10 rounded-3xl border border-gray-200 dark:border-gray-800 hover:border-accent/30 transition-all duration-300">
+                <div class="group relative bg-card-bg p-8 md:p-10 rounded-3xl border border-gray-200 dark:border-gray-800 hover:border-accent/30 transition-all duration-300 z-10">
                     <div class="grid md:grid-cols-12 gap-6 md:gap-12 items-start">
                         <div class="md:col-span-4">
                             <h3 class="font-black text-2xl text-text mb-2 group-hover:text-accent transition-colors">Spreedly</h3>
@@ -309,7 +311,7 @@
                 </div>
 
                 <!-- Etix -->
-                <div class="group relative bg-card-bg p-8 md:p-10 rounded-3xl border border-gray-200 dark:border-gray-800 hover:border-accent/30 transition-all duration-300">
+                <div class="group relative bg-card-bg p-8 md:p-10 rounded-3xl border border-gray-200 dark:border-gray-800 hover:border-accent/30 transition-all duration-300 z-10">
                     <div class="grid md:grid-cols-12 gap-6 md:gap-12 items-start">
                         <div class="md:col-span-4">
                             <h3 class="font-black text-2xl text-text mb-2 group-hover:text-accent transition-colors">Etix</h3>
@@ -326,7 +328,7 @@
                 </div>
 
                 <!-- Flow Volkswagen -->
-                <div class="group relative bg-card-bg p-8 md:p-10 rounded-3xl border border-gray-200 dark:border-gray-800 hover:border-accent/30 transition-all duration-300">
+                <div class="group relative bg-card-bg p-8 md:p-10 rounded-3xl border border-gray-200 dark:border-gray-800 hover:border-accent/30 transition-all duration-300 z-10">
                     <div class="grid md:grid-cols-12 gap-6 md:gap-12 items-start">
                         <div class="md:col-span-4">
                             <h3 class="font-black text-2xl text-text mb-2 group-hover:text-accent transition-colors">Flow Volkswagen</h3>
@@ -343,7 +345,7 @@
                 </div>
 
                 <!-- The Federal -->
-                <div class="group relative bg-card-bg p-8 md:p-10 rounded-3xl border border-gray-200 dark:border-gray-800 hover:border-accent/30 transition-all duration-300">
+                <div class="group relative bg-card-bg p-8 md:p-10 rounded-3xl border border-gray-200 dark:border-gray-800 hover:border-accent/30 transition-all duration-300 z-10">
                     <div class="grid md:grid-cols-12 gap-6 md:gap-12 items-start">
                         <div class="md:col-span-4">
                             <h3 class="font-black text-2xl text-text mb-2 group-hover:text-accent transition-colors">The Federal</h3>
@@ -360,7 +362,7 @@
                 </div>
 
                 <!-- Guitar Center -->
-                <div class="group relative bg-card-bg p-8 md:p-10 rounded-3xl border border-gray-200 dark:border-gray-800 hover:border-accent/30 transition-all duration-300">
+                <div class="group relative bg-card-bg p-8 md:p-10 rounded-3xl border border-gray-200 dark:border-gray-800 hover:border-accent/30 transition-all duration-300 z-10">
                     <div class="grid md:grid-cols-12 gap-6 md:gap-12 items-start">
                         <div class="md:col-span-4">
                             <h3 class="font-black text-2xl text-text mb-2 group-hover:text-accent transition-colors">Guitar Center</h3>
@@ -377,7 +379,7 @@
                 </div>
 
                 <!-- EspressOasis -->
-                <div class="group relative bg-card-bg p-8 md:p-10 rounded-3xl border border-gray-200 dark:border-gray-800 hover:border-accent/30 transition-all duration-300">
+                <div class="group relative bg-card-bg p-8 md:p-10 rounded-3xl border border-gray-200 dark:border-gray-800 hover:border-accent/30 transition-all duration-300 z-10">
                     <div class="grid md:grid-cols-12 gap-6 md:gap-12 items-start">
                         <div class="md:col-span-4">
                             <h3 class="font-black text-2xl text-text mb-2 group-hover:text-accent transition-colors">EspressOasis</h3>
@@ -394,7 +396,7 @@
                 </div>
 
                 <!-- AIG-Valic -->
-                <div class="group relative bg-card-bg p-8 md:p-10 rounded-3xl border border-gray-200 dark:border-gray-800 hover:border-accent/30 transition-all duration-300">
+                <div class="group relative bg-card-bg p-8 md:p-10 rounded-3xl border border-gray-200 dark:border-gray-800 hover:border-accent/30 transition-all duration-300 z-10">
                     <div class="grid md:grid-cols-12 gap-6 md:gap-12 items-start">
                         <div class="md:col-span-4">
                             <h3 class="font-black text-2xl text-text mb-2 group-hover:text-accent transition-colors">AIG-Valic</h3>
