@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en" data-theme="dark">
 <head>
@@ -9,6 +10,7 @@
   <script src="assets/js/tailwind-config.js"></script>
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="stylesheet" href="assets/css/style.css">
+  <link rel="stylesheet" href="assets/css/case-study.css">
   <script src="https://unpkg.com/lucide@latest"></script>
 </head>
 <body class="bg-bg text-text antialiased transition-colors duration-300">
@@ -25,26 +27,11 @@
         <!-- Desktop Menu -->
         <div class="hidden md:flex items-center space-x-10">
           <div class="flex space-x-8">
-            <a href="index.html" class="text-text hover:text-accent text-xs uppercase tracking-widest font-bold transition-all relative group">
-              Home
-              <span class="absolute -bottom-2 left-0 w-full h-0.5 bg-accent transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300"></span>
-            </a>
-            <a href="about.html" class="text-text hover:text-accent text-xs uppercase tracking-widest font-bold transition-all relative group">
-              About Me
-              <span class="absolute -bottom-2 left-0 w-full h-0.5 bg-accent transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300"></span>
-            </a>
-            <a href="gallery.html" class="text-text hover:text-accent text-xs uppercase tracking-widest font-bold transition-all relative group">
-              Gallery
-              <span class="absolute -bottom-2 left-0 w-full h-0.5 bg-accent transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300"></span>
-            </a>
-            <a href="music.html" class="text-text hover:text-accent text-xs uppercase tracking-widest font-bold transition-all relative group">
-              Music
-              <span class="absolute -bottom-2 left-0 w-full h-0.5 bg-accent transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300"></span>
-            </a>
-            <a href="connect.html" class="text-text hover:text-accent text-xs uppercase tracking-widest font-bold transition-all relative group">
-              Connect
-              <span class="absolute -bottom-2 left-0 w-full h-0.5 bg-accent transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300"></span>
-            </a>
+            <a href="index.html" class="nav-link">Home</a>
+            <a href="about.html" class="nav-link">About Me</a>
+            <a href="gallery.html" class="nav-link">Gallery</a>
+            <a href="music.html" class="nav-link">Music</a>
+            <a href="connect.html" class="nav-link">Connect</a>
           </div>
           
           <!-- Icons & Toggle -->
@@ -70,7 +57,7 @@
       </div>
 
       <!-- Mobile Menu -->
-      <div id="mobile-menu" class="hidden md:hidden absolute top-full left-0 w-full bg-bg shadow-2xl py-6 px-6 flex flex-col space-y-6 border-t border-gray-100 dark:border-gray-800">
+      <div id="mobile-menu" class="hidden md:hidden absolute top-full left-0 w-full glass-menu shadow-2xl py-6 px-6 flex flex-col space-y-6 border-t border-gray-100 dark:border-gray-800">
         <a href="index.html" class="text-sm uppercase tracking-wider font-bold text-text hover:text-accent">Home</a>
         <a href="about.html" class="text-sm uppercase tracking-wider font-bold text-text hover:text-accent">About Me</a>
         <a href="gallery.html" class="text-sm uppercase tracking-wider font-bold text-text hover:text-accent">Gallery</a>
@@ -80,6 +67,7 @@
     </div>
   </nav>
 
+  <!-- Hero Section -->
   <div class="pt-32 pb-20 container mx-auto px-4">
      <div class="hero-content opacity-0 translate-y-10 text-center max-w-5xl mx-auto">
         <!-- Breadcrumb Back Link -->
@@ -98,16 +86,16 @@
 
         <div class="grid grid-cols-2 md:grid-cols-4 gap-8 text-left border-t border-gray-200 dark:border-gray-800 pt-8">
             <div>
-                <h3 class="text-xs font-black uppercase tracking-widest mb-2 text-accent">Role</h3>
-                <p class="text-sm font-medium">UI/UX Consultant</p>
+                <h3 class="text-xs font-black uppercase tracking-widest mb-2 text-accent">Client</h3>
+                <p class="text-sm font-medium">Pablo Simon (Founder)</p>
             </div>
             <div>
                 <h3 class="text-xs font-black uppercase tracking-widest mb-2 text-accent">Timeline</h3>
                 <p class="text-sm font-medium">Oct 2022 - Nov 2022</p>
             </div>
             <div>
-                <h3 class="text-xs font-black uppercase tracking-widest mb-2 text-accent">Tools</h3>
-                <p class="text-sm font-medium">Figma, Adobe XD</p>
+                <h3 class="text-xs font-black uppercase tracking-widest mb-2 text-accent">Role</h3>
+                <p class="text-sm font-medium">UI/UX Consultant</p>
             </div>
              <div>
                  <h3 class="text-xs font-black uppercase tracking-widest mb-2 text-accent">Link</h3>
@@ -119,6 +107,7 @@
      </div>
   </div>
 
+  <!-- Overview -->
   <section class="container mx-auto px-4 mb-32">
     <div class="grid md:grid-cols-12 gap-12">
         <div class="md:col-span-4">
@@ -129,7 +118,10 @@
         </div>
         <div class="md:col-span-8">
             <p class="text-lg md:text-xl text-text-muted font-light leading-relaxed mb-8">
-                Consulting project to improve website traffic and engagement through UI/UX enhancements.
+                Qurado works directly with the best local producers throughout Spain to deliver fresh products. For this engagement, I worked in a specialized consulting capacity to demonstrate how tools like Figma, Adobe XD, and Notion could increase website traffic and user engagement.
+            </p>
+            <p class="text-lg text-text-muted font-light leading-relaxed mb-8">
+                During the consulting phase, I worked with the client to create new concepts on the original design and made targeted suggestions to improve the user experience, specifically focusing on the checkout flow and mobile optimization.
             </p>
             
             <div class="grid md:grid-cols-2 gap-8 mt-12">
@@ -138,37 +130,179 @@
                         <i data-lucide="trending-down" class="text-accent w-6 h-6"></i>
                      </div>
                      <h3 class="text-xl font-bold mb-4 text-text">The Problem</h3>
-                     <p class="text-text-muted leading-relaxed">The original platform suffered from low conversion rates due to a confusing checkout process and a lack of mobile optimization.</p>
+                     <p class="text-text-muted leading-relaxed">The original platform suffered from low conversion rates due to a confusing checkout process, lack of branding consistency, and a poor mobile experience.</p>
                 </div>
                 <div class="bg-card-bg p-8 rounded-2xl border border-gray-200 dark:border-gray-800 shadow-sm">
                      <div class="w-12 h-12 bg-green-100 dark:bg-green-900/20 rounded-full flex items-center justify-center mb-6">
                         <i data-lucide="shopping-cart" class="text-green-600 dark:text-green-400 w-6 h-6"></i>
                      </div>
                      <h3 class="text-xl font-bold mb-4 text-text">The Solution</h3>
-                     <p class="text-text-muted leading-relaxed">We implemented a streamlined checkout flow, modernized the branding to reflect the premium quality of the products, and fully optimized the site for mobile commerce.</p>
+                     <p class="text-text-muted leading-relaxed">We implemented a streamlined checkout flow, modernized the branding to reflect the premium quality of the products, and optimized the sitemap for better navigation.</p>
                 </div>
             </div>
         </div>
     </div>
   </section>
 
+  <!-- Process -->
   <section class="bg-section-bg py-32 mb-32">
     <div class="container mx-auto px-4">
         <div class="text-center mb-20">
-            <h2 class="text-4xl md:text-5xl font-black mb-4 uppercase tracking-tight text-text">Visuals</h2>
+            <h2 class="text-4xl md:text-5xl font-black mb-4 uppercase tracking-tight text-text">The Process</h2>
+            <p class="text-text-muted">Analysis, Branding, and Optimization</p>
         </div>
 
-        <div class="grid md:grid-cols-2 gap-8 project-gallery">
-             <div class="rounded-xl overflow-hidden shadow-lg border border-gray-200 dark:border-gray-700">
-                <img src="assets/img/qurado/Documentation/web_intro_mockup_1.png" alt="Web Intro" class="w-full h-auto">
-             </div>
-             <div class="rounded-xl overflow-hidden shadow-lg border border-gray-200 dark:border-gray-700">
-                <img src="assets/img/qurado/Documentation/discover_ipad.png" alt="iPad Discover" class="w-full h-auto">
-             </div>
-             <div class="rounded-xl overflow-hidden shadow-lg border border-gray-200 dark:border-gray-700 md:col-span-2">
-                <img src="assets/img/qurado/Documentation/prototype_1.png" alt="Prototype" class="w-full h-auto">
-             </div>
+        <div class="space-y-32">
+            
+            <!-- Step 1: Sitemap -->
+            <div class="process-step flex flex-col md:flex-row gap-16 items-center">
+                <div class="flex-1 w-full">
+                    <div class="lightbox-trigger relative rounded-2xl overflow-hidden shadow-xl border border-gray-200 dark:border-gray-700 group cursor-zoom-in">
+                        <img src="assets/img/qurado/Documentation/Quravío_Sitemap.png" alt="Sitemap Wireframe" class="w-full h-auto transform group-hover:scale-105 transition-transform duration-700" />
+                        <div class="absolute inset-0 bg-black/30 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                            <i data-lucide="zoom-in" class="text-white w-8 h-8"></i>
+                        </div>
+                    </div>
+                </div>
+                <div class="flex-1">
+                    <div class="flex items-center gap-4 mb-6">
+                        <span class="text-6xl font-black text-gray-200 dark:text-gray-800">01</span>
+                        <h3 class="text-2xl font-bold text-text">Sitemap & Structure</h3>
+                    </div>
+                    <p class="text-lg text-text-muted leading-relaxed">
+                        My first task was to create a sitemap for the new design. I used the existing sitemap as a starting point and made key changes to the structure to make it more user-friendly, reducing the number of clicks required to reach products.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Step 2: Branding -->
+            <div class="process-step flex flex-col md:flex-row-reverse gap-16 items-center">
+                <div class="flex-1 w-full">
+                    <div class="lightbox-trigger relative rounded-2xl overflow-hidden shadow-xl border border-gray-200 dark:border-gray-700 group cursor-zoom-in">
+                        <img src="assets/img/qurado/Documentation/QURADO - Branding + Look&Feel v2.png" alt="Branding Concepts" class="w-full h-auto transform group-hover:scale-105 transition-transform duration-700" />
+                        <div class="absolute inset-0 bg-black/30 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                            <i data-lucide="zoom-in" class="text-white w-8 h-8"></i>
+                        </div>
+                    </div>
+                </div>
+                <div class="flex-1">
+                    <div class="flex items-center gap-4 mb-6">
+                        <span class="text-6xl font-black text-gray-200 dark:text-gray-800">02</span>
+                        <h3 class="text-2xl font-bold text-text">Branding & Identity</h3>
+                    </div>
+                    <p class="text-lg text-text-muted leading-relaxed">
+                        We worked on creating new branding concepts for the redesign. We wanted to create a more modern and sleek look for the app, so we experimented with different color schemes and typography to align with the fresh, organic nature of the products.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Step 3: Workflows -->
+            <div class="process-step flex flex-col md:flex-row gap-16 items-center">
+                <div class="flex-1 w-full">
+                    <div class="lightbox-trigger relative rounded-2xl overflow-hidden shadow-xl border border-gray-200 dark:border-gray-700 group cursor-zoom-in">
+                        <img src="assets/img/qurado/Documentation/prototype_1.png" alt="Checkout Workflows" class="w-full h-auto transform group-hover:scale-105 transition-transform duration-700" />
+                        <div class="absolute inset-0 bg-black/30 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                            <i data-lucide="zoom-in" class="text-white w-8 h-8"></i>
+                        </div>
+                    </div>
+                </div>
+                <div class="flex-1">
+                    <div class="flex items-center gap-4 mb-6">
+                        <span class="text-6xl font-black text-gray-200 dark:text-gray-800">03</span>
+                        <h3 class="text-2xl font-bold text-text">Workflows & Checkout</h3>
+                    </div>
+                    <p class="text-lg text-text-muted leading-relaxed">
+                        We focused heavily on checkout flows and payment processing. We wanted to make the checkout process as smooth and easy as possible for our users to reduce cart abandonment, so we tested a few different designs and simplified the flow.
+                    </p>
+                </div>
+            </div>
+
+             <!-- Step 4: Deployment -->
+             <div class="process-step flex flex-col md:flex-row-reverse gap-16 items-center">
+                <div class="flex-1 w-full">
+                    <div class="lightbox-trigger relative rounded-2xl overflow-hidden shadow-xl border border-gray-200 dark:border-gray-700 group cursor-zoom-in">
+                        <img src="assets/img/qurado/Documentation/iPad Pro mockup 13-inch top view.png" alt="Final Deployment" class="w-full h-auto transform group-hover:scale-105 transition-transform duration-700" />
+                        <div class="absolute inset-0 bg-black/30 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                            <i data-lucide="zoom-in" class="text-white w-8 h-8"></i>
+                        </div>
+                    </div>
+                </div>
+                <div class="flex-1">
+                    <div class="flex items-center gap-4 mb-6">
+                        <span class="text-6xl font-black text-gray-200 dark:text-gray-800">04</span>
+                        <h3 class="text-2xl font-bold text-text">Deployment</h3>
+                    </div>
+                    <p class="text-lg text-text-muted leading-relaxed">
+                        Utilizing the defined color palette and typography, we created a modernized design and aesthetic for the site. This included a hero video introduction and a fully responsive layout for tablets and mobile devices.
+                    </p>
+                </div>
+            </div>
         </div>
+    </div>
+  </section>
+
+  <!-- Gallery -->
+  <section class="container mx-auto px-4 mb-20 project-gallery">
+    <h3 class="text-2xl font-bold mb-8 text-text border-b border-gray-200 dark:border-gray-800 pb-4">Concepts & Wireframes</h3>
+    
+    <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+        
+        <div class="lightbox-trigger relative group rounded-xl overflow-hidden cursor-zoom-in shadow-md bg-card-bg">
+            <img src="assets/img/qurado/Documentation/concept_1.png" alt="Concept 1" class="w-full h-full object-cover">
+            <div class="absolute inset-0 bg-black/30 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                <i data-lucide="zoom-in" class="text-white w-8 h-8"></i>
+            </div>
+        </div>
+
+        <div class="lightbox-trigger relative group rounded-xl overflow-hidden cursor-zoom-in shadow-md bg-card-bg">
+            <img src="assets/img/qurado/Documentation/concept_2.png" alt="Concept 2" class="w-full h-full object-cover">
+            <div class="absolute inset-0 bg-black/30 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                <i data-lucide="zoom-in" class="text-white w-8 h-8"></i>
+            </div>
+        </div>
+
+        <div class="lightbox-trigger relative group rounded-xl overflow-hidden cursor-zoom-in shadow-md bg-card-bg">
+            <img src="assets/img/qurado/Documentation/concept_3.png" alt="Concept 3" class="w-full h-full object-cover">
+            <div class="absolute inset-0 bg-black/30 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                <i data-lucide="zoom-in" class="text-white w-8 h-8"></i>
+            </div>
+        </div>
+
+        <div class="lightbox-trigger relative group rounded-xl overflow-hidden cursor-zoom-in shadow-md bg-card-bg">
+            <img src="assets/img/qurado/Documentation/Product_description.png" alt="Product Description" class="w-full h-full object-cover">
+            <div class="absolute inset-0 bg-black/30 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                <i data-lucide="zoom-in" class="text-white w-8 h-8"></i>
+            </div>
+        </div>
+
+        <div class="lightbox-trigger relative group rounded-xl overflow-hidden cursor-zoom-in shadow-md bg-card-bg">
+            <img src="assets/img/qurado/Documentation/design_variant_2.png" alt="Design Variant" class="w-full h-full object-cover">
+            <div class="absolute inset-0 bg-black/30 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                <i data-lucide="zoom-in" class="text-white w-8 h-8"></i>
+            </div>
+        </div>
+
+        <div class="lightbox-trigger relative group rounded-xl overflow-hidden cursor-zoom-in shadow-md bg-card-bg">
+            <img src="assets/img/qurado/Documentation/web_intro_mockup_1.png" alt="Web Intro" class="w-full h-full object-cover">
+            <div class="absolute inset-0 bg-black/30 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                <i data-lucide="zoom-in" class="text-white w-8 h-8"></i>
+            </div>
+        </div>
+
+        <div class="lightbox-trigger relative group rounded-xl overflow-hidden cursor-zoom-in shadow-md bg-card-bg md:col-span-2 lg:col-span-1">
+            <img src="assets/img/qurado/Documentation/wireframe-1.png" alt="Wireframe" class="w-full h-full object-cover">
+            <div class="absolute inset-0 bg-black/30 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                <i data-lucide="zoom-in" class="text-white w-8 h-8"></i>
+            </div>
+        </div>
+
+        <div class="lightbox-trigger relative group rounded-xl overflow-hidden cursor-zoom-in shadow-md bg-card-bg md:col-span-2">
+            <img src="assets/img/qurado/Documentation/related_prodcuts.png" alt="Related Products" class="w-full h-full object-cover">
+            <div class="absolute inset-0 bg-black/30 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                <i data-lucide="zoom-in" class="text-white w-8 h-8"></i>
+            </div>
+        </div>
+
     </div>
   </section>
 
@@ -186,8 +320,8 @@
 
         <!-- Navigation -->
         <div>
-           <h3 class="text-lg font-serif font-bold mb-4 text-text">Navigation</h3>
-           <ul class="space-y-2 text-text-muted text-sm">
+           <h3 class="text-lg font-bold mb-4 text-text tracking-widest uppercase opacity-60">Navigation</h3>
+           <ul class="space-y-2 text-text-muted text-sm uppercase tracking-wide">
              <li><a href="index.html" class="hover:text-accent transition-colors">Home</a></li>
              <li><a href="about.html" class="hover:text-accent transition-colors">About Me</a></li>
              <li><a href="gallery.html" class="hover:text-accent transition-colors">Gallery</a></li>
@@ -197,7 +331,7 @@
 
         <!-- Socials -->
         <div>
-          <h3 class="text-lg font-serif font-bold mb-4 text-text">Connect</h3>
+          <h3 class="text-lg font-bold mb-4 text-text tracking-widest uppercase opacity-60">Connect</h3>
           <div class="flex space-x-4">
             <a href="https://www.linkedin.com/in/rfrankale/" target="_blank" class="text-text-muted hover:text-accent transition-colors"><i data-lucide="linkedin" class="w-6 h-6"></i></a>
             <a href="https://github.com/roseanfrankale" target="_blank" class="text-text-muted hover:text-accent transition-colors"><i data-lucide="github" class="w-6 h-6"></i></a>
@@ -208,6 +342,21 @@
     </div>
   </footer>
 
+  <!-- Lightbox Container -->
+  <div id="lightbox" class="fixed inset-0 z-[100] bg-black/95 backdrop-blur-sm hidden flex items-center justify-center opacity-0 transition-opacity duration-300">
+    <button id="lightbox-close" class="absolute top-6 right-6 text-white/70 hover:text-white transition-colors p-2 z-50">
+      <i data-lucide="x" class="w-8 h-8"></i>
+    </button>
+    <button id="lightbox-prev" class="absolute left-4 text-white/70 hover:text-white p-4 z-50 hover:bg-white/10 rounded-full transition-all">
+        <i data-lucide="chevron-left" class="w-10 h-10"></i>
+    </button>
+    <button id="lightbox-next" class="absolute right-4 text-white/70 hover:text-white p-4 z-50 hover:bg-white/10 rounded-full transition-all">
+        <i data-lucide="chevron-right" class="w-10 h-10"></i>
+    </button>
+    <img id="lightbox-img" src="" alt="Project Visual" class="max-w-[90%] max-h-[90vh] object-contain rounded shadow-2xl transition-transform duration-300">
+  </div>
+
+  <!-- Scripts -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
   <script src="assets/js/main.js"></script>
