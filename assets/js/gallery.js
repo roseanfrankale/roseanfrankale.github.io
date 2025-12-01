@@ -14,7 +14,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 percentPosition: true,
                 masonry: {
                     columnWidth: '.grid-sizer',
-                    gutter: '4%' // Match the CSS gap logic roughly (handled by width % in css)
+                    gutter: 0 // CRITICAL FIX: Set to 0. We handle gaps via CSS padding in .gallery-item
                 }
             });
             
@@ -38,7 +38,6 @@ document.addEventListener('DOMContentLoaded', () => {
             iso.arrange({ filter: filterValue });
 
             // Show/Hide "No Results" message
-            // Isotope doesn't have a direct "empty" callback easily, so we check filtered items length
             const filteredItems = iso.getFilteredItemElements();
             if (filteredItems.length === 0) {
                 noResultsMsg.classList.remove('hidden');
@@ -101,7 +100,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const imgSrc = itemLink.querySelector('img').src;
             // Find index in the current list
             const index = currentGalleryImages.findIndex(img => img.src === imgSrc);
-            const caption = currentGalleryImages[index].caption;
+            const caption = currentGalleryImages[index] ? currentGalleryImages[index].caption : "";
 
             openLightbox(imgSrc, caption, index);
         }
@@ -109,6 +108,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Navigation Logic
     const showImage = (index) => {
+        if (currentGalleryImages.length === 0) return;
         if (index < 0) index = currentGalleryImages.length - 1;
         if (index >= currentGalleryImages.length) index = 0;
         
@@ -126,18 +126,19 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     // Event Listeners for Lightbox
-    closeBtn.addEventListener('click', closeLightbox);
-    prevBtn.addEventListener('click', (e) => { e.stopPropagation(); showImage(currentIndex - 1); });
-    nextBtn.addEventListener('click', (e) => { e.stopPropagation(); showImage(currentIndex + 1); });
+    if (closeBtn) closeBtn.addEventListener('click', closeLightbox);
+    if (prevBtn) prevBtn.addEventListener('click', (e) => { e.stopPropagation(); showImage(currentIndex - 1); });
+    if (nextBtn) nextBtn.addEventListener('click', (e) => { e.stopPropagation(); showImage(currentIndex + 1); });
     
-    lightbox.addEventListener('click', (e) => {
-        if (e.target === lightbox || e.target.closest('#lightbox-img')) return; // Allow clicking image (maybe for zoom later)
-        // closeLightbox(); // Optional: close on background click, but nav buttons are on background
-    });
+    if (lightbox) {
+        lightbox.addEventListener('click', (e) => {
+            if (e.target === lightbox || e.target.closest('#lightbox-img')) return;
+        });
+    }
 
     // Keyboard Nav
     document.addEventListener('keydown', (e) => {
-        if (lightbox.classList.contains('hidden')) return;
+        if (lightbox && lightbox.classList.contains('hidden')) return;
         if (e.key === 'Escape') closeLightbox();
         if (e.key === 'ArrowLeft') showImage(currentIndex - 1);
         if (e.key === 'ArrowRight') showImage(currentIndex + 1);
