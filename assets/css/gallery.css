@@ -42,27 +42,6 @@
     transform: scale(1.05);
 }
 
-/* --- 2a. Scrolled State for Filter Bar --- */
-.glass-filter-container.scrolled .filter-btn {
-    padding: 0.35rem 1rem; /* Smaller padding */
-    font-size: 0.7rem; /* Slightly smaller font */
-}
-
-.glass-filter-container.scrolled .filter-btn.active {
-    background: transparent;
-    color: var(--accent);
-    border: 1px solid var(--accent);
-    box-shadow: none;
-    transform: scale(1);
-}
-
-.glass-filter-container.scrolled .filter-btn:not(.active):hover {
-    color: var(--text);
-    background: rgba(128, 128, 128, 0.1);
-    border-color: transparent;
-}
-
-
 /* --- 2. Masonry Grid Layout --- */
 .gallery-grid {
     margin: 0 auto;
