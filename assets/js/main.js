@@ -39,19 +39,22 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // 2. Navbar Scroll Effect
     const navbar = document.getElementById('navbar');
-    window.addEventListener('scroll', () => {
-        if (window.scrollY > 50) {
+    const mobileMenu = document.getElementById('mobile-menu');
+
+    const updateNavbarStyle = (forceBlur = false) => {
+        if (window.scrollY > 50 || forceBlur) {
             navbar.classList.add('bg-bg/90', 'backdrop-blur-md', 'shadow-sm', 'py-3');
             navbar.classList.remove('py-6', 'bg-transparent');
         } else {
             navbar.classList.add('py-6', 'bg-transparent');
             navbar.classList.remove('bg-bg/90', 'backdrop-blur-md', 'shadow-sm', 'py-3');
         }
-    });
+    };
+
+    window.addEventListener('scroll', () => updateNavbarStyle());
 
     // 3. Mobile Menu (Animated)
     const mobileBtn = document.getElementById('mobile-menu-btn');
-    const mobileMenu = document.getElementById('mobile-menu');
     
     if (mobileBtn && mobileMenu) {
         mobileBtn.addEventListener('click', () => {
@@ -59,6 +62,9 @@ document.addEventListener('DOMContentLoaded', () => {
             mobileBtn.classList.toggle('open');
             // Toggle Menu Visibility
             mobileMenu.classList.toggle('hidden');
+
+            const isMenuOpen = !mobileMenu.classList.contains('hidden');
+            updateNavbarStyle(isMenuOpen);
             
             // Re-render icons if needed when opening menu
             if (!mobileMenu.classList.contains('hidden')) {

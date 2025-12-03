@@ -142,4 +142,17 @@ document.addEventListener('DOMContentLoaded', () => {
             if (e.key === 'ArrowRight') showImage(currentIndex + 1);
         }
     });
+
+    // Filter bar scroll effect
+    const filterContainer = document.getElementById('gallery-filters');
+    if (filterContainer) {
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 300) {
+                filterContainer.classList.add('scrolled');
+            } else {
+                filterContainer.classList.remove('scrolled');
+            }
+        });
+    }
+
 });

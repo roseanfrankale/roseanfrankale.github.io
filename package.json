@@ -1,0 +1,14 @@
+{
+  "name": "roseanfrankale-portfolio",
+  "version": "1.0.0",
+  "description": "Portfolio website for Rosean Frank-Alexander",
+  "scripts": {
+    "build": "tailwindcss -i ./assets/css/style.css -o ./assets/css/dist.css",
+    "watch": "tailwindcss -i ./assets/css/style.css -o ./assets/css/dist.css --watch"
+  },
+  "devDependencies": {
+    "autoprefixer": "^10.4.19",
+    "postcss": "^8.4.38",
+    "tailwindcss": "^3.4.3"
+  }
+}

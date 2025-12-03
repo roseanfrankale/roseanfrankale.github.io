@@ -232,6 +232,26 @@ body {
   background-color: var(--accent);
 }
 
+/* Mobile Menu Backdrop Fix */
+.menu-backdrop {
+  position: relative; /* Needed for pseudo-element positioning */
+}
+
+.menu-backdrop::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1; /* Place it behind the menu content */
+  background-color: var(--navbar-bg-scrolled); /* Use a theme variable */
+  opacity: 0.95; /* Control opacity here */
+}
+
+/* On music page, the background is different */
+.bg-black .menu-backdrop::before {
+    background-color: rgba(5, 5, 5, 1); /* Corresponds to dark theme bg */
+}
+
+
 /* ===========================
    6. INTERACTIVE ELEMENTS (HOVER EFFECTS)
    =========================== */
