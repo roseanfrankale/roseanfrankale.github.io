@@ -22,10 +22,11 @@
 </head>
 <body class="bg-bg text-text antialiased transition-colors duration-300">
 
-  <!-- Navbar -->
+  <!-- NAVBAR -->
   <nav id="navbar" class="fixed w-full z-50 transition-all duration-300 py-6">
     <div class="container mx-auto px-4 md:px-6">
       <div class="flex justify-between items-center">
+        <!-- Logo -->
         <a href="index.html" class="flex items-center group">
            <img src="assets/img/rjfa_logo_grey_svg.svg" alt="RJFA" class="h-8 w-auto transition-all duration-300 dark:brightness-150 brightness-50 group-hover:opacity-80">
         </a>
@@ -33,21 +34,30 @@
         <!-- Desktop Menu -->
         <div class="hidden md:flex items-center space-x-10">
           <div class="flex space-x-8">
-            <a href="index.html" class="nav-link">Home</a>
+            <a href="index.html" class="nav-link text-accent">Home</a>
             <a href="about.html" class="nav-link">About Me</a>
-            <a href="gallery.html" class="nav-link text-accent">Gallery</a>
+            <a href="gallery.html" class="nav-link">Gallery</a>
             <a href="music.html" class="nav-link">Music</a>
             <a href="connect.html" class="nav-link">Connect</a>
           </div>
           
-          <button id="theme-toggle" class="ml-4 p-2 rounded-full bg-bg text-text hover:text-accent transition-all hover:rotate-90">
-            <i data-lucide="moon" class="w-5 h-5"></i>
-          </button>
+          <!-- Icons & Toggle -->
+          <div class="flex items-center space-x-5 border-l pl-8 border-gray-300 dark:border-gray-700 navbar-socials">
+            <div class="flex gap-4 ">
+              <a href="https://www.linkedin.com/in/rfrankale/" target="_blank"><i data-lucide="linkedin" class="w-4 h-4"></i></a>
+              <a href="https://github.com/roseanfrankale" target="_blank"><i data-lucide="github" class="w-4 h-4"></i></a>
+              <a href="https://dribbble.com/rjfa" target="_blank"><i data-lucide="dribbble" class="w-4 h-4"></i></a>
+            </div>
+            
+            <button id="theme-toggle" class="ml-4 p-2 rounded-full bg-bg text-text hover:text-accent transition-all hover:rotate-90 border-none">
+              <i data-lucide="moon" class="w-5 h-5"></i>
+            </button>
+          </div>
         </div>
 
         <!-- Mobile Toggle -->
         <div class="flex items-center gap-4 md:hidden">
-          <button id="mobile-menu-btn" class="hamburger-btn focus:outline-none">
+          <button id="mobile-menu-btn" class="hamburger-btn focus:outline-none" aria-label="Toggle menu">
             <span class="hamburger-line top"></span>
             <span class="hamburger-line middle"></span>
             <span class="hamburger-line bottom"></span>
@@ -57,9 +67,9 @@
 
       <!-- Mobile Menu -->
       <div id="mobile-menu" class="hidden md:hidden absolute top-full left-0 w-full bg-bg/99 backdrop-blur-2xl shadow-2xl py-6 px-6 flex flex-col space-y-6 border-t border-gray-100 dark:border-gray-800">
-        <a href="index.html" class="text-sm uppercase tracking-wider font-bold text-text hover:text-accent">Home</a>
+        <a href="index.html" class="text-sm uppercase tracking-wider font-bold text-accent">Home</a>
         <a href="about.html" class="text-sm uppercase tracking-wider font-bold text-text hover:text-accent">About Me</a>
-        <a href="gallery.html" class="text-sm uppercase tracking-wider font-bold text-accent">Gallery</a>
+        <a href="gallery.html" class="text-sm uppercase tracking-wider font-bold text-text hover:text-accent">Gallery</a>
         <a href="music.html" class="text-sm uppercase tracking-wider font-bold text-text hover:text-accent">Music</a>
         <a href="connect.html" class="text-sm uppercase tracking-wider font-bold text-text hover:text-accent">Connect</a>
       </div>
@@ -72,7 +82,7 @@
         
         <!-- Header -->
         <div class="text-center mb-16 animate-fade-in">
-            <h1 class="text-6xl md:text-9xl font-black mb-6 text-text uppercase tracking-tighter opacity-10 leading-none">GALLERY</h1>
+            <h1 class="text-6xl md:text-9xl font-black mb-6 text-text uppercase tracking-tighter opacity-20 leading-none">GALLERY</h1>
             <div class="relative -mt-12 md:-mt-20 z-10">
                 <h2 class="title-main text-transparent bg-clip-text bg-gradient-to-r from-text to-text-muted" style="font-size: clamp(3rem, 8vw, 6rem);">
                     Visual Archive
