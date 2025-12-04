@@ -1,10 +1,10 @@
+/* Import page-specific styles FIRST */
+@import "about.css";
+@import "gallery.css";
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-
-/* Import page-specific styles */
-@import "about.css";
-@import "gallery.css";
 
 
 /* ===========================

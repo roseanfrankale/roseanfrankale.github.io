@@ -1,3 +1,289 @@
+/* Import page-specific styles FIRST */
+
+/* ===========================
+   ABOUT PAGE STYLES
+   =========================== */
+
+/* --- 1. Profile Image Blob Animation --- */
+
+/* This handles the glowing gradient behind the profile pic */
+
+.animate-blob {
+  animation: blob 7s infinite;
+}
+
+@keyframes blob {
+  0% {
+    transform: translate(-50%, -50%) scale(1);
+  }
+
+  33% {
+    transform: translate(-50%, -50%) scale(1.1) translate(10px, -10px);
+  }
+
+  66% {
+    transform: translate(-50%, -50%) scale(0.9) translate(-10px, 10px);
+  }
+
+  100% {
+    transform: translate(-50%, -50%) scale(1);
+  }
+}
+
+/* --- 2. Tab Button Styles --- */
+
+.tab-btn {
+  position: relative;
+  overflow: hidden;
+  z-index: 1;
+}
+
+/* Active state pulse */
+
+.tab-btn.active::after {
+  content: '';
+  position: absolute;
+  inset: -5px;
+  background: var(--accent);
+  filter: blur(10px);
+  opacity: 0.4;
+  z-index: -1;
+  animation: tabPulse 2s infinite;
+}
+
+@keyframes tabPulse {
+  0% {
+    opacity: 0.2;
+    transform: scale(0.95);
+  }
+
+  50% {
+    opacity: 0.4;
+    transform: scale(1.05);
+  }
+
+  100% {
+    opacity: 0.2;
+    transform: scale(0.95);
+  }
+}
+
+/* --- 3. Experience Timeline (Desktop) --- */
+
+/* Creates the vertical line connecting job entries */
+
+@media (min-width: 1024px) {
+  .timeline-container {
+    position: relative;
+  }
+
+  .timeline-container::before {
+    content: '';
+    position: absolute;
+    left: 2rem;
+    /* Aligns with the dot */
+    top: 2rem;
+    bottom: 0;
+    width: 1px;
+    background: linear-gradient(to bottom, var(--accent) 0%, rgba(255,255,255,0.1) 100%);
+    z-index: 0;
+    opacity: 0.3;
+  }
+
+  [data-theme="light"] .timeline-container::before {
+    background: linear-gradient(to bottom, var(--accent) 0%, rgba(0,0,0,0.1) 100%);
+  }
+}
+
+/* --- 4. Skill Badge Hover --- */
+
+.skill-badge {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.skill-badge:hover {
+  transform: translateY(-3px) scale(1.05);
+  box-shadow: 0 5px 15px rgba(184, 26, 29, 0.2);
+}
+
+/* ===========================
+   GALLERY PAGE STYLES
+   =========================== */
+
+/* --- 1. Liquid Glass Filter Bar --- */
+
+.glass-filter-container {
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.1);
+}
+
+[data-theme="dark"] .glass-filter-container {
+  background: rgba(0, 0, 0, 0.4);
+  border-color: rgba(255, 255, 255, 0.05);
+}
+
+/* Filter Buttons */
+
+.filter-btn {
+  padding: 0.5rem 1.25rem;
+  border-radius: 9999px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--text-muted);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  border: 1px solid transparent;
+}
+
+.filter-btn:hover {
+  color: var(--text);
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.filter-btn.active {
+  background: var(--accent);
+  color: white;
+  box-shadow: 0 4px 15px rgba(184, 26, 29, 0.3);
+  transform: scale(1.05);
+}
+
+/* --- 2. Masonry Grid Layout --- */
+
+.gallery-grid {
+  margin: 0 auto;
+  width: 100%;
+}
+
+/* Grid Sizing - CRITICAL FOR ISOTOPE */
+
+/* padding creates the gutter visually */
+
+.grid-sizer,
+.gallery-item {
+  width: 100%;
+  margin-bottom: 24px;
+  /* Vertical gap */
+  padding: 0 12px;
+  /* Horizontal gap */
+  box-sizing: border-box;
+  /* Important so padding is included in width */
+}
+
+/* Responsive Columns */
+
+@media (min-width: 768px) {
+  .grid-sizer,
+    .gallery-item {
+    width: 50%;
+    /* 2 Columns */
+  }
+}
+
+@media (min-width: 1024px) {
+  .grid-sizer,
+    .gallery-item {
+    width: 33.333%;
+    /* 3 Columns */
+  }
+}
+
+/* --- 3. Gallery Items & Interactions --- */
+
+/* Reset any project-card heights inherited from global style */
+
+.gallery-item .project-card {
+  height: auto !important;
+  /* Allow masonry to dictate height */
+}
+
+.gallery-item a {
+  display: block;
+  width: 100%;
+  height: auto;
+  /* Let content dictate height */
+  box-shadow: 0 10px 30px -10px rgba(0,0,0,0.2);
+  transition: transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94), box-shadow 0.5s ease;
+  border-radius: 16px;
+  overflow: hidden;
+  position: relative;
+  background: var(--card-bg);
+}
+
+.gallery-item:hover a {
+  transform: translateY(-5px);
+  box-shadow: 0 20px 40px -10px rgba(0,0,0,0.4);
+}
+
+/* Fix for Isotope overlapping: Ensure image takes up space */
+
+.gallery-item img {
+  width: 100% !important;
+  height: auto !important;
+  display: block;
+  transition: transform 0.7s ease;
+}
+
+.gallery-item:hover img {
+  transform: scale(1.05);
+}
+
+/* Overlay Animation */
+
+.gallery-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0.2) 50%, transparent 100%);
+  opacity: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 1.5rem;
+  transition: opacity 0.4s ease;
+  pointer-events: none;
+  /* Let clicks pass through to anchor */
+}
+
+.gallery-item:hover .gallery-overlay {
+  opacity: 1;
+}
+
+.gallery-overlay span {
+  transform: translateY(20px);
+  opacity: 0;
+  transition: transform 0.4s ease, opacity 0.4s ease;
+}
+
+.gallery-item:hover .gallery-overlay span {
+  transform: translateY(0);
+  opacity: 1;
+}
+
+.gallery-item:hover .gallery-overlay span:nth-child(2) {
+  transition-delay: 0.1s;
+}
+
+/* --- 4. Animation Utility --- */
+
+.animate-fade-in {
+  animation: fadeIn 1s ease-out forwards;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
 *, ::before, ::after {
   --tw-border-spacing-x: 0;
   --tw-border-spacing-y: 0;
@@ -106,9 +392,7 @@
   --tw-contain-style:  ;
 }
 
-/*
-! tailwindcss v3.4.18 | MIT License | https://tailwindcss.com
-*/
+/* ! tailwindcss v3.4.18 | MIT License | https://tailwindcss.com */
 
 /*
 1. Prevent padding and border from affecting element width. (https://github.com/mozdevs/cssremedy/issues/4)
@@ -2148,8 +2432,6 @@ video {
 .ease-in-out {
   transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
 }
-
-/* Import page-specific styles */
 
 /* ===========================
    1. THEME VARIABLES
