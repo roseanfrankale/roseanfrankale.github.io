@@ -8,14 +8,14 @@
   <!-- Google Fonts -->
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;700;800;900&family=Raleway:wght@400;700&display=swap" rel="stylesheet">
 
-  <!-- Link to your compiled Tailwind CSS -->
+  <!-- Link to your single, compiled production stylesheet -->
   <link rel="stylesheet" href="assets/css/dist.css">
 
   <!-- Icons -->
   <script src="https://unpkg.com/lucide@latest"></script>
 
 </head>
-<body class="bg-bg text-text antialiased transition-colors duration-300">
+<body class="antialiased">
 
   <!-- NAVBAR -->
   <nav id="navbar" class="fixed w-full z-50 transition-all duration-300 py-6">
@@ -102,15 +102,17 @@
     <div class="absolute bottom-20 left-1/2 transform -translate-x-1/2 animate-bounce z-20">
         <a href="#work" class="flex flex-col items-center text-text-muted hover:text-accent transition-colors group">
            
-            <!-- Bouncing Line -->
-            <div class="w-[2px] h-12 bg-gradient-to-b from-text to-transparent opacity-50 group-hover:from-accent group-hover:opacity-100 transition-all"></div>
-            <!-- Arrow Head -->
-            <i data-lucide="chevron-down" class="w-4 h-4 -mt-2 text-text opacity-50 group-hover:text-accent group-hover:opacity-100 transition-all"></i>
+            <!-- Bouncing Line -->     
+    <div class="absolute bottom-10 left-1/2  z-20">
+        <a href="#work" class="group animate-bounce block w-6 h-20 relative">
+            <div class="absolute bottom-0 left-1/2 -translate-x-1/2 w-[1px] h-full bg-gradient-to-b from-transparent to-accent"></div>
+              <!-- Arrow Head -->
+            <i data-lucide="chevron-down" class="absolute bottom-0 left-1/2 -translate-x-1/2 w-4 h-2 text-accent"></i>
         </a>
     </div>
 
     <!-- Connector Line (Static Base) -->
-    <div class="absolute bottom-0 left-1/2 transform -translate-x-1/2 w-[1px] h-20 bg-gradient-to-b from-transparent to-accent z-10"></div>
+   
   </section>
 
   <!-- FEATURED WORK -->

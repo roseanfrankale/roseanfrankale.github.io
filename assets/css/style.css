@@ -2,6 +2,10 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Import page-specific styles */
+@import "about.css";
+@import "gallery.css";
+
 
 /* ===========================
    1. THEME VARIABLES
