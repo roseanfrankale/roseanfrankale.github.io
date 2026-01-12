@@ -1,0 +1,354 @@
+
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ChronoLens Case Study | RJFA</title>
+  
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;700;900&family=Raleway:wght@400;700&display=swap" rel="stylesheet">
+  <script src="assets/js/tailwind-config.js"></script>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="assets/css/style.css">
+  <link rel="stylesheet" href="assets/css/case-study.css">
+  <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body class="bg-bg text-text antialiased transition-colors duration-300">
+
+  <!-- NAVBAR -->
+  <nav id="navbar" class="fixed w-full z-50 transition-all duration-300 py-6">
+    <div class="container mx-auto px-4 md:px-6">
+      <div class="flex justify-between items-center">
+        <!-- Logo -->
+        <a href="index.html" class="flex items-center group">
+           <img src="assets/img/rjfa_logo_grey_svg.svg" alt="RJFA" class="h-8 w-auto transition-all duration-300 dark:brightness-150 brightness-50 group-hover:opacity-80">
+        </a>
+
+        <!-- Desktop Menu -->
+        <div class="hidden md:flex items-center space-x-10">
+          <div class="flex space-x-8">
+            <a href="index.html" class="nav-link text-accent">Home</a>
+            <a href="about.html" class="nav-link">About Me</a>
+            <a href="gallery.html" class="nav-link">Gallery</a>
+            <a href="music.html" class="nav-link">Music</a>
+            <a href="connect.html" class="nav-link">Connect</a>
+          </div>
+          
+          <!-- Icons & Toggle -->
+          <div class="flex items-center space-x-5 border-l pl-8 border-gray-300 dark:border-gray-700 navbar-socials">
+            <div class="flex gap-4 ">
+              <a href="https://www.linkedin.com/in/rfrankale/" target="_blank"><i data-lucide="linkedin" class="w-4 h-4"></i></a>
+              <a href="https://github.com/roseanfrankale" target="_blank"><i data-lucide="github" class="w-4 h-4"></i></a>
+              <a href="https://dribbble.com/rjfa" target="_blank"><i data-lucide="dribbble" class="w-4 h-4"></i></a>
+            </div>
+            
+            <button id="theme-toggle" class="ml-4 p-2 rounded-full bg-bg text-text hover:text-accent transition-all hover:rotate-90 border-none">
+              <i data-lucide="moon" class="w-5 h-5"></i>
+            </button>
+          </div>
+        </div>
+
+        <!-- Mobile Toggle -->
+        <div class="flex items-center gap-4 md:hidden">
+          <button id="mobile-menu-btn" class="hamburger-btn focus:outline-none" aria-label="Toggle menu">
+            <span class="hamburger-line top"></span>
+            <span class="hamburger-line middle"></span>
+            <span class="hamburger-line bottom"></span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Mobile Menu -->
+      <div id="mobile-menu" class="hidden md:hidden absolute top-full left-0 w-full bg-bg/99 backdrop-blur-2xl shadow-2xl py-6 px-6 flex flex-col space-y-6 border-t border-gray-100 dark:border-gray-800">
+        <a href="index.html" class="text-sm uppercase tracking-wider font-bold text-accent">Home</a>
+        <a href="about.html" class="text-sm uppercase tracking-wider font-bold text-text hover:text-accent">About Me</a>
+        <a href="gallery.html" class="text-sm uppercase tracking-wider font-bold text-text hover:text-accent">Gallery</a>
+        <a href="music.html" class="text-sm uppercase tracking-wider font-bold text-text hover:text-accent">Music</a>
+        <a href="connect.html" class="text-sm uppercase tracking-wider font-bold text-text hover:text-accent">Connect</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <section class="pt-32 pb-16 container mx-auto px-4">
+    <div class="hero-content opacity-0 translate-y-10 max-w-5xl mx-auto">
+      
+      <h1 class="text-5xl md:text-7xl font-black mb-8 tracking-tight leading-tight text-text">
+        Designing a timeless photo archive experience
+      </h1>
+      
+      <p class="text-xl md:text-2xl text-text-muted font-light leading-relaxed mb-10 max-w-4xl">
+        I am currently working on a design for ChronoLens, a cross-platform photo archiving app. My focus is on creating a beautiful, tactile interface inspired by historical archives that helps users preserve and rediscover their memories across time.
+      </p>
+
+      <!-- Tags -->
+      <div class="flex flex-wrap gap-3 mb-12">
+        <span class="px-4 py-2 bg-card-bg border border-gray-200 dark:border-gray-700 rounded-full text-sm font-medium">0 → 1</span>
+        <span class="px-4 py-2 bg-card-bg border border-gray-200 dark:border-gray-700 rounded-full text-sm font-medium">MOBILE APP</span>
+        <span class="px-4 py-2 bg-card-bg border border-gray-200 dark:border-gray-700 rounded-full text-sm font-medium">AI/ML</span>
+      </div>
+
+      <!-- Metadata -->
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-8 pt-8 border-t border-gray-200 dark:border-gray-800">
+        <div>
+          <p class="text-xs uppercase tracking-widest text-text-muted mb-2">Date</p>
+          <p class="text-base font-semibold text-text">December 2025</p>
+        </div>
+        <div>
+          <p class="text-xs uppercase tracking-widest text-text-muted mb-2">Role</p>
+          <p class="text-base font-semibold text-text">Product Designer</p>
+        </div>
+        <div>
+          <p class="text-xs uppercase tracking-widest text-text-muted mb-2">Platform</p>
+          <p class="text-base font-semibold text-text">iOS & Android</p>
+        </div>
+        <div>
+          <p class="text-xs uppercase tracking-widest text-text-muted mb-2">Status</p>
+          <p class="text-base font-semibold text-text">In Progress</p>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Overview Section -->
+  <section class="py-20 container mx-auto px-4">
+    <div class="max-w-5xl mx-auto">
+      
+      <h2 class="text-3xl md:text-4xl font-bold mb-16 text-text">Overview</h2>
+
+      <div class="grid md:grid-cols-12 gap-12 mb-16">
+        <div class="md:col-span-8">
+          <h3 class="text-2xl font-bold mb-6 text-text">What is ChronoLens?</h3>
+          <p class="text-lg text-text-muted leading-relaxed mb-6">
+            ChronoLens is a photo archiving and analysis application that helps people preserve, organize, and explore their personal photo collections. The app uses AI to automatically detect photo eras and organize images chronologically.
+          </p>
+          <p class="text-lg text-text-muted leading-relaxed">
+            The design is inspired by archival ledgers, minimalist brutalism, and tactile photo album aesthetics—creating a digital experience that feels as meaningful as flipping through a physical album.
+          </p>
+        </div>
+      </div>
+
+      <!-- Quote Callout -->
+      <div class="bg-card-bg border-l-4 border-accent p-8 rounded-r-2xl mb-16">
+        <p class="text-2xl md:text-3xl font-light italic text-text leading-relaxed">
+          "If the digital version of a archivist met your grandmother's photo album, it would be ChronoLens."
+        </p>
+      </div>
+
+      <div class="grid md:grid-cols-12 gap-12">
+        <div class="md:col-span-8">
+          <h3 class="text-2xl font-bold mb-6 text-text">The Goal</h3>
+          <p class="text-lg text-text-muted leading-relaxed">
+            Create a cross-platform application that makes organizing and preserving memories feel meaningful and timeless. The interface needed to balance powerful AI features with a warm, tactile aesthetic that encourages users to explore their history.
+          </p>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Vision Section -->
+  <section class="py-20 bg-section-bg">
+    <div class="container mx-auto px-4">
+      <div class="max-w-5xl mx-auto">
+        
+        <!-- Featured Image -->
+        <div class="lightbox-trigger relative rounded-2xl overflow-hidden shadow-2xl mb-8 group cursor-zoom-in">
+          <img src="assets/img/chronolens/hero.png" alt="ChronoLens Donation Flow" class="w-full h-auto" />
+          <div class="absolute inset-0 bg-black/30 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+            <i data-lucide="zoom-in" class="text-white w-8 h-8"></i>
+          </div>
+        </div>
+        <p class="text-center text-text-muted text-sm uppercase tracking-widest">THE VISION</p>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Main Content Section -->
+  <section class="py-20 container mx-auto px-4">
+    <div class="max-w-5xl mx-auto">
+      
+      <h2 class="text-3xl md:text-4xl font-bold mb-8 text-text">Reconnect through time</h2>
+      
+      <p class="text-lg text-text-muted leading-relaxed mb-16 max-w-3xl">
+        If you've ever tried to organize years of digital photos, you know how overwhelming it can be. Scattered across devices, stuffed boxes in the attic, lost in cloud storage, with no meaningful way to browse through time. What if it didn't have to be like this?
+      </p>
+
+      <p class="text-lg text-text-muted leading-relaxed mb-16 max-w-3xl">
+        I desire for ChronoLens to solve these problems. What I have in mind is a beautiful archive platform that helps people organize, preserve, and explore their memories. All your photos, organized by time.
+      </p>
+
+    </div>
+  </section>
+
+  <!-- Gallery Section -->
+  <section class="py-12 container mx-auto px-4">
+    <div class="max-w-6xl mx-auto space-y-12">
+
+      <!-- Image 1 - Full Width -->
+      <div class="space-y-4">
+        <div class="lightbox-trigger relative rounded-2xl overflow-hidden shadow-xl group cursor-zoom-in">
+          <img src="assets/img/chronolens/welcome.png" alt="ChronoLens Login Screen" class="w-full h-auto" />
+          <div class="absolute inset-0 bg-black/30 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+            <i data-lucide="zoom-in" class="text-white w-8 h-8"></i>
+          </div>
+        </div>
+        <p class="text-center text-text-muted text-sm">Welcome screen with elegant authentication flow</p>
+      </div>
+
+      <!-- Image 2 - Two Column -->
+      <div class="grid md:grid-cols-2 gap-8">
+        <div class="space-y-4">
+          <div class="lightbox-trigger relative rounded-2xl overflow-hidden shadow-xl group cursor-zoom-in">
+            <img src="assets/img/chronolens/archives-mobile.png" alt="ChronoLens Archives Mobile" class="w-full h-auto" />
+            <div class="absolute inset-0 bg-black/30 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+              <i data-lucide="zoom-in" class="text-white w-8 h-8"></i>
+            </div>
+          </div>
+          <p class="text-center text-text-muted text-sm">Mobile archives view</p>
+        </div>
+        <div class="space-y-4">
+          <div class="lightbox-trigger relative rounded-2xl overflow-hidden shadow-xl group cursor-zoom-in">
+            <img src="assets/img/chronolens/catalog.png" alt="ChronoLens Catalog" class="w-full h-auto" />
+            <div class="absolute inset-0 bg-black/30 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+              <i data-lucide="zoom-in" class="text-white w-8 h-8"></i>
+            </div>
+          </div>
+          <p class="text-center text-text-muted text-sm">Ledger view with detailed metadata</p>
+        </div>
+      </div>
+
+      <!-- Image 3 - Full Width -->
+      <div class="space-y-4">
+        <div class="lightbox-trigger relative rounded-2xl overflow-hidden shadow-xl group cursor-zoom-in">
+          <img src="assets/img/chronolens/archives.png" alt="ChronoLens Archives Desktop" class="w-full h-auto" />
+          <div class="absolute inset-0 bg-black/30 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+            <i data-lucide="zoom-in" class="text-white w-8 h-8"></i>
+          </div>
+        </div>
+        <p class="text-center text-text-muted text-sm">Desktop archives with chronological index</p>
+      </div>
+
+      <!-- Image 4 - Two Column -->
+      <div class="grid md:grid-cols-2 gap-8">
+        <div class="space-y-4">
+          <div class="lightbox-trigger relative rounded-2xl overflow-hidden shadow-xl group cursor-zoom-in">
+            <img src="assets/img/chronolens/settings.png" alt="ChronoLens Settings" class="w-full h-auto" />
+            <div class="absolute inset-0 bg-black/30 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+              <i data-lucide="zoom-in" class="text-white w-8 h-8"></i>
+            </div>
+          </div>
+          <p class="text-center text-text-muted text-sm">Settings with theme customization</p>
+        </div>
+        <div class="space-y-4">
+          <div class="lightbox-trigger relative rounded-2xl overflow-hidden shadow-xl group cursor-zoom-in">
+            <img src="assets/img/chronolens/home.png" alt="ChronoLens Home" class="w-full h-auto" />
+            <div class="absolute inset-0 bg-black/30 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+              <i data-lucide="zoom-in" class="text-white w-8 h-8"></i>
+            </div>
+          </div>
+          <p class="text-center text-text-muted text-sm">Mobile home screen</p>
+        </div>
+      </div>
+
+      <!-- Image 5 - Full Width Inspiration -->
+      <div class="space-y-4">
+        <div class="lightbox-trigger relative rounded-2xl overflow-hidden shadow-xl group cursor-zoom-in">
+          <img src="assets/img/chronolens/vatican-archive.png" alt="Vatican Archive Inspiration" class="w-full h-auto" />
+          <div class="absolute inset-0 bg-black/30 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+            <i data-lucide="zoom-in" class="text-white w-8 h-8"></i>
+          </div>
+        </div>
+        <p class="text-center text-text-muted text-sm">Design inspiration from the Vatican Apostolic Archive</p>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Thanks Section -->
+  <section class="py-20 container mx-auto px-4">
+    <div class="max-w-5xl mx-auto text-center">
+      
+      <h2 class="text-3xl md:text-4xl font-bold mb-8 text-text">Thanks for reading!</h2>
+      
+      <div class="h-1 w-20 bg-accent mx-auto mb-16"></div>
+
+      <h3 class="text-xl font-semibold mb-8 text-text-muted">View more work</h3>
+      
+      <div class="grid md:grid-cols-2 gap-6 max-w-2xl mx-auto">
+        <a href="nebusis.html" class="group block bg-card-bg rounded-2xl overflow-hidden border border-gray-200 dark:border-gray-800 hover:border-accent transition-all duration-300 hover:shadow-xl">
+          <div class="p-6">
+            <p class="font-bold text-text group-hover:text-accent transition-colors">Nebusis</p>
+            <p class="text-sm text-text-muted">Tax Documentation Platform</p>
+          </div>
+        </a>
+        <a href="place.html" class="group block bg-card-bg rounded-2xl overflow-hidden border border-gray-200 dark:border-gray-800 hover:border-accent transition-all duration-300 hover:shadow-xl">
+          <div class="p-6">
+            <p class="font-bold text-text group-hover:text-accent transition-colors">Place</p>
+            <p class="text-sm text-text-muted">Location-Based Platform</p>
+          </div>
+        </a>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="bg-footer-bg text-text py-12 border-t border-gray-200 dark:border-gray-800">
+    <div class="container mx-auto px-4 md:px-6">
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <!-- Brand -->
+        <div class="flex flex-col items-start">
+          <img src="assets/img/rjfa_logo_grey_svg.svg" alt="RJFA" class="h-10 w-auto mb-4 grayscale opacity-80">
+          <p class="text-text-muted text-sm">
+            &copy; 2025 Rosean Frank-Alexander.<br>All rights reserved.
+          </p>
+        </div>
+
+        <!-- Navigation -->
+        <div>
+           <h3 class="text-lg font-bold mb-4 text-text tracking-widest uppercase opacity-60">Navigation</h3>
+           <ul class="space-y-2 text-text-muted text-sm uppercase tracking-wide">
+             <li><a href="index.html" class="hover:text-accent transition-colors">Home</a></li>
+             <li><a href="about.html" class="hover:text-accent transition-colors">About Me</a></li>
+             <li><a href="gallery.html" class="hover:text-accent transition-colors">Gallery</a></li>
+             <li><a href="mailto:rosean.frankalexander@gmail.com" class="hover:text-accent transition-colors flex items-center gap-2"><i data-lucide="mail" class="w-3 h-3"></i> Contact</a></li>
+           </ul>
+        </div>
+
+        <!-- Socials -->
+        <div>
+          <h3 class="text-lg font-bold mb-4 text-text tracking-widest uppercase opacity-60">Connect</h3>
+          <div class="flex space-x-4">
+            <a href="https://www.linkedin.com/in/rfrankale/" target="_blank" class="text-text-muted hover:text-accent transition-colors"><i data-lucide="linkedin" class="w-6 h-6"></i></a>
+            <a href="https://github.com/roseanfrankale" target="_blank" class="text-text-muted hover:text-accent transition-colors"><i data-lucide="github" class="w-6 h-6"></i></a>
+            <a href="https://dribbble.com/rjfa" target="_blank" class="text-text-muted hover:text-accent transition-colors"><i data-lucide="dribbble" class="w-6 h-6"></i></a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Lightbox Container -->
+  <div id="lightbox" class="fixed inset-0 z-[100] bg-black/95 backdrop-blur-sm hidden flex items-center justify-center opacity-0 transition-opacity duration-300">
+    <button id="lightbox-close" class="absolute top-6 right-6 text-white/70 hover:text-white transition-colors p-2 z-50">
+      <i data-lucide="x" class="w-8 h-8"></i>
+    </button>
+    <button id="lightbox-prev" class="absolute left-4 text-white/70 hover:text-white p-4 z-50 hover:bg-white/10 rounded-full transition-all">
+        <i data-lucide="chevron-left" class="w-10 h-10"></i>
+    </button>
+    <button id="lightbox-next" class="absolute right-4 text-white/70 hover:text-white p-4 z-50 hover:bg-white/10 rounded-full transition-all">
+        <i data-lucide="chevron-right" class="w-10 h-10"></i>
+    </button>
+    <img id="lightbox-img" src="" alt="Project Visual" class="max-w-[90%] max-h-[90vh] object-contain rounded shadow-2xl transition-transform duration-300">
+  </div>
+
+  <!-- Scripts -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+  <script src="assets/js/main.js"></script>
+  <script src="assets/js/case-study.js"></script>
+</body>
+</html>
