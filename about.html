@@ -64,15 +64,19 @@
     </div>
   </nav>
 
-  <!-- ABOUT ME PAGE TITLE -->
-  <div class="text-center mb-16 animate-fade-in">
-    <h1 class="text-6xl md:text-9xl font-black mb-6 text-text uppercase tracking-tighter opacity-20 leading-none">ABOUT ME</h1>
-    <div class="relative -mt-12 md:-mt-20 z-10">
-      <h2 class="title-main text-transparent bg-clip-text bg-gradient-to-r from-text to-text-muted" style="font-size: clamp(2.5rem, 6vw, 4.5rem);">
-        Product Thinker & Designer
-      </h2>
+
+  <div class="pt-32 pb-20 min-h-screen bg-bg text-text transition-colors duration-300">
+    <div class="container mx-auto px-4 md:px-6">
+      <!-- ABOUT ME PAGE TITLE -->
+      <div class="text-center mb-16 animate-fade-in">
+        <h1 class="text-6xl md:text-9xl font-black mb-6 text-text uppercase tracking-tighter opacity-20 leading-none">ABOUT ME</h1>
+        <div class="relative -mt-12 md:-mt-20 z-10">
+          <h2 class="text-2xl md:text-4xl text-gray-500 font-thin leading-relaxed max-w-5xl mx-auto reveal-text">
+            Product Thinker & Designer
+          </h2>
+        </div>
+      </div>    
     </div>
-  </div>
 
   <!-- Main Content -->
   <div class="container mx-auto px-4 md:px-6 py-24 md:py-32">
@@ -81,9 +85,9 @@
     <div class="max-w-6xl mx-auto mb-32">
       <div class="flex flex-col md:flex-row gap-12 md:gap-16 items-start md:items-center">
         <!-- Profile Image (Left) -->
-        <div class="w-40 h-40 md:w-48 md:h-48 flex-shrink-0">
-          <div class="relative overflow-hidden rounded-3xl border-4 border-accent/20 shadow-2xl group hover:shadow-2xl transition-all duration-300 hover:border-accent/50 cursor-pointer">
-            <img src="assets/img/sean_pro_foto_dl_1 .jpeg" alt="Rosean Frank-Alexander" class="w-full h-full object-cover rounded-2xl group-hover:scale-110 transition-transform duration-300">
+        <div class="w-14 h-14 md:w-24 md:h-24 rounded-full overflow-hidden mb- flex-shrink-0">
+          <div class="relative overflow-hidden rounded-xl shadow-2xl group hover:shadow-2xl transition-all duration-300 hover:border-accent/50 cursor-pointer">
+            <img src="assets/img/sean_pro_foto_dl_1 .jpeg" alt="Rosean Frank-Alexander" class="w-full h-full object-cover rounded-lg group-hover:scale-110 transition-transform duration-300">
           </div>
         </div>
 
@@ -512,9 +516,11 @@
   <!-- Scripts -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
   <script src="assets/js/main.js"></script>
-  <script>
-    // Accordion functionality for experience section
-    document.querySelectorAll('.accordion-btn').forEach(button => {
+  </script>
+      </div>
+    </div>
+  </div>
+</body>
       button.addEventListener('click', function() {
         const index = this.dataset.accordion;
         const content = document.querySelector(`.accordion-content[data-accordion="${index}"]`);
