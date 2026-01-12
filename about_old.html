@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>About Me | Rosean Frank-Alexander</title>
+  
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;700;900&family=Raleway:wght@400;700&display=swap" rel="stylesheet">
+
+  <!-- Link to your single, compiled production stylesheet -->
+  <link rel="stylesheet" href="assets/css/dist.css">
+
+  <!-- Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body class="antialiased">
+
+  <!-- NAVBAR -->
+  <nav id="navbar" class="fixed w-full z-50 transition-all duration-300 py-6">
+    <div class="container mx-auto px-4 md:px-6">
+      <div class="flex justify-between items-center">
+        <!-- Logo -->
+        <a href="index.html" class="flex items-center group">
+           <img src="assets/img/rjfa_logo_grey_svg.svg" alt="RJFA" class="h-8 w-auto transition-all duration-300 dark:brightness-150 brightness-50 group-hover:opacity-80">
+        </a>
+
+        <!-- Desktop Menu -->
+        <div class="hidden md:flex items-center space-x-10">
+          <div class="flex space-x-8">
+            <a href="index.html" class="nav-link text-accent">Home</a>
+            <a href="about.html" class="nav-link">About Me</a>
+            <a href="gallery.html" class="nav-link">Gallery</a>
+            <a href="music.html" class="nav-link">Music</a>
+            <a href="connect.html" class="nav-link">Connect</a>
+          </div>
+          
+          <!-- Icons & Toggle -->
+          <div class="flex items-center space-x-5 border-l pl-8 border-gray-300 dark:border-gray-700 navbar-socials">
+            <div class="flex gap-4 ">
+              <a href="https://www.linkedin.com/in/rfrankale/" target="_blank"><i data-lucide="linkedin" class="w-4 h-4"></i></a>
+              <a href="https://github.com/roseanfrankale" target="_blank"><i data-lucide="github" class="w-4 h-4"></i></a>
+              <a href="https://dribbble.com/rjfa" target="_blank"><i data-lucide="dribbble" class="w-4 h-4"></i></a>
+            </div>
+            
+            <button id="theme-toggle" class="ml-4 p-2 rounded-full bg-bg text-text hover:text-accent transition-all hover:rotate-90 border-none">
+              <i data-lucide="moon" class="w-5 h-5"></i>
+            </button>
+          </div>
+        </div>
+
+        <!-- Mobile Toggle -->
+        <div class="flex items-center gap-4 md:hidden">
+          <button id="mobile-menu-btn" class="hamburger-btn focus:outline-none" aria-label="Toggle menu">
+            <span class="hamburger-line top"></span>
+            <span class="hamburger-line middle"></span>
+            <span class="hamburger-line bottom"></span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Mobile Menu -->
+      <div id="mobile-menu" class="hidden md:hidden absolute top-full left-0 w-full bg-bg/99 backdrop-blur-2xl shadow-2xl py-6 px-6 flex flex-col space-y-6 border-t border-gray-100 dark:border-gray-800">
+        <a href="index.html" class="text-sm uppercase tracking-wider font-bold text-accent">Home</a>
+        <a href="about.html" class="text-sm uppercase tracking-wider font-bold text-text hover:text-accent">About Me</a>
+        <a href="gallery.html" class="text-sm uppercase tracking-wider font-bold text-text hover:text-accent">Gallery</a>
+        <a href="music.html" class="text-sm uppercase tracking-wider font-bold text-text hover:text-accent">Music</a>
+        <a href="connect.html" class="text-sm uppercase tracking-wider font-bold text-text hover:text-accent">Connect</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Header Section -->
+  <div class="pt-32 pb-12 container mx-auto px-4">
+   
+   
+
+     <div class="text-center mb-6 animate-fade-in">
+            <h1 class="text-6xl md:text-9xl font-black mb-6 text-text uppercase tracking-tighter opacity-20 leading-none">About Me</h1>
+     </div>
+    <!-- Tabs Navigation -->
+    <!-- Removed opacity-0 and translate-y-10 to fix visibility issue -->
+    <div class="flex justify-center mb-24 animate-fade-up">
+        <div class="flex flex-wrap justify-center gap-4">
+            <button class="tab-btn px-8 py-3 rounded-full text-xs md:text-sm font-bold uppercase tracking-widest transition-all duration-300 border bg-accent text-white border-accent shadow-lg shadow-accent/25 scale-105" data-target="story">
+                My Story
+            </button>
+            <button class="tab-btn px-8 py-3 rounded-full text-xs md:text-sm font-bold uppercase tracking-widest transition-all duration-300 border bg-transparent text-text-muted border-gray-200 dark:border-gray-800 hover:border-accent hover:text-accent" data-target="skills">
+                Skills
+            </button>
+            <button class="tab-btn px-8 py-3 rounded-full text-xs md:text-sm font-bold uppercase tracking-widest transition-all duration-300 border bg-transparent text-text-muted border-gray-200 dark:border-gray-800 hover:border-accent hover:text-accent" data-target="experience">
+                Experience
+            </button>
+        </div>
+    </div>
+
+    <!-- Tab Contents -->
+    <div class="max-w-7xl mx-auto min-h-[600px]">
+        
+        <!-- 1. MY STORY -->
+        <div id="story" class="tab-content block">
+            <div class="grid md:grid-cols-12 gap-16 items-start">
+                <!-- Profile Image -->
+                <div class="md:col-span-4 flex justify-center order-1">
+                    <div class="relative group cursor-zoom-in w-64 h-64 md:w-80 md:h-80 lightbox-trigger">
+                        <!-- Blurred Gradient Circle Backdrop (Animated via CSS) -->
+                        <div class="absolute top-1/2 left-1/2 w-[120%] h-[120%] bg-gradient-to-br from-accent/40 to-purple-500/40 rounded-full blur-3xl opacity-70 animate-blob"></div>
+                        
+                        <div class="relative overflow-hidden rounded-full w-full h-full border-4 border-bg shadow-2xl">
+                             <img 
+                                src="assets/img/sean_pro_foto_dl_1 .jpeg" 
+                                alt="Rosean Frank-Alexander" 
+                                class="w-full h-full object-cover filter grayscale group-hover:grayscale-0 transition-all duration-700"
+                            />
+                             <div class="absolute inset-0 bg-black/30 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                                <i data-lucide="zoom-in" class="text-white w-8 h-8"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Content -->
+                <div class="md:col-span-8 order-2">
+                    <h2 class="text-3xl font-bold mb-8 text-accent uppercase tracking-wide">The Journey</h2>
+                    <div class="prose max-w-none text-text-muted leading-relaxed text-lg space-y-6 font-light">
+                        <p>👋 Hey there, I'm Rosean Frank-Alexander.
+                        I'm a Product Thinker and Designer dedicated to building intuitive, elegant digital experiences. My journey into tech started with a classic: a childhood discovery on a Compaq Presario (and yes, Weezer was involved). That moment sparked an enduring passion for software, design, and music—the three pillars of my professional approach.</p>
+
+                        <p>💡 What I Do
+                        I sit at the intersection of UI/UX Design, Front-end Engineering, and Brand Strategy.
+                        My focus is crafting scalable digital products by ensuring the user's experience is seamless and the underlying code is robust. I leverage diverse industry experience—from PCI-DSS Compliance and E-Commerce logistics to Music & Entertainment—to build solutions that solve real business problems, not just aesthetic ones.</p>
+
+                        <p>🎸 The Edge I Bring
+                        With over a decade as a professional bass guitarist and deep knowledge in audio/visual production, I approach every project with a musician's discipline: finding the rhythm, establishing the structure, and ensuring every component plays together perfectly. I bring creativity, technical precision, and a unique perspective to every team.</p>
+                    </div>
+                    <div class="mt-12 flex flex-wrap gap-6">
+                        <a href="music.html" class="custom-btn group inline-flex items-center">
+                            Musical Portfolio <i data-lucide="arrow-up-right" class="ml-2 w-4 h-4"></i>
+                        </a>
+                        <a href="resume.html" class="custom-btn-outline group inline-flex items-center">
+                            Download CV <i data-lucide="download" class="ml-2 w-4 h-4 group-hover:translate-y-1 transition-transform"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 2. SKILLS -->
+        <div id="skills" class="tab-content hidden">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Web Dev -->
+                <div class="bg-card-bg p-10 rounded-3xl border border-gray-200 dark:border-gray-800 hover:border-accent/50 transition-colors duration-300 group">
+                    <h3 class="text-xl font-black uppercase tracking-widest mb-8 text-text border-b border-gray-200 dark:border-gray-800 pb-4 group-hover:border-accent transition-colors">Development</h3>
+                    <div class="flex flex-wrap gap-3">
+                        <span class="skill-badge px-4 py-2 border border-text/10 text-text-muted text-xs font-bold uppercase tracking-wide rounded-full hover:bg-accent hover:text-white hover:border-accent cursor-default">HTML5</span>
+                        <span class="skill-badge px-4 py-2 border border-text/10 text-text-muted text-xs font-bold uppercase tracking-wide rounded-full hover:bg-accent hover:text-white hover:border-accent cursor-default">CSS3</span>
+                        <span class="skill-badge px-4 py-2 border border-text/10 text-text-muted text-xs font-bold uppercase tracking-wide rounded-full hover:bg-accent hover:text-white hover:border-accent cursor-default">JavaScript</span>
+                        <span class="skill-badge px-4 py-2 border border-text/10 text-text-muted text-xs font-bold uppercase tracking-wide rounded-full hover:bg-accent hover:text-white hover:border-accent cursor-default">jQuery</span>
+                        <span class="skill-badge px-4 py-2 border border-text/10 text-text-muted text-xs font-bold uppercase tracking-wide rounded-full hover:bg-accent hover:text-white hover:border-accent cursor-default">MySQL</span>
+                        <span class="skill-badge px-4 py-2 border border-text/10 text-text-muted text-xs font-bold uppercase tracking-wide rounded-full hover:bg-accent hover:text-white hover:border-accent cursor-default">Node.js</span>
+                        <span class="skill-badge px-4 py-2 border border-text/10 text-text-muted text-xs font-bold uppercase tracking-wide rounded-full hover:bg-accent hover:text-white hover:border-accent cursor-default">React</span>
+                        <span class="skill-badge px-4 py-2 border border-text/10 text-text-muted text-xs font-bold uppercase tracking-wide rounded-full hover:bg-accent hover:text-white hover:border-accent cursor-default">GitHub</span>
+                        <span class="skill-badge px-4 py-2 border border-text/10 text-text-muted text-xs font-bold uppercase tracking-wide rounded-full hover:bg-accent hover:text-white hover:border-accent cursor-default">Vue</span>
+                        <span class="skill-badge px-4 py-2 border border-text/10 text-text-muted text-xs font-bold uppercase tracking-wide rounded-full hover:bg-accent hover:text-white hover:border-accent cursor-default">Tailwind</span>
+                    </div>
+                </div>
+
+                <!-- Design -->
+                <div class="bg-card-bg p-10 rounded-3xl border border-gray-200 dark:border-gray-800 hover:border-accent/50 transition-colors duration-300 group">
+                    <h3 class="text-xl font-black uppercase tracking-widest mb-8 text-text border-b border-gray-200 dark:border-gray-800 pb-4 group-hover:border-accent transition-colors">Design</h3>
+                    <div class="flex flex-wrap gap-3">
+                        <span class="skill-badge px-4 py-2 border border-text/10 text-text-muted text-xs font-bold uppercase tracking-wide rounded-full hover:bg-accent hover:text-white hover:border-accent cursor-default">Figma</span>
+                        <span class="skill-badge px-4 py-2 border border-text/10 text-text-muted text-xs font-bold uppercase tracking-wide rounded-full hover:bg-accent hover:text-white hover:border-accent cursor-default">Sketch</span>
+                        <span class="skill-badge px-4 py-2 border border-text/10 text-text-muted text-xs font-bold uppercase tracking-wide rounded-full hover:bg-accent hover:text-white hover:border-accent cursor-default">Miro</span>
+                        <span class="skill-badge px-4 py-2 border border-text/10 text-text-muted text-xs font-bold uppercase tracking-wide rounded-full hover:bg-accent hover:text-white hover:border-accent cursor-default">Framer</span>
+                        <span class="skill-badge px-4 py-2 border border-text/10 text-text-muted text-xs font-bold uppercase tracking-wide rounded-full hover:bg-accent hover:text-white hover:border-accent cursor-default">Photoshop</span>
+                        <span class="skill-badge px-4 py-2 border border-text/10 text-text-muted text-xs font-bold uppercase tracking-wide rounded-full hover:bg-accent hover:text-white hover:border-accent cursor-default">InDesign</span>
+                        <span class="skill-badge px-4 py-2 border border-text/10 text-text-muted text-xs font-bold uppercase tracking-wide rounded-full hover:bg-accent hover:text-white hover:border-accent cursor-default">Adobe XD</span>
+                        <span class="skill-badge px-4 py-2 border border-text/10 text-text-muted text-xs font-bold uppercase tracking-wide rounded-full hover:bg-accent hover:text-white hover:border-accent cursor-default">Illustrator</span>
+                        <span class="skill-badge px-4 py-2 border border-text/10 text-text-muted text-xs font-bold uppercase tracking-wide rounded-full hover:bg-accent hover:text-white hover:border-accent cursor-default">Canva</span>
+                    </div>
+                </div>
+
+                 <!-- Tools -->
+                 <div class="bg-card-bg p-10 rounded-3xl border border-gray-200 dark:border-gray-800 hover:border-accent/50 transition-colors duration-300 group">
+                    <h3 class="text-xl font-black uppercase tracking-widest mb-8 text-text border-b border-gray-200 dark:border-gray-800 pb-4 group-hover:border-accent transition-colors">Productivity</h3>
+                    <div class="flex flex-wrap gap-3">
+                        <span class="skill-badge px-4 py-2 border border-text/10 text-text-muted text-xs font-bold uppercase tracking-wide rounded-full hover:bg-accent hover:text-white hover:border-accent cursor-default">GSuite</span>
+                        <span class="skill-badge px-4 py-2 border border-text/10 text-text-muted text-xs font-bold uppercase tracking-wide rounded-full hover:bg-accent hover:text-white hover:border-accent cursor-default">HubSpot</span>
+                        <span class="skill-badge px-4 py-2 border border-text/10 text-text-muted text-xs font-bold uppercase tracking-wide rounded-full hover:bg-accent hover:text-white hover:border-accent cursor-default">Salesforce</span>
+                        <span class="skill-badge px-4 py-2 border border-text/10 text-text-muted text-xs font-bold uppercase tracking-wide rounded-full hover:bg-accent hover:text-white hover:border-accent cursor-default">Slack</span>
+                        <span class="skill-badge px-4 py-2 border border-text/10 text-text-muted text-xs font-bold uppercase tracking-wide rounded-full hover:bg-accent hover:text-white hover:border-accent cursor-default">Trello</span>
+                        <span class="skill-badge px-4 py-2 border border-text/10 text-text-muted text-xs font-bold uppercase tracking-wide rounded-full hover:bg-accent hover:text-white hover:border-accent cursor-default">Mailchimp</span>
+                        <span class="skill-badge px-4 py-2 border border-text/10 text-text-muted text-xs font-bold uppercase tracking-wide rounded-full hover:bg-accent hover:text-white hover:border-accent cursor-default">Jira</span>
+                        <span class="skill-badge px-4 py-2 border border-text/10 text-text-muted text-xs font-bold uppercase tracking-wide rounded-full hover:bg-accent hover:text-white hover:border-accent cursor-default">Asana</span>
+                        <span class="skill-badge px-4 py-2 border border-text/10 text-text-muted text-xs font-bold uppercase tracking-wide rounded-full hover:bg-accent hover:text-white hover:border-accent cursor-default">Teams</span>
+                        <span class="skill-badge px-4 py-2 border border-text/10 text-text-muted text-xs font-bold uppercase tracking-wide rounded-full hover:bg-accent hover:text-white hover:border-accent cursor-default">Confluence</span>
+                        <span class="skill-badge px-4 py-2 border border-text/10 text-text-muted text-xs font-bold uppercase tracking-wide rounded-full hover:bg-accent hover:text-white hover:border-accent cursor-default">Notion</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 3. EXPERIENCE -->
+        <div id="experience" class="tab-content hidden">
+            <div class="space-y-6 timeline-container">
+                <!-- Nebusis -->
+                <div class="group relative bg-card-bg p-8 md:p-10 rounded-3xl border border-gray-200 dark:border-gray-800 hover:border-accent/30 transition-all duration-300 z-10">
+                    <div class="grid md:grid-cols-12 gap-6 md:gap-12 items-start">
+                        <div class="md:col-span-4">
+                            <h3 class="font-black text-2xl text-text mb-2 group-hover:text-accent transition-colors">Nebusis Cloud Services</h3>
+                            <p class="text-text-muted text-sm font-mono uppercase tracking-wider mb-1">Nov 2020 - Present</p>
+                            <p class="text-text-muted/60 text-xs font-mono uppercase tracking-wider">Durham, NC / Madrid, Spain</p>
+                        </div>
+                        <div class="md:col-span-8">
+                            <div class="flex flex-col h-full justify-center">
+                                <p class="text-accent text-sm font-bold uppercase tracking-widest mb-4">Product & Project Manager</p>
+                                <p class="text-text-muted text-lg font-light leading-relaxed">Recurring Contract assisting CEO with projects of varying degrees. Focused on product lifecycle, operations, and AI integration.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- NewSoil -->
+                <div class="group relative bg-card-bg p-8 md:p-10 rounded-3xl border border-gray-200 dark:border-gray-800 hover:border-accent/30 transition-all duration-300 z-10">
+                    <div class="grid md:grid-cols-12 gap-6 md:gap-12 items-start">
+                        <div class="md:col-span-4">
+                            <h3 class="font-black text-2xl text-text mb-2 group-hover:text-accent transition-colors">NewSoil, LLC.</h3>
+                            <p class="text-text-muted text-sm font-mono uppercase tracking-wider mb-1">Aug 2019 - Jun 2020</p>
+                            <p class="text-text-muted/60 text-xs font-mono uppercase tracking-wider">Durham, NC</p>
+                        </div>
+                        <div class="md:col-span-8">
+                            <div class="flex flex-col h-full justify-center">
+                                <p class="text-accent text-sm font-bold uppercase tracking-widest mb-4">Technology Consultant</p>
+                                <p class="text-text-muted text-lg font-light leading-relaxed">Founder and Co-Owner of an SMB to increase internet presence and sales. Implemented e-commerce solutions.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- CureMint -->
+                <div class="group relative bg-card-bg p-8 md:p-10 rounded-3xl border border-gray-200 dark:border-gray-800 hover:border-accent/30 transition-all duration-300 z-10">
+                    <div class="grid md:grid-cols-12 gap-6 md:gap-12 items-start">
+                        <div class="md:col-span-4">
+                            <h3 class="font-black text-2xl text-text mb-2 group-hover:text-accent transition-colors">CureMint</h3>
+                            <p class="text-text-muted text-sm font-mono uppercase tracking-wider mb-1">Jul 2019 - Aug 2019</p>
+                            <p class="text-text-muted/60 text-xs font-mono uppercase tracking-wider">Durham, NC</p>
+                        </div>
+                        <div class="md:col-span-8">
+                            <div class="flex flex-col h-full justify-center">
+                                <p class="text-accent text-sm font-bold uppercase tracking-widest mb-4">Director of Customer Success</p>
+                                <p class="text-text-muted text-lg font-light leading-relaxed">Collaborated with CEO on features, training sessions, and documentation for dental procurement software during MVP stage.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- BruVue -->
+                <div class="group relative bg-card-bg p-8 md:p-10 rounded-3xl border border-gray-200 dark:border-gray-800 hover:border-accent/30 transition-all duration-300 z-10">
+                    <div class="grid md:grid-cols-12 gap-6 md:gap-12 items-start">
+                        <div class="md:col-span-4">
+                            <h3 class="font-black text-2xl text-text mb-2 group-hover:text-accent transition-colors">BruVue</h3>
+                            <p class="text-text-muted text-sm font-mono uppercase tracking-wider mb-1">Jan 2019 - Jul 2019</p>
+                            <p class="text-text-muted/60 text-xs font-mono uppercase tracking-wider">Raleigh, NC</p>
+                        </div>
+                        <div class="md:col-span-8">
+                            <div class="flex flex-col h-full justify-center">
+                                <p class="text-accent text-sm font-bold uppercase tracking-widest mb-4">Director of Customer Success</p>
+                                <p class="text-text-muted text-lg font-light leading-relaxed">IoT sector experience. Managed customer retention, onboarding processes, and assisted with product feedback loops.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Marca Global -->
+                <div class="group relative bg-card-bg p-8 md:p-10 rounded-3xl border border-gray-200 dark:border-gray-800 hover:border-accent/30 transition-all duration-300 z-10">
+                    <div class="grid md:grid-cols-12 gap-6 md:gap-12 items-start">
+                        <div class="md:col-span-4">
+                            <h3 class="font-black text-2xl text-text mb-2 group-hover:text-accent transition-colors">Marca Global, LLC.</h3>
+                            <p class="text-text-muted text-sm font-mono uppercase tracking-wider mb-1">Oct 2017 - Mar 2018</p>
+                            <p class="text-text-muted/60 text-xs font-mono uppercase tracking-wider">Denver, CO</p>
+                        </div>
+                        <div class="md:col-span-8">
+                            <div class="flex flex-col h-full justify-center">
+                                <p class="text-accent text-sm font-bold uppercase tracking-widest mb-4">Inside Sales Rep</p>
+                                <p class="text-text-muted text-lg font-light leading-relaxed">Managed sales for InternetReputation.com products, focusing on SEO rankings.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Spreedly -->
+                <div class="group relative bg-card-bg p-8 md:p-10 rounded-3xl border border-gray-200 dark:border-gray-800 hover:border-accent/30 transition-all duration-300 z-10">
+                    <div class="grid md:grid-cols-12 gap-6 md:gap-12 items-start">
+                        <div class="md:col-span-4">
+                            <h3 class="font-black text-2xl text-text mb-2 group-hover:text-accent transition-colors">Spreedly</h3>
+                            <p class="text-text-muted text-sm font-mono uppercase tracking-wider mb-1">2016 - 2017</p>
+                            <p class="text-text-muted/60 text-xs font-mono uppercase tracking-wider">Durham, NC</p>
+                        </div>
+                        <div class="md:col-span-8">
+                            <div class="flex flex-col h-full justify-center">
+                                <p class="text-accent text-sm font-bold uppercase tracking-widest mb-4">Project/Customer Success Manager</p>
+                                <p class="text-text-muted text-lg font-light leading-relaxed">FinTech startup experience. Gained perspective on SDLC and SRE practices while managing customer implementations.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Etix -->
+                <div class="group relative bg-card-bg p-8 md:p-10 rounded-3xl border border-gray-200 dark:border-gray-800 hover:border-accent/30 transition-all duration-300 z-10">
+                    <div class="grid md:grid-cols-12 gap-6 md:gap-12 items-start">
+                        <div class="md:col-span-4">
+                            <h3 class="font-black text-2xl text-text mb-2 group-hover:text-accent transition-colors">Etix</h3>
+                            <p class="text-text-muted text-sm font-mono uppercase tracking-wider mb-1">2014 - 2016</p>
+                            <p class="text-text-muted/60 text-xs font-mono uppercase tracking-wider">Morrisville, NC</p>
+                        </div>
+                        <div class="md:col-span-8">
+                            <div class="flex flex-col h-full justify-center">
+                                <p class="text-accent text-sm font-bold uppercase tracking-widest mb-4">Technical Operations</p>
+                                <p class="text-text-muted text-lg font-light leading-relaxed">Responsible for equipment logistics, software cloning, and beta testing applications for large-scale events.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Flow Volkswagen -->
+                <div class="group relative bg-card-bg p-8 md:p-10 rounded-3xl border border-gray-200 dark:border-gray-800 hover:border-accent/30 transition-all duration-300 z-10">
+                    <div class="grid md:grid-cols-12 gap-6 md:gap-12 items-start">
+                        <div class="md:col-span-4">
+                            <h3 class="font-black text-2xl text-text mb-2 group-hover:text-accent transition-colors">Flow Volkswagen</h3>
+                            <p class="text-text-muted text-sm font-mono uppercase tracking-wider mb-1">2012 - 2013</p>
+                            <p class="text-text-muted/60 text-xs font-mono uppercase tracking-wider">Durham, NC</p>
+                        </div>
+                        <div class="md:col-span-8">
+                            <div class="flex flex-col h-full justify-center">
+                                <p class="text-accent text-sm font-bold uppercase tracking-widest mb-4">Parts Sales & Delivery</p>
+                                <p class="text-text-muted text-lg font-light leading-relaxed">Managed supply chains and logistics for automotive parts using ETKA system.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- The Federal -->
+                <div class="group relative bg-card-bg p-8 md:p-10 rounded-3xl border border-gray-200 dark:border-gray-800 hover:border-accent/30 transition-all duration-300 z-10">
+                    <div class="grid md:grid-cols-12 gap-6 md:gap-12 items-start">
+                        <div class="md:col-span-4">
+                            <h3 class="font-black text-2xl text-text mb-2 group-hover:text-accent transition-colors">The Federal</h3>
+                            <p class="text-text-muted text-sm font-mono uppercase tracking-wider mb-1">2011 - 2012</p>
+                            <p class="text-text-muted/60 text-xs font-mono uppercase tracking-wider">Durham, NC</p>
+                        </div>
+                        <div class="md:col-span-8">
+                            <div class="flex flex-col h-full justify-center">
+                                <p class="text-accent text-sm font-bold uppercase tracking-widest mb-4">Expo/Host</p>
+                                <p class="text-text-muted text-lg font-light leading-relaxed">Managed operations within a high-volume restaurant environment.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Guitar Center -->
+                <div class="group relative bg-card-bg p-8 md:p-10 rounded-3xl border border-gray-200 dark:border-gray-800 hover:border-accent/30 transition-all duration-300 z-10">
+                    <div class="grid md:grid-cols-12 gap-6 md:gap-12 items-start">
+                        <div class="md:col-span-4">
+                            <h3 class="font-black text-2xl text-text mb-2 group-hover:text-accent transition-colors">Guitar Center</h3>
+                            <p class="text-text-muted text-sm font-mono uppercase tracking-wider mb-1">2007 - 2011</p>
+                            <p class="text-text-muted/60 text-xs font-mono uppercase tracking-wider">Durham, NC</p>
+                        </div>
+                        <div class="md:col-span-8">
+                            <div class="flex flex-col h-full justify-center">
+                                <p class="text-accent text-sm font-bold uppercase tracking-widest mb-4">Assistant Manager</p>
+                                <p class="text-text-muted text-lg font-light leading-relaxed">Won regional sales awards while managing customer relationships and negotiations.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- EspressOasis -->
+                <div class="group relative bg-card-bg p-8 md:p-10 rounded-3xl border border-gray-200 dark:border-gray-800 hover:border-accent/30 transition-all duration-300 z-10">
+                    <div class="grid md:grid-cols-12 gap-6 md:gap-12 items-start">
+                        <div class="md:col-span-4">
+                            <h3 class="font-black text-2xl text-text mb-2 group-hover:text-accent transition-colors">EspressOasis</h3>
+                            <p class="text-text-muted text-sm font-mono uppercase tracking-wider mb-1">2003 - 2007</p>
+                            <p class="text-text-muted/60 text-xs font-mono uppercase tracking-wider">Durham, NC</p>
+                        </div>
+                        <div class="md:col-span-8">
+                            <div class="flex flex-col h-full justify-center">
+                                <p class="text-accent text-sm font-bold uppercase tracking-widest mb-4">Asst. & Catering Manager</p>
+                                <p class="text-text-muted text-lg font-light leading-relaxed">Managed operations at Duke University location.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- AIG-Valic -->
+                <div class="group relative bg-card-bg p-8 md:p-10 rounded-3xl border border-gray-200 dark:border-gray-800 hover:border-accent/30 transition-all duration-300 z-10">
+                    <div class="grid md:grid-cols-12 gap-6 md:gap-12 items-start">
+                        <div class="md:col-span-4">
+                            <h3 class="font-black text-2xl text-text mb-2 group-hover:text-accent transition-colors">AIG-Valic</h3>
+                            <p class="text-text-muted text-sm font-mono uppercase tracking-wider mb-1">May-Aug 2002</p>
+                            <p class="text-text-muted/60 text-xs font-mono uppercase tracking-wider">Durham, NC</p>
+                        </div>
+                        <div class="md:col-span-8">
+                            <div class="flex flex-col h-full justify-center">
+                                <p class="text-accent text-sm font-bold uppercase tracking-widest mb-4">Intern</p>
+                                <p class="text-text-muted text-lg font-light leading-relaxed">Gained experience in finance, investments, and cloud technology.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="bg-footer-bg text-text py-12 border-t border-gray-200 dark:border-gray-800">
+    <div class="container mx-auto px-4 md:px-6">
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <!-- Brand -->
+        <div class="flex flex-col items-start">
+          <img src="assets/img/rjfa_logo_grey_svg.svg" alt="RJFA" class="h-10 w-auto mb-4 grayscale opacity-80">
+          <p class="text-text-muted text-sm">
+            &copy; 2025 Rosean Frank-Alexander.<br>All rights reserved.
+          </p>
+        </div>
+
+        <!-- Navigation -->
+        <div>
+           <h3 class="text-lg font-bold mb-4 text-text tracking-widest uppercase opacity-60">Navigation</h3>
+           <ul class="space-y-2 text-text-muted text-sm uppercase tracking-wide">
+             <li><a href="index.html" class="hover:text-accent transition-colors">Home</a></li>
+             <li><a href="about.html" class="hover:text-accent transition-colors">About Me</a></li>
+             <li><a href="gallery.html" class="hover:text-accent transition-colors">Gallery</a></li>
+             <li><a href="connect.html" class="hover:text-accent transition-colors">Contact</a></li>
+           </ul>
+        </div>
+
+        <!-- Socials -->
+        <div>
+          <h3 class="text-lg font-bold mb-4 text-text tracking-widest uppercase opacity-60">Connect</h3>
+          <div class="flex space-x-4">
+            <a href="https://www.linkedin.com/in/rfrankale/" target="_blank" class="text-text-muted hover:text-accent transition-colors"><i data-lucide="linkedin" class="w-6 h-6"></i></a>
+            <a href="https://github.com/roseanfrankale" target="_blank" class="text-text-muted hover:text-accent transition-colors"><i data-lucide="github" class="w-6 h-6"></i></a>
+            <a href="https://dribbble.com/rjfa" target="_blank" class="text-text-muted hover:text-accent transition-colors"><i data-lucide="dribbble" class="w-6 h-6"></i></a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Lightbox -->
+  <div id="lightbox" class="fixed inset-0 z-[100] bg-black/95 backdrop-blur-sm hidden flex items-center justify-center opacity-0 transition-opacity duration-300">
+    <button id="lightbox-close" class="absolute top-6 right-6 text-white/70 hover:text-white transition-colors p-2">
+      <i data-lucide="x" class="w-8 h-8"></i>
+    </button>
+    <img id="lightbox-img" src="" alt="Profile Full" class="max-w-[90%] max-h-[90vh] object-contain rounded shadow-2xl">
+  </div>
+
+  <!-- Scripts -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+  <script src="assets/js/main.js"></script>
+  <script src="assets/js/about.js"></script>
+</body>
+</html>

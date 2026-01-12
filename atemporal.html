@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ATemporal Case Study | RJFA</title>
+  
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;700;900&family=Raleway:wght@400;700&display=swap" rel="stylesheet">
+  <script src="assets/js/tailwind-config.js"></script>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="assets/css/style.css">
+  <link rel="stylesheet" href="assets/css/case-study.css">
+  <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body class="bg-bg text-text antialiased transition-colors duration-300">
+
+  <!-- NAVBAR -->
+  <nav id="navbar" class="fixed w-full z-50 transition-all duration-300 py-6">
+    <div class="container mx-auto px-4 md:px-6">
+      <div class="flex justify-between items-center">
+        <!-- Logo -->
+        <a href="index.html" class="flex items-center group">
+           <img src="assets/img/rjfa_logo_grey_svg.svg" alt="RJFA" class="h-8 w-auto transition-all duration-300 dark:brightness-150 brightness-50 group-hover:opacity-80">
+        </a>
+
+        <!-- Desktop Menu -->
+        <div class="hidden md:flex items-center space-x-10">
+          <div class="flex space-x-8">
+            <a href="index.html" class="nav-link">Home</a>
+            <a href="about.html" class="nav-link">About Me</a>
+            <a href="gallery.html" class="nav-link">Gallery</a>
+            <a href="music.html" class="nav-link text-accent">Music</a>
+            <a href="connect.html" class="nav-link">Connect</a>
+          </div>
+          
+          <!-- Icons & Toggle -->
+          <div class="flex items-center space-x-5 border-l pl-8 border-gray-300 dark:border-gray-700 navbar-socials">
+            <div class="flex gap-4 ">
+              <a href="https://www.linkedin.com/in/rfrankale/" target="_blank"><i data-lucide="linkedin" class="w-4 h-4"></i></a>
+              <a href="https://github.com/roseanfrankale" target="_blank"><i data-lucide="github" class="w-4 h-4"></i></a>
+              <a href="https://dribbble.com/rjfa" target="_blank"><i data-lucide="dribbble" class="w-4 h-4"></i></a>
+            </div>
+            
+            <button id="theme-toggle" class="ml-4 p-2 rounded-full bg-bg text-text hover:text-accent transition-all hover:rotate-90 border-none">
+              <i data-lucide="moon" class="w-5 h-5"></i>
+            </button>
+          </div>
+        </div>
+
+        <!-- Mobile Toggle -->
+        <div class="flex items-center gap-4 md:hidden">
+          <button id="mobile-menu-btn" class="hamburger-btn focus:outline-none" aria-label="Toggle menu">
+            <span class="hamburger-line top"></span>
+            <span class="hamburger-line middle"></span>
+            <span class="hamburger-line bottom"></span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Mobile Menu -->
+      <div id="mobile-menu" class="hidden md:hidden absolute top-full left-0 w-full bg-bg/99 backdrop-blur-2xl shadow-2xl py-6 px-6 flex flex-col space-y-6 border-t border-gray-100 dark:border-gray-800">
+        <a href="index.html" class="text-sm uppercase tracking-wider font-bold text-text hover:text-accent">Home</a>
+        <a href="about.html" class="text-sm uppercase tracking-wider font-bold text-text hover:text-accent">About Me</a>
+        <a href="gallery.html" class="text-sm uppercase tracking-wider font-bold text-text hover:text-accent">Gallery</a>
+        <a href="music.html" class="text-sm uppercase tracking-wider font-bold text-accent">Music</a>
+        <a href="connect.html" class="text-sm uppercase tracking-wider font-bold text-text hover:text-accent">Connect</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <section class="pt-32 pb-16 container mx-auto px-4">
+    <div class="hero-content opacity-0 translate-y-10 max-w-5xl mx-auto">
+      
+      <h1 class="text-5xl md:text-7xl font-black mb-8 tracking-tight leading-tight text-text">
+        Creative Direction for ATemporal
+      </h1>
+      
+      <p class="text-xl md:text-2xl text-text-muted font-light leading-relaxed mb-10 max-w-4xl">
+        As the bass player for ATemporal, I contribute to the band's creative direction including promotional materials, posters, logos, and visual identity. This case study explores the visual language and design philosophy behind ATemporal's brand.
+      </p>
+
+      <!-- Tags -->
+      <div class="flex flex-wrap gap-3 mb-12">
+        <span class="px-4 py-2 bg-card-bg border border-gray-200 dark:border-gray-700 rounded-full text-sm font-medium">MUSIC</span>
+        <span class="px-4 py-2 bg-card-bg border border-gray-200 dark:border-gray-700 rounded-full text-sm font-medium">BRANDING</span>
+        <span class="px-4 py-2 bg-card-bg border border-gray-200 dark:border-gray-700 rounded-full text-sm font-medium">VISUAL DESIGN</span>
+      </div>
+
+      <!-- Metadata -->
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-8 pt-8 border-t border-gray-200 dark:border-gray-800">
+        <div>
+          <p class="text-xs uppercase tracking-widest text-text-muted mb-2">Date</p>
+          <p class="text-base font-semibold text-text">2024 - Present</p>
+        </div>
+        <div>
+          <p class="text-xs uppercase tracking-widest text-text-muted mb-2">Role</p>
+          <p class="text-base font-semibold text-text">Creative Director / Musician</p>
+        </div>
+        <div>
+          <p class="text-xs uppercase tracking-widest text-text-muted mb-2">Type</p>
+          <p class="text-base font-semibold text-text">Band / Branding</p>
+        </div>
+        <div>
+          <p class="text-xs uppercase tracking-widest text-text-muted mb-2">Status</p>
+          <p class="text-base font-semibold text-text">Active</p>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Overview Section -->
+  <section class="py-20 container mx-auto px-4">
+    <div class="max-w-5xl mx-auto">
+      
+      <h2 class="text-3xl md:text-4xl font-bold mb-16 text-text">Overview</h2>
+
+      <div class="grid md:grid-cols-12 gap-12 mb-16">
+        <div class="md:col-span-8">
+          <h3 class="text-2xl font-bold mb-6 text-text">What is ATemporal?</h3>
+          <p class="text-lg text-text-muted leading-relaxed mb-6">
+            ATemporal is an innovative music project that explores the intersection of contemporary electronic and organic sounds. As the bass player, I help craft the sonic landscape while also contributing to the band's visual identity and promotional materials.
+          </p>
+          <p class="text-lg text-text-muted leading-relaxed">
+            The band's name—ATemporal—reflects our philosophy: music that exists beyond the constraints of traditional time signatures and genre boundaries. The visual branding mirrors this ethos through a minimalist, forward-thinking aesthetic that feels both futuristic and timeless.
+          </p>
+        </div>
+      </div>
+
+      <!-- Quote Callout -->
+      <div class="bg-card-bg border-l-4 border-accent p-8 rounded-r-2xl mb-16">
+        <p class="text-2xl md:text-3xl font-light italic text-text leading-relaxed">
+          "Music beyond time: ATemporal exists in a space where genre, era, and expectation dissolve."
+        </p>
+      </div>
+
+      <div class="grid md:grid-cols-12 gap-12">
+        <div class="md:col-span-8">
+          <h3 class="text-2xl font-bold mb-6 text-text">The Goal</h3>
+          <p class="text-lg text-text-muted leading-relaxed">
+            Develop a cohesive visual identity for ATemporal that communicates the band's unique sonic vision. The branding needed to feel contemporary yet timeless, with promotional materials that could work across digital platforms, print, and live performance environments.
+          </p>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Vision Section -->
+  <section class="py-20 bg-section-bg">
+    <div class="container mx-auto px-4">
+      <div class="max-w-5xl mx-auto">
+        
+        <!-- Featured Image -->
+        <div class="lightbox-trigger relative rounded-2xl overflow-hidden shadow-2xl mb-8 group cursor-zoom-in">
+          <img src="assets/img/atemporal/hero.png" alt="ATemporal Band" class="w-full h-auto" />
+          <div class="absolute inset-0 bg-black/30 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+            <i data-lucide="zoom-in" class="text-white w-8 h-8"></i>
+          </div>
+        </div>
+        <p class="text-center text-text-muted text-sm uppercase tracking-widest">THE BAND</p>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Main Content Section -->
+  <section class="py-20 container mx-auto px-4">
+    <div class="max-w-5xl mx-auto">
+      
+      <h2 class="text-3xl md:text-4xl font-bold mb-8 text-text">Sound meets vision</h2>
+      
+      <p class="text-lg text-text-muted leading-relaxed mb-16 max-w-3xl">
+        Every band has a visual language. ATemporal needed one that matched the complexity and innovation of its sound. The challenge was creating promotional materials and branding that could elevate the live experience while maintaining consistency across digital platforms.
+      </p>
+
+      <p class="text-lg text-text-muted leading-relaxed mb-16 max-w-3xl">
+        My approach focuses on clean typography, bold geometric shapes, and a restrained color palette that allows the band's energy to shine through. Every poster, logo, and promotional piece is designed to intrigue listeners and reflect the band's commitment to artistic integrity.
+      </p>
+
+    </div>
+  </section>
+
+  <!-- Gallery Section -->
+  <section class="py-12 container mx-auto px-4">
+    <div class="max-w-6xl mx-auto space-y-12">
+
+      <!-- Image 1 - Full Width -->
+      <div class="space-y-4">
+        <div class="lightbox-trigger relative rounded-2xl overflow-hidden shadow-xl group cursor-zoom-in">
+          <img src="assets/img/atemporal/poster1.png" alt="ATemporal Tour Poster" class="w-full h-auto" />
+          <div class="absolute inset-0 bg-black/30 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+            <i data-lucide="zoom-in" class="text-white w-8 h-8"></i>
+          </div>
+        </div>
+        <p class="text-center text-text-muted text-sm">Event poster with bold typography</p>
+      </div>
+
+      <!-- Image 2 - Two Column -->
+      <div class="grid md:grid-cols-2 gap-8">
+        <div class="space-y-4">
+          <div class="lightbox-trigger relative rounded-2xl overflow-hidden shadow-xl group cursor-zoom-in">
+            <img src="assets/img/atemporal/logo.png" alt="ATemporal Logo" class="w-full h-auto max-h-[500px] object-contain bg-card-bg p-8" />
+            <div class="absolute inset-0 bg-black/30 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+              <i data-lucide="zoom-in" class="text-white w-8 h-8"></i>
+            </div>
+          </div>
+          <p class="text-center text-text-muted text-sm">Primary logo lockup</p>
+        </div>
+        <div class="space-y-4">
+          <div class="lightbox-trigger relative rounded-2xl overflow-hidden shadow-xl group cursor-zoom-in">
+            <img src="assets/img/atemporal/logo-mark.png" alt="ATemporal Mark" class="w-full h-auto max-h-[500px] object-contain bg-card-bg p-8" />
+            <div class="absolute inset-0 bg-black/30 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+              <i data-lucide="zoom-in" class="text-white w-8 h-8"></i>
+            </div>
+          </div>
+          <p class="text-center text-text-muted text-sm">Logo mark icon</p>
+        </div>
+      </div>
+
+      <!-- Image 3 - Full Width -->
+      <div class="space-y-4">
+        <div class="lightbox-trigger relative rounded-2xl overflow-hidden shadow-xl group cursor-zoom-in">
+          <img src="assets/img/atemporal/promotional.png" alt="ATemporal Promotional" class="w-full h-auto" />
+          <div class="absolute inset-0 bg-black/30 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+            <i data-lucide="zoom-in" class="text-white w-8 h-8"></i>
+          </div>
+        </div>
+        <p class="text-center text-text-muted text-sm">Social media promotional campaign</p>
+      </div>
+
+      <!-- Image 4 - Style Guide (Four Columns) -->
+      <div class="space-y-4 mb-8">
+        <h3 class="text-xl font-bold text-text mb-6">Brand Elements</h3>
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
+          <div class="space-y-3">
+            <div class="lightbox-trigger relative rounded-2xl overflow-hidden shadow-lg group cursor-zoom-in bg-card-bg p-4 flex items-center justify-center h-32">
+              <img src="assets/img/atemporal/color-primary.png" alt="Primary Color" class="w-full h-auto" />
+              <div class="absolute inset-0 bg-black/30 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                <i data-lucide="zoom-in" class="text-white w-6 h-6"></i>
+              </div>
+            </div>
+            <p class="text-center text-text-muted text-xs font-medium">Primary Accent</p>
+            <p class="text-center text-text-muted text-xs">#00D9FF</p>
+          </div>
+
+          <div class="space-y-3">
+            <div class="lightbox-trigger relative rounded-2xl overflow-hidden shadow-lg group cursor-zoom-in bg-card-bg p-4 flex items-center justify-center h-32">
+              <img src="assets/img/atemporal/color-secondary.png" alt="Secondary Color" class="w-full h-auto" />
+              <div class="absolute inset-0 bg-black/30 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                <i data-lucide="zoom-in" class="text-white w-6 h-6"></i>
+              </div>
+            </div>
+            <p class="text-center text-text-muted text-xs font-medium">Secondary</p>
+            <p class="text-center text-text-muted text-xs">#FF006E</p>
+          </div>
+
+          <div class="space-y-3">
+            <div class="lightbox-trigger relative rounded-2xl overflow-hidden shadow-lg group cursor-zoom-in bg-card-bg p-4 flex items-center justify-center h-32">
+              <img src="assets/img/atemporal/typography.png" alt="Typography" class="w-full h-auto" />
+              <div class="absolute inset-0 bg-black/30 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                <i data-lucide="zoom-in" class="text-white w-6 h-6"></i>
+              </div>
+            </div>
+            <p class="text-center text-text-muted text-xs font-medium">Typography</p>
+            <p class="text-center text-text-muted text-xs">Inter, Raleway</p>
+          </div>
+
+          <div class="space-y-3">
+            <div class="lightbox-trigger relative rounded-2xl overflow-hidden shadow-lg group cursor-zoom-in bg-card-bg p-4 flex items-center justify-center h-32">
+              <img src="assets/img/atemporal/icons.png" alt="Icon System" class="w-full h-auto" />
+              <div class="absolute inset-0 bg-black/30 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                <i data-lucide="zoom-in" class="text-white w-6 h-6"></i>
+              </div>
+            </div>
+            <p class="text-center text-text-muted text-xs font-medium">Icon System</p>
+            <p class="text-center text-text-muted text-xs">Lucide Icons</p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Key Takeaways -->
+  <section class="py-20 bg-section-bg">
+    <div class="container mx-auto px-4">
+      <div class="max-w-5xl mx-auto">
+        
+        <h2 class="text-3xl md:text-4xl font-bold mb-16 text-text">Key Takeaways</h2>
+
+        <div class="grid md:grid-cols-2 gap-12">
+          <div>
+            <h3 class="text-xl font-bold mb-4 text-text">Visual Identity</h3>
+            <p class="text-lg text-text-muted leading-relaxed">
+              Developed a cohesive brand identity that works across print and digital formats. The minimalist approach allows the band's music to be the primary focus while providing visual support.
+            </p>
+          </div>
+          
+          <div>
+            <h3 class="text-xl font-bold mb-4 text-text">Consistency</h3>
+            <p class="text-lg text-text-muted leading-relaxed">
+              Created a style guide ensuring all promotional materials maintain brand consistency, from social media to concert posters and merchandise designs.
+            </p>
+          </div>
+
+          <div>
+            <h3 class="text-xl font-bold mb-4 text-text">Adaptability</h3>
+            <p class="text-lg text-text-muted leading-relaxed">
+              Designed flexible systems that work across different sizes and mediums. Logo marks scale from favicon-sized to billboard-size without losing clarity.
+            </p>
+          </div>
+
+          <div>
+            <h3 class="text-xl font-bold mb-4 text-text">Community</h3>
+            <p class="text-lg text-text-muted leading-relaxed">
+              Used visual design to build connection with listeners and create a distinct community around ATemporal's music and artistic vision.
+            </p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="bg-footer-bg text-text py-12 border-t border-gray-200 dark:border-gray-800">
+    <div class="container mx-auto px-4 md:px-6">
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <!-- Brand -->
+        <div class="flex flex-col items-start">
+          <img src="assets/img/rjfa_logo_grey_svg.svg" alt="RJFA" class="h-10 w-auto mb-4 grayscale opacity-80">
+          <p class="text-text-muted text-sm">
+            &copy; 2025 Rosean Frank-Alexander.<br>All rights reserved.
+          </p>
+        </div>
+
+        <!-- Navigation -->
+        <div>
+          <h3 class="text-lg font-bold mb-4 text-text tracking-widest uppercase opacity-60">Navigation</h3>
+          <ul class="space-y-2 text-text-muted text-sm uppercase tracking-wide">
+            <li><a href="index.html" class="hover:text-accent transition-colors">Home</a></li>
+            <li><a href="about.html" class="hover:text-accent transition-colors">About Me</a></li>
+            <li><a href="gallery.html" class="hover:text-accent transition-colors">Gallery</a></li>
+            <li><a href="connect.html" class="hover:text-accent transition-colors">Contact</a></li>
+          </ul>
+        </div>
+
+        <!-- Socials -->
+        <div>
+          <h3 class="text-lg font-bold mb-4 text-text tracking-widest uppercase opacity-60">Connect</h3>
+          <div class="flex space-x-4">
+            <a href="https://www.linkedin.com/in/rfrankale/" target="_blank" class="text-text-muted hover:text-accent transition-colors"><i data-lucide="linkedin" class="w-6 h-6"></i></a>
+            <a href="https://github.com/roseanfrankale" target="_blank" class="text-text-muted hover:text-accent transition-colors"><i data-lucide="github" class="w-6 h-6"></i></a>
+            <a href="https://dribbble.com/rjfa" target="_blank" class="text-text-muted hover:text-accent transition-colors"><i data-lucide="dribbble" class="w-6 h-6"></i></a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+  <script src="assets/js/main.js"></script>
+  <script src="assets/js/case-study.js"></script>
+</body>
+</html>
