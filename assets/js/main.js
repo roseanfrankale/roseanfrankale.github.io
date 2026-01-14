@@ -77,4 +77,38 @@ document.addEventListener('DOMContentLoaded', () => {
     if (typeof lucide !== 'undefined') {
         lucide.createIcons();
     }
+
+    // 5. Project Filter (Featured Work Section)
+    const filterButtons = document.querySelectorAll('#project-filters .filter-btn');
+    const projectItems = document.querySelectorAll('.project-item');
+
+    filterButtons.forEach(button => {
+        button.addEventListener('click', () => {
+            // Update active button
+            filterButtons.forEach(btn => btn.classList.remove('active'));
+            button.classList.add('active');
+
+            const filterValue = button.getAttribute('data-filter');
+
+            // Show/hide projects based on filter
+            projectItems.forEach(item => {
+                const projectType = item.getAttribute('data-project-type');
+                
+                if (filterValue === 'all' || projectType === filterValue) {
+                    item.style.display = '';
+                    // Trigger animation
+                    setTimeout(() => {
+                        item.style.opacity = '1';
+                        item.style.transform = 'translateY(0)';
+                    }, 10);
+                } else {
+                    item.style.opacity = '0';
+                    item.style.transform = 'translateY(2.5rem)';
+                    setTimeout(() => {
+                        item.style.display = 'none';
+                    }, 300);
+                }
+            });
+        });
+    });
 });
