@@ -70,22 +70,45 @@ document.addEventListener('DOMContentLoaded', () => {
     const lightbox = document.getElementById('lightbox');
     const lightboxImg = document.getElementById('lightbox-img');
     const closeBtn = document.getElementById('lightbox-close');
+    const prevBtn = document.getElementById('lightbox-prev');
+    const nextBtn = document.getElementById('lightbox-next');
     const triggers = document.querySelectorAll('.lightbox-trigger');
 
     if (lightbox && lightboxImg && triggers.length > 0) {
-        triggers.forEach(trigger => {
+        let currentImageIndex = 0;
+        let galleryImages = [];
+
+        triggers.forEach((trigger, index) => {
             trigger.addEventListener('click', (e) => {
-                e.preventDefault(); // Prevent default if it wraps a link
+                e.preventDefault();
                 const img = trigger.querySelector('img');
                 if (img) {
-                    lightboxImg.src = img.src;
+                    // Get all lightbox triggers and their images
+                    galleryImages = Array.from(triggers).map(t => t.querySelector('img'));
+                    currentImageIndex = galleryImages.indexOf(img);
+                    
+                    displayImage(currentImageIndex);
                     lightbox.classList.remove('hidden');
-                    // Small timeout to allow display:flex to apply before opacity transition
                     setTimeout(() => lightbox.classList.remove('opacity-0'), 10);
                     document.body.style.overflow = 'hidden';
                 }
             });
         });
+
+        const displayImage = (index) => {
+            if (index >= 0 && index < galleryImages.length) {
+                currentImageIndex = index;
+                lightboxImg.src = galleryImages[index].src;
+            }
+        };
+
+        const nextImage = () => {
+            displayImage((currentImageIndex + 1) % galleryImages.length);
+        };
+
+        const prevImage = () => {
+            displayImage((currentImageIndex - 1 + galleryImages.length) % galleryImages.length);
+        };
 
         const closeLightbox = () => {
             lightbox.classList.add('opacity-0');
@@ -96,17 +119,19 @@ document.addEventListener('DOMContentLoaded', () => {
         };
 
         if (closeBtn) closeBtn.addEventListener('click', closeLightbox);
+        if (prevBtn) prevBtn.addEventListener('click', prevImage);
+        if (nextBtn) nextBtn.addEventListener('click', nextImage);
         
         lightbox.addEventListener('click', (e) => {
-            // Close if clicking the background, but not the image itself
             if (e.target === lightbox) closeLightbox();
         });
 
-        // Close on Escape key
+        // Keyboard navigation
         document.addEventListener('keydown', (e) => {
-            if (e.key === 'Escape' && !lightbox.classList.contains('hidden')) {
-                closeLightbox();
-            }
+            if (lightbox.classList.contains('hidden')) return;
+            if (e.key === 'Escape') closeLightbox();
+            if (e.key === 'ArrowLeft') prevImage();
+            if (e.key === 'ArrowRight') nextImage();
         });
     }
 });
