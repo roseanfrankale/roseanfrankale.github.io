@@ -72,6 +72,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const closeBtn = document.getElementById('lightbox-close');
     const prevBtn = document.getElementById('lightbox-prev');
     const nextBtn = document.getElementById('lightbox-next');
+    const counterCurrent = document.getElementById('lightbox-current');
+    const counterTotal = document.getElementById('lightbox-total');
     const triggers = document.querySelectorAll('.lightbox-trigger');
 
     if (lightbox && lightboxImg && triggers.length > 0) {
@@ -87,6 +89,9 @@ document.addEventListener('DOMContentLoaded', () => {
                     galleryImages = Array.from(triggers).map(t => t.querySelector('img'));
                     currentImageIndex = galleryImages.indexOf(img);
                     
+                    // Update counter total
+                    if (counterTotal) counterTotal.textContent = galleryImages.length;
+                    
                     displayImage(currentImageIndex);
                     lightbox.classList.remove('hidden');
                     setTimeout(() => lightbox.classList.remove('opacity-0'), 10);
@@ -99,6 +104,9 @@ document.addEventListener('DOMContentLoaded', () => {
             if (index >= 0 && index < galleryImages.length) {
                 currentImageIndex = index;
                 lightboxImg.src = galleryImages[index].src;
+                
+                // Update counter
+                if (counterCurrent) counterCurrent.textContent = index + 1;
             }
         };
 
