@@ -81,4 +81,71 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 
+  // --- 3. Accordion Logic ---
+  const accordionButtons = document.querySelectorAll('.accordion-btn');
+  accordionButtons.forEach(button => {
+    button.addEventListener('click', function() {
+      const index = this.dataset.accordion;
+      const content = document.querySelector(`.accordion-content[data-accordion="${index}"]`);
+      const icon = this.querySelector('.accordion-icon');
+
+      // Close other accordions
+      document.querySelectorAll('.accordion-content').forEach(c => {
+        if (c.dataset.accordion !== index) {
+          c.classList.add('hidden');
+          const prevBtn = c.previousElementSibling;
+          if (prevBtn && prevBtn.querySelector('.accordion-icon')) {
+            prevBtn.querySelector('.accordion-icon').style.transform = 'rotate(0deg)';
+          }
+        }
+      });
+
+      // Toggle current accordion
+      if (content) {
+        content.classList.toggle('hidden');
+        if (icon) {
+          icon.style.transform = content.classList.contains('hidden') ? 'rotate(0deg)' : 'rotate(45deg)';
+        }
+      }
+    });
+  });
+
+  // --- 4. Segmented Control & Carousel Logic ---
+  const segmentBtns = document.querySelectorAll('.segment-btn');
+  const contentSections = document.querySelectorAll('.content-section');
+  const carouselSlides = document.querySelectorAll('.carousel-slide');
+
+  segmentBtns.forEach(btn => {
+    btn.addEventListener('click', function(e) {
+      e.preventDefault();
+      const segment = this.getAttribute('data-segment');
+
+      // Update active button
+      segmentBtns.forEach(b => {
+        b.classList.remove('text-accent');
+        b.classList.add('text-text-muted');
+      });
+      this.classList.add('text-accent');
+      this.classList.remove('text-text-muted');
+
+      // Update content
+      contentSections.forEach(section => {
+        section.classList.toggle('hidden', section.getAttribute('data-content') !== segment);
+      });
+
+      // Update carousel
+      carouselSlides.forEach(slide => {
+        const isActive = slide.getAttribute('data-slide') === segment;
+        slide.classList.toggle('opacity-100', isActive);
+        slide.classList.toggle('opacity-0', !isActive);
+        slide.classList.toggle('pointer-events-none', !isActive);
+      });
+    });
+  });
+
+  // --- 5. Initialize Lucide Icons ---
+  if (window.lucide && typeof lucide.createIcons === 'function') {
+    lucide.createIcons();
+  }
+
 });
