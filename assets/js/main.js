@@ -93,8 +93,9 @@ document.addEventListener('DOMContentLoaded', () => {
             // Show/hide projects based on filter
             projectItems.forEach(item => {
                 const projectType = item.getAttribute('data-project-type');
+                const projectTypes = projectType ? projectType.split(',') : [];
                 
-                if (filterValue === 'all' || projectType === filterValue) {
+                if (filterValue === 'all' || projectTypes.includes(filterValue)) {
                     item.style.display = '';
                     // Trigger animation
                     setTimeout(() => {

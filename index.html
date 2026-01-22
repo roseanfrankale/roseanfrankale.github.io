@@ -98,11 +98,11 @@
       </div>
     </div>
 
-    <!-- Scroll Indicator -->
+    <!-- Scroll Indicator 
     <div class="absolute bottom-20 left-1/2 transform -translate-x-1/2 animate-bounce z-20">
         <a href="#work" class="flex flex-col items-center text-text-muted hover:text-accent transition-colors group">
            
-          <!--  Bouncing Line     
+           Bouncing Line     
     <div class="absolute bottom-10 left-1/2  z-20">
         <a href="#work" class="group animate-bounce block w-6 h-20 relative">
             <div class="absolute bottom-0 left-1/2 -translate-x-1/2 w-[1px] h-full bg-gradient-to-b from-transparent to-accent"></div>
@@ -118,23 +118,23 @@
   <!-- FEATURED WORK -->
   <section id="work" class="py-32 bg-section-bg relative">
     <div class="container mx-auto px-4 md:px-6">
-      <div class="mb-24 text-center md:text-left section-title-stacked">
+      <div class="mb-20 text-center md:text-left section-title-stacked">
          <h2 class="title-main text-text">Featured</h2>
          <h2 class="title-sub text-accent ml-0 md:ml-20">Work</h2>
       </div>
 
       <!-- Project Filter -->
-      <div class="sticky top-24 z-30 flex justify-center mb-16 px-4 pointer-events-none">
+      <div class="sticky top-24 z-30 flex justify-center mb-20 px-4 pointer-events-none">
         <div class="glass-filter-container pointer-events-auto flex flex-wrap justify-center gap-2 p-2 rounded-full transition-all duration-300" id="project-filters">
-          <button class="filter-btn active" data-filter="all">All Work</button>
+          <button class="filter-btn active" data-filter="all">All Work</button> <button class="filter-btn" data-filter="previous">Previous</button>
           <button class="filter-btn" data-filter="upcoming">Upcoming</button>
         </div>
       </div>
 
-      <div class="space-y-40">
+      <div class="space-y-30">
         
         <!-- Project 1: Nebusis -->
-        <div class="project-item flex flex-col lg:flex-row gap-16 items-center opacity-0 translate-y-10" data-project-type="all">
+        <div class="project-item flex flex-col lg:flex-row gap-16 mb-20 opacity-0 translate-y-10" data-project-type="all,previous">
             <div class="flex-1 w-full group perspective-1000">
                 <a href="nebusis.html" class="project-card-link">
                     <div class="project-card bg-gray-900 h-[400px]">
@@ -177,7 +177,7 @@
         </div>
 
         <!-- Project 2: Qurado -->
-        <div class="project-item flex flex-col lg:flex-row-reverse gap-16 items-center opacity-0 translate-y-10" data-project-type="all">
+        <div class="project-item flex flex-col lg:flex-row-reverse gap-16 mb-20  items-center opacity-0 translate-y-10" data-project-type="all,previous">
             <div class="flex-1 w-full group perspective-1000">
                 <a href="qurado.html" class="project-card-link">
                     <div class="project-card bg-gray-900 h-[400px]">
@@ -220,7 +220,7 @@
         </div>
 
         <!-- Project 3: Naesor -->
-        <div class="project-item flex flex-col lg:flex-row gap-16 items-center opacity-0 translate-y-10" data-project-type="all">
+        <div class="project-item flex flex-col lg:flex-row gap-16 mb-20  items-center opacity-0 translate-y-10" data-project-type="all,previous">
             <div class="flex-1 w-full group perspective-1000">
                 <a href="naesor.html" class="project-card-link">
                     <div class="project-card bg-gray-900 h-[400px]">
@@ -263,7 +263,7 @@
         </div>
 
         <!-- Project 4: BruVue -->
-        <div class="project-item flex flex-col lg:flex-row-reverse gap-16 items-center opacity-0 translate-y-10" data-project-type="all">
+        <div class="project-item flex flex-col lg:flex-row-reverse gap-16 mb-20  items-center opacity-0 translate-y-10" data-project-type="all,previous">
             <div class="flex-1 w-full group perspective-1000">
                 <a href="bruvue.html" class="project-card-link">
                     <div class="project-card bg-gray-900 h-[400px]">
@@ -306,7 +306,7 @@
         </div>
 
         <!-- Project 5: Place -->
-        <div class="project-item flex flex-col lg:flex-row gap-16 items-center opacity-0 translate-y-10" data-project-type="upcoming">
+        <div class="project-item flex flex-col lg:flex-row gap-16 mb-20 items-center opacity-0 translate-y-10" data-project-type="all,upcoming">
             <div class="flex-1 w-full group perspective-1000">
                 <a href="place.html" class="project-card-link">
                     <div class="project-card bg-gray-900 h-[400px]">
@@ -349,7 +349,7 @@
         </div>
 
         <!-- Project 6: ChronoLens -->
-        <div class="project-item flex flex-col lg:flex-row-reverse gap-16 items-center opacity-0 translate-y-10" data-project-type="upcoming">
+        <div class="project-item flex flex-col lg:flex-row-reverse gap-16 mb-20 items-center opacity-0 translate-y-10" data-project-type="all,upcoming">
             <div class="flex-1 w-full group perspective-1000">
                 <a href="chronolens.html" class="project-card-link">
                     <div class="project-card bg-gray-900 h-[400px]">

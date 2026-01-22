@@ -81,41 +81,95 @@
   <!-- Main Content -->
   <div class="container mx-auto px-4 md:px-6 py-24 md:py-32">
     
-    <!-- Hero Section with Profile Image -->
-    <div class="max-w-6xl mx-auto mb-32">
-      <div class="flex flex-col md:flex-row gap-12 md:gap-16 items-start md:items-center">
-        <!-- Profile Image (Left) -->
-        <div class="w-14 h-14 md:w-24 md:h-24 rounded-full overflow-hidden mb- flex-shrink-0">
-          <div class="relative overflow-hidden rounded-xl shadow-2xl group hover:shadow-2xl transition-all duration-300 hover:border-accent/50 cursor-pointer">
-            <img src="assets/img/sean_pro_foto_dl_1 .jpeg" alt="Rosean Frank-Alexander" class="w-full h-full object-cover rounded-lg group-hover:scale-110 transition-transform duration-300">
+    <!-- Hero Section with Segmented Control & Carousel -->
+    <div class="max-w-5xl mx-auto mb-32">
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-16">
+        
+        <!-- Left Side: Image Carousel & Segmented Control -->
+        <div class="flex flex-col gap-8">
+          
+          <!-- Image Carousel -->
+          <div class="relative rounded-3xl overflow-hidden shadow-2xl border border-gray-200 dark:border-gray-800">
+            <div id="carousel" class="relative w-full aspect-square bg-card-bg">
+              <!-- Slide 1: Personal -->
+              <div class="carousel-slide absolute inset-0 opacity-100 transition-opacity duration-500" data-slide="personal">
+                <img src="assets/img/sean_profile_photo.png" alt="Personal" class="w-full h-full object-cover">
+              </div>
+              <!-- Slide 2: Creative -->
+              <div class="carousel-slide absolute inset-0 opacity-0 transition-opacity duration-500 pointer-events-none" data-slide="creative">
+                <img src="assets/img/sean_profile_photo.png" alt="Creative" class="w-full h-full object-cover">
+              </div>
+              <!-- Slide 3: Professional -->
+              <div class="carousel-slide absolute inset-0 opacity-0 transition-opacity duration-500 pointer-events-none" data-slide="professional">
+                <img src="assets/img/sean_profile_photo.png" alt="Professional" class="w-full h-full object-cover">
+              </div>
+              <!-- Slide 4: Designer -->
+              <div class="carousel-slide absolute inset-0 opacity-0 transition-opacity duration-500 pointer-events-none" data-slide="designer">
+                <img src="assets/img/sean_profile_photo.png" alt="Designer" class="w-full h-full object-cover">
+              </div>
+            </div>
+          </div>
+
+          <!-- Segmented Control -->
+          <div class="flex justify-center gap-6">
+            <button class="segment-btn active p-3 transition-all duration-300 text-accent" data-segment="personal"><i data-lucide="user" class="w-6 h-6"></i></button>
+            <button class="segment-btn p-3 transition-all duration-300 text-text-muted hover:text-text" data-segment="creative"><i data-lucide="music" class="w-6 h-6"></i></button>
+            <button class="segment-btn p-3 transition-all duration-300 text-text-muted hover:text-text" data-segment="professional"><i data-lucide="briefcase" class="w-6 h-6"></i></button>
+            <button class="segment-btn p-3 transition-all duration-300 text-text-muted hover:text-text" data-segment="designer"><i data-lucide="layout" class="w-6 h-6"></i></button>
           </div>
         </div>
 
-        <!-- Biography (Right) -->
-        <div class="w-full flex flex-col justify-center space-y-6">
-          <div>
-            <h1 class="text-5xl md:text-6xl font-black mb-4 text-text uppercase tracking-tight">Hello!</h1>
-            <p class="text-2xl text-accent font-bold mb-6 uppercase tracking-widest">I'm Rosean Frank-Alexander</p>
-          </div>
+        <!-- Right Side: Content Sections -->
+        <div class="flex flex-col justify-start space-y-12">
           
-          <p class="text-text-muted text-lg leading-relaxed font-light">
-            I'm a Product Thinker and Designer with a formal background in Information Technology. My work revolves around creating user experiences that are thoughtful and innovative, often blending emerging technologies with practical design thinking.
-          </p>
+          <!-- Personal Section -->
+          <div class="content-section active" data-content="personal">
+            <h2 class="text-3xl md:text-4xl font-black mb-3 text-text uppercase tracking-tight">Hello!</h2>
+            <p class="text-text-muted text-lg leading-relaxed font-light">
+              I'm Rosean Frank-Alexander
+            </p>
+            <p class="text-text-muted text-base leading-relaxed font-light mt-4">
+              I'm a Product Thinker and Designer with a formal background in Information Technology. My work revolves around creating user experiences that are thoughtful and innovative, often blending emerging technologies with practical design thinking.
+            </p>
+            <p class="text-text-muted text-base leading-relaxed font-light mt-4">
+              My journey across various roles has shaped the way I approach product design—always curious, collaborative, and driven by impact. I focus on connecting users, stakeholders, and business goals through experiences that feel intuitive and intentional.
+            </p>
+          </div>
 
-          <p class="text-text-muted text-lg leading-relaxed font-light">
-            My journey across various roles has shaped the way I approach product design—always curious, collaborative, and driven by impact. I focus on connecting users, stakeholders, and business goals through experiences that feel intuitive and intentional.
-          </p>
+          <!-- Creative Section -->
+          <div class="content-section hidden" data-content="creative">
+            <h2 class="text-3xl md:text-4xl font-black mb-3 text-text uppercase tracking-tight">Creative Foundation</h2>
+            <p class="text-text-muted text-base leading-relaxed font-light">
+              There's a musical edge to everything I do. As a former professional musician and bass player, I've carried the principles of harmony, rhythm, and improvisation into the tech world. This creative foundation helps me approach challenges from unexpected angles.
+            </p>
+            <p class="text-text-muted text-base leading-relaxed font-light mt-4">
+              My experience touring with bands and recording in studios taught me collaboration, listening, and how to create something greater than the sum of its parts. I bring those same principles into every project and team I work with.
+            </p>
+          </div>
 
-          <p class="text-text-muted text-lg leading-relaxed font-light">
-            There's a musical edge to everything I do, too. As a former professional musician, I've carried the principles of harmony, rhythm, and improvisation into the tech world. This creative foundation helps me approach challenges from unexpected angles.
-          </p>
+          <!-- Professional Section -->
+          <div class="content-section hidden" data-content="professional">
+            <h2 class="text-3xl md:text-4xl font-black mb-3 text-text uppercase tracking-tight">Pushing Pixels for +7 Years</h2>
+            <p class="text-text-muted text-base leading-relaxed font-light">
+              I landed my first design job at an agency when I was 18. Since then, I've been blessed to work with great teams across fintech, healthcare, IoT, and cloud services. My experience spans from startups to established companies, and I've learned something valuable from each environment.
+            </p>
+          </div>
 
-          <div class="flex flex-wrap gap-4 mt-8">
-            <a href="assets/pdf/Resume_2025_Rosean_Frank_Alexander.pdf" download class="px-6 py-3 bg-accent text-white font-bold uppercase text-sm tracking-widest rounded-full hover:bg-accent/80 transition-all duration-300 shadow-lg hover:shadow-xl">Download CV</a>
-            <a href="music.html" class="px-6 py-3 border-2 border-accent text-accent font-bold uppercase text-sm tracking-widest rounded-full hover:bg-accent hover:text-white transition-all duration-300 shadow-lg hover:shadow-xl">Musical Portfolio</a>
+          <!-- Designer Section -->
+          <div class="content-section hidden" data-content="designer">
+            <h2 class="text-3xl md:text-4xl font-black mb-3 text-text uppercase tracking-tight">Started Tinkering at 14</h2>
+            <p class="text-text-muted text-base leading-relaxed font-light">
+              My first design experience was building a website for my mom's bakery at 14. That sparked my love for using design to solve real problems. As a former professional musician, I've carried the principles of harmony, rhythm, and improvisation into tech—helping me approach challenges from unexpected angles.
+            </p>
           </div>
         </div>
       </div>
+    </div>
+
+    <!-- CTA Buttons -->
+    <div class="max-w-5xl mx-auto mb-32 flex flex-wrap gap-4">
+      <a href="resume.html" download class="px-6 py-3 bg-accent text-white font-bold uppercase text-sm tracking-widest rounded-full hover:bg-accent/80 transition-all duration-300 shadow-lg hover:shadow-xl">Download CV</a>
+      <a href="music.html" class="px-6 py-3 border-2 border-accent text-accent font-bold uppercase text-sm tracking-widest rounded-full hover:bg-accent hover:text-white transition-all duration-300">Musical Portfolio</a>
     </div>
 
     <!-- What Sets Me Apart -->
@@ -226,8 +280,24 @@
             </div>
           </button>
           <div class="accordion-content hidden px-8 md:px-10 pb-8 border-t border-gray-200 dark:border-gray-800" data-accordion="0">
-            <p class="text-text-muted text-lg font-light leading-relaxed">Recurring Contract assisting CEO with projects of varying degrees. Focused on product lifecycle, operations, and AI integration.</p>
+            <p class="text-text-muted text-lg font-light leading-relaxed">Led digital transformation initiatives at a cloud infrastructure company, driving product strategy and managing cross-functional implementations for enterprise clients.</p>
           </div>
+        </div>
+        <!-- Nebusis -->
+        <div class="bg-card-bg rounded-3xl border border-gray-200 dark:border-gray-800 overflow-hidden">
+          <button class="accordion-btn w-full text-left p-8 md:p-10 hover:border-accent/30 transition-all duration-300 group" data-accordion="0">
+            <div class="flex justify-between items-start gap-4">
+              <div class="flex-1">
+                <a href="https://nebusis.com" target="_blank" class="font-black text-xl md:text-2xl text-text group-hover:text-accent transition-colors hover:underline">Nebusis Cloud Services</a>
+                <p class="text-text-muted text-sm font-light mt-1">Product & Project Manager</p>
+              </div>
+              <div class="text-right flex-shrink-0">
+                <p class="text-text text-sm font-mono font-bold">Nov 2020 - Present</p>
+                <p class="text-text-muted/60 text-xs font-mono uppercase tracking-wider mt-1">Durham, NC / Madrid, Spain</p>
+              </div>
+              <i data-lucide="plus" class="accordion-icon w-6 h-6 text-accent flex-shrink-0 transition-transform duration-300"></i>
+            </div>
+          </button>
         </div>
 
         <!-- NewSoil -->
@@ -236,14 +306,16 @@
             <div class="flex justify-between items-start gap-4">
               <div class="flex-1">
                 <h3 class="font-black text-xl md:text-2xl text-text group-hover:text-accent transition-colors">NewSoil, LLC.</h3>
-                <p class="text-text-muted text-sm font-mono uppercase tracking-wider mb-1">Aug 2019 - Jun 2020</p>
-                <p class="text-text-muted/60 text-xs font-mono uppercase tracking-wider">Durham, NC</p>
-                <p class="text-accent text-sm font-bold uppercase tracking-widest mt-3">Technology Consultant</p>
+                <p class="text-text-muted text-sm font-light mt-1">Technology Consultant</p>
               </div>
-              <i data-lucide="chevron-down" class="accordion-icon w-6 h-6 text-accent flex-shrink-0 transition-transform duration-300"></i>
+              <div class="text-right flex-shrink-0">
+                <p class="text-text text-sm font-mono font-bold">Aug 2019 - Jun 2020</p>
+                <p class="text-text-muted/60 text-xs font-mono uppercase tracking-wider mt-1">Durham, NC</p>
+              </div>
+              <i data-lucide="plus" class="accordion-icon w-6 h-6 text-accent flex-shrink-0 transition-transform duration-300"></i>
             </div>
           </button>
-          <div class="accordion-content hidden px-8 md:px-10 pb-8 border-t border-gray-200 dark:border-gray-800" data-accordion="1">
+          <div class="accordion-content hidden px-8 md:p-10 pb-8 border-t border-gray-200 dark:border-gray-800" data-accordion="1">
             <p class="text-text-muted text-lg font-light leading-relaxed">Founder and Co-Owner of an SMB to increase internet presence and sales. Implemented e-commerce solutions.</p>
           </div>
         </div>
@@ -254,14 +326,16 @@
             <div class="flex justify-between items-start gap-4">
               <div class="flex-1">
                 <h3 class="font-black text-xl md:text-2xl text-text group-hover:text-accent transition-colors">CureMint</h3>
-                <p class="text-text-muted text-sm font-mono uppercase tracking-wider mb-1">Jul 2019 - Aug 2019</p>
-                <p class="text-text-muted/60 text-xs font-mono uppercase tracking-wider">Durham, NC</p>
-                <p class="text-accent text-sm font-bold uppercase tracking-widest mt-3">Director of Customer Success</p>
+                <p class="text-text-muted text-sm font-light mt-1">Director of Customer Success</p>
               </div>
-              <i data-lucide="chevron-down" class="accordion-icon w-6 h-6 text-accent flex-shrink-0 transition-transform duration-300"></i>
+              <div class="text-right flex-shrink-0">
+                <p class="text-text text-sm font-mono font-bold">Jul 2019 - Aug 2019</p>
+                <p class="text-text-muted/60 text-xs font-mono uppercase tracking-wider mt-1">Durham, NC</p>
+              </div>
+              <i data-lucide="plus" class="accordion-icon w-6 h-6 text-accent flex-shrink-0 transition-transform duration-300"></i>
             </div>
           </button>
-          <div class="accordion-content hidden px-8 md:px-10 pb-8 border-t border-gray-200 dark:border-gray-800" data-accordion="2">
+          <div class="accordion-content hidden px-8 md:p-10 pb-8 border-t border-gray-200 dark:border-gray-800" data-accordion="2">
             <p class="text-text-muted text-lg font-light leading-relaxed">Collaborated with CEO on features, training sessions, and documentation for dental procurement software during MVP stage.</p>
           </div>
         </div>
@@ -272,14 +346,16 @@
             <div class="flex justify-between items-start gap-4">
               <div class="flex-1">
                 <h3 class="font-black text-xl md:text-2xl text-text group-hover:text-accent transition-colors">BruVue</h3>
-                <p class="text-text-muted text-sm font-mono uppercase tracking-wider mb-1">Jan 2019 - Jul 2019</p>
-                <p class="text-text-muted/60 text-xs font-mono uppercase tracking-wider">Raleigh, NC</p>
-                <p class="text-accent text-sm font-bold uppercase tracking-widest mt-3">Director of Customer Success</p>
+                <p class="text-text-muted text-sm font-light mt-1">Director of Customer Success</p>
               </div>
-              <i data-lucide="chevron-down" class="accordion-icon w-6 h-6 text-accent flex-shrink-0 transition-transform duration-300"></i>
+              <div class="text-right flex-shrink-0">
+                <p class="text-text text-sm font-mono font-bold">Jan 2019 - Jul 2019</p>
+                <p class="text-text-muted/60 text-xs font-mono uppercase tracking-wider mt-1">Raleigh, NC</p>
+              </div>
+              <i data-lucide="plus" class="accordion-icon w-6 h-6 text-accent flex-shrink-0 transition-transform duration-300"></i>
             </div>
           </button>
-          <div class="accordion-content hidden px-8 md:px-10 pb-8 border-t border-gray-200 dark:border-gray-800" data-accordion="3">
+          <div class="accordion-content hidden px-8 md:p-10 pb-8 border-t border-gray-200 dark:border-gray-800" data-accordion="3">
             <p class="text-text-muted text-lg font-light leading-relaxed">IoT sector experience. Managed customer retention, onboarding processes, and assisted with product feedback loops.</p>
           </div>
         </div>
@@ -290,14 +366,16 @@
             <div class="flex justify-between items-start gap-4">
               <div class="flex-1">
                 <h3 class="font-black text-xl md:text-2xl text-text group-hover:text-accent transition-colors">Marca Global, LLC.</h3>
-                <p class="text-text-muted text-sm font-mono uppercase tracking-wider mb-1">Oct 2017 - Mar 2018</p>
-                <p class="text-text-muted/60 text-xs font-mono uppercase tracking-wider">Denver, CO</p>
-                <p class="text-accent text-sm font-bold uppercase tracking-widest mt-3">Inside Sales Rep</p>
+                <p class="text-text-muted text-sm font-light mt-1">Inside Sales Rep</p>
               </div>
-              <i data-lucide="chevron-down" class="accordion-icon w-6 h-6 text-accent flex-shrink-0 transition-transform duration-300"></i>
+              <div class="text-right flex-shrink-0">
+                <p class="text-text text-sm font-mono font-bold">Oct 2017 - Mar 2018</p>
+                <p class="text-text-muted/60 text-xs font-mono uppercase tracking-wider mt-1">Denver, CO</p>
+              </div>
+              <i data-lucide="plus" class="accordion-icon w-6 h-6 text-accent flex-shrink-0 transition-transform duration-300"></i>
             </div>
           </button>
-          <div class="accordion-content hidden px-8 md:px-10 pb-8 border-t border-gray-200 dark:border-gray-800" data-accordion="4">
+          <div class="accordion-content hidden px-8 md:p-10 pb-8 border-t border-gray-200 dark:border-gray-800" data-accordion="4">
             <p class="text-text-muted text-lg font-light leading-relaxed">Managed sales for InternetReputation.com products, focusing on SEO rankings.</p>
           </div>
         </div>
@@ -308,14 +386,16 @@
             <div class="flex justify-between items-start gap-4">
               <div class="flex-1">
                 <h3 class="font-black text-xl md:text-2xl text-text group-hover:text-accent transition-colors">Spreedly</h3>
-                <p class="text-text-muted text-sm font-mono uppercase tracking-wider mb-1">2016 - 2017</p>
-                <p class="text-text-muted/60 text-xs font-mono uppercase tracking-wider">Durham, NC</p>
-                <p class="text-accent text-sm font-bold uppercase tracking-widest mt-3">Project/Customer Success Manager</p>
+                <p class="text-text-muted text-sm font-light mt-1">Project/Customer Success Manager</p>
               </div>
-              <i data-lucide="chevron-down" class="accordion-icon w-6 h-6 text-accent flex-shrink-0 transition-transform duration-300"></i>
+              <div class="text-right flex-shrink-0">
+                <p class="text-text text-sm font-mono font-bold">2016 - 2017</p>
+                <p class="text-text-muted/60 text-xs font-mono uppercase tracking-wider mt-1">Durham, NC</p>
+              </div>
+              <i data-lucide="plus" class="accordion-icon w-6 h-6 text-accent flex-shrink-0 transition-transform duration-300"></i>
             </div>
           </button>
-          <div class="accordion-content hidden px-8 md:px-10 pb-8 border-t border-gray-200 dark:border-gray-800" data-accordion="5">
+          <div class="accordion-content hidden px-8 md:p-10 pb-8 border-t border-gray-200 dark:border-gray-800" data-accordion="5">
             <p class="text-text-muted text-lg font-light leading-relaxed">FinTech startup experience. Gained perspective on SDLC and SRE practices while managing customer implementations.</p>
           </div>
         </div>
@@ -326,14 +406,16 @@
             <div class="flex justify-between items-start gap-4">
               <div class="flex-1">
                 <h3 class="font-black text-xl md:text-2xl text-text group-hover:text-accent transition-colors">Etix</h3>
-                <p class="text-text-muted text-sm font-mono uppercase tracking-wider mb-1">2014 - 2016</p>
-                <p class="text-text-muted/60 text-xs font-mono uppercase tracking-wider">Morrisville, NC</p>
-                <p class="text-accent text-sm font-bold uppercase tracking-widest mt-3">Technical Operations</p>
+                <p class="text-text-muted text-sm font-light mt-1">Technical Operations</p>
               </div>
-              <i data-lucide="chevron-down" class="accordion-icon w-6 h-6 text-accent flex-shrink-0 transition-transform duration-300"></i>
+              <div class="text-right flex-shrink-0">
+                <p class="text-text text-sm font-mono font-bold">2014 - 2016</p>
+                <p class="text-text-muted/60 text-xs font-mono uppercase tracking-wider mt-1">Morrisville, NC</p>
+              </div>
+              <i data-lucide="plus" class="accordion-icon w-6 h-6 text-accent flex-shrink-0 transition-transform duration-300"></i>
             </div>
           </button>
-          <div class="accordion-content hidden px-8 md:px-10 pb-8 border-t border-gray-200 dark:border-gray-800" data-accordion="6">
+          <div class="accordion-content hidden px-8 md:p-10 pb-8 border-t border-gray-200 dark:border-gray-800" data-accordion="6">
             <p class="text-text-muted text-lg font-light leading-relaxed">Responsible for equipment logistics, software cloning, and beta testing applications for large-scale events.</p>
           </div>
         </div>
@@ -344,14 +426,16 @@
             <div class="flex justify-between items-start gap-4">
               <div class="flex-1">
                 <h3 class="font-black text-xl md:text-2xl text-text group-hover:text-accent transition-colors">Flow Volkswagen</h3>
-                <p class="text-text-muted text-sm font-mono uppercase tracking-wider mb-1">2012 - 2013</p>
-                <p class="text-text-muted/60 text-xs font-mono uppercase tracking-wider">Durham, NC</p>
-                <p class="text-accent text-sm font-bold uppercase tracking-widest mt-3">Parts Sales & Delivery</p>
+                <p class="text-text-muted text-sm font-light mt-1">Parts Sales & Delivery</p>
               </div>
-              <i data-lucide="chevron-down" class="accordion-icon w-6 h-6 text-accent flex-shrink-0 transition-transform duration-300"></i>
+              <div class="text-right flex-shrink-0">
+                <p class="text-text text-sm font-mono font-bold">2012 - 2013</p>
+                <p class="text-text-muted/60 text-xs font-mono uppercase tracking-wider mt-1">Durham, NC</p>
+              </div>
+              <i data-lucide="plus" class="accordion-icon w-6 h-6 text-accent flex-shrink-0 transition-transform duration-300"></i>
             </div>
           </button>
-          <div class="accordion-content hidden px-8 md:px-10 pb-8 border-t border-gray-200 dark:border-gray-800" data-accordion="7">
+          <div class="accordion-content hidden px-8 md:p-10 pb-8 border-t border-gray-200 dark:border-gray-800" data-accordion="7">
             <p class="text-text-muted text-lg font-light leading-relaxed">Managed supply chains and logistics for automotive parts using ETKA system.</p>
           </div>
         </div>
@@ -362,14 +446,16 @@
             <div class="flex justify-between items-start gap-4">
               <div class="flex-1">
                 <h3 class="font-black text-xl md:text-2xl text-text group-hover:text-accent transition-colors">The Federal</h3>
-                <p class="text-text-muted text-sm font-mono uppercase tracking-wider mb-1">2011 - 2012</p>
-                <p class="text-text-muted/60 text-xs font-mono uppercase tracking-wider">Durham, NC</p>
-                <p class="text-accent text-sm font-bold uppercase tracking-widest mt-3">Expo/Host</p>
+                <p class="text-text-muted text-sm font-light mt-1">Expo/Host</p>
               </div>
-              <i data-lucide="chevron-down" class="accordion-icon w-6 h-6 text-accent flex-shrink-0 transition-transform duration-300"></i>
+              <div class="text-right flex-shrink-0">
+                <p class="text-text text-sm font-mono font-bold">2011 - 2012</p>
+                <p class="text-text-muted/60 text-xs font-mono uppercase tracking-wider mt-1">Durham, NC</p>
+              </div>
+              <i data-lucide="plus" class="accordion-icon w-6 h-6 text-accent flex-shrink-0 transition-transform duration-300"></i>
             </div>
           </button>
-          <div class="accordion-content hidden px-8 md:px-10 pb-8 border-t border-gray-200 dark:border-gray-800" data-accordion="8">
+          <div class="accordion-content hidden px-8 md:p-10 pb-8 border-t border-gray-200 dark:border-gray-800" data-accordion="8">
             <p class="text-text-muted text-lg font-light leading-relaxed">Managed operations within a high-volume restaurant environment.</p>
           </div>
         </div>
@@ -380,14 +466,16 @@
             <div class="flex justify-between items-start gap-4">
               <div class="flex-1">
                 <h3 class="font-black text-xl md:text-2xl text-text group-hover:text-accent transition-colors">Guitar Center</h3>
-                <p class="text-text-muted text-sm font-mono uppercase tracking-wider mb-1">2007 - 2011</p>
-                <p class="text-text-muted/60 text-xs font-mono uppercase tracking-wider">Durham, NC</p>
-                <p class="text-accent text-sm font-bold uppercase tracking-widest mt-3">Assistant Manager</p>
+                <p class="text-text-muted text-sm font-light mt-1">Assistant Manager</p>
               </div>
-              <i data-lucide="chevron-down" class="accordion-icon w-6 h-6 text-accent flex-shrink-0 transition-transform duration-300"></i>
+              <div class="text-right flex-shrink-0">
+                <p class="text-text text-sm font-mono font-bold">2007 - 2011</p>
+                <p class="text-text-muted/60 text-xs font-mono uppercase tracking-wider mt-1">Durham, NC</p>
+              </div>
+              <i data-lucide="plus" class="accordion-icon w-6 h-6 text-accent flex-shrink-0 transition-transform duration-300"></i>
             </div>
           </button>
-          <div class="accordion-content hidden px-8 md:px-10 pb-8 border-t border-gray-200 dark:border-gray-800" data-accordion="9">
+          <div class="accordion-content hidden px-8 md:p-10 pb-8 border-t border-gray-200 dark:border-gray-800" data-accordion="9">
             <p class="text-text-muted text-lg font-light leading-relaxed">Won regional sales awards while managing customer relationships and negotiations.</p>
           </div>
         </div>
@@ -398,14 +486,16 @@
             <div class="flex justify-between items-start gap-4">
               <div class="flex-1">
                 <h3 class="font-black text-xl md:text-2xl text-text group-hover:text-accent transition-colors">EspressOasis</h3>
-                <p class="text-text-muted text-sm font-mono uppercase tracking-wider mb-1">2003 - 2007</p>
-                <p class="text-text-muted/60 text-xs font-mono uppercase tracking-wider">Durham, NC</p>
-                <p class="text-accent text-sm font-bold uppercase tracking-widest mt-3">Asst. & Catering Manager</p>
+                <p class="text-text-muted text-sm font-light mt-1">Asst. & Catering Manager</p>
               </div>
-              <i data-lucide="chevron-down" class="accordion-icon w-6 h-6 text-accent flex-shrink-0 transition-transform duration-300"></i>
+              <div class="text-right flex-shrink-0">
+                <p class="text-text text-sm font-mono font-bold">2003 - 2007</p>
+                <p class="text-text-muted/60 text-xs font-mono uppercase tracking-wider mt-1">Durham, NC</p>
+              </div>
+              <i data-lucide="plus" class="accordion-icon w-6 h-6 text-accent flex-shrink-0 transition-transform duration-300"></i>
             </div>
           </button>
-          <div class="accordion-content hidden px-8 md:px-10 pb-8 border-t border-gray-200 dark:border-gray-800" data-accordion="10">
+          <div class="accordion-content hidden px-8 md:p-10 pb-8 border-t border-gray-200 dark:border-gray-800" data-accordion="10">
             <p class="text-text-muted text-lg font-light leading-relaxed">Managed operations at Duke University location.</p>
           </div>
         </div>
@@ -416,14 +506,16 @@
             <div class="flex justify-between items-start gap-4">
               <div class="flex-1">
                 <h3 class="font-black text-xl md:text-2xl text-text group-hover:text-accent transition-colors">AIG-Valic</h3>
-                <p class="text-text-muted text-sm font-mono uppercase tracking-wider mb-1">May-Aug 2002</p>
-                <p class="text-text-muted/60 text-xs font-mono uppercase tracking-wider">Durham, NC</p>
-                <p class="text-accent text-sm font-bold uppercase tracking-widest mt-3">Intern</p>
+                <p class="text-text-muted text-sm font-light mt-1">Intern</p>
               </div>
-              <i data-lucide="chevron-down" class="accordion-icon w-6 h-6 text-accent flex-shrink-0 transition-transform duration-300"></i>
+              <div class="text-right flex-shrink-0">
+                <p class="text-text text-sm font-mono font-bold">May-Aug 2002</p>
+                <p class="text-text-muted/60 text-xs font-mono uppercase tracking-wider mt-1">Durham, NC</p>
+              </div>
+              <i data-lucide="plus" class="accordion-icon w-6 h-6 text-accent flex-shrink-0 transition-transform duration-300"></i>
             </div>
           </button>
-          <div class="accordion-content hidden px-8 md:px-10 pb-8 border-t border-gray-200 dark:border-gray-800" data-accordion="11">
+          <div class="accordion-content hidden px-8 md:p-10 pb-8 border-t border-gray-200 dark:border-gray-800" data-accordion="11">
             <p class="text-text-muted text-lg font-light leading-relaxed">Gained experience in finance, investments, and cloud technology.</p>
           </div>
         </div>
@@ -516,32 +608,6 @@
   <!-- Scripts -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
   <script src="assets/js/main.js"></script>
-  </script>
-      </div>
-    </div>
-  </div>
-</body>
-      button.addEventListener('click', function() {
-        const index = this.dataset.accordion;
-        const content = document.querySelector(`.accordion-content[data-accordion="${index}"]`);
-        const icon = this.querySelector('.accordion-icon');
-        
-        // Close other accordions
-        document.querySelectorAll('.accordion-content').forEach(c => {
-          if (c.dataset.accordion !== index) {
-            c.classList.add('hidden');
-            const prevBtn = c.previousElementSibling;
-            if (prevBtn && prevBtn.querySelector('.accordion-icon')) {
-              prevBtn.querySelector('.accordion-icon').style.transform = 'rotate(0deg)';
-            }
-          }
-        });
-        
-        // Toggle current accordion
-        content.classList.toggle('hidden');
-        icon.style.transform = content.classList.contains('hidden') ? 'rotate(0deg)' : 'rotate(180deg)';
-      });
-    });
-  </script>
-</body>
-</html>
+  <script src="assets/js/about.js"></script>
+  </body>
+  </html>
