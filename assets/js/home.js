@@ -18,7 +18,7 @@ document.addEventListener('DOMContentLoaded', () => {
             scrollTrigger: {
                 trigger: project,
                 start: "top 80%", // Start animation when top of card hits 80% of viewport
-                toggleActions: "play none none reverse"
+                toggleActions: "play none none none"
             },
             opacity: 1,
             y: 0,

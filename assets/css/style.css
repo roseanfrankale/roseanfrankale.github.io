@@ -139,8 +139,44 @@ body {
   line-height: 0.9;
   letter-spacing: -0.05em;
   color: var(--accent);
-  margin-top: -0.2em; /* Tighter vertical stacking */
+  margin-top: .2em; /* Tighter vertical stacking */
   display: block;
+}
+
+/* Featured title rotation & filter docking */
+.title-rotated-offset {
+  display: inline-block;
+  transform: none;
+  transform-origin: left bottom;
+}
+
+/* Mobile: no rotation */
+@media (max-width: 767px) {
+  .title-rotated-offset { 
+    transform: none;
+    margin-left: 0 !important;
+  }
+}
+
+/* Tablet: start rotation with adjusted positioning */
+@media (min-width: 768px) and (max-width: 1023px) {
+  .title-rotated-offset { 
+    transform: rotate(-90deg) translate(-18%, 28%);
+  }
+}
+
+/* Desktop 1024-1440px: standard rotation */
+@media (min-width: 1024px) and (max-width: 1440px) {
+  .title-rotated-offset { 
+    transform: rotate(-90deg) translate(-22%, 36%);
+  }
+}
+
+/* Large Desktop 1441px+: adjusted for larger screens */
+@media (min-width: 1441px) {
+  .title-rotated-offset { 
+    transform: rotate(-90deg) translate(-25%, 42%);
+  }
 }
 
 .section-title {
@@ -490,6 +526,12 @@ footer a:hover {
 [data-theme="dark"] .glass-filter-container {
     background: rgba(0, 0, 0, 0.4);
     border-color: rgba(255, 255, 255, 0.05);
+}
+
+@media (min-width: 768px) {
+  .md\:ml-20 {
+    margin-left: 4rem;
+  }
 }
 
 /* Filter Buttons */
