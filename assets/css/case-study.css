@@ -11,6 +11,140 @@
   background-clip: text;
 }
 
+/* Unified Case Study Image Wrapper */
+.case-image {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  aspect-ratio: 3 / 4;
+  max-height: 640px;
+  border-radius: 16px;
+  overflow: hidden;
+  background: var(--card-bg);
+  border: 1px solid #e5e7eb; /* light: border-gray-200 */
+  box-shadow: 0 14px 36px -16px rgba(0, 0, 0, 0.28);
+  transition: transform 0.4s ease, box-shadow 0.4s ease;
+  cursor: zoom-in;
+}
+
+[data-theme="dark"] .case-image {
+  border-color: #1f2937; /* dark: border-gray-800 */
+  box-shadow: 0 14px 36px -16px rgba(0, 0, 0, 0.38);
+}
+
+.case-image.plain {
+  background: transparent;
+  border: none;
+  box-shadow: none;
+}
+
+[data-theme="dark"] .case-image.plain {
+  border: none;
+  box-shadow: none;
+}
+
+.case-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  transition: transform 0.6s ease;
+}
+
+.case-image.is-cover img {
+  object-fit: cover;
+  object-position: top;
+}
+
+.case-image:hover img {
+  transform: scale(1.05);
+}
+
+
+.case-overlay {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+}
+
+.case-overlay-icon {
+  width: 2.75rem;
+  height: 2.75rem;
+  background: rgba(0, 0, 0, 0.35);
+  border-radius: 9999px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transform: translateY(8px);
+  opacity: 0;
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.case-overlay-label {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #f1f5f9;
+  text-shadow: 0 2px 6px rgba(0, 0, 0, 0.45);
+  transform: translateY(8px);
+  opacity: 0;
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.case-overlay-meta {
+  position: absolute;
+  left: 1rem;
+  right: 1rem;
+  bottom: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+  align-items: flex-start;
+  opacity: 0;
+  transform: translateY(8px);
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.case-overlay-title {
+  color: #fff;
+  font-weight: 700;
+  font-size: 1rem;
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.45);
+}
+
+.case-overlay-tag {
+  color: var(--accent);
+  font-size: 0.65rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  font-weight: 700;
+}
+
+.case-image:hover .case-overlay {
+  opacity: 1;
+}
+
+.case-image:hover .case-overlay-icon {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.case-image:hover .case-overlay-label {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.case-image:hover .case-overlay-meta {
+  opacity: 1;
+  transform: translateY(0);
+}
+
 /* Process Steps Timeline */
 .process-step {
   position: relative;

@@ -143,14 +143,15 @@ body {
   display: block;
 }
 
-/* Featured title rotation & filter docking */
+/*
+Featured title rotation & filter docking — temporarily disabled
 .title-rotated-offset {
   display: inline-block;
   transform: none;
   transform-origin: left bottom;
 }
 
-/* Mobile: no rotation */
+ Mobile: no rotation 
 @media (max-width: 767px) {
   .title-rotated-offset { 
     transform: none;
@@ -158,26 +159,27 @@ body {
   }
 }
 
-/* Tablet: start rotation with adjusted positioning */
+ Tablet: start rotation with adjusted positioning 
 @media (min-width: 768px) and (max-width: 1023px) {
   .title-rotated-offset { 
     transform: rotate(-90deg) translate(-18%, 28%);
   }
 }
 
-/* Desktop 1024-1440px: standard rotation */
+ Desktop 1024-1440px: standard rotation 
 @media (min-width: 1024px) and (max-width: 1440px) {
   .title-rotated-offset { 
     transform: rotate(-90deg) translate(-22%, 36%);
   }
 }
 
-/* Large Desktop 1441px+: adjusted for larger screens */
+ Large Desktop 1441px+: adjusted for larger screens 
 @media (min-width: 1441px) {
   .title-rotated-offset { 
     transform: rotate(-90deg) translate(-25%, 42%);
   }
 }
+*/
 
 .section-title {
   font-size: clamp(2.5rem, 6vw, 4rem);
@@ -520,11 +522,11 @@ footer a:hover {
   border: 0;
   border-radius: 999px;
   margin: 1.25rem 0; /* built-in breathing room */
-  background: #d1d5db; /* Tailwind border-gray-300 for light mode */
+  background: #e5e7eb; /* Tailwind border-gray-200 for light mode */
 }
 
 [data-theme="dark"] .section-divider {
-  background: #374151; /* Tailwind border-gray-700 for dark mode */
+  background: #1f2937; /* Tailwind border-gray-800 for dark mode */
 }
 
 /* ===========================

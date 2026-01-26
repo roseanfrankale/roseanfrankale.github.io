@@ -82,11 +82,20 @@
 .gallery-item a {
     display: block;
     width: 100%;
-    height: auto; /* Let content dictate height */
+    aspect-ratio: 4 / 3; /* Constrain to wider ratio while maintaining fluid grid */
     transition: transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94), box-shadow 0.5s ease;
     border-radius: 16px;
     overflow: hidden;
     position: relative;
+}
+
+/* Portrait aspect ratio for mobile/phone mockups */
+.gallery-item.portrait a {
+    aspect-ratio: 3 / 4; /* Matches case-image sizing to reduce visual height */
+}
+
+.gallery-item.portrait img {
+    object-fit: contain; /* Keep full phone frame visible without cropping */
 }
 
 .gallery-item:hover a {
@@ -112,8 +121,10 @@
 /* Fix for Isotope overlapping: Ensure image takes up space */
 .gallery-item img {
     width: 100% !important;
-    height: auto !important;
+    height: 100% !important;
     display: block;
+    object-fit: cover;
+    object-position: center;
     transition: transform 0.7s ease;
 }
 
@@ -134,13 +145,20 @@
 }
 
 .gallery-overlay-icon > div {
-    width: 4rem;
-    height: 4rem;
-    background: rgba(0, 0, 0, 0.4);
+    width: 2.75rem;
+    height: 2.75rem;
+    background: rgba(0, 0, 0, 0.35);
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
+}
+
+.gallery-overlay-icon svg,
+.gallery-overlay-icon i {
+    width: 1.75rem;
+    height: 1.75rem;
+    stroke-width: 1.25;
 }
 
 .gallery-item:hover .gallery-overlay-icon {

@@ -82,7 +82,7 @@
   <div class="container mx-auto px-4 md:px-6 py-24 md:py-32">
     
     <!-- Hero Section with Segmented Control & Carousel -->
-    <div class="max-w-5xl mx-auto mb-32 bg-black/40 rounded-full flex items-center justify-center">
+    <div class="max-w-5xl mx-auto mb-32 bg-card-bg border border-gray-200 dark:border-gray-800 rounded-3xl shadow-xl p-8 md:p-12">
       <div class="grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-16">
         
         <!-- Left Side: Image Carousel & Segmented Control -->
@@ -111,11 +111,17 @@
           </div>
 
           <!-- Segmented Control -->
-          <div class="flex justify-center gap-6">
+          <div class="pointer-events-auto flex items-center justify-center gap-4 glass-filter-container rounded-full border border-gray-200 dark:border-gray-800 px-2 py-1 shadow-sm transition-all duration-500 ease-in-out">
             <button class="segment-btn active p-3 transition-all duration-300 text-accent" data-segment="personal"><i data-lucide="user" class="w-6 h-6"></i></button>
             <button class="segment-btn p-3 transition-all duration-300 text-text-muted hover:text-text" data-segment="creative"><i data-lucide="music" class="w-6 h-6"></i></button>
             <button class="segment-btn p-3 transition-all duration-300 text-text-muted hover:text-text" data-segment="professional"><i data-lucide="briefcase" class="w-6 h-6"></i></button>
             <button class="segment-btn p-3 transition-all duration-300 text-text-muted hover:text-text" data-segment="designer"><i data-lucide="layout" class="w-6 h-6"></i></button>
+          </div>
+
+          <!-- CTA Buttons inside hero card -->
+          <div class="mt-8 mb-5 flex flex-wrap gap-4 justify-center">
+            <a href="resume.html" download class="custom-btn">Download CV</a>
+            <a href="music.html" class="custom-btn-outline">Musical Portfolio</a>
           </div>
         </div>
 
@@ -168,12 +174,6 @@
           </div>
         </div>
       </div>
-    </div>
-
-    <!-- CTA Buttons -->
-    <div class="max-w-5xl mx-auto mb-32 flex flex-wrap gap-4">
-      <a href="resume.html" download class="px-6 py-3 bg-accent text-white font-bold uppercase text-sm tracking-widest rounded-full hover:bg-accent/80 transition-all duration-300 shadow-lg hover:shadow-xl">Download CV</a>
-      <a href="music.html" class="px-6 py-3 border-2 border-accent text-accent font-bold uppercase text-sm tracking-widest rounded-full hover:bg-accent hover:text-white transition-all duration-300">Musical Portfolio</a>
     </div>
 
     <!-- What Sets Me Apart -->
