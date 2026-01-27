@@ -89,9 +89,14 @@
     position: relative;
 }
 
+.gallery-item img {
+    object-fit: cover; /* Fill container without stretching, crops edges if needed */
+}
+
 /* Portrait aspect ratio for mobile/phone mockups */
 .gallery-item.portrait a {
     aspect-ratio: 3 / 4; /* Matches case-image sizing to reduce visual height */
+    max-height: 640px; /* Constrain tall mockups similar to case-image styling */
 }
 
 .gallery-item.portrait img {
