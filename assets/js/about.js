@@ -124,9 +124,13 @@ document.addEventListener('DOMContentLoaded', () => {
       segmentBtns.forEach(b => {
         b.classList.remove('text-accent');
         b.classList.add('text-text-muted');
+        b.classList.remove('active');
+        b.setAttribute('aria-pressed', 'false');
       });
       this.classList.add('text-accent');
       this.classList.remove('text-text-muted');
+      this.classList.add('active');
+      this.setAttribute('aria-pressed', 'true');
 
       // Update content
       contentSections.forEach(section => {

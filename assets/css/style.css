@@ -128,7 +128,10 @@ body {
   text-transform: uppercase;
   line-height: 0.9;
   letter-spacing: -0.05em;
-  color: var(--text);
+  background: linear-gradient(to right, var(--text), var(--text-muted));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
   margin-bottom: 0;
 }
 
@@ -139,8 +142,16 @@ body {
   line-height: 0.5;
   letter-spacing: -0.05em;
   color: var(--accent);
-   /* Tighter vertical stacking */
+  /* Tighter vertical stacking */
   display: block;
+  margin-top: -1.5rem;
+}
+
+@media (min-width: 768px) {
+  .title-sub {
+    margin-top: -2rem;
+    margin-left: 13rem;
+  }
 }
 
 /*
