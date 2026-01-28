@@ -53,6 +53,37 @@ document.addEventListener('DOMContentLoaded', () => {
                 ease: "none"
             });
         }
+
+        // Timeline date scroll animation - scale and slide
+        const verticalDate = section.querySelector('.vertical-date');
+        if (verticalDate) {
+            gsap.to(verticalDate, {
+                scrollTrigger: {
+                    trigger: section,
+                    start: "top center",
+                    end: "center center",
+                    scrub: 1.2
+                },
+                scale: 1.4,
+                x: 20,
+                opacity: 1,
+                ease: "power2.out"
+            });
+
+            // Reset after center
+            gsap.to(verticalDate, {
+                scrollTrigger: {
+                    trigger: section,
+                    start: "center center",
+                    end: "bottom center",
+                    scrub: 1.2
+                },
+                scale: 1,
+                x: 0,
+                opacity: 0.8,
+                ease: "power2.in"
+            });
+        }
     });
 
     // 2. Video Modal Logic
