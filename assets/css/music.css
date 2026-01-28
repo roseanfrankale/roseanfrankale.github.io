@@ -33,3 +33,40 @@
     background: var(--accent);
     color: white;
 }
+
+/* --- Timeline Aesthetics --- */
+
+/* Rotate text 90 degrees for the timeline year */
+.vertical-date {
+    writing-mode: vertical-rl;
+    text-orientation: mixed;
+    transform: rotate(180deg); /* Flips it so it reads bottom-to-top like a spine */
+    white-space: nowrap;
+}
+
+/* The vertical connecting line */
+.timeline-line {
+    width: 1px;
+    background: linear-gradient(to bottom, #333 0%, rgba(255,255,255,0.1) 100%);
+    flex-grow: 1;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+}
+
+@media (max-width: 768px) {
+    .project-section {
+        padding-left: 100px;
+    }
+    .project-section::before {
+        left: 60px;
+    }
+    .section-number {
+        left: 10px;
+        font-size: 3rem;
+    }
+    .section-date {
+        left: 52px;
+        top: 70px;
+        font-size: 0.65rem;
+    }
+}
