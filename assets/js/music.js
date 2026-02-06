@@ -197,14 +197,15 @@ document.addEventListener('DOMContentLoaded', () => {
         const itemsToShow = allPlaylistItems.slice(0, itemsDisplayed);
 
         itemsToShow.forEach((item) => {
-            const type = item.type || getVaultTypeFromTitle(item.title, item.videoId).type;
-            const typeInfo = { type, label: type === 'live' ? 'Live Performance' : getVaultTypeFromTitle(item.title, item.videoId).label };
+            const type = item.type || 'live';
+            const typeInfo = getVaultTypeFromTitle(item.title, item.videoId);
+            const label = typeInfo.label;
             const card = createVaultCard({
                 videoId: item.videoId,
                 title: item.title,
                 thumbnailUrl: item.thumbnailUrl,
-                type: typeInfo.type,
-                label: typeInfo.label,
+                type: type,
+                label: label,
             });
             vaultContainer.appendChild(card);
         });
@@ -223,9 +224,27 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     };
 
+    const shuffleArray = (array) => {
+        const shuffled = [...array];
+        for (let i = shuffled.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+        }
+        return shuffled;
+    };
+
     const loadPlaylistVideos = async () => {
         if (!playlistId || !vaultContainer) return;
         allPlaylistItems = await fetchPlaylistItems(playlistId);
+
+        // Tag all main playlist items with their type
+        allPlaylistItems = allPlaylistItems.map((item) => {
+            const typeInfo = getVaultTypeFromTitle(item.title, item.videoId);
+            return {
+                ...item,
+                type: typeInfo.type,
+            };
+        });
 
         // Fetch additional live performance playlist and tag as live
         const livePerformanceItems = await fetchPlaylistItems(additionalPlaylistId);
@@ -234,7 +253,9 @@ document.addEventListener('DOMContentLoaded', () => {
             type: 'live',
         }));
 
-        allPlaylistItems = allPlaylistItems.concat(taggedLiveItems);
+        // Shuffle live items so we don't see LILA first every time
+        const shuffledLiveItems = shuffleArray(taggedLiveItems);
+        allPlaylistItems = allPlaylistItems.concat(shuffledLiveItems);
 
         if (!allPlaylistItems.length) return;
 
