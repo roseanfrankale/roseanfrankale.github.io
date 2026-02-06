@@ -130,9 +130,15 @@ document.addEventListener('DOMContentLoaded', () => {
     const getVaultTypeFromTitle = (title, videoId) => {
         // Music video IDs (hardcoded to avoid title matching issues)
         const musicVideoIds = ['GiK9DDAXKJE', 'gbtkkudUFlU', '42I5WpeGZec'];
+        // Studio video IDs
+        const studioVideoIds = ['KvW4oQEYy6o', 'ZDA9oJFBl7c', 'FC1TDk5npiY', '9LL6P55kJsA', 'eqiF9f2E3TE'];
         
         if (videoId && musicVideoIds.includes(videoId)) {
             return { type: 'music-videos', label: 'Music Video' };
+        }
+        
+        if (videoId && studioVideoIds.includes(videoId)) {
+            return { type: 'studio', label: 'Studio Session' };
         }
         
         const lowerTitle = (title || '').toLowerCase();
