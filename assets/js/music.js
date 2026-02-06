@@ -51,7 +51,8 @@ document.addEventListener('DOMContentLoaded', () => {
         const items = document.querySelectorAll('[data-vault-item]');
         items.forEach((item) => {
             const titleText = item.querySelector('h3')?.textContent || '';
-            const typeInfo = getVaultTypeFromTitle(titleText);
+            const videoId = item.getAttribute('data-video-id');
+            const typeInfo = getVaultTypeFromTitle(titleText, videoId);
             item.setAttribute('data-vault-type', typeInfo.type);
             const labelEl = item.querySelector('p');
             if (labelEl) labelEl.textContent = typeInfo.label;
@@ -126,7 +127,14 @@ document.addEventListener('DOMContentLoaded', () => {
         return card;
     };
 
-    const getVaultTypeFromTitle = (title) => {
+    const getVaultTypeFromTitle = (title, videoId) => {
+        // Music video IDs (hardcoded to avoid title matching issues)
+        const musicVideoIds = ['GiK9DDAXKJE', 'gbtkkudUFlU', '42I5WpeGZec'];
+        
+        if (videoId && musicVideoIds.includes(videoId)) {
+            return { type: 'music-videos', label: 'Music Video' };
+        }
+        
         const lowerTitle = (title || '').toLowerCase();
         if (
             lowerTitle.includes('group therapy') ||
@@ -183,8 +191,8 @@ document.addEventListener('DOMContentLoaded', () => {
         const itemsToShow = allPlaylistItems.slice(0, itemsDisplayed);
 
         itemsToShow.forEach((item) => {
-            const type = item.type || getVaultTypeFromTitle(item.title).type;
-            const typeInfo = { type, label: type === 'live' ? 'Live Performance' : getVaultTypeFromTitle(item.title).label };
+            const type = item.type || getVaultTypeFromTitle(item.title, item.videoId).type;
+            const typeInfo = { type, label: type === 'live' ? 'Live Performance' : getVaultTypeFromTitle(item.title, item.videoId).label };
             const card = createVaultCard({
                 videoId: item.videoId,
                 title: item.title,
