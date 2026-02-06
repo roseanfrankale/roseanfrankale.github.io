@@ -1,96 +1,106 @@
 document.addEventListener('DOMContentLoaded', () => {
-    // 1. Initialize GSAP ScrollTrigger
-    gsap.registerPlugin(ScrollTrigger);
+    // YouTube API Key
+    const YOUTUBE_API_KEY = 'AIzaSyBYnz372VZgs_mKqBREa9X-aCPf9oqbRBs';
 
-    // Hero Animation
-    gsap.from(".hero-content", {
-        duration: 1.5,
-        y: 100,
-        opacity: 0,
-        ease: "power4.out",
-        delay: 0.2
-    });
+    // Fetch YouTube video metadata and update titles
+    const fetchTitleFromApi = async (videoId) => {
+        try {
+            const response = await fetch(
+                `https://www.googleapis.com/youtube/v3/videos?part=snippet&id=${videoId}&key=${YOUTUBE_API_KEY}`
+            );
+            const data = await response.json();
 
-    // Reveal Text Animation
-    gsap.from(".reveal-text", {
-        scrollTrigger: {
-            trigger: ".reveal-text",
-            start: "top 80%",
-        },
-        duration: 1,
-        y: 30,
-        opacity: 0,
-        ease: "power3.out"
-    });
+            if (data.error) {
+                console.warn(`YouTube API error for ${videoId}:`, data.error);
+                return null;
+            }
 
-    // Band Section Animations
-    const sections = document.querySelectorAll('.project-section');
-    sections.forEach((section, index) => {
-        // Fade Up content
-        gsap.from(section.children, {
-            scrollTrigger: {
-                trigger: section,
-                start: "top 75%",
-            },
-            duration: 1,
-            y: 50,
-            opacity: 0,
-            stagger: 0.2,
-            ease: "power3.out"
-        });
-
-        // Parallax effect on the huge number
-        const number = section.querySelector('.text-\\[15rem\\]');
-        if (number) {
-            gsap.to(number, {
-                scrollTrigger: {
-                    trigger: section,
-                    start: "top bottom",
-                    end: "bottom top",
-                    scrub: 1
-                },
-                y: 100,
-                ease: "none"
-            });
+            if (data.items && data.items[0]) {
+                return data.items[0].snippet.title;
+            }
+        } catch (error) {
+            console.warn(`YouTube API request failed for ${videoId}:`, error);
         }
 
-        // Timeline date scroll animation - scale and slide
-        const verticalDate = section.querySelector('.vertical-date');
-        if (verticalDate) {
-            gsap.to(verticalDate, {
-                scrollTrigger: {
-                    trigger: section,
-                    start: "top center",
-                    end: "center center",
-                    scrub: 1.2
-                },
-                scale: 1.4,
-                x: 20,
-                opacity: 1,
-                ease: "power2.out"
-            });
+        return null;
+    };
 
-            // Reset after center
-            gsap.to(verticalDate, {
-                scrollTrigger: {
-                    trigger: section,
-                    start: "center center",
-                    end: "bottom center",
-                    scrub: 1.2
-                },
-                scale: 1,
-                x: 0,
-                opacity: 0.8,
-                ease: "power2.in"
-            });
+    const fetchTitleFromOEmbed = async (videoId) => {
+        try {
+            const response = await fetch(
+                `https://www.youtube.com/oembed?url=https://www.youtube.com/watch?v=${videoId}&format=json`
+            );
+            if (!response.ok) return null;
+            const data = await response.json();
+            return data.title || null;
+        } catch (error) {
+            console.warn(`YouTube oEmbed request failed for ${videoId}:`, error);
         }
-    });
 
-    // 2. Video Modal Logic
+        return null;
+    };
+
+    const setItemTitle = (item, title) => {
+        const titleElement = item.querySelector('h3');
+        if (titleElement && title) {
+            titleElement.textContent = title;
+        }
+    };
+
+    const fetchVideoTitles = async () => {
+        const vaultItems = document.querySelectorAll('[data-vault-item]');
+
+        for (const item of vaultItems) {
+            const videoId = item.getAttribute('data-video-id');
+            if (!videoId) continue;
+
+            let title = await fetchTitleFromApi(videoId);
+            if (!title) {
+                title = await fetchTitleFromOEmbed(videoId);
+            }
+
+            if (title) {
+                setItemTitle(item, title);
+            }
+        }
+    };
+
+    // Fetch video titles on page load
+    fetchVideoTitles();
+
+    // Video Modal Logic
     const modal = document.getElementById('video-modal');
     const player = document.getElementById('youtube-player');
     const closeBtn = document.getElementById('close-modal');
     const triggers = document.querySelectorAll('.video-trigger');
+
+    // Vault filter logic
+    const vaultFilterButtons = document.querySelectorAll('[data-vault-filter]');
+    const vaultItems = document.querySelectorAll('[data-vault-item]');
+
+    const setVaultFilter = (filter) => {
+        vaultItems.forEach((item) => {
+            const type = item.getAttribute('data-vault-type');
+            if (type === filter) {
+                item.classList.remove('hidden');
+            } else {
+                item.classList.add('hidden');
+            }
+        });
+
+        vaultFilterButtons.forEach((button) => {
+            button.classList.toggle('active', button.getAttribute('data-vault-filter') === filter);
+        });
+    };
+
+    if (vaultFilterButtons.length && vaultItems.length) {
+        vaultFilterButtons.forEach((button) => {
+            button.addEventListener('click', () => {
+                const filter = button.getAttribute('data-vault-filter');
+                if (filter) setVaultFilter(filter);
+            });
+        });
+    }
 
     // Function to open modal
     const openModal = (videoId) => {
