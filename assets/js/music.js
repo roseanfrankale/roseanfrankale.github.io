@@ -198,8 +198,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
         itemsToShow.forEach((item) => {
             const type = item.type || 'live';
-            const typeInfo = getVaultTypeFromTitle(item.title, item.videoId);
-            const label = typeInfo.label;
+            // Get proper label based on type
+            let label = 'Live Performance';
+            if (type === 'music-videos') {
+                label = 'Music Video';
+            } else if (type === 'studio') {
+                label = 'Studio Session';
+            }
+            
             const card = createVaultCard({
                 videoId: item.videoId,
                 title: item.title,
@@ -234,33 +240,53 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     const loadPlaylistVideos = async () => {
-        if (!playlistId || !vaultContainer) return;
-        allPlaylistItems = await fetchPlaylistItems(playlistId);
+        if (!vaultContainer) return;
+        
+        // Fetch live performance videos from playlists and add them dynamically
+        allPlaylistItems = [];
+        
+        if (playlistId) {
+            try {
+                const playlistItems = await fetchPlaylistItems(playlistId);
+                const playlistItemsTagged = playlistItems.map((item) => {
+                    const typeInfo = getVaultTypeFromTitle(item.title, item.videoId);
+                    return {
+                        ...item,
+                        type: typeInfo.type,
+                    };
+                });
+                
+                allPlaylistItems = allPlaylistItems.concat(playlistItemsTagged);
+            } catch (error) {
+                console.warn('Failed to fetch main playlist:', error);
+            }
+        }
 
-        // Tag all main playlist items with their type
-        allPlaylistItems = allPlaylistItems.map((item) => {
-            const typeInfo = getVaultTypeFromTitle(item.title, item.videoId);
-            return {
-                ...item,
-                type: typeInfo.type,
-            };
-        });
+        // Fetch additional live performance playlist
+        if (additionalPlaylistId) {
+            try {
+                const livePerformanceItems = await fetchPlaylistItems(additionalPlaylistId);
+                const taggedLiveItems = livePerformanceItems.map((item) => ({
+                    ...item,
+                    type: 'live',
+                }));
 
-        // Fetch additional live performance playlist and tag as live
-        const livePerformanceItems = await fetchPlaylistItems(additionalPlaylistId);
-        const taggedLiveItems = livePerformanceItems.map((item) => ({
-            ...item,
-            type: 'live',
-        }));
+                // Shuffle live items for variety
+                const shuffledLiveItems = shuffleArray(taggedLiveItems);
+                allPlaylistItems = allPlaylistItems.concat(shuffledLiveItems);
+            } catch (error) {
+                console.warn('Failed to fetch live playlist:', error);
+            }
+        }
 
-        // Shuffle live items so we don't see LILA first every time
-        const shuffledLiveItems = shuffleArray(taggedLiveItems);
-        allPlaylistItems = allPlaylistItems.concat(shuffledLiveItems);
-
-        if (!allPlaylistItems.length) return;
-
-        renderVaultItems();
+        if (allPlaylistItems.length > 0) {
+            renderVaultItems();
+        }
+        
         playlistLoaded = true;
+        
+        // Fetch titles for ALL vault items (including hardcoded HTML ones)
+        fetchVideoTitles();
     };
 
     // Video Modal Logic
@@ -342,11 +368,12 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     const initializeVault = async () => {
+        // Bind existing HTML hardcoded videos first
+        refreshVaultItems();
+        bindVideoTriggers();
+        
+        // Then load API videos
         await loadPlaylistVideos();
-
-        if (!playlistLoaded) {
-            fetchVideoTitles();
-        }
 
         refreshVaultItems();
         bindVideoTriggers();
