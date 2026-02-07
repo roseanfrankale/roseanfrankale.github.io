@@ -1,8 +1,7 @@
 document.addEventListener('DOMContentLoaded', () => {
     // YouTube API Key
     const YOUTUBE_API_KEY = 'AIzaSyBYnz372VZgs_mKqBREa9X-aCPf9oqbRBs';
-    const PLAYLIST_ID = 'PLq8eop32VW4_lzzDk9UZI9XWkdyXlaMcV';
-    const LIVE_PLAYLIST_ID = 'OLAK5uy_mTUy5WF8_RPGYCLlpWdW6GF1DZuMjKJIA';
+    const LIVE_PLAYLIST_ID = 'PLq8eop32VW4_lzzDk9UZI9XWkdyXlaMcV'; // LiLa Live Performances
 
     // Unified Video Configuration - Single source of truth
     const VAULT_CONFIG = [
