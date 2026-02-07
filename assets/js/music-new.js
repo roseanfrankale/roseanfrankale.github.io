@@ -1,7 +1,8 @@
 document.addEventListener('DOMContentLoaded', () => {
     // YouTube API Key
     const YOUTUBE_API_KEY = 'AIzaSyBYnz372VZgs_mKqBREa9X-aCPf9oqbRBs';
-    const LIVE_PLAYLIST_ID = 'PLq8eop32VW4_lzzDk9UZI9XWkdyXlaMcV'; // LiLa Live Performances
+    const LILA_PLAYLIST_ID = 'PLq8eop32VW4_lzzDk9UZI9XWkdyXlaMcV'; // LiLa Live Performances
+    const BOXBOMB_PLAYLIST_ID = 'OLAK5uy_mTUy5WF8_RPGYCLlpWdW6GF1DZuMjKJIA'; // Boxbomb Live
 
     // Unified Video Configuration - Single source of truth
     const VAULT_CONFIG = [
@@ -285,10 +286,12 @@ document.addEventListener('DOMContentLoaded', () => {
             const configIds = VAULT_CONFIG.map(v => v.id);
             videoMetadata = await fetchYouTubeMetadata(configIds);
 
-            // Fetch live performances
-            console.log('Fetching live performances from playlist...');
-            livePerformanceVideos = await fetchPlaylistItems(LIVE_PLAYLIST_ID);
-            console.log(`Found ${livePerformanceVideos.length} live performance videos`);
+            // Fetch live performances from both playlists
+            console.log('Fetching live performances from LiLa and Boxbomb playlists...');
+            const lilaLive = await fetchPlaylistItems(LILA_PLAYLIST_ID);
+            const boxbombLive = await fetchPlaylistItems(BOXBOMB_PLAYLIST_ID);
+            livePerformanceVideos = [...lilaLive, ...boxbombLive];
+            console.log(`Found ${livePerformanceVideos.length} live performance videos (${lilaLive.length} LiLa + ${boxbombLive.length} Boxbomb)`);
 
             // Fetch metadata for live videos
             if (livePerformanceVideos.length > 0) {
