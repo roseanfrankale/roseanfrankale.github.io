@@ -19,8 +19,6 @@
   <!-- Icons -->
   <script src="https://unpkg.com/lucide@latest"></script>
 
-  <!-- Music Vault Script -->
-  <script src="assets/js/music-new.js"></script>
 </head>
 <body class="bg-black text-white antialiased overflow-x-hidden selection:bg-accent selection:text-white">
 
@@ -68,7 +66,7 @@
       </div>
 
       <!-- Mobile Menu -->
-      <div id="mobile-menu" class="hidden md:hidden absolute top-full left-0 w-full bg-bg/99 backdrop-blur-2xl shadow-2xl py-6 px-6 flex flex-col space-y-6 border-t border-gray-100 dark:border-gray-800">
+      <div id="mobile-menu" class="hidden md:hidden absolute top-full left-0 w-full bg-bg/90 backdrop-blur-md shadow-sm py-3 px-6 flex flex-col space-y-6 border-t border-white/10 dark:border-white/5">
         <a href="index.html" class="text-sm uppercase tracking-wider font-bold text-accent">Home</a>
         <a href="about.html" class="text-sm uppercase tracking-wider font-bold text-text hover:text-accent">About Me</a>
         <a href="gallery.html" class="text-sm uppercase tracking-wider font-bold text-text hover:text-accent">Gallery</a>
@@ -87,16 +85,17 @@
     </div>
 
     <div class="container mx-auto px-4 relative z-10 text-center hero-content">
-      <h1 class="text-6xl md:text-9xl font-black mb-12 uppercase tracking-tighter text-transparent bg-clip-text bg-gradient-to-r from-white to-gray-500 opacity-20">
+      <h1 class="text-6xl md:text-9xl font-black mb-8 uppercase tracking-tighter text-transparent bg-clip-text bg-gradient-to-r from-white to-gray-500 opacity-20">
         MUSIC & SOUND
       </h1>
-      <div class="relative -mt-12 z-10 mb-12">
+      <div class="relative -mt-12 z-10">
         <h2 class="text-2xl md:text-4xl text-gray-500 font-thin leading-relaxed max-w-5xl mx-auto reveal-text">
           
         </h2>
       </div>
-      <p class="text-2xl md:text-4xl text-gray-500 font-thin leading-relaxed max-w-5xl mx-auto reveal-text">From touring with bands to session recordings</p>
-      <p class="text-2xl md:text-4xl text-gray-500 font-thin leading-relaxed max-w-5xl mx-auto reveal-text mt-2">
+      <div class="w-24 h-1.5 mx-auto mt-8 mb-8"></div>
+      <p class="text-2xl md:text-4xl text-gray-500 font-thin leading-relaxed max-w-5xl mx-auto reveal-text mt-10">From touring with bands to session recordings</p>
+      <p class="text-2xl md:text-4xl text-gray-500 font-thin leading-relaxed max-w-5xl mx-auto reveal-text mt-4">
         My journey in music taught me <span class="text-white font-normal">collaboration</span>, <span class="text-white font-normal">rhythm</span>, and the art of <span class="text-white font-normal">listening</span>.
       </p>
     </div>
@@ -107,7 +106,7 @@
   COUNTER HERE albums songs shows-->
 
   <!-- Session + Vault (Merged) -->
-  <section class="container mx-auto px-4 md:px-6 pt-12 pb-10 -mt-12">
+  <section class="container mx-auto px-4 md:px-6 pt-12 pb-10 -mt-16 md:-mt-12">
     <div class="space-y-16">
       <!-- Session & Live Work -->
       <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 pb-10">
@@ -145,12 +144,12 @@
 
       <!-- The Vault -->
       <div class="space-y-6" id="the-vault">
-        <div class="flex items-center justify-between">
+        <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
           <div>
             <p class="text-accent text-xs font-bold uppercase tracking-[0.3em]">The Vault</p>
             <h2 class="text-3xl md:text-4xl font-black text-white uppercase tracking-tight">Performances <span class="text-white/50">&amp; Sessions</span></h2>
           </div>
-          <div class="flex items-center gap-3 text-[10px] uppercase tracking-[0.35em]">
+          <div class="flex flex-wrap items-center gap-2 text-[10px] uppercase tracking-[0.25em] md:tracking-[0.35em]">
             <button class="vault-filter-btn flex items-center gap-2" data-vault-filter="live" type="button">
               <i data-lucide="radio" class="w-4 h-4"></i>Live
             </button>
@@ -169,7 +168,7 @@
         </div>
 
         <div id="load-more-container" class="flex justify-center mt-8">
-          <button id="load-more-btn" class="custom-btn-outline text-base py-3 px-8 flex items-center justify-center gap-2">
+          <button id="load-more-btn" class="custom-btn-outline text-base py-3 px-8 flex items-center justify-center gap-2 w-full max-w-xs">
             <span>Load More Videos</span>
             <i data-lucide="chevron-down" class="w-5 h-5"></i>
           </button>
@@ -527,6 +526,6 @@
   <script src="assets/js/main.js"></script>
 
   <!-- Page Logic -->
-  <script src="assets/js/music.js"></script>
+  <script src="assets/js/music-new.js"></script>
 </body>
 </html>

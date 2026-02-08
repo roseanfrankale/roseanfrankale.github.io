@@ -270,6 +270,19 @@ Featured title rotation & filter docking — temporarily disabled
 
 }
 
+/* Mobile Menu Glass Style (match navbar) */
+#mobile-menu {
+  background-color: var(--navbar-bg);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+[data-theme="light"] #mobile-menu {
+  border-top: 1px solid rgba(0, 0, 0, 0.08);
+}
+
 /* Hamburger Animation */
 .hamburger-btn {
   width: 30px;

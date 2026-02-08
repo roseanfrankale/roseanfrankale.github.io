@@ -70,18 +70,22 @@
 }
 
 @media (max-width: 768px) {
+    .timeline-year {
+        transform: none;
+        transform-origin: center;
+    }
     .project-section {
-        padding-left: 100px;
+        padding-left: 0;
     }
     .project-section::before {
-        left: 60px;
+        display: none;
     }
     .section-number {
-        left: 10px;
+        left: 0;
         font-size: 3rem;
     }
     .section-date {
-        left: 52px;
+        left: 0;
         top: 70px;
         font-size: 0.65rem;
     }
