@@ -1,5 +1,8 @@
 document.addEventListener('DOMContentLoaded', () => {
     gsap.registerPlugin(ScrollTrigger);
+    if (typeof Flip !== 'undefined') {
+        gsap.registerPlugin(Flip);
+    }
 
     // 1. Hero Animations
     const heroTimeline = gsap.timeline();
@@ -12,6 +15,37 @@ document.addEventListener('DOMContentLoaded', () => {
             ease: "power3.out",
             delay: 0.2
         });
+
+    // 1b. Flip Tags (Reorder on Click)
+    const flipGroups = document.querySelectorAll('.flip-tags');
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    flipGroups.forEach((group) => {
+        const tags = Array.from(group.querySelectorAll('.flip-tag'));
+        if (tags.length < 2) return;
+
+        tags.forEach((tag) => {
+            tag.addEventListener('click', () => {
+                if (typeof Flip === 'undefined' || prefersReducedMotion) {
+                    group.insertBefore(tag, group.firstChild);
+                    tags.forEach(t => t.classList.remove('is-active'));
+                    tag.classList.add('is-active');
+                    return;
+                }
+
+                const state = Flip.getState(tags);
+                group.insertBefore(tag, group.firstChild);
+                tags.forEach(t => t.classList.remove('is-active'));
+                tag.classList.add('is-active');
+
+                Flip.from(state, {
+                    duration: 0.6,
+                    ease: 'power3.inOut',
+                    absolute: true,
+                    stagger: 0.02
+                });
+            });
+        });
+    });
 
     // 2. Process Section Timeline (Alternating Layouts)
     const steps = document.querySelectorAll('.process-step');

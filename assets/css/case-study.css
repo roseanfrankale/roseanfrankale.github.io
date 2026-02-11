@@ -11,6 +11,42 @@
   background-clip: text;
 }
 
+/* Kettle-style Large Hero Type */
+.case-hero-title {
+  font-family: "Space Grotesk", "Inter", system-ui, -apple-system, sans-serif;
+  font-size: clamp(3.5rem, 9vw, 7.5rem);
+  letter-spacing: -0.04em;
+  line-height: 0.95;
+  text-transform: none;
+}
+
+.case-hero-lede {
+  font-size: clamp(1.15rem, 2.6vw, 1.9rem);
+  line-height: 1.55;
+}
+
+/* Flip Tags */
+.flip-tags {
+  gap: 0.65rem;
+}
+
+.flip-tag {
+  cursor: pointer;
+  transition: transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
+  will-change: transform;
+}
+
+.flip-tag:hover {
+  transform: translateY(-2px);
+  border-color: var(--accent);
+  box-shadow: 0 10px 20px -14px rgba(184, 26, 29, 0.45);
+}
+
+.flip-tag.is-active {
+  border-color: var(--accent);
+  box-shadow: 0 10px 24px -14px rgba(184, 26, 29, 0.6);
+}
+
 /* Unified Case Study Image Wrapper */
 .case-image {
   position: relative;
