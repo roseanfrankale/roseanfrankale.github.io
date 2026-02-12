@@ -3,6 +3,12 @@
    CASE STUDY STYLES
    =========================== */
 
+/* Hero Content - Visible Immediately */
+.hero-content {
+  opacity: 1;
+  transform: none;
+}
+
 /* Hero Text Gradient */
 .hero-content h1 {
   background: linear-gradient(135deg, var(--text) 0%, var(--text-muted) 100%);
@@ -45,6 +51,55 @@
 .flip-tag.is-active {
   border-color: var(--accent);
   box-shadow: 0 10px 24px -14px rgba(184, 26, 29, 0.6);
+}
+
+/* Quote Callout Animation */
+.quote-callout {
+  opacity: 0;
+  transform: translateY(20px);
+}
+
+.quote-callout.animate {
+  animation: slideInUp 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+}
+
+@keyframes slideInUp {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Metadata Items - Left to Right Animation */
+.hero-content > .grid > div {
+  opacity: 0;
+  transform: translateX(-20px);
+}
+
+.hero-content > .grid > div.animate {
+  animation: slideInRight 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+}
+
+@keyframes slideInRight {
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* Vision Image - Parallax Effect */
+.vision-image {
+  opacity: 0;
+  transform: translateY(30px);
+}
+
+.vision-image.animate {
+  animation: slideInUp 0.9s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards 0.2s;
+}
+
+.vision-image-img {
+  transform: translateZ(0);
+  will-change: transform;
 }
 
 /* Unified Case Study Image Wrapper */

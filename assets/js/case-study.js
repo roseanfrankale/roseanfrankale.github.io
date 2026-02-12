@@ -1,30 +1,50 @@
+// Initialize hero animation immediately (before DOMContentLoaded)
+function initHeroAnimation() {
+    if (typeof gsap === 'undefined') return;
+    
+    // Metadata items - animate left to right quickly
+    const metadataItems = document.querySelectorAll('.hero-content > .grid > div');
+    if (metadataItems.length > 0) {
+        metadataItems.forEach((item, index) => {
+            setTimeout(() => {
+                item.classList.add('animate');
+            }, index * 80); // Stagger by 80ms
+        });
+    }
+}
+
+// Fire immediately when DOM is interactive
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initHeroAnimation);
+} else {
+    initHeroAnimation();
+}
+
 document.addEventListener('DOMContentLoaded', () => {
+    // Wait for GSAP to be available
+    if (typeof gsap === 'undefined') {
+        console.warn('GSAP not loaded');
+        return;
+    }
+
     gsap.registerPlugin(ScrollTrigger);
+    
+    // Register Flip if available
     if (typeof Flip !== 'undefined') {
         gsap.registerPlugin(Flip);
     }
 
-    // 1. Hero Animations
-    const heroTimeline = gsap.timeline();
-    
-    heroTimeline
-        .to(".hero-content", {
-            opacity: 1,
-            y: 0,
-            duration: 1,
-            ease: "power3.out",
-            delay: 0.2
-        });
-
     // 1b. Flip Tags (Reorder on Click)
     const flipGroups = document.querySelectorAll('.flip-tags');
     const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    
     flipGroups.forEach((group) => {
         const tags = Array.from(group.querySelectorAll('.flip-tag'));
         if (tags.length < 2) return;
 
         tags.forEach((tag) => {
             tag.addEventListener('click', () => {
+                // Fallback if Flip not loaded
                 if (typeof Flip === 'undefined' || prefersReducedMotion) {
                     group.insertBefore(tag, group.firstChild);
                     tags.forEach(t => t.classList.remove('is-active'));
@@ -32,22 +52,71 @@ document.addEventListener('DOMContentLoaded', () => {
                     return;
                 }
 
-                const state = Flip.getState(tags);
-                group.insertBefore(tag, group.firstChild);
-                tags.forEach(t => t.classList.remove('is-active'));
-                tag.classList.add('is-active');
+                try {
+                    const state = Flip.getState(tags);
+                    group.insertBefore(tag, group.firstChild);
+                    tags.forEach(t => t.classList.remove('is-active'));
+                    tag.classList.add('is-active');
 
-                Flip.from(state, {
-                    duration: 0.6,
-                    ease: 'power3.inOut',
-                    absolute: true,
-                    stagger: 0.02
-                });
+                    Flip.from(state, {
+                        duration: 0.6,
+                        ease: 'power3.inOut',
+                        absolute: true,
+                        stagger: 0.02
+                    });
+                } catch (err) {
+                    console.error('Flip animation error:', err);
+                    group.insertBefore(tag, group.firstChild);
+                    tags.forEach(t => t.classList.remove('is-active'));
+                    tag.classList.add('is-active');
+                }
             });
         });
     });
 
-    // 2. Process Section Timeline (Alternating Layouts)
+    // 2. Quote Callout Animation on Scroll
+    const quoteCallout = document.querySelector('.quote-callout');
+    if (quoteCallout) {
+        gsap.to(quoteCallout, {
+            scrollTrigger: {
+                trigger: quoteCallout,
+                start: "top 75%",
+                toggleActions: "play none none reverse"
+            },
+            onEnter: () => quoteCallout.classList.add('animate')
+        });
+    }
+
+    // 2b. Vision Image with Parallax & Scroll Reveal
+    const visionImage = document.querySelector('.vision-image');
+    if (visionImage) {
+        // Initial reveal animation
+        gsap.to(visionImage, {
+            scrollTrigger: {
+                trigger: visionImage,
+                start: "top 85%",
+                toggleActions: "play none none reverse"
+            },
+            onEnter: () => visionImage.classList.add('animate')
+        });
+
+        // Parallax effect on scroll
+        if (typeof ScrollTrigger !== 'undefined') {
+            gsap.to(".vision-image-img", {
+                scrollTrigger: {
+                    trigger: ".vision-image",
+                    start: "top center",
+                    end: "bottom center",
+                    scrub: 1,
+                    markers: false
+                },
+                y: -40,
+                ease: "none"
+            });
+        }
+    }
+
+    // 2c. Process Section Timeline (Alternating Layouts)
     const steps = document.querySelectorAll('.process-step');
     steps.forEach((step, index) => {
         gsap.from(step, {
@@ -79,7 +148,23 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // 4. Gallery Fade In
+    // 4. Case Study Gallery - Staggered Image Reveals
+    const caseImages = document.querySelectorAll('.case-image');
+    if (caseImages.length > 0) {
+        gsap.from(caseImages, {
+            scrollTrigger: {
+                trigger: ".case-image:first-of-type",
+                start: "top 80%"
+            },
+            opacity: 0,
+            scale: 0.95,
+            duration: 0.8,
+            stagger: 0.12,
+            ease: "power3.out"
+        });
+    }
+
+    // 5. Project Gallery Fade In (Alternative gallery)
     const galleryImages = document.querySelectorAll('.project-gallery img');
     if (galleryImages.length > 0) {
         gsap.from(galleryImages, {
