@@ -607,4 +607,25 @@ footer a:hover {
 
 .project-item {
     transition: opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1), transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    opacity: 0;
+    transform: translateY(20px);
+}
+
+/* Gallery Items - Initial hidden state for scroll animation */
+.gallery-item {
+    opacity: 0;
+    transform: translateY(20px) scale(0.95);
+}
+
+/* Section Titles - Staggered reveal */
+.section-title-stacked .title-main,
+.section-title-stacked .title-sub {
+    opacity: 0;
+    transform: translateY(15px);
+}
+
+/* Content Sections with data attribute */
+[data-scroll-animation] {
+    opacity: 0;
+    transform: translateY(20px);
 }

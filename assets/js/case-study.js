@@ -90,19 +90,19 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    // 1c. Metadata - Animate on scroll
+    // 1c. Metadata - Animate on scroll (when scrolled into view)
     const metadataGrids = document.querySelectorAll('.hero-content > .grid');
     if (metadataGrids.length > 0) {
         metadataGrids.forEach((grid) => {
             const items = grid.querySelectorAll('div');
-            gsap.from(items, {
+            gsap.to(items, {
                 scrollTrigger: {
                     trigger: grid,
-                    start: "top 80%",
+                    start: "top 85%",
                     toggleActions: "play none none reverse"
                 },
-                opacity: 0,
-                transform: "translateX(-20px)",
+                opacity: 1,
+                transform: "translateX(0)",
                 duration: 0.5,
                 stagger: 0.1,
                 ease: "cubic-bezier(0.34, 1.56, 0.64, 1)"
@@ -123,7 +123,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // 2b. Vision Image with Parallax & Scroll Reveal
+    // 2b. Vision Image with Parallax & Scroll Reveal (for place.html, chronolens.html)
     const visionImage = document.querySelector('.vision-image');
     if (visionImage) {
         // Initial reveal animation
@@ -150,6 +150,18 @@ document.addEventListener('DOMContentLoaded', () => {
                 ease: "none"
             });
         }
+    }
+
+    // 2c. Hero Image in Hero Content (.case-image.is-cover for older case studies)
+    const heroCaseImage = document.querySelector('.hero-content .case-image.is-cover');
+    if (heroCaseImage) {
+        gsap.to(heroCaseImage, {
+            opacity: 1,
+            scale: 1,
+            duration: 0.8,
+            delay: 0.3,
+            ease: "power3.out"
+        });
     }
 
     // 2c. Process Section Timeline (Alternating Layouts)
@@ -185,15 +197,16 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // 4. Case Study Gallery - Staggered Image Reveals
-    const caseImages = document.querySelectorAll('.case-image');
+    const caseImages = document.querySelectorAll('.case-image:not(.is-cover)');
     if (caseImages.length > 0) {
-        gsap.from(caseImages, {
+        gsap.to(caseImages, {
             scrollTrigger: {
-                trigger: ".case-image:first-of-type",
-                start: "top 80%"
+                trigger: caseImages[0],
+                start: "top 80%",
+                toggleActions: "play none none reverse"
             },
-            opacity: 0,
-            scale: 0.95,
+            opacity: 1,
+            scale: 1,
             duration: 0.8,
             stagger: 0.12,
             ease: "power3.out"
@@ -203,13 +216,14 @@ document.addEventListener('DOMContentLoaded', () => {
     // 5. Project Gallery Fade In (Alternative gallery)
     const galleryImages = document.querySelectorAll('.project-gallery img');
     if (galleryImages.length > 0) {
-        gsap.from(galleryImages, {
+        gsap.to(galleryImages, {
             scrollTrigger: {
                 trigger: ".project-gallery",
-                start: "top 80%"
+                start: "top 80%",
+                toggleActions: "play none none reverse"
             },
-            opacity: 0,
-            scale: 0.9,
+            opacity: 1,
+            scale: 1,
             duration: 0.8,
             stagger: 0.1,
             ease: "power3.out"
@@ -220,6 +234,17 @@ document.addEventListener('DOMContentLoaded', () => {
     if (typeof lucide !== 'undefined') {
         lucide.createIcons();
     }
+
+    // CRITICAL: Refresh ScrollTrigger after all animations are registered
+    // This recalculates all trigger positions and makes scroll animations work
+    window.addEventListener('load', () => {
+        ScrollTrigger.refresh();
+    });
+    
+    // Also refresh on resize to handle responsive layouts
+    window.addEventListener('resize', () => {
+        ScrollTrigger.refresh();
+    });
 
     // 6. Lightbox Logic (Case Study Specific)
     const lightbox = document.getElementById('lightbox');

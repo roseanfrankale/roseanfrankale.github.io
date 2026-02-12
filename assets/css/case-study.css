@@ -77,7 +77,7 @@
   }
 }
 
-/* Metadata Items - Left to Right Animation */
+/* Metadata Items - Hidden until scrolled into view */
 .hero-content > .grid > div {
   opacity: 0;
   transform: translateX(-20px);
