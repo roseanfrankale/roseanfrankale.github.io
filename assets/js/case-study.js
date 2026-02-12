@@ -2,13 +2,15 @@
 function initHeroAnimation() {
     if (typeof gsap === 'undefined') return;
     
-    // Metadata items - animate left to right quickly
-    const metadataItems = document.querySelectorAll('.hero-content > .grid > div');
-    if (metadataItems.length > 0) {
-        metadataItems.forEach((item, index) => {
-            setTimeout(() => {
-                item.classList.add('animate');
-            }, index * 80); // Stagger by 80ms
+    // Hero content fade-in - on page load only
+    const heroContent = document.querySelector('.hero-content');
+    if (heroContent) {
+        gsap.to(".hero-content", {
+            opacity: 1,
+            y: 0,
+            duration: 0.85,
+            ease: "power3.out",
+            delay: 0.1
         });
     }
 }
@@ -72,7 +74,41 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
             });
         });
+
+        // Animate tags in on scroll
+        gsap.from(tags, {
+            scrollTrigger: {
+                trigger: group,
+                start: "top 80%",
+                toggleActions: "play none none reverse"
+            },
+            opacity: 0,
+            transform: "translateX(-20px)",
+            duration: 0.5,
+            stagger: 0.08,
+            ease: "cubic-bezier(0.34, 1.56, 0.64, 1)"
+        });
     });
+
+    // 1c. Metadata - Animate on scroll
+    const metadataGrids = document.querySelectorAll('.hero-content > .grid');
+    if (metadataGrids.length > 0) {
+        metadataGrids.forEach((grid) => {
+            const items = grid.querySelectorAll('div');
+            gsap.from(items, {
+                scrollTrigger: {
+                    trigger: grid,
+                    start: "top 80%",
+                    toggleActions: "play none none reverse"
+                },
+                opacity: 0,
+                transform: "translateX(-20px)",
+                duration: 0.5,
+                stagger: 0.1,
+                ease: "cubic-bezier(0.34, 1.56, 0.64, 1)"
+            });
+        });
+    }
 
     // 2. Quote Callout Animation on Scroll
     const quoteCallout = document.querySelector('.quote-callout');
