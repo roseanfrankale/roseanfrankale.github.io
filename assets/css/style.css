@@ -50,14 +50,12 @@
    =========================== */
 html {
   scroll-behavior: smooth;
-  overflow-x: hidden;
 }
 
 body {
   background-color: var(--bg);
   color: var(--text);
   transition: background-color 0.4s ease, color 0.4s ease;
-  overflow-x: hidden;
   font-family: 'Inter', sans-serif;
   margin: 0;
   padding: 0;
@@ -494,6 +492,14 @@ footer {
   color: var(--text);
   border-top: 1px solid rgba(255,255,255,0.05);
   font-family: 'Inter', sans-serif; /* Enforce Sans-Serif */
+  width: 100vw;
+  position: relative;
+  left: 50%;
+  right: 50%;
+  margin-left: -50vw;
+  margin-right: -50vw;
+  margin-bottom: 0;
+  padding-bottom: 3rem;
 }
 
 footer h3 {
