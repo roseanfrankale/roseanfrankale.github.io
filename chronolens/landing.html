@@ -1,0 +1,264 @@
+
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ChronoLens | Organize your photos through time</title>
+
+  <meta name="description" content="ChronoLens is a cross-platform photo archive designed to help you preserve, organize, and rediscover memories through time." />
+  <meta name="theme-color" content="#050505" />
+
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;700;800;900&family=Raleway:wght@400;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="icon" type="image/svg+xml" href="../assets/img/rjfa_logo_grey_svg.svg">
+
+  <link rel="stylesheet" href="../assets/css/dist.css">
+  <link rel="stylesheet" href="../assets/css/style.css">
+  <link rel="stylesheet" href="../assets/css/chronolens-landing.css">
+
+  <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body class="bg-bg text-text antialiased transition-colors duration-300">
+
+  <!-- NAVBAR -->
+  <nav id="navbar" class="fixed w-full z-50 transition-all duration-300 py-6">
+    <div class="container mx-auto px-4 md:px-6">
+      <div class="flex justify-between items-center">
+        <!-- Logo -->
+        <a href="/" class="flex items-center group">
+           <img src="../assets/img/rjfa_logo_grey_svg.svg" alt="RJFA" class="h-8 w-auto transition-all duration-300 dark:brightness-150 brightness-50 group-hover:opacity-80">
+        </a>
+
+        <!-- Desktop Menu -->
+        <div class="hidden md:flex items-center space-x-10">
+          <div class="flex space-x-8">
+            <a href="/" class="nav-link">Portfolio</a>
+            <a href="/chronolens/" class="nav-link text-accent">ChronoLens</a>
+            <a href="/chronolens/index.html" class="nav-link">Case Study</a>
+          </div>
+          
+          <!-- Icons & Toggle -->
+          <div class="flex items-center space-x-5 border-l pl-8 border-gray-300 dark:border-gray-700 navbar-socials">
+            <div class="flex gap-4 ">
+              <a href="https://www.linkedin.com/in/rfrankale/" target="_blank"><i data-lucide="linkedin" class="w-4 h-4"></i></a>
+              <a href="https://github.com/roseanfrankale" target="_blank"><i data-lucide="github" class="w-4 h-4"></i></a>
+              <a href="https://dribbble.com/rjfa" target="_blank"><i data-lucide="dribbble" class="w-4 h-4"></i></a>
+            </div>
+            
+            <button id="theme-toggle" class="ml-4 p-2 rounded-full bg-bg text-text hover:text-accent transition-all hover:rotate-90 border-none">
+              <i data-lucide="moon" class="w-5 h-5"></i>
+            </button>
+          </div>
+        </div>
+
+        <!-- Mobile Toggle -->
+        <div class="flex items-center gap-4 md:hidden">
+          <button id="mobile-menu-btn" class="hamburger-btn focus:outline-none" aria-label="Toggle menu">
+            <span class="hamburger-line top"></span>
+            <span class="hamburger-line middle"></span>
+            <span class="hamburger-line bottom"></span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Mobile Menu -->
+      <div id="mobile-menu" class="hidden md:hidden absolute top-full left-0 w-full bg-bg/90 backdrop-blur-md shadow-sm py-3 px-6 flex flex-col space-y-6 border-t border-white/10 dark:border-white/5">
+        <a href="/" class="text-sm uppercase tracking-wider font-bold text-text hover:text-accent">Portfolio</a>
+        <a href="/chronolens/" class="text-sm uppercase tracking-wider font-bold text-accent">ChronoLens</a>
+        <a href="/chronolens/index.html" class="text-sm uppercase tracking-wider font-bold text-text hover:text-accent">Case Study</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <header class="pt-32 pb-14">
+    <div class="container mx-auto px-4 md:px-6">
+      <div class="cl-hero-grid grid lg:grid-cols-12 gap-12 items-center">
+        <div class="lg:col-span-6">
+          <div class="cl-badge text-text-muted mb-6">
+            <i data-lucide="sparkles" class="w-4 h-4"></i>
+            <span>In progress</span>
+          </div>
+          <h1 class="text-5xl md:text-7xl font-black tracking-tight leading-[0.95]">
+            Organize your photos through time.
+          </h1>
+          <p class="mt-6 text-lg md:text-xl text-text-muted font-light leading-relaxed max-w-xl">
+            ChronoLens is a tactile photo archive inspired by historical ledgers — built to help you preserve, catalog, and rediscover memories with calm, intentional browsing.
+          </p>
+
+          <div class="mt-10 flex flex-col sm:flex-row gap-3">
+            <a href="/chronolens/index.html" class="custom-btn">Read the case study</a>
+            <a href="#screens" class="custom-btn-outline">See screens</a>
+          </div>
+
+          <div class="mt-10 flex flex-wrap gap-2 text-xs uppercase tracking-widest text-text-muted">
+            <span class="px-3 py-2 rounded-full border border-white/10 dark:border-white/10 bg-white/5">iOS</span>
+            <span class="px-3 py-2 rounded-full border border-white/10 dark:border-white/10 bg-white/5">Android</span>
+            <span class="px-3 py-2 rounded-full border border-white/10 dark:border-white/10 bg-white/5">AI/ML</span>
+            <span class="px-3 py-2 rounded-full border border-white/10 dark:border-white/10 bg-white/5">Archive-first UI</span>
+          </div>
+        </div>
+
+        <div class="lg:col-span-6">
+          <div class="cl-screenshot">
+            <img src="../assets/img/chronolens/hero.png" alt="ChronoLens preview" />
+          </div>
+          <p class="mt-4 text-xs uppercase tracking-widest text-text-muted text-center">
+            Timeline + catalog, designed to feel like an archive.
+          </p>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <div class="container mx-auto px-4 md:px-6">
+    <div class="cl-divider my-10"></div>
+  </div>
+
+  <!-- VALUE PROPS -->
+  <section class="py-16">
+    <div class="container mx-auto px-4 md:px-6">
+      <div class="max-w-3xl">
+        <h2 class="text-3xl md:text-4xl font-bold">A photo archive that respects your attention.</h2>
+        <p class="mt-5 text-lg text-text-muted leading-relaxed">
+          Most photo apps optimize for scrolling. ChronoLens optimizes for meaning — building structure first, then letting delight emerge from context.
+        </p>
+      </div>
+
+      <div class="mt-12 grid md:grid-cols-3 gap-6">
+        <div class="cl-feature-card">
+          <div class="flex items-center gap-3">
+            <div class="w-10 h-10 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center">
+              <i data-lucide="layers" class="w-5 h-5 text-accent"></i>
+            </div>
+            <h3 class="text-lg font-bold">Ledger-like structure</h3>
+          </div>
+          <p class="mt-4 text-text-muted leading-relaxed">
+            Catalog, collections, and eras — designed as an archive, not a feed.
+          </p>
+        </div>
+        <div class="cl-feature-card">
+          <div class="flex items-center gap-3">
+            <div class="w-10 h-10 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center">
+              <i data-lucide="wand-2" class="w-5 h-5 text-accent"></i>
+            </div>
+            <h3 class="text-lg font-bold">AI-assisted sorting</h3>
+          </div>
+          <p class="mt-4 text-text-muted leading-relaxed">
+            Detect eras, infer context, and keep your archive organized without busywork.
+          </p>
+        </div>
+        <div class="cl-feature-card">
+          <div class="flex items-center gap-3">
+            <div class="w-10 h-10 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center">
+              <i data-lucide="fingerprint" class="w-5 h-5 text-accent"></i>
+            </div>
+            <h3 class="text-lg font-bold">Private by design</h3>
+          </div>
+          <p class="mt-4 text-text-muted leading-relaxed">
+            Built to feel safe. Your memories deserve careful defaults and transparent choices.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SCREENS -->
+  <section id="screens" class="py-16 bg-section-bg">
+    <div class="container mx-auto px-4 md:px-6">
+      <div class="flex items-end justify-between gap-6 flex-wrap">
+        <div class="max-w-2xl">
+          <h2 class="text-3xl md:text-4xl font-bold">Screens</h2>
+          <p class="mt-4 text-text-muted text-lg leading-relaxed">
+            A calm visual system with archival textures, strong hierarchy, and minimal chrome.
+          </p>
+        </div>
+        <a href="/chronolens/index.html" class="text-sm uppercase tracking-widest font-bold text-accent border-b-2 border-accent pb-1 hover:opacity-80 transition-opacity">
+          Full case study
+        </a>
+      </div>
+
+      <div class="mt-10 grid lg:grid-cols-12 gap-6">
+        <div class="lg:col-span-6 cl-screenshot">
+          <img src="../assets/img/chronolens/welcome.png" alt="Welcome screen" />
+        </div>
+        <div class="lg:col-span-6 cl-screenshot">
+          <img src="../assets/img/chronolens/catalog.png" alt="Catalog view" />
+        </div>
+        <div class="lg:col-span-7 cl-screenshot">
+          <img src="../assets/img/chronolens/archives-desktop.png" alt="Desktop archives" />
+        </div>
+        <div class="lg:col-span-5 grid gap-6">
+          <div class="cl-screenshot">
+            <img src="../assets/img/chronolens/archives-mobile.png" alt="Mobile archives" />
+          </div>
+          <div class="cl-screenshot">
+            <img src="../assets/img/chronolens/collection.png" alt="Collection view" />
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="py-20">
+    <div class="container mx-auto px-4 md:px-6">
+      <div class="max-w-5xl mx-auto cl-feature-card">
+        <div class="grid md:grid-cols-12 gap-10 items-center">
+          <div class="md:col-span-8">
+            <h2 class="text-3xl md:text-4xl font-bold">Want to follow the build?</h2>
+            <p class="mt-4 text-lg text-text-muted leading-relaxed">
+              ChronoLens is in active development. For now, the best place to see the direction is the case study and screen explorations.
+            </p>
+          </div>
+          <div class="md:col-span-4 flex md:justify-end">
+            <a href="/chronolens/index.html" class="custom-btn w-full md:w-auto text-center">
+              View case study
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="bg-footer-bg text-text py-12 border-t border-gray-200 dark:border-gray-800">
+    <div class="container mx-auto px-4 md:px-6">
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <!-- Brand -->
+        <div class="flex flex-col items-start">
+          <img src="../assets/img/rjfa_logo_grey_svg.svg" alt="RJFA" class="h-10 w-auto mb-4 grayscale opacity-80">
+          <p class="text-text-muted text-sm">
+            &copy; 2025 Rosean Frank-Alexander.<br>All rights reserved.
+          </p>
+        </div>
+
+        <!-- Navigation -->
+        <div>
+          <h3 class="text-lg font-bold mb-4 text-text tracking-widest uppercase opacity-60">Navigation</h3>
+          <ul class="space-y-2 text-text-muted text-sm uppercase tracking-wide">
+            <li><a href="/" class="hover:text-accent transition-colors">Portfolio</a></li>
+            <li><a href="/chronolens/" class="hover:text-accent transition-colors">ChronoLens</a></li>
+            <li><a href="/chronolens/index.html" class="hover:text-accent transition-colors">Case Study</a></li>
+            <li><a href="mailto:rosean.frankalexander@gmail.com" class="hover:text-accent transition-colors flex items-center gap-2"><i data-lucide="mail" class="w-3 h-3"></i> Contact</a></li>
+          </ul>
+        </div>
+
+        <!-- Socials -->
+        <div>
+          <h3 class="text-lg font-bold mb-4 text-text tracking-widest uppercase opacity-60">Connect</h3>
+          <div class="flex space-x-4">
+            <a href="https://www.linkedin.com/in/rfrankale/" target="_blank" class="text-text-muted hover:text-accent transition-colors"><i data-lucide="linkedin" class="w-6 h-6"></i></a>
+            <a href="https://github.com/roseanfrankale" target="_blank" class="text-text-muted hover:text-accent transition-colors"><i data-lucide="github" class="w-6 h-6"></i></a>
+            <a href="https://dribbble.com/rjfa" target="_blank" class="text-text-muted hover:text-accent transition-colors"><i data-lucide="dribbble" class="w-6 h-6"></i></a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="../assets/js/main.js"></script>
+</body>
+</html>
+
