@@ -64,13 +64,13 @@ function FloatingActionButton({ onPress }: FABProps) {
       ]}
     >
       <Feather name="camera" size={24} color="#FFFFFF" accessibilityLabel="Upload a new post" />
-      <Feather name="camera" size={24} color="#FFFFFF" />
     </AnimatedPressable>
   );
 }
 
 export default function MainTabNavigator() {
   const { theme, isDark } = useTheme();
+  const insets = useSafeAreaInsets();
   const [showUploadModal, setShowUploadModal] = React.useState(false);
 
   return (
@@ -86,8 +86,12 @@ export default function MainTabNavigator() {
               ios: "transparent",
               android: theme.backgroundRoot,
             }),
-            borderTopWidth: 0,
+            borderTopWidth: 1,
+            borderTopColor: theme.border,
             elevation: 0,
+            height: 60 + insets.bottom,
+            paddingBottom: insets.bottom,
+            paddingTop: Spacing.sm,
           },
           tabBarBackground: () =>
             Platform.OS === "ios" ? (
@@ -97,6 +101,14 @@ export default function MainTabNavigator() {
                 style={StyleSheet.absoluteFill}
               />
             ) : null,
+          tabBarLabelStyle: {
+            fontSize: 11,
+            fontWeight: "500",
+            marginTop: -Spacing.xs,
+          },
+          tabBarIconStyle: {
+            marginTop: Spacing.xs,
+          },
           headerShown: false,
         }}
       >

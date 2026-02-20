@@ -1,4 +1,4 @@
-import React, { useCallback } from "react";
+import React, { useCallback, useState } from "react";
 import { Platform, StyleSheet } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
@@ -7,7 +7,8 @@ import { SafeAreaProvider } from "react-native-safe-area-context";
 import { StatusBar } from "expo-status-bar";
 import * as SplashScreen from "expo-splash-screen";
 
-import MainTabNavigator from "@/navigation/MainTabNavigator";
+import RootNavigator from "@/navigation/RootNavigator";
+import { AuthProvider } from "@/contexts/AuthContext";
 import { ErrorBoundary } from "@/components/ErrorBoundary";
 
 // On native, keep the splash screen visible while we fetch resources.
@@ -32,19 +33,21 @@ export default function App() {
 
   return (
     <ErrorBoundary>
-      <SafeAreaProvider>
-        <GestureHandlerRootView
-          style={styles.root}
-          onLayout={Platform.OS !== "web" ? onLayoutRootView : undefined}
-        >
-          <KeyboardProvider>
-            <NavigationContainer>
-              <MainTabNavigator />
-            </NavigationContainer>
-            <StatusBar style="auto" />
-          </KeyboardProvider>
-        </GestureHandlerRootView>
-      </SafeAreaProvider>
+      <AuthProvider>
+        <SafeAreaProvider>
+          <GestureHandlerRootView
+            style={styles.root}
+            onLayout={Platform.OS !== "web" ? onLayoutRootView : undefined}
+          >
+            <KeyboardProvider>
+              <NavigationContainer>
+                <RootNavigator />
+              </NavigationContainer>
+              <StatusBar style="auto" />
+            </KeyboardProvider>
+          </GestureHandlerRootView>
+        </SafeAreaProvider>
+      </AuthProvider>
     </ErrorBoundary>
   );
 }

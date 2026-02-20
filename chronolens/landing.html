@@ -40,7 +40,7 @@
           
           <!-- Icons & Toggle -->
           <div class="flex items-center space-x-5 border-l pl-8 border-gray-300 dark:border-gray-700 space-x-4">
-            <a href="/connect.html?intent=signup" class="custom-btn px-4 py-2">LOGIN</a>
+            <a href="#" data-auth="login" class="custom-btn px-4 py-2">LOGIN</a>
             
             <button id="theme-toggle" class="p-2 rounded-full bg-bg text-text hover:text-accent transition-all hover:rotate-90 border-none">
               <i data-lucide="moon" class="w-5 h-5"></i>
@@ -64,7 +64,7 @@
         <a href="#about" class="text-sm uppercase tracking-wider font-bold text-text hover:text-accent">About</a>
         <a href="#pricing" class="text-sm uppercase tracking-wider font-bold text-text hover:text-accent">Pricing</a>
         <a href="/chronolens/index.html" class="text-sm uppercase tracking-wider font-bold text-text hover:text-accent">Case Study</a>
-        <a href="/connect.html?intent=signup" class="custom-btn text-center">Get started</a>
+        <a href="#" data-auth="signup" class="custom-btn text-center">Get started</a>
       </div>
     </div>
   </nav>
@@ -90,7 +90,7 @@
 
           <div class="mt-6 flex flex-col sm:flex-row gap-3 cl-reveal">
             <a href="#live-preview" class="custom-btn">view live preview</a>
-            <a href="/connect.html?intent=signup" class="custom-btn-outline">sign up</a>
+            <a href="#" data-auth="signup" class="custom-btn-outline">sign up</a>
             <a href="/chronolens/index.html" class="custom-btn-outline">read case study</a>
           </div>
 
@@ -191,7 +191,7 @@
             <p class="cl-label mb-3">live preview</p>
             <h2 class="cl-heading text-3xl md:text-5xl">soon: app running directly in page</h2>
           </div>
-          <a href="/connect.html?intent=signup" class="custom-btn">join the waitlist</a>
+          <a href="#" data-auth="signup" class="custom-btn">join the waitlist</a>
         </div>
         <div class="mt-6 cl-glass-card p-7 md:p-9 border border-[var(--border)]">
           <p class="cl-label">deploy target</p>
@@ -371,13 +371,132 @@
             <a href="https://dribbble.com/rjfa" target="_blank" class="text-text-muted hover:text-accent transition-colors"><i data-lucide="dribbble" class="w-6 h-6"></i></a>
           </div>
           <div class="mt-6 flex flex-wrap gap-3">
-            <a href="/connect.html?intent=login" class="custom-btn-outline">login</a>
-            <a href="/connect.html?intent=signup" class="custom-btn">sign up</a>
+            <a href="#" data-auth="login" class="custom-btn-outline">login</a>
+            <a href="#" data-auth="signup" class="custom-btn">sign up</a>
           </div>
         </div>
       </div>
     </div>
   </footer>
+
+  <!-- Login Modal -->
+  <div id="login-modal" class="cl-auth-modal fixed inset-0 z-[110] bg-black/60 backdrop-blur-md hidden flex items-center justify-center opacity-0 transition-opacity duration-200">
+    <div class="cl-auth-content cl-glass-card p-8 md:p-10 max-w-md w-full mx-4 scale-95 transition-transform duration-200">
+      <div class="flex items-center justify-between mb-6">
+        <h2 class="cl-heading text-3xl">login</h2>
+        <button data-close-modal class="p-2 hover:opacity-70 transition-opacity" aria-label="Close">
+          <i data-lucide="x" class="w-5 h-5"></i>
+        </button>
+      </div>
+      
+      <form id="login-form" class="space-y-5">
+        <div>
+          <label for="login-email" class="cl-label block mb-2">email</label>
+          <input 
+            type="email" 
+            id="login-email" 
+            name="email" 
+            required 
+            class="w-full px-4 py-3 bg-transparent border border-[var(--border)] text-text focus:outline-none focus:border-[var(--accent)] transition-colors"
+            placeholder="you@example.com"
+          />
+        </div>
+        
+        <div>
+          <label for="login-password" class="cl-label block mb-2">password</label>
+          <input 
+            type="password" 
+            id="login-password" 
+            name="password" 
+            required 
+            class="w-full px-4 py-3 bg-transparent border border-[var(--border)] text-text focus:outline-none focus:border-[var(--accent)] transition-colors"
+            placeholder="••••••••"
+          />
+        </div>
+        
+        <div class="flex items-center justify-between text-sm">
+          <label class="flex items-center gap-2 cursor-pointer">
+            <input type="checkbox" class="w-4 h-4 accent-[var(--accent)]" />
+            <span class="cl-label">remember me</span>
+          </label>
+          <a href="#" class="cl-label hover:text-accent transition-colors">forgot password?</a>
+        </div>
+        
+        <button type="submit" class="custom-btn w-full py-3 mt-4">login</button>
+      </form>
+      
+      <div class="mt-6 pt-6 border-t border-[var(--border)] text-center">
+        <p class="cl-label text-sm mb-3">don't have an account?</p>
+        <a href="#" id="switch-to-signup" class="cl-label hover:text-accent transition-colors underline">sign up</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Signup Modal -->
+  <div id="signup-modal" class="cl-auth-modal fixed inset-0 z-[110] bg-black/60 backdrop-blur-md hidden flex items-center justify-center opacity-0 transition-opacity duration-200">
+    <div class="cl-auth-content cl-glass-card p-8 md:p-10 max-w-md w-full mx-4 scale-95 transition-transform duration-200">
+      <div class="flex items-center justify-between mb-6">
+        <h2 class="cl-heading text-3xl">sign up</h2>
+        <button data-close-modal class="p-2 hover:opacity-70 transition-opacity" aria-label="Close">
+          <i data-lucide="x" class="w-5 h-5"></i>
+        </button>
+      </div>
+      
+      <form id="signup-form" class="space-y-5">
+        <div>
+          <label for="signup-name" class="cl-label block mb-2">full name</label>
+          <input 
+            type="text" 
+            id="signup-name" 
+            name="name" 
+            required 
+            class="w-full px-4 py-3 bg-transparent border border-[var(--border)] text-text focus:outline-none focus:border-[var(--accent)] transition-colors"
+            placeholder="Jane Doe"
+          />
+        </div>
+        
+        <div>
+          <label for="signup-email" class="cl-label block mb-2">email</label>
+          <input 
+            type="email" 
+            id="signup-email" 
+            name="email" 
+            required 
+            class="w-full px-4 py-3 bg-transparent border border-[var(--border)] text-text focus:outline-none focus:border-[var(--accent)] transition-colors"
+            placeholder="you@example.com"
+          />
+        </div>
+        
+        <div>
+          <label for="signup-password" class="cl-label block mb-2">password</label>
+          <input 
+            type="password" 
+            id="signup-password" 
+            name="password" 
+            required 
+            minlength="8"
+            class="w-full px-4 py-3 bg-transparent border border-[var(--border)] text-text focus:outline-none focus:border-[var(--accent)] transition-colors"
+            placeholder="••••••••"
+          />
+          <p class="cl-label text-xs mt-1 opacity-70">minimum 8 characters</p>
+        </div>
+        
+        <div class="flex items-start gap-2 text-sm">
+          <input type="checkbox" id="signup-terms" required class="w-4 h-4 mt-1 accent-[var(--accent)]" />
+          <label for="signup-terms" class="cl-label text-xs leading-relaxed">
+            I agree to the <a href="#" class="hover:text-accent underline">terms of service</a> and <a href="#" class="hover:text-accent underline">privacy policy</a>
+          </label>
+        </div>
+        
+        <button type="submit" class="custom-btn w-full py-3 mt-4">create account</button>
+      </form>
+      
+      <div class="mt-6 pt-6 border-t border-[var(--border)] text-center">
+        <p class="cl-label text-sm mb-3">already have an account?</p>
+        <a href="#" id="switch-to-login" class="cl-label hover:text-accent transition-colors underline">login</a>
+      </div>
+    </div>
+  </div>
 
   <!-- Lightbox -->
   <div id="lightbox" class="fixed inset-0 z-[100] bg-black/90 backdrop-blur-sm hidden flex items-center justify-center opacity-0 transition-opacity duration-300">
@@ -400,6 +519,13 @@
   <script src="../assets/js/main.js"></script>
   <script src="../assets/js/chronolens-animations.js"></script>
   <script src="../assets/js/chronolens-landing.js"></script>
+  <script src="../assets/js/chronolens-auth.js"></script>
+  <script>
+    // Re-initialize icons after modals are added
+    if (typeof lucide !== 'undefined') {
+      lucide.createIcons();
+    }
+  </script>
 </body>
 </html>
 

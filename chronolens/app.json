@@ -7,7 +7,6 @@
     "icon": "./assets/images/icon.png",
     "scheme": "chronolens",
     "userInterfaceStyle": "automatic",
-    "newArchEnabled": true,
     "ios": {
       "supportsTablet": true,
       "bundleIdentifier": "com.chronolens.app"
@@ -49,8 +48,5 @@
         }
       ]
     ],
-    "experiments": {
-      "reactCompiler": true
-    }
   }
 }

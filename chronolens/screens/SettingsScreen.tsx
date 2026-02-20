@@ -213,7 +213,7 @@ export default function SettingsScreen() {
       <SettingSection title="About">
         <SettingRow
           icon="info"
-          label="Version"
+          label="App Version"
           value="1.0.0"
         />
         <View style={[styles.divider, { backgroundColor: theme.border }]} />

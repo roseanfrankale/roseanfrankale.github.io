@@ -249,6 +249,7 @@ const styles = StyleSheet.create({
   content: {
     paddingHorizontal: Spacing.xl,
     paddingTop: Spacing.lg,
+    paddingBottom: Spacing.xl,
   },
   emptyContent: {
     flex: 1,

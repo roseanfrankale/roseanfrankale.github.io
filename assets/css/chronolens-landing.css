@@ -413,12 +413,87 @@ footer,
   }
 }
 
+/* Auth Modals */
+.cl-auth-modal {
+  backdrop-filter: blur(12px);
+}
+
+.cl-auth-content {
+  max-height: 90vh;
+  overflow-y: auto;
+}
+
+.cl-auth-content::-webkit-scrollbar {
+  width: 6px;
+}
+
+.cl-auth-content::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.cl-auth-content::-webkit-scrollbar-thumb {
+  background: var(--border);
+}
+
+.cl-auth-content input[type="text"],
+.cl-auth-content input[type="email"],
+.cl-auth-content input[type="password"] {
+  font-family: "Inter", sans-serif;
+  font-size: 0.95rem;
+}
+
+.cl-auth-content input:focus {
+  box-shadow: 0 0 0 2px rgba(212, 165, 116, 0.2);
+}
+
+.cl-auth-content form button[type="submit"] {
+  font-weight: 600;
+  letter-spacing: 0.12em;
+}
+
+/* Enhanced Typography Hierarchy */
+.cl-heading {
+  font-weight: 500;
+}
+
+.cl-label {
+  font-weight: 500;
+  opacity: 0.88;
+}
+
+/* Refined Button States */
+.custom-btn:active,
+.custom-btn-outline:active {
+  transform: scale(0.98);
+}
+
+.custom-btn:focus-visible,
+.custom-btn-outline:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+/* Enhanced Card Hover States */
+.cl-glass-card:hover {
+  border-color: rgba(212, 165, 116, 0.28);
+}
+
+/* Mobile Menu Auth Links */
+#mobile-menu a[data-auth] {
+  width: 100%;
+  justify-content: center;
+  display: inline-flex;
+  align-items: center;
+  min-height: 2.5rem;
+}
+
 @media (prefers-reduced-motion: reduce) {
   .cl-case-image,
   .cl-case-image img,
   .cl-case-overlay,
   .cl-case-overlay-icon,
-  .cl-case-overlay-meta {
+  .cl-case-overlay-meta,
+  .cl-auth-content {
     transition: none;
   }
 
