@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from "react";
+import React, { useState } from "react";
 import { Platform, StyleSheet } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
@@ -17,17 +17,30 @@ if (Platform.OS !== "web") {
 }
 
 export default function App() {
-  const [fontsLoaded, fontError] = [true, null]; // Assume fonts are loaded
+  const [appReady, setAppReady] = useState(false);
 
-  const onLayoutRootView = useCallback(async () => {
-    if (fontsLoaded || fontError) {
-      if (Platform.OS !== "web") {
-        await SplashScreen.hideAsync();
+  // Initialize app and hide splash screen
+  React.useEffect(() => {
+    async function prepare() {
+      try {
+        console.log("ChronoLens App Starting...");
+        // Simulate any async initialization (fonts, data, etc.)
+        await new Promise((resolve) => setTimeout(resolve, 100));
+      } catch (e) {
+        console.warn("Error during app preparation:", e);
+      } finally {
+        setAppReady(true);
+        // Hide splash screen once ready
+        if (Platform.OS !== "web") {
+          SplashScreen.hideAsync();
+        }
       }
     }
-  }, [fontsLoaded, fontError]);
 
-  if (!fontsLoaded && !fontError) {
+    prepare();
+  }, []);
+
+  if (!appReady) {
     return null;
   }
 
@@ -35,10 +48,7 @@ export default function App() {
     <ErrorBoundary>
       <AuthProvider>
         <SafeAreaProvider>
-          <GestureHandlerRootView
-            style={styles.root}
-            onLayout={Platform.OS !== "web" ? onLayoutRootView : undefined}
-          >
+          <GestureHandlerRootView style={styles.root}>
             <KeyboardProvider>
               <NavigationContainer>
                 <RootNavigator />
