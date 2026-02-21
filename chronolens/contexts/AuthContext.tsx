@@ -12,6 +12,7 @@ interface User {
   name: string;
   birthdate?: string;
   location?: string;
+  avatar?: any;
 }
 
 interface AuthContextType {
@@ -22,6 +23,7 @@ interface AuthContextType {
   signup: (email: string, password: string, name: string) => Promise<void>;
   logout: () => Promise<void>;
   completeOnboarding: (birthdate?: string, location?: string) => Promise<void>;
+  updateProfile: (updates: Partial<User>) => Promise<void>;
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
@@ -141,6 +143,24 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     }
   };
 
+  const updateProfile = async (updates: Partial<User>) => {
+    try {
+      if (user) {
+        const updatedUser = { ...user, ...updates };
+        setUser(updatedUser);
+
+        // TODO: Save to AsyncStorage
+        // await AsyncStorage.setItem('user', JSON.stringify(updatedUser));
+        
+        // TODO: Call API to update profile on server
+        // await api.updateProfile(updatedUser);
+      }
+    } catch (error) {
+      console.error("Update profile error:", error);
+      throw error;
+    }
+  };
+
   return (
     <AuthContext.Provider
       value={{
@@ -151,6 +171,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         signup,
         logout,
         completeOnboarding,
+        updateProfile,
       }}
     >
       {children}

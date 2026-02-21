@@ -8,6 +8,7 @@ import { useSafeAreaInsets } from "react-native-safe-area-context";
 import TimelineStackNavigator from "@/navigation/TimelineStackNavigator";
 import ExploreStackNavigator from "@/navigation/ExploreStackNavigator";
 import ProfileStackNavigator from "@/navigation/ProfileStackNavigator";
+import CameraScreen from "@/screens/CameraScreen";
 import { useTheme } from "@/hooks/useTheme";
 import { Spacing, BorderRadius, Shadows } from "@/constants/theme";
 import UploadModal from "@/screens/UploadModal";
@@ -22,32 +23,38 @@ export type MainTabParamList = {
 
 const Tab = createBottomTabNavigator<MainTabParamList>();
 
-// Placeholder screens for Camera and Upload
-function CameraTabScreen() {
+// Upload screen wrapper for modal
+function UploadTabScreen({ navigation }: any) {
   const { theme } = useTheme();
-  return (
-    <View
-      style={[
-        styles.placeholderScreen,
-        { backgroundColor: theme.backgroundDefault },
-      ]}
-    >
-      <Text style={{ color: theme.text }}>Camera</Text>
-    </View>
-  );
-}
+  const [isModalOpen, setIsModalOpen] = React.useState(false);
 
-function UploadTabScreen() {
-  const { theme } = useTheme();
+  React.useEffect(() => {
+    const unsubscribe = navigation.addListener('tabPress', (e: any) => {
+      e.preventDefault();
+      setIsModalOpen(true);
+    });
+    return unsubscribe;
+  }, [navigation]);
+
   return (
-    <View
-      style={[
-        styles.placeholderScreen,
-        { backgroundColor: theme.backgroundDefault },
-      ]}
-    >
-      <Text style={{ color: theme.text }}>Upload</Text>
-    </View>
+    <>
+      <View
+        style={[
+          styles.placeholderScreen,
+          { backgroundColor: theme.backgroundDefault },
+        ]}
+      >
+        <Text style={{ color: theme.text }}>Upload</Text>
+      </View>
+      <UploadModal
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+        onCameraClick={() => {
+          setIsModalOpen(false);
+          navigation.navigate('CameraTab');
+        }}
+      />
+    </>
   );
 }
 
@@ -126,7 +133,7 @@ export default function MainTabNavigator() {
         />
         <Tab.Screen
           name="CameraTab"
-          component={CameraTabScreen}
+          component={CameraScreen}
           options={{
             title: "Camera",
             tabBarIcon: ({ color, size }) => (

@@ -200,7 +200,7 @@ export default function ExploreScreen() {
     <View
       style={[styles.container, { backgroundColor: colors.backgroundDefault }]}
     >
-      <CustomHeader />
+      <CustomHeader title="explore" />
 
       {/* Search Bar */}
       <View style={styles.searchContainer}>

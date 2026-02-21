@@ -23,8 +23,10 @@ import { ThemedView } from "@/components/ThemedView";
 import { CustomHeader } from "@/components/CustomHeader";
 import { useTheme } from "@/hooks/useTheme";
 import { useScreenInsets } from "@/hooks/useScreenInsets";
+import { useStaggeredAnimation } from "@/hooks/useStaggeredAnimation";
 import { Spacing, BorderRadius, Shadows } from "@/constants/theme";
 import { TimelineStackParamList } from "@/navigation/TimelineStackNavigator";
+import { pressableConfig } from "@/utils/animations";
 
 const { width } = Dimensions.get("window");
 const NUM_COLUMNS = 3;
@@ -83,24 +85,35 @@ const MOCK_PHOTOS = [
 interface PhotoCardProps {
   photo: (typeof MOCK_PHOTOS)[0];
   onPress: () => void;
+  index: number;
 }
 
-function PhotoCard({ photo, onPress }: PhotoCardProps) {
-  const { theme } = useTheme();
+function PhotoCard({ photo, onPress, index }: PhotoCardProps) {
+  const { theme, skin } = useTheme();
   const scale = useSharedValue(1);
+  const { opacity, translateY } = useStaggeredAnimation(index);
 
   const animatedStyle = useAnimatedStyle(() => ({
-    transform: [{ scale: scale.value }],
+    opacity: opacity.value,
+    transform: [{ scale: scale.value }, { translateY: translateY.value }],
   }));
+
+  const config = pressableConfig[skin];
 
   return (
     <AnimatedPressable
       onPress={onPress}
       onPressIn={() => {
-        scale.value = withSpring(0.95, { damping: 15, stiffness: 200 });
+        scale.value = withSpring(config.scaleDown, {
+          damping: config.damping,
+          stiffness: config.stiffness,
+        });
       }}
       onPressOut={() => {
-        scale.value = withSpring(1, { damping: 15, stiffness: 200 });
+        scale.value = withSpring(1, {
+          damping: config.damping,
+          stiffness: config.stiffness,
+        });
       }}
       style={[
         styles.photoCard,
@@ -155,13 +168,14 @@ interface DecadeSection {
 export default function TimelineScreen() {
   const { theme } = useTheme();
   const [photos] = useState(MOCK_PHOTOS);
+  const [searchQuery, setSearchQuery] = useState("");
 
   // Group photos by decade (descending)
   const groupedByDecade = React.useMemo(() => {
     const grouped: Record<string, (typeof MOCK_PHOTOS)[]> = {};
     photos.forEach((photo) => {
       const decade = Math.floor(photo.year / 10) * 10;
-      const decadeKey = `${decade}s`;
+      const decadeKey = `${decade}S`;
       if (!grouped[decadeKey]) grouped[decadeKey] = [];
       grouped[decadeKey].push(photo);
     });
@@ -187,30 +201,54 @@ export default function TimelineScreen() {
         data={groupedByDecade}
         contentContainerStyle={styles.listContent}
         scrollIndicatorInsets={{ right: 1 }}
-        renderItem={({ item }) => (
-          <View style={styles.decadeSection}>
-            {/* Decade Header with Lines */}
-            <View style={styles.decadeHeader}>
-              <View
-                style={[styles.decadeLine, { backgroundColor: theme.border }]}
+        ListHeaderComponent={
+          <View style={styles.headerSection}>
+            {/* Search Bar */}
+            <View
+              style={[
+                styles.searchContainer,
+                {
+                  backgroundColor: theme.backgroundSecondary,
+                  borderColor: theme.border,
+                },
+              ]}
+            >
+              <Feather
+                name="search"
+                size={18}
+                color={theme.textSecondary}
+                style={styles.searchIcon}
               />
-              <ThemedText
-                type="h4"
-                style={[styles.decadeText, { color: theme.accent }]}
-              >
-                {item.decade}
-              </ThemedText>
-              <View
-                style={[styles.decadeLine, { backgroundColor: theme.border }]}
+              <TextInput
+                style={[
+                  styles.searchInput,
+                  { color: theme.text, outlineStyle: "none" } as any,
+                ]}
+                placeholder="SEARCH"
+                placeholderTextColor={theme.textSecondary}
+                value={searchQuery}
+                onChangeText={setSearchQuery}
               />
             </View>
+          </View>
+        }
+        renderItem={({ item }) => (
+          <View style={styles.decadeSection}>
+            {/* Decade Header */}
+            <ThemedText
+              type="h2"
+              style={[styles.decadeText, { color: theme.text }]}
+            >
+              {item.decade}
+            </ThemedText>
 
             {/* Photo Grid */}
             <View style={styles.photoGrid}>
-              {item.photos.map((photo) => (
+              {item.photos.map((photo, index) => (
                 <PhotoCard
                   key={photo.id}
                   photo={photo}
+                  index={index}
                   onPress={() => handlePhotoPress(photo)}
                 />
               ))}
@@ -230,14 +268,36 @@ const styles = StyleSheet.create({
   },
   listContent: {
     paddingHorizontal: Spacing.lg,
-    paddingTop: Spacing.lg,
     paddingBottom: Spacing["2xl"],
+  },
+  headerSection: {
+    paddingTop: Spacing.lg,
+    paddingBottom: Spacing.xl,
+    gap: Spacing.md,
+  },
+  searchContainer: {
+    flexDirection: "row",
+    alignItems: "center",
+    borderWidth: 1,
+    borderRadius: BorderRadius.sm,
+    paddingHorizontal: Spacing.md,
+    paddingVertical: Spacing.sm,
+  },
+  searchIcon: {
+    marginRight: Spacing.sm,
+  },
+  searchInput: {
+    flex: 1,
+    fontSize: 14,
+    letterSpacing: 0.5,
+    padding: 0,
   },
   emptyContainer: {
     flex: 1,
     alignItems: "center",
     justifyContent: "center",
     gap: Spacing.md,
+    paddingTop: Spacing["2xl"],
   },
   emptyTitle: {
     textAlign: "center",
@@ -245,20 +305,11 @@ const styles = StyleSheet.create({
   decadeSection: {
     marginBottom: Spacing["2xl"],
   },
-  decadeHeader: {
-    flexDirection: "row",
-    alignItems: "center",
-    marginBottom: Spacing.lg,
-    gap: Spacing.md,
-  },
-  decadeLine: {
-    flex: 1,
-    height: 1,
-  },
   decadeText: {
-    fontWeight: "600",
-    textAlign: "center",
-    minWidth: 60,
+    fontSize: 28,
+    fontWeight: "700",
+    marginBottom: Spacing.lg,
+    letterSpacing: 0.5,
   },
   photoGrid: {
     flexDirection: "row",

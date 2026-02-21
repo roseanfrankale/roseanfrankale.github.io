@@ -1,5 +1,12 @@
 import React from "react";
-import { View, Text, StyleSheet, Pressable, ViewStyle } from "react-native";
+import {
+  View,
+  Text,
+  StyleSheet,
+  Pressable,
+  ViewStyle,
+  Image,
+} from "react-native";
 import { Feather } from "@expo/vector-icons";
 import { useTheme } from "@/hooks/useTheme";
 import { useScreenInsets } from "@/hooks/useScreenInsets";
@@ -39,16 +46,22 @@ export function CustomHeader({
         style,
       ]}
     >
-      {/* Logo Section with Camera Icon */}
+      {/* Logo Section with App Icon */}
       <View style={styles.logoContainer}>
         <View style={styles.logoRow}>
           <Text style={[styles.logoText, { color: theme.text }]}>c</Text>
-          <Feather name="camera" size={16} color={theme.accent} />
+          <View style={styles.iconContainer}>
+            <Image
+              source={require("@/assets/images/icon.png")}
+              style={styles.appIcon}
+              resizeMode="contain"
+            />
+          </View>
           <Text style={[styles.logoText, { color: theme.text }]}>l</Text>
         </View>
       </View>
 
-      {/* Title (optional) */}
+      {/* Title */}
       {title && (
         <Text style={[styles.titleText, { color: theme.text }]}>{title}</Text>
       )}
@@ -92,6 +105,18 @@ const styles = StyleSheet.create({
   logoText: {
     fontSize: 18,
     fontWeight: "600",
+  },
+  iconContainer: {
+    width: 20,
+    height: 20,
+    borderRadius: 4,
+    alignItems: "center",
+    justifyContent: "center",
+    overflow: "hidden",
+  },
+  appIcon: {
+    width: 20,
+    height: 20,
   },
   titleText: {
     fontSize: 16,

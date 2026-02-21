@@ -5,6 +5,7 @@ import { GestureHandlerRootView } from "react-native-gesture-handler";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import { StatusBar } from "expo-status-bar";
 import * as SplashScreen from "expo-splash-screen";
+import * as Font from "expo-font";
 
 import RootNavigator from "@/navigation/RootNavigator";
 import { AuthProvider } from "@/contexts/AuthContext";
@@ -20,10 +21,21 @@ export default function App() {
   useEffect(() => {
     async function prepare() {
       try {
-        // Perform any app initialization here (load fonts, data, etc.)
+        // Load custom fonts
+        await Font.loadAsync({
+          "Cinzel-Regular": require("./assets/fonts/Cinzel-Regular.ttf"),
+          "JetBrainsMono-Regular": require("./assets/fonts/JetBrainsMono-Regular.ttf"),
+          "JetBrainsMono-Bold": require("./assets/fonts/JetBrainsMono-Bold.ttf"),
+          "SpaceMono-Regular": require("./assets/fonts/SpaceMono-Regular.ttf"),
+        });
+
+        // Perform any other app initialization here
         await new Promise((resolve) => setTimeout(resolve, 500));
       } catch (e) {
-        console.warn(e);
+        console.warn("Error loading fonts:", e);
+        console.warn(
+          "App will use system fonts. See assets/fonts/README.md for setup instructions.",
+        );
       } finally {
         setAppIsReady(true);
       }
