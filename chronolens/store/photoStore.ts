@@ -30,7 +30,8 @@ const SAMPLE_COMMUNITY_PHOTOS: Photo[] = [
     id: "c1",
     uri: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=600",
     year: 1985,
-    caption: "Summer vacation at the lake. Dad teaching me to fish for the first time.",
+    caption:
+      "Summer vacation at the lake. Dad teaching me to fish for the first time.",
     isShared: true,
     uploadDate: "2024-01-15",
     likes: 124,
@@ -75,7 +76,8 @@ const SAMPLE_COMMUNITY_PHOTOS: Photo[] = [
     id: "c4",
     uri: "https://images.unsplash.com/photo-1501139083538-0139583c060f?w=600",
     year: 1968,
-    caption: "Family road trip across the country. The beginning of many adventures.",
+    caption:
+      "Family road trip across the country. The beginning of many adventures.",
     isShared: true,
     uploadDate: "2024-01-05",
     likes: 201,
@@ -110,33 +112,41 @@ export function usePhotoStore() {
     return unsubscribe;
   });
 
-  const addPhoto = useCallback((photo: Omit<Photo, "id" | "uploadDate" | "likes" | "comments" | "isLiked">) => {
-    const newPhoto: Photo = {
-      ...photo,
-      id: `p${Date.now()}`,
-      uploadDate: new Date().toISOString().split("T")[0],
-      likes: 0,
-      comments: 0,
-      isLiked: false,
-    };
-    globalPhotos = [newPhoto, ...globalPhotos];
-    
-    if (photo.isShared) {
-      globalCommunityPhotos = [
-        {
-          ...newPhoto,
-          userName: "You",
-          userAvatar: AVATARS.camera,
-          userPoints: 0,
-          userId: "self",
-        },
-        ...globalCommunityPhotos,
-      ];
-    }
-    
-    notifyListeners();
-    return newPhoto;
-  }, []);
+  const addPhoto = useCallback(
+    (
+      photo: Omit<
+        Photo,
+        "id" | "uploadDate" | "likes" | "comments" | "isLiked"
+      >,
+    ) => {
+      const newPhoto: Photo = {
+        ...photo,
+        id: `p${Date.now()}`,
+        uploadDate: new Date().toISOString().split("T")[0],
+        likes: 0,
+        comments: 0,
+        isLiked: false,
+      };
+      globalPhotos = [newPhoto, ...globalPhotos];
+
+      if (photo.isShared) {
+        globalCommunityPhotos = [
+          {
+            ...newPhoto,
+            userName: "You",
+            userAvatar: AVATARS.camera,
+            userPoints: 0,
+            userId: "self",
+          },
+          ...globalCommunityPhotos,
+        ];
+      }
+
+      notifyListeners();
+      return newPhoto;
+    },
+    [],
+  );
 
   const toggleLike = useCallback((photoId: string) => {
     globalCommunityPhotos = globalCommunityPhotos.map((photo) =>
@@ -146,19 +156,23 @@ export function usePhotoStore() {
             isLiked: !photo.isLiked,
             likes: photo.isLiked ? photo.likes - 1 : photo.likes + 1,
           }
-        : photo
+        : photo,
     );
     notifyListeners();
   }, []);
 
   const deletePhoto = useCallback((photoId: string) => {
     globalPhotos = globalPhotos.filter((p) => p.id !== photoId);
-    globalCommunityPhotos = globalCommunityPhotos.filter((p) => p.id !== photoId);
+    globalCommunityPhotos = globalCommunityPhotos.filter(
+      (p) => p.id !== photoId,
+    );
     notifyListeners();
   }, []);
 
   const getPhotoById = useCallback((photoId: string): Photo | undefined => {
-    return [...globalPhotos, ...globalCommunityPhotos].find((p) => p.id === photoId);
+    return [...globalPhotos, ...globalCommunityPhotos].find(
+      (p) => p.id === photoId,
+    );
   }, []);
 
   return {

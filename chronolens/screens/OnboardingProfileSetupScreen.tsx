@@ -21,10 +21,26 @@ import { useScreenInsets } from "@/hooks/useScreenInsets";
 import { Spacing, BorderRadius } from "@/constants/theme";
 
 const AVATAR_OPTIONS = [
-  { id: "camera", name: "Vintage Camera", source: require("../assets/images/avatars/camera.png") },
-  { id: "film", name: "Film Roll", source: require("../assets/images/avatars/film.png") },
-  { id: "polaroid", name: "Polaroid Frame", source: require("../assets/images/avatars/polaroid.png") },
-  { id: "album", name: "Photo Album", source: require("../assets/images/avatars/album.png") },
+  {
+    id: "camera",
+    name: "Vintage Camera",
+    source: require("../assets/images/avatars/camera.png"),
+  },
+  {
+    id: "film",
+    name: "Film Roll",
+    source: require("../assets/images/avatars/film.png"),
+  },
+  {
+    id: "polaroid",
+    name: "Polaroid Frame",
+    source: require("../assets/images/avatars/polaroid.png"),
+  },
+  {
+    id: "album",
+    name: "Photo Album",
+    source: require("../assets/images/avatars/album.png"),
+  },
 ];
 
 export default function OnboardingProfileSetupScreen() {
@@ -60,14 +76,20 @@ export default function OnboardingProfileSetupScreen() {
               <ThemedText type="h1" style={styles.title}>
                 Set Up Your Profile
               </ThemedText>
-              <ThemedText type="body" style={[styles.subtitle, { color: theme.textSecondary }]}>
+              <ThemedText
+                type="body"
+                style={[styles.subtitle, { color: theme.textSecondary }]}
+              >
                 Choose an avatar and tell us about yourself
               </ThemedText>
             </View>
 
             <View style={styles.form}>
               <View style={styles.avatarSection}>
-                <ThemedText type="caption" style={[styles.label, { color: theme.textSecondary }]}>
+                <ThemedText
+                  type="caption"
+                  style={[styles.label, { color: theme.textSecondary }]}
+                >
                   Choose Avatar
                 </ThemedText>
                 <View style={styles.avatarGrid}>
@@ -78,24 +100,44 @@ export default function OnboardingProfileSetupScreen() {
                       style={[
                         styles.avatarOption,
                         {
-                          borderColor: selectedAvatar === avatar.id ? theme.sepia : theme.border,
+                          borderColor:
+                            selectedAvatar === avatar.id
+                              ? theme.sepia
+                              : theme.border,
                           borderWidth: selectedAvatar === avatar.id ? 2 : 1,
-                          backgroundColor: selectedAvatar === avatar.id ? theme.sepiaLight : "transparent",
+                          backgroundColor:
+                            selectedAvatar === avatar.id
+                              ? theme.sepiaLight
+                              : "transparent",
                         },
                       ]}
                     >
-                      <Image source={avatar.source} style={styles.avatarImage} resizeMode="contain" />
+                      <Image
+                        source={avatar.source}
+                        style={styles.avatarImage}
+                        resizeMode="contain"
+                      />
                     </Pressable>
                   ))}
                 </View>
               </View>
 
               <View style={styles.inputSection}>
-                <ThemedText type="caption" style={[styles.label, { color: theme.textSecondary }]}>
+                <ThemedText
+                  type="caption"
+                  style={[styles.label, { color: theme.textSecondary }]}
+                >
                   Display Name
                 </ThemedText>
-                <View style={[styles.inputWrapper, { borderColor: theme.border }]}>
-                  <Feather name="user" size={18} color={theme.textSecondary} style={styles.inputIcon} />
+                <View
+                  style={[styles.inputWrapper, { borderColor: theme.border }]}
+                >
+                  <Feather
+                    name="user"
+                    size={18}
+                    color={theme.textSecondary}
+                    style={styles.inputIcon}
+                  />
                   <TextInput
                     style={[styles.input, { color: theme.text }]}
                     placeholder="Your name"
@@ -108,10 +150,19 @@ export default function OnboardingProfileSetupScreen() {
               </View>
 
               <View style={styles.inputSection}>
-                <ThemedText type="caption" style={[styles.label, { color: theme.textSecondary }]}>
+                <ThemedText
+                  type="caption"
+                  style={[styles.label, { color: theme.textSecondary }]}
+                >
                   Bio (Optional)
                 </ThemedText>
-                <View style={[styles.inputWrapper, styles.textAreaWrapper, { borderColor: theme.border }]}>
+                <View
+                  style={[
+                    styles.inputWrapper,
+                    styles.textAreaWrapper,
+                    { borderColor: theme.border },
+                  ]}
+                >
                   <TextInput
                     style={[styles.textArea, { color: theme.text }]}
                     placeholder="Tell us about yourself..."

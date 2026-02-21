@@ -11,7 +11,7 @@ interface HeaderTitleProps {
 
 export function HeaderTitle({ title }: HeaderTitleProps) {
   const { theme } = useTheme();
-  
+
   return (
     <View style={styles.container}>
       <Image
@@ -19,7 +19,9 @@ export function HeaderTitle({ title }: HeaderTitleProps) {
         style={styles.icon}
         resizeMode="contain"
       />
-      <ThemedText style={[styles.title, { color: theme.sepia }]}>{title}</ThemedText>
+      <ThemedText style={[styles.title, { color: theme.sepia }]}>
+        {title}
+      </ThemedText>
     </View>
   );
 }

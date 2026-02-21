@@ -1,8 +1,8 @@
 import React, { useState } from "react";
-import { 
-  View, 
-  StyleSheet, 
-  Image, 
+import {
+  View,
+  StyleSheet,
+  Image,
   Pressable,
   Dimensions,
   Alert,
@@ -38,18 +38,29 @@ interface CommentData {
 }
 
 const SAMPLE_COMMENTS: CommentData[] = [
-  { id: "1", userName: "Sarah M.", text: "This brings back so many memories!", timeAgo: "2h ago" },
-  { id: "2", userName: "Michael R.", text: "Beautiful photo. What camera was this taken with?", timeAgo: "5h ago" },
+  {
+    id: "1",
+    userName: "Sarah M.",
+    text: "This brings back so many memories!",
+    timeAgo: "2h ago",
+  },
+  {
+    id: "2",
+    userName: "Michael R.",
+    text: "Beautiful photo. What camera was this taken with?",
+    timeAgo: "5h ago",
+  },
 ];
 
 export default function PhotoDetailScreen() {
-  const navigation = useNavigation<NativeStackNavigationProp<TimelineStackParamList>>();
+  const navigation =
+    useNavigation<NativeStackNavigationProp<TimelineStackParamList>>();
   const route = useRoute<RouteProp<TimelineStackParamList, "PhotoDetail">>();
   const { theme } = useTheme();
   const headerHeight = useHeaderHeight();
   const insets = useSafeAreaInsets();
   const { getPhotoById, toggleLike, deletePhoto } = usePhotoStore();
-  
+
   const photo = getPhotoById(route.params.photoId);
   const [showComments, setShowComments] = useState(false);
   const [commentText, setCommentText] = useState("");
@@ -83,7 +94,7 @@ export default function PhotoDetailScreen() {
             navigation.goBack();
           },
         },
-      ]
+      ],
     );
   };
 
@@ -97,15 +108,27 @@ export default function PhotoDetailScreen() {
         style={styles.scrollView}
         contentContainerStyle={[
           styles.content,
-          { paddingTop: headerHeight + Spacing.md, paddingBottom: insets.bottom + Spacing.xl },
+          {
+            paddingTop: headerHeight + Spacing.md,
+            paddingBottom: insets.bottom + Spacing.xl,
+          },
         ]}
         showsVerticalScrollIndicator={false}
       >
-        <Image source={{ uri: photo.uri }} style={styles.image} resizeMode="cover" />
+        <Image
+          source={{ uri: photo.uri }}
+          style={styles.image}
+          resizeMode="cover"
+        />
 
         <View style={styles.metadataSection}>
-          <View style={[styles.yearBadge, { backgroundColor: theme.sepiaLight }]}>
-            <ThemedText type="caption" style={[styles.yearText, { color: theme.sepia }]}>
+          <View
+            style={[styles.yearBadge, { backgroundColor: theme.sepiaLight }]}
+          >
+            <ThemedText
+              type="caption"
+              style={[styles.yearText, { color: theme.sepia }]}
+            >
               {photo.year}
             </ThemedText>
           </View>
@@ -113,7 +136,13 @@ export default function PhotoDetailScreen() {
           {photo.tags && photo.tags.length > 0 ? (
             <View style={styles.tagsRow}>
               {photo.tags.map((tag, index) => (
-                <View key={index} style={[styles.tag, { backgroundColor: theme.backgroundSecondary }]}>
+                <View
+                  key={index}
+                  style={[
+                    styles.tag,
+                    { backgroundColor: theme.backgroundSecondary },
+                  ]}
+                >
                   <ThemedText type="caption">{tag}</ThemedText>
                 </View>
               ))}
@@ -136,7 +165,10 @@ export default function PhotoDetailScreen() {
               </ThemedText>
               <View style={styles.pointsBadge}>
                 <Feather name="star" size={12} color={theme.accent} />
-                <ThemedText type="caption" style={{ color: theme.accent, marginLeft: 2 }}>
+                <ThemedText
+                  type="caption"
+                  style={{ color: theme.accent, marginLeft: 2 }}
+                >
                   {photo.userPoints}
                 </ThemedText>
               </View>
@@ -158,7 +190,10 @@ export default function PhotoDetailScreen() {
                 size={24}
                 color={photo.isLiked ? theme.error : theme.textSecondary}
               />
-              <ThemedText type="body" style={{ color: theme.textSecondary, marginLeft: Spacing.sm }}>
+              <ThemedText
+                type="body"
+                style={{ color: theme.textSecondary, marginLeft: Spacing.sm }}
+              >
                 {photo.likes}
               </ThemedText>
             </Pressable>
@@ -170,8 +205,15 @@ export default function PhotoDetailScreen() {
                 { opacity: pressed ? 0.7 : 1 },
               ]}
             >
-              <Feather name="message-circle" size={24} color={theme.textSecondary} />
-              <ThemedText type="body" style={{ color: theme.textSecondary, marginLeft: Spacing.sm }}>
+              <Feather
+                name="message-circle"
+                size={24}
+                color={theme.textSecondary}
+              />
+              <ThemedText
+                type="body"
+                style={{ color: theme.textSecondary, marginLeft: Spacing.sm }}
+              >
                 {photo.comments}
               </ThemedText>
             </Pressable>
@@ -199,7 +241,10 @@ export default function PhotoDetailScreen() {
                   {comment.userName}
                 </ThemedText>
                 <ThemedText type="body">{comment.text}</ThemedText>
-                <ThemedText type="caption" style={{ color: theme.textSecondary }}>
+                <ThemedText
+                  type="caption"
+                  style={{ color: theme.textSecondary }}
+                >
                   {comment.timeAgo}
                 </ThemedText>
               </View>
@@ -208,7 +253,10 @@ export default function PhotoDetailScreen() {
               <TextInput
                 style={[
                   styles.commentInput,
-                  { backgroundColor: theme.backgroundSecondary, color: theme.text },
+                  {
+                    backgroundColor: theme.backgroundSecondary,
+                    color: theme.text,
+                  },
                 ]}
                 placeholder="Add a comment..."
                 placeholderTextColor={theme.textSecondary}
@@ -233,7 +281,10 @@ export default function PhotoDetailScreen() {
 
         <View style={styles.metaInfo}>
           <Feather name="calendar" size={14} color={theme.textSecondary} />
-          <ThemedText type="small" style={{ color: theme.textSecondary, marginLeft: Spacing.xs }}>
+          <ThemedText
+            type="small"
+            style={{ color: theme.textSecondary, marginLeft: Spacing.xs }}
+          >
             Uploaded {photo.uploadDate}
           </ThemedText>
         </View>
@@ -243,7 +294,10 @@ export default function PhotoDetailScreen() {
         <AnimatedPressable
           onPress={handleDelete}
           onPressIn={() => {
-            deleteScale.value = withSpring(0.9, { damping: 15, stiffness: 200 });
+            deleteScale.value = withSpring(0.9, {
+              damping: 15,
+              stiffness: 200,
+            });
           }}
           onPressOut={() => {
             deleteScale.value = withSpring(1, { damping: 15, stiffness: 200 });

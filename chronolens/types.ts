@@ -1,4 +1,3 @@
-
 export interface CommentPin {
   id: string;
   x: number; // Percentage 0-100
@@ -30,14 +29,14 @@ export interface PhotoItem {
   exifDate?: string;
   title: string;
   location?: PhotoLocation; // New Location Data
-  generation?: 'grandparents' | 'parents' | 'self' | 'children'; // For Tree View
+  generation?: "grandparents" | "parents" | "self" | "children"; // For Tree View
   comments?: CommentPin[];
   analysis?: AnalysisResult;
-  
+
   // Firestore Security Fields
   ownerId?: string; // PII Vault Owner
   familyId?: string; // Shared Context Scope
-  ai_verified_status?: 'verified' | 'conflict' | 'unverified'; // Derived Status
+  ai_verified_status?: "verified" | "conflict" | "unverified"; // Derived Status
 }
 
 export interface MysteryPost extends PhotoItem {
@@ -51,7 +50,7 @@ export interface ScrollState {
   velocity: number;
 }
 
-export type ViewState = 'scanner' | 'vault' | 'mystery';
-export type VaultViewMode = 'timeline' | 'map' | 'tree' | 'grid';
-export type CameraMode = 'snapshot' | 'artifact' | 'scanner-pro';
-export type AppTheme = 'cyberpunk' | 'ancient' | 'library';
+export type ViewState = "scanner" | "vault" | "mystery";
+export type VaultViewMode = "timeline" | "map" | "tree" | "grid";
+export type CameraMode = "snapshot" | "artifact" | "scanner-pro";
+export type AppTheme = "cyberpunk" | "ancient" | "library";

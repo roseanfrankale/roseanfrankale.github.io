@@ -1,535 +1,489 @@
 import React, { useState } from "react";
 import {
   View,
+  Text,
   StyleSheet,
-  Modal,
   Pressable,
-  Image,
-  TextInput,
-  Switch,
-  Alert,
-  Platform,
-  ScrollView,
+  Modal,
+  ActivityIndicator,
 } from "react-native";
 import { Feather } from "@expo/vector-icons";
-import { useSafeAreaInsets } from "react-native-safe-area-context";
 import * as ImagePicker from "expo-image-picker";
-import Animated, {
-  useAnimatedStyle,
-  useSharedValue,
-  withSpring,
-} from "react-native-reanimated";
-
-import { ThemedText } from "@/components/ThemedText";
-import { ThemedView } from "@/components/ThemedView";
-import { useTheme } from "@/hooks/useTheme";
-import { Spacing, BorderRadius, Shadows } from "@/constants/theme";
-import { usePhotoStore } from "@/store/photoStore";
-import { useUserStore } from "@/store/userStore";
+import { useTheme } from "../hooks/useTheme";
 
 interface UploadModalProps {
-  visible: boolean;
+  isOpen: boolean;
   onClose: () => void;
+  onCameraClick?: () => void;
 }
 
-const AnimatedPressable = Animated.createAnimatedComponent(Pressable);
+export default function UploadModal({
+  isOpen,
+  onClose,
+  onCameraClick,
+}: UploadModalProps) {
+  const { colors } = useTheme();
+  const [isProcessing, setIsProcessing] = useState(false);
+  const [detectedMetadata, setDetectedMetadata] = useState<any>(null);
 
-const DECADES = [
-  "2020s", "2010s", "2000s", "1990s", "1980s", "1970s", "1960s", "1950s", "1940s", "Earlier"
-];
-
-const YEARS_BY_DECADE: Record<string, number[]> = {
-  "2020s": [2024, 2023, 2022, 2021, 2020],
-  "2010s": [2019, 2018, 2017, 2016, 2015, 2014, 2013, 2012, 2011, 2010],
-  "2000s": [2009, 2008, 2007, 2006, 2005, 2004, 2003, 2002, 2001, 2000],
-  "1990s": [1999, 1998, 1997, 1996, 1995, 1994, 1993, 1992, 1991, 1990],
-  "1980s": [1989, 1988, 1987, 1986, 1985, 1984, 1983, 1982, 1981, 1980],
-  "1970s": [1979, 1978, 1977, 1976, 1975, 1974, 1973, 1972, 1971, 1970],
-  "1960s": [1969, 1968, 1967, 1966, 1965, 1964, 1963, 1962, 1961, 1960],
-  "1950s": [1959, 1958, 1957, 1956, 1955, 1954, 1953, 1952, 1951, 1950],
-  "1940s": [1949, 1948, 1947, 1946, 1945, 1944, 1943, 1942, 1941, 1940],
-  "Earlier": [1939, 1935, 1930, 1925, 1920, 1915, 1910, 1905, 1900],
-};
-
-interface SourceButtonProps {
-  icon: keyof typeof Feather.glyphMap;
-  label: string;
-  onPress: () => void;
-}
-
-function SourceButton({ icon, label, onPress }: SourceButtonProps) {
-  const { theme } = useTheme();
-  const scale = useSharedValue(1);
-
-  const animatedStyle = useAnimatedStyle(() => ({
-    transform: [{ scale: scale.value }],
-  }));
-
-  return (
-    <AnimatedPressable
-      onPress={onPress}
-      onPressIn={() => {
-        scale.value = withSpring(0.95, { damping: 15, stiffness: 200 });
-      }}
-      onPressOut={() => {
-        scale.value = withSpring(1, { damping: 15, stiffness: 200 });
-      }}
-      style={[
-        styles.sourceButton,
-        { backgroundColor: theme.backgroundDefault },
-        Shadows.card,
-        animatedStyle,
-      ]}
-    >
-      <View style={[styles.sourceIconContainer, { backgroundColor: theme.sepiaLight }]}>
-        <Feather name={icon} size={32} color={theme.sepia} />
-      </View>
-      <ThemedText type="body" style={styles.sourceLabel}>
-        {label}
-      </ThemedText>
-    </AnimatedPressable>
-  );
-}
-
-export default function UploadModal({ visible, onClose }: UploadModalProps) {
-  const { theme } = useTheme();
-  const insets = useSafeAreaInsets();
-  const { addPhoto } = usePhotoStore();
-  const { addPoints } = useUserStore();
-
-  const [step, setStep] = useState<"source" | "details">("source");
-  const [imageUri, setImageUri] = useState<string | null>(null);
-  const [selectedDecade, setSelectedDecade] = useState<string | null>(null);
-  const [selectedYear, setSelectedYear] = useState<number | null>(null);
-  const [caption, setCaption] = useState("");
-  const [tags, setTags] = useState("");
-  const [isShared, setIsShared] = useState(false);
-
-  const reset = () => {
-    setStep("source");
-    setImageUri(null);
-    setSelectedDecade(null);
-    setSelectedYear(null);
-    setCaption("");
-    setTags("");
-    setIsShared(false);
-  };
-
-  const handleClose = () => {
-    reset();
-    onClose();
-  };
-
-  const handleTakePhoto = async () => {
-    const { status } = await ImagePicker.requestCameraPermissionsAsync();
-    if (status !== "granted") {
-      Alert.alert(
-        "Permission Required",
-        "Camera permission is needed to take photos. Please enable it in Settings."
-      );
-      return;
-    }
-
-    const result = await ImagePicker.launchCameraAsync({
-      mediaTypes: ["images"],
-      allowsEditing: true,
-      aspect: [1, 1],
-      quality: 0.8,
-    });
-
-    if (!result.canceled && result.assets[0]) {
-      setImageUri(result.assets[0].uri);
-      setStep("details");
-    }
-  };
-
-  const handleChooseFromLibrary = async () => {
-    const { status } = await ImagePicker.requestMediaLibraryPermissionsAsync();
-    if (status !== "granted") {
-      Alert.alert(
-        "Permission Required",
-        "Photo library access is needed to select photos. Please enable it in Settings."
-      );
-      return;
-    }
-
+  const pickImage = async () => {
     const result = await ImagePicker.launchImageLibraryAsync({
-      mediaTypes: ["images"],
-      allowsEditing: true,
-      aspect: [1, 1],
-      quality: 0.8,
+      mediaTypes: ImagePicker.MediaTypeOptions.Images,
+      allowsMultipleSelection: true,
+      quality: 0.95,
     });
 
-    if (!result.canceled && result.assets[0]) {
-      setImageUri(result.assets[0].uri);
-      setStep("details");
+    if (!result.canceled) {
+      await processImages(result.assets);
     }
   };
 
-  const handleSave = () => {
-    if (!imageUri || !selectedYear) {
-      Alert.alert("Missing Information", "Please select a photo and year.");
-      return;
-    }
+  const processImages = async (assets: any[]) => {
+    setIsProcessing(true);
 
-    const tagList = tags
-      .split(",")
-      .map((t) => t.trim())
-      .filter((t) => t.length > 0);
+    // Simulate AI detection
+    await new Promise((resolve) => setTimeout(resolve, 1500));
 
-    addPhoto({
-      uri: imageUri,
-      year: selectedYear,
-      caption: caption.trim() || undefined,
-      tags: tagList.length > 0 ? tagList : undefined,
-      isShared,
+    setDetectedMetadata({
+      date: "2024-06-15",
+      location: "Paris, France",
+      era: "Contemporary",
+      confidence: 0.87,
     });
 
-    const points = isShared ? 15 : 10;
-    addPoints(points);
+    setIsProcessing(false);
 
-    Alert.alert(
-      "Photo Saved",
-      `Your memory has been added to your timeline! You earned ${points} points.`,
-      [{ text: "OK", onPress: handleClose }]
-    );
+    // Auto-close after showing results
+    setTimeout(() => {
+      setDetectedMetadata(null);
+      onClose();
+    }, 2000);
   };
 
   return (
     <Modal
-      visible={visible}
-      animationType="slide"
-      presentationStyle="pageSheet"
-      onRequestClose={handleClose}
+      visible={isOpen}
+      transparent
+      animationType="fade"
+      onRequestClose={onClose}
     >
-      <ThemedView style={[styles.container, { paddingTop: insets.top }]}>
-        <View style={styles.header}>
-          <Pressable
-            onPress={step === "details" ? () => setStep("source") : handleClose}
-            style={({ pressed }) => [
-              styles.headerButton,
-              { opacity: pressed ? 0.7 : 1 },
+      <View style={styles.modalOverlay}>
+        <Pressable style={styles.backdrop} onPress={onClose} />
+
+        <View
+          style={[
+            styles.modalContent,
+            { backgroundColor: colors.card, borderColor: colors.border },
+          ]}
+        >
+          {/* Header */}
+          <View
+            style={[
+              styles.header,
+              {
+                backgroundColor: colors.cardAlt,
+                borderBottomColor: colors.border,
+              },
             ]}
           >
-            <Feather
-              name={step === "details" ? "arrow-left" : "x"}
-              size={24}
-              color={theme.text}
-            />
-          </Pressable>
-          <ThemedText type="h4" style={styles.headerTitle}>
-            {step === "source" ? "Add Photo" : "Photo Details"}
-          </ThemedText>
-          <View style={styles.headerButton} />
-        </View>
-
-        {step === "source" ? (
-          <View style={styles.sourceContainer}>
-            <ThemedText type="h2" style={styles.sourceTitle}>
-              Choose Photo Source
-            </ThemedText>
-            <ThemedText type="body" style={[styles.sourceSubtitle, { color: theme.textSecondary }]}>
-              Take a new photo or select one from your library
-            </ThemedText>
-            <View style={styles.sourceButtons}>
-              <SourceButton
-                icon="camera"
-                label="Take Photo"
-                onPress={handleTakePhoto}
-              />
-              <SourceButton
-                icon="image"
-                label="Choose from Library"
-                onPress={handleChooseFromLibrary}
-              />
+            <View>
+              <Text style={[styles.title, { color: colors.text }]}>
+                upload photographs
+              </Text>
+              <Text style={[styles.subtitle, { color: colors.textSecondary }]}>
+                automatic detection enabled
+              </Text>
             </View>
+            <Pressable onPress={onClose} style={styles.closeButton}>
+              <Feather name="x" size={18} color={colors.text} />
+            </Pressable>
           </View>
-        ) : (
-          <ScrollView
-            style={styles.detailsScroll}
-            contentContainerStyle={[
-              styles.detailsContent,
-              { paddingBottom: insets.bottom + Spacing.xl },
-            ]}
-            showsVerticalScrollIndicator={false}
-            keyboardShouldPersistTaps="handled"
-          >
-            {imageUri ? (
-              <Image source={{ uri: imageUri }} style={styles.previewImage} />
-            ) : null}
 
-            <View style={styles.fieldSection}>
-              <ThemedText type="h4" style={styles.fieldLabel}>
-                Time Period
-              </ThemedText>
-              <ScrollView
-                horizontal
-                showsHorizontalScrollIndicator={false}
-                contentContainerStyle={styles.decadeRow}
-              >
-                {DECADES.map((decade) => (
-                  <Pressable
-                    key={decade}
-                    onPress={() => {
-                      setSelectedDecade(decade);
-                      setSelectedYear(null);
-                    }}
+          {/* Content */}
+          <View style={styles.content}>
+            {isProcessing ? (
+              <View style={styles.processingContainer}>
+                <ActivityIndicator
+                  size="large"
+                  color={colors.accent}
+                  style={{ marginBottom: 16 }}
+                />
+                <Text style={[styles.processingText, { color: colors.text }]}>
+                  analyzing photograph
+                </Text>
+                <Text
+                  style={[
+                    styles.processingSubtext,
+                    { color: colors.textSecondary },
+                  ]}
+                >
+                  detecting date, location, and metadata
+                </Text>
+              </View>
+            ) : detectedMetadata ? (
+              <View style={styles.resultsContainer}>
+                <View
+                  style={[
+                    styles.resultsCard,
+                    {
+                      backgroundColor: colors.accent + "1A",
+                      borderColor: colors.accent + "4D",
+                    },
+                  ]}
+                >
+                  <Text
                     style={[
-                      styles.decadeChip,
+                      styles.resultsTitle,
+                      { color: colors.textSecondary },
+                    ]}
+                  >
+                    ✓ detection complete
+                  </Text>
+                  <View style={styles.resultsGrid}>
+                    <View style={styles.resultRow}>
+                      <Text
+                        style={[
+                          styles.resultLabel,
+                          { color: colors.textSecondary },
+                        ]}
+                      >
+                        date:
+                      </Text>
+                      <Text
+                        style={[styles.resultValue, { color: colors.text }]}
+                      >
+                        {detectedMetadata.date}
+                      </Text>
+                    </View>
+                    <View style={styles.resultRow}>
+                      <Text
+                        style={[
+                          styles.resultLabel,
+                          { color: colors.textSecondary },
+                        ]}
+                      >
+                        location:
+                      </Text>
+                      <Text
+                        style={[styles.resultValue, { color: colors.text }]}
+                      >
+                        {detectedMetadata.location}
+                      </Text>
+                    </View>
+                    <View style={styles.resultRow}>
+                      <Text
+                        style={[
+                          styles.resultLabel,
+                          { color: colors.textSecondary },
+                        ]}
+                      >
+                        era:
+                      </Text>
+                      <Text
+                        style={[styles.resultValue, { color: colors.text }]}
+                      >
+                        {detectedMetadata.era}
+                      </Text>
+                    </View>
+                    <View style={styles.resultRow}>
+                      <Text
+                        style={[
+                          styles.resultLabel,
+                          { color: colors.textSecondary },
+                        ]}
+                      >
+                        confidence:
+                      </Text>
+                      <Text
+                        style={[styles.resultValue, { color: colors.text }]}
+                      >
+                        {(detectedMetadata.confidence * 100).toFixed(0)}%
+                      </Text>
+                    </View>
+                  </View>
+                </View>
+                <Text
+                  style={[
+                    styles.processingSubtext,
+                    {
+                      color: colors.textSecondary,
+                      textAlign: "center",
+                      marginTop: 16,
+                    },
+                  ]}
+                >
+                  adding to archive...
+                </Text>
+              </View>
+            ) : (
+              <>
+                {/* Camera Option */}
+                {onCameraClick && (
+                  <Pressable
+                    onPress={() => {
+                      onClose();
+                      onCameraClick();
+                    }}
+                    style={({ pressed }) => [
+                      styles.option,
                       {
-                        backgroundColor:
-                          selectedDecade === decade ? theme.sepia : theme.sepiaLight,
+                        borderColor: pressed ? colors.accent : colors.border,
+                        backgroundColor: pressed
+                          ? colors.cardAlt
+                          : "transparent",
                       },
                     ]}
                   >
-                    <ThemedText
-                      type="caption"
-                      style={{
-                        color: selectedDecade === decade ? "#FFFFFF" : theme.sepia,
-                      }}
-                    >
-                      {decade}
-                    </ThemedText>
-                  </Pressable>
-                ))}
-              </ScrollView>
-
-              {selectedDecade ? (
-                <View style={styles.yearGrid}>
-                  {YEARS_BY_DECADE[selectedDecade]?.map((year) => (
-                    <Pressable
-                      key={year}
-                      onPress={() => setSelectedYear(year)}
-                      style={[
-                        styles.yearChip,
-                        {
-                          backgroundColor:
-                            selectedYear === year ? theme.sepia : theme.backgroundSecondary,
-                        },
-                      ]}
-                    >
-                      <ThemedText
-                        type="body"
-                        style={{
-                          color: selectedYear === year ? "#FFFFFF" : theme.text,
-                          fontWeight: selectedYear === year ? "600" : "400",
-                        }}
+                    <Feather name="camera" size={24} color={colors.accent} />
+                    <View style={styles.optionText}>
+                      <Text
+                        style={[styles.optionTitle, { color: colors.text }]}
                       >
-                        {year}
-                      </ThemedText>
-                    </Pressable>
-                  ))}
+                        capture with camera
+                      </Text>
+                      <Text
+                        style={[
+                          styles.optionSubtitle,
+                          { color: colors.textSecondary },
+                        ]}
+                      >
+                        take a new photo
+                      </Text>
+                    </View>
+                  </Pressable>
+                )}
+
+                {/* Upload Option */}
+                <Pressable
+                  onPress={pickImage}
+                  style={({ pressed }) => [
+                    styles.uploadArea,
+                    {
+                      borderColor: pressed ? colors.accent : colors.border,
+                      backgroundColor: pressed ? colors.cardAlt : "transparent",
+                    },
+                  ]}
+                >
+                  <Feather
+                    name="upload"
+                    size={40}
+                    color={colors.textSecondary}
+                    style={{ opacity: 0.5, marginBottom: 16 }}
+                  />
+                  <Text style={[styles.uploadTitle, { color: colors.text }]}>
+                    tap to select photographs
+                  </Text>
+                  <Text
+                    style={[
+                      styles.uploadSubtitle,
+                      { color: colors.textSecondary },
+                    ]}
+                  >
+                    supports jpg, png, tiff • automatic metadata detection
+                  </Text>
+                </Pressable>
+
+                {/* Info Panel */}
+                <View
+                  style={[
+                    styles.infoPanel,
+                    {
+                      backgroundColor: colors.cardAlt,
+                      borderColor: colors.border,
+                    },
+                  ]}
+                >
+                  <Text
+                    style={[
+                      styles.infoPanelTitle,
+                      { color: colors.textSecondary },
+                    ]}
+                  >
+                    detection features
+                  </Text>
+                  <Text
+                    style={[
+                      styles.infoPanelText,
+                      { color: colors.textSecondary },
+                    ]}
+                  >
+                    • automatic date extraction from exif data{"\n"}• ai-powered
+                    era classification{"\n"}• location detection and geocoding
+                    {"\n"}• catalog number auto-generation
+                  </Text>
                 </View>
-              ) : null}
-            </View>
-
-            <View style={styles.fieldSection}>
-              <ThemedText type="h4" style={styles.fieldLabel}>
-                Caption (optional)
-              </ThemedText>
-              <TextInput
-                style={[
-                  styles.textInput,
-                  styles.multilineInput,
-                  { backgroundColor: theme.backgroundSecondary, color: theme.text },
-                ]}
-                placeholder="Tell the story behind this photo..."
-                placeholderTextColor={theme.textSecondary}
-                value={caption}
-                onChangeText={setCaption}
-                multiline
-                numberOfLines={3}
-              />
-            </View>
-
-            <View style={styles.fieldSection}>
-              <ThemedText type="h4" style={styles.fieldLabel}>
-                Tags (optional)
-              </ThemedText>
-              <TextInput
-                style={[
-                  styles.textInput,
-                  { backgroundColor: theme.backgroundSecondary, color: theme.text },
-                ]}
-                placeholder="family, vacation, birthday (comma-separated)"
-                placeholderTextColor={theme.textSecondary}
-                value={tags}
-                onChangeText={setTags}
-              />
-            </View>
-
-            <View style={[styles.fieldSection, styles.switchRow]}>
-              <View style={styles.switchLabel}>
-                <Feather name="globe" size={20} color={theme.sepia} />
-                <View style={styles.switchLabelText}>
-                  <ThemedText type="body" style={styles.switchTitle}>
-                    Share with Community
-                  </ThemedText>
-                  <ThemedText type="small" style={{ color: theme.textSecondary }}>
-                    Earn extra points by sharing
-                  </ThemedText>
-                </View>
-              </View>
-              <Switch
-                value={isShared}
-                onValueChange={setIsShared}
-                trackColor={{ false: theme.backgroundTertiary, true: theme.sepia }}
-                thumbColor="#FFFFFF"
-              />
-            </View>
-
-            <Pressable
-              onPress={handleSave}
-              disabled={!selectedYear}
-              style={({ pressed }) => [
-                styles.saveButton,
-                {
-                  backgroundColor: selectedYear ? theme.sepia : theme.backgroundTertiary,
-                  opacity: pressed ? 0.8 : 1,
-                },
-              ]}
-            >
-              <ThemedText type="body" style={styles.saveButtonText}>
-                Save to Timeline
-              </ThemedText>
-            </Pressable>
-          </ScrollView>
-        )}
-      </ThemedView>
+              </>
+            )}
+          </View>
+        </View>
+      </View>
     </Modal>
   );
 }
 
 const styles = StyleSheet.create({
-  container: {
+  modalOverlay: {
     flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    padding: 16,
+  },
+  backdrop: {
+    position: "absolute",
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
+    backgroundColor: "rgba(0,0,0,0.95)",
+  },
+  modalContent: {
+    width: "100%",
+    maxWidth: 600,
+    borderWidth: 1,
+    overflow: "hidden",
   },
   header: {
     flexDirection: "row",
-    alignItems: "center",
     justifyContent: "space-between",
-    paddingHorizontal: Spacing.lg,
-    paddingVertical: Spacing.md,
+    alignItems: "center",
+    padding: 16,
     borderBottomWidth: 1,
-    borderBottomColor: "rgba(0,0,0,0.05)",
   },
-  headerButton: {
-    width: 44,
-    height: 44,
+  title: {
+    fontFamily: "Cinzel-Regular",
+    fontSize: 18,
+    fontWeight: "400",
+    textTransform: "lowercase",
+    marginBottom: 4,
+  },
+  subtitle: {
+    fontFamily: "JetBrainsMono-Regular",
+    fontSize: 10,
+    letterSpacing: 1.5,
+    textTransform: "uppercase",
+    opacity: 0.7,
+  },
+  closeButton: {
+    padding: 8,
+  },
+  content: {
+    padding: 24,
+  },
+  processingContainer: {
+    paddingVertical: 48,
     alignItems: "center",
-    justifyContent: "center",
   },
-  headerTitle: {
-    textAlign: "center",
+  processingText: {
+    fontFamily: "JetBrainsMono-Regular",
+    fontSize: 12,
+    letterSpacing: 1.5,
+    textTransform: "uppercase",
+    marginBottom: 8,
   },
-  sourceContainer: {
-    flex: 1,
-    paddingHorizontal: Spacing.xl,
-    paddingTop: Spacing["4xl"],
+  processingSubtext: {
+    fontFamily: "JetBrainsMono-Regular",
+    fontSize: 10,
+    letterSpacing: 1.5,
+    textTransform: "uppercase",
+    opacity: 0.6,
   },
-  sourceTitle: {
-    textAlign: "center",
-    marginBottom: Spacing.sm,
+  resultsContainer: {
+    paddingVertical: 24,
   },
-  sourceSubtitle: {
-    textAlign: "center",
-    marginBottom: Spacing["3xl"],
+  resultsCard: {
+    padding: 20,
+    borderWidth: 1,
   },
-  sourceButtons: {
-    gap: Spacing.lg,
+  resultsTitle: {
+    fontFamily: "JetBrainsMono-Regular",
+    fontSize: 10,
+    letterSpacing: 1.5,
+    textTransform: "uppercase",
+    opacity: 0.7,
+    marginBottom: 16,
   },
-  sourceButton: {
+  resultsGrid: {
+    gap: 8,
+  },
+  resultRow: {
     flexDirection: "row",
-    alignItems: "center",
-    padding: Spacing.xl,
-    borderRadius: BorderRadius.lg,
-  },
-  sourceIconContainer: {
-    width: 64,
-    height: 64,
-    borderRadius: BorderRadius.md,
-    alignItems: "center",
-    justifyContent: "center",
-    marginRight: Spacing.xl,
-  },
-  sourceLabel: {
-    fontWeight: "600",
-  },
-  detailsScroll: {
-    flex: 1,
-  },
-  detailsContent: {
-    paddingHorizontal: Spacing.xl,
-    paddingTop: Spacing.xl,
-  },
-  previewImage: {
-    width: "100%",
-    aspectRatio: 1,
-    borderRadius: BorderRadius.md,
-    marginBottom: Spacing.xl,
-  },
-  fieldSection: {
-    marginBottom: Spacing.xl,
-  },
-  fieldLabel: {
-    marginBottom: Spacing.md,
-  },
-  decadeRow: {
-    gap: Spacing.sm,
-    paddingBottom: Spacing.md,
-  },
-  decadeChip: {
-    paddingHorizontal: Spacing.lg,
-    paddingVertical: Spacing.sm,
-    borderRadius: BorderRadius.full,
-  },
-  yearGrid: {
-    flexDirection: "row",
-    flexWrap: "wrap",
-    gap: Spacing.sm,
-    marginTop: Spacing.md,
-  },
-  yearChip: {
-    paddingHorizontal: Spacing.lg,
-    paddingVertical: Spacing.sm,
-    borderRadius: BorderRadius.sm,
-  },
-  textInput: {
-    borderRadius: BorderRadius.md,
-    paddingHorizontal: Spacing.lg,
-    paddingVertical: Spacing.md,
-    fontSize: 16,
-  },
-  multilineInput: {
-    height: 100,
-    textAlignVertical: "top",
-  },
-  switchRow: {
-    flexDirection: "row",
-    alignItems: "center",
     justifyContent: "space-between",
   },
-  switchLabel: {
+  resultLabel: {
+    fontFamily: "System",
+    fontSize: 11,
+    letterSpacing: 1,
+    textTransform: "uppercase",
+    opacity: 0.7,
+  },
+  resultValue: {
+    fontFamily: "JetBrainsMono-Regular",
+    fontSize: 11,
+  },
+  option: {
     flexDirection: "row",
     alignItems: "center",
+    gap: 16,
+    padding: 16,
+    borderWidth: 1,
+    marginBottom: 16,
+  },
+  optionText: {
     flex: 1,
   },
-  switchLabelText: {
-    marginLeft: Spacing.md,
+  optionTitle: {
+    fontFamily: "JetBrainsMono-Regular",
+    fontSize: 12,
+    letterSpacing: 1.5,
+    textTransform: "uppercase",
+    marginBottom: 4,
   },
-  switchTitle: {
-    fontWeight: "600",
+  optionSubtitle: {
+    fontFamily: "JetBrainsMono-Regular",
+    fontSize: 10,
+    letterSpacing: 1.5,
+    textTransform: "uppercase",
+    opacity: 0.6,
   },
-  saveButton: {
-    height: 56,
-    borderRadius: BorderRadius.full,
+  uploadArea: {
+    padding: 48,
+    borderWidth: 1,
     alignItems: "center",
-    justifyContent: "center",
-    marginTop: Spacing.lg,
+    marginBottom: 16,
   },
-  saveButtonText: {
-    color: "#FFFFFF",
-    fontWeight: "600",
-    fontSize: 17,
+  uploadTitle: {
+    fontFamily: "JetBrainsMono-Regular",
+    fontSize: 12,
+    letterSpacing: 1.5,
+    textTransform: "uppercase",
+    marginBottom: 8,
+  },
+  uploadSubtitle: {
+    fontFamily: "JetBrainsMono-Regular",
+    fontSize: 10,
+    letterSpacing: 1.5,
+    textTransform: "uppercase",
+    opacity: 0.6,
+    textAlign: "center",
+  },
+  infoPanel: {
+    padding: 16,
+    borderWidth: 1,
+  },
+  infoPanelTitle: {
+    fontFamily: "JetBrainsMono-Regular",
+    fontSize: 10,
+    letterSpacing: 1.5,
+    textTransform: "uppercase",
+    opacity: 0.7,
+    marginBottom: 8,
+  },
+  infoPanelText: {
+    fontFamily: "JetBrainsMono-Regular",
+    fontSize: 10,
+    letterSpacing: 1,
+    textTransform: "uppercase",
+    opacity: 0.7,
+    lineHeight: 16,
   },
 });

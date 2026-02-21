@@ -7,7 +7,15 @@ import { Spacing } from "@/constants/theme";
 export function useScreenInsets() {
   const insets = useSafeAreaInsets();
   const headerHeight = useHeaderHeight();
-  const tabBarHeight = useBottomTabBarHeight();
+
+  // Tab bar height is optional - only available when inside a tab navigator
+  let tabBarHeight = 0;
+  try {
+    tabBarHeight = useBottomTabBarHeight();
+  } catch {
+    // Not in a tab navigator, use safe area bottom instead
+    tabBarHeight = insets.bottom;
+  }
 
   return {
     paddingTop: headerHeight + Spacing.xl,

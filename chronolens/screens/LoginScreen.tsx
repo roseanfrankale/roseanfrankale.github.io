@@ -1,191 +1,315 @@
 import React, { useState } from "react";
 import {
   View,
+  Text,
   StyleSheet,
   TextInput,
   Pressable,
-  Platform,
   KeyboardAvoidingView,
   ScrollView,
+  Platform,
+  ActivityIndicator,
+  Alert,
 } from "react-native";
 import { Feather } from "@expo/vector-icons";
-import { useNavigation } from "@react-navigation/native";
-import { NativeStackNavigationProp } from "@react-navigation/native-stack";
-import { AuthStackParamList } from "@/navigation/AuthStackNavigator";
-
-import { ThemedText } from "@/components/ThemedText";
-import { ThemedView } from "@/components/ThemedView";
-import { Button } from "@/components/Button";
-import { useTheme } from "@/hooks/useTheme";
-import { useScreenInsets } from "@/hooks/useScreenInsets";
-import { Spacing, BorderRadius } from "@/constants/theme";
+import { useTheme } from "../hooks/useTheme";
+import { useAuth } from "@/contexts/AuthContext";
 
 export default function LoginScreen() {
-  const navigation = useNavigation<NativeStackNavigationProp<AuthStackParamList>>();
-  const { theme } = useTheme();
-  const { paddingTop, paddingBottom } = useScreenInsets();
+  const { colors, skin } = useTheme();
+  const { login, signup, isLoading: authLoading } = useAuth();
+
+  const [mode, setMode] = useState<"login" | "signup">("login");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [name, setName] = useState("");
   const [showPassword, setShowPassword] = useState(false);
-  const [isSignUp, setIsSignUp] = useState(false);
+  const [error, setError] = useState("");
 
-  const handleSubmit = () => {
-    // Mock auth - navigate to onboarding profile setup
-    navigation.navigate("OnboardingProfileSetup");
+  const handleSubmit = async () => {
+    setError("");
+
+    if (!email || !password) {
+      setError("Please enter email and password");
+      return;
+    }
+
+    if (mode === "signup" && !name) {
+      setError("Please enter your name");
+      return;
+    }
+
+    try {
+      if (mode === "login") {
+        await login(email, password);
+      } else {
+        await signup(email, password, name);
+      }
+      // Auth state will update automatically and trigger navigation change
+    } catch (err) {
+      setError(
+        err instanceof Error
+          ? err.message
+          : "Something went wrong. Please try again.",
+      );
+    }
   };
 
-  const handleSSO = (provider: "apple" | "google") => {
-    // Mock SSO - navigate to onboarding profile setup
-    navigation.navigate("OnboardingProfileSetup");
+  const handleOAuthLogin = (provider: string) => {
+    setError(`${provider} OAuth is not configured in this demo.`);
   };
 
   return (
-    <ThemedView style={styles.container}>
-      <KeyboardAvoidingView
-        behavior={Platform.OS === "ios" ? "padding" : "height"}
-        style={styles.keyboardView}
-        keyboardVerticalOffset={Platform.OS === "ios" ? 0 : 20}
+    <KeyboardAvoidingView
+      behavior={Platform.OS === "ios" ? "padding" : "height"}
+      style={[styles.container, { backgroundColor: colors.background }]}
+    >
+      <ScrollView
+        contentContainerStyle={styles.scrollContent}
+        keyboardShouldPersistTaps="handled"
+        showsVerticalScrollIndicator={false}
       >
-        <ScrollView
-          contentContainerStyle={[
-            styles.scrollContent,
-            { paddingTop, paddingBottom },
-          ]}
-          showsVerticalScrollIndicator={false}
-          keyboardShouldPersistTaps="handled"
-        >
-          <View style={styles.content}>
-            <View style={styles.header}>
-              <ThemedText type="h1" style={styles.title}>
-                {isSignUp ? "Create Account" : "Welcome Back"}
-              </ThemedText>
-              <ThemedText type="body" style={[styles.subtitle, { color: theme.textSecondary }]}>
-                {isSignUp
-                  ? "Sign up to start archiving your memories"
-                  : "Sign in to continue"}
-              </ThemedText>
-            </View>
-
-            <View style={styles.form}>
-              <View style={styles.inputContainer}>
-                <ThemedText type="caption" style={[styles.label, { color: theme.textSecondary }]}>
-                  Email
-                </ThemedText>
-                <View style={[styles.inputWrapper, { borderColor: theme.border }]}>
-                  <Feather name="mail" size={18} color={theme.textSecondary} style={styles.inputIcon} />
-                  <TextInput
-                    style={[styles.input, { color: theme.text }]}
-                    placeholder="you@example.com"
-                    placeholderTextColor={theme.textSecondary}
-                    value={email}
-                    onChangeText={setEmail}
-                    keyboardType="email-address"
-                    autoCapitalize="none"
-                    autoCorrect={false}
-                  />
-                </View>
-              </View>
-
-              <View style={styles.inputContainer}>
-                <ThemedText type="caption" style={[styles.label, { color: theme.textSecondary }]}>
-                  Password
-                </ThemedText>
-                <View style={[styles.inputWrapper, { borderColor: theme.border }]}>
-                  <Feather name="lock" size={18} color={theme.textSecondary} style={styles.inputIcon} />
-                  <TextInput
-                    style={[styles.input, { color: theme.text }]}
-                    placeholder="••••••••"
-                    placeholderTextColor={theme.textSecondary}
-                    value={password}
-                    onChangeText={setPassword}
-                    secureTextEntry={!showPassword}
-                    autoCapitalize="none"
-                    autoCorrect={false}
-                  />
-                  <Pressable
-                    onPress={() => setShowPassword(!showPassword)}
-                    style={styles.eyeButton}
-                  >
-                    <Feather
-                      name={showPassword ? "eye-off" : "eye"}
-                      size={18}
-                      color={theme.textSecondary}
-                    />
-                  </Pressable>
-                </View>
-              </View>
-
-              {!isSignUp && (
-                <Pressable style={styles.forgotPassword}>
-                  <ThemedText type="small" style={{ color: theme.link }}>
-                    Forgot password?
-                  </ThemedText>
-                </Pressable>
-              )}
-
-              <Button onPress={handleSubmit} style={styles.submitButton}>
-                {isSignUp ? "Sign Up" : "Sign In"}
-              </Button>
-
-              <View style={styles.divider}>
-                <View style={[styles.dividerLine, { backgroundColor: theme.border }]} />
-                <ThemedText type="caption" style={[styles.dividerText, { color: theme.textSecondary }]}>
-                  OR
-                </ThemedText>
-                <View style={[styles.dividerLine, { backgroundColor: theme.border }]} />
-              </View>
-
-              <View style={styles.ssoContainer}>
-                {Platform.OS === "ios" && (
-                  <Pressable
-                    style={[styles.ssoButton, { borderColor: theme.border }]}
-                    onPress={() => handleSSO("apple")}
-                  >
-                    <Feather name="smartphone" size={20} color={theme.text} />
-                    <ThemedText type="body" style={styles.ssoButtonText}>
-                      Continue with Apple
-                    </ThemedText>
-                  </Pressable>
-                )}
-                <Pressable
-                  style={[styles.ssoButton, { borderColor: theme.border }]}
-                  onPress={() => handleSSO("google")}
-                >
-                  <Feather name="chrome" size={20} color={theme.text} />
-                  <ThemedText type="body" style={styles.ssoButtonText}>
-                    Continue with Google
-                  </ThemedText>
-                </Pressable>
-              </View>
-
-              <View style={styles.footer}>
-                <ThemedText type="small" style={{ color: theme.textSecondary }}>
-                  {isSignUp ? "Already have an account? " : "Don't have an account? "}
-                </ThemedText>
-                <Pressable onPress={() => setIsSignUp(!isSignUp)}>
-                  <ThemedText type="small" style={{ color: theme.link }}>
-                    {isSignUp ? "Sign In" : "Sign Up"}
-                  </ThemedText>
-                </Pressable>
-              </View>
-
-              <View style={styles.legal}>
-                <ThemedText type="caption" style={[styles.legalText, { color: theme.textSecondary }]}>
-                  By continuing, you agree to our{" "}
-                  <ThemedText type="caption" style={{ color: theme.link }}>
-                    Terms of Service
-                  </ThemedText>{" "}
-                  and{" "}
-                  <ThemedText type="caption" style={{ color: theme.link }}>
-                    Privacy Policy
-                  </ThemedText>
-                </ThemedText>
-              </View>
-            </View>
+        {/* Logo Section */}
+        <View style={styles.logoSection}>
+          <View
+            style={[
+              styles.logoIcon,
+              { backgroundColor: colors.card, borderColor: colors.accent },
+            ]}
+          >
+            <Feather
+              name={skin === "historian" ? "camera" : "zap"}
+              size={32}
+              color={colors.accent}
+            />
           </View>
-        </ScrollView>
-      </KeyboardAvoidingView>
-    </ThemedView>
+          <Text style={[styles.logoText, { color: colors.text }]}>
+            ChronoLens
+          </Text>
+          <Text style={[styles.logoSubtext, { color: colors.textSecondary }]}>
+            {skin === "historian"
+              ? "ARCHIVAL PHOTO LEDGER"
+              : "TEMPORAL PHOTO SCANNER"}
+          </Text>
+        </View>
+
+        {/* Login Card */}
+        <View
+          style={[
+            styles.card,
+            { backgroundColor: colors.card, borderColor: colors.border },
+          ]}
+        >
+          <View style={styles.cardHeader}>
+            <Text style={[styles.cardTitle, { color: colors.text }]}>
+              {mode === "login" ? "Welcome Back" : "Create Account"}
+            </Text>
+            <Text
+              style={[styles.cardSubtitle, { color: colors.textSecondary }]}
+            >
+              {mode === "login"
+                ? "Access your photo archive"
+                : "Begin your archival journey"}
+            </Text>
+          </View>
+
+          {/* Form */}
+          <View style={styles.form}>
+            {/* Error Message */}
+            {error ? (
+              <View style={[styles.errorBox, { backgroundColor: colors.card }]}>
+                <Feather name="alert-circle" size={16} color="#ef4444" />
+                <Text style={[styles.errorText, { color: "#ef4444" }]}>
+                  {error}
+                </Text>
+              </View>
+            ) : null}
+
+            {/* Name (Signup only) */}
+            {mode === "signup" && (
+              <View style={styles.inputGroup}>
+                <Text style={[styles.label, { color: colors.text }]}>
+                  FULL NAME
+                </Text>
+                <TextInput
+                  value={name}
+                  onChangeText={setName}
+                  placeholder="Enter your name"
+                  placeholderTextColor={colors.textSecondary}
+                  style={[
+                    styles.input,
+                    {
+                      color: colors.text,
+                      backgroundColor: colors.cardAlt,
+                      borderColor: colors.border,
+                    },
+                  ]}
+                  editable={!authLoading}
+                  autoCapitalize="words"
+                />
+              </View>
+            )}
+
+            {/* Email */}
+            <View style={styles.inputGroup}>
+              <Text style={[styles.label, { color: colors.text }]}>EMAIL</Text>
+              <TextInput
+                value={email}
+                onChangeText={setEmail}
+                placeholder="you@example.com"
+                placeholderTextColor={colors.textSecondary}
+                style={[
+                  styles.input,
+                  {
+                    color: colors.text,
+                    backgroundColor: colors.cardAlt,
+                    borderColor: colors.border,
+                  },
+                ]}
+                keyboardType="email-address"
+                autoCapitalize="none"
+                autoCorrect={false}
+                editable={!authLoading}
+              />
+            </View>
+
+            {/* Password */}
+            <View style={styles.inputGroup}>
+              <Text style={[styles.label, { color: colors.text }]}>
+                PASSWORD
+              </Text>
+              <View style={{ position: "relative" }}>
+                <TextInput
+                  value={password}
+                  onChangeText={setPassword}
+                  placeholder="••••••••"
+                  placeholderTextColor={colors.textSecondary}
+                  secureTextEntry={!showPassword}
+                  style={[
+                    styles.input,
+                    {
+                      color: colors.text,
+                      backgroundColor: colors.cardAlt,
+                      borderColor: colors.border,
+                      paddingRight: 48,
+                    },
+                  ]}
+                  editable={!authLoading}
+                />
+                <Pressable
+                  onPress={() => setShowPassword(!showPassword)}
+                  style={styles.passwordToggle}
+                >
+                  <Feather
+                    name={showPassword ? "eye-off" : "eye"}
+                    size={20}
+                    color={colors.textSecondary}
+                  />
+                </Pressable>
+              </View>
+            </View>
+
+            {/* Submit Button */}
+            <Pressable
+              onPress={handleSubmit}
+              disabled={authLoading}
+              style={({ pressed }) => [
+                styles.submitButton,
+                {
+                  backgroundColor: colors.accent,
+                  opacity: authLoading ? 0.5 : pressed ? 0.8 : 1,
+                },
+              ]}
+            >
+              {authLoading ? (
+                <ActivityIndicator color={colors.background} />
+              ) : (
+                <Text
+                  style={[
+                    styles.submitButtonText,
+                    { color: colors.background },
+                  ]}
+                >
+                  {mode === "login" ? "SIGN IN" : "CREATE ACCOUNT"}
+                </Text>
+              )}
+            </Pressable>
+          </View>
+
+          {/* Divider */}
+          <View style={styles.divider}>
+            <View
+              style={[styles.dividerLine, { backgroundColor: colors.border }]}
+            />
+            <Text style={[styles.dividerText, { color: colors.textSecondary }]}>
+              OR CONTINUE WITH
+            </Text>
+            <View
+              style={[styles.dividerLine, { backgroundColor: colors.border }]}
+            />
+          </View>
+
+          {/* OAuth Buttons */}
+          <View style={styles.oauthGrid}>
+            {[
+              { id: "google", name: "Google", icon: "chrome" },
+              { id: "apple", name: "Apple", icon: "aperture" },
+              { id: "github", name: "GitHub", icon: "github" },
+              { id: "microsoft", name: "Microsoft", icon: "grid" },
+            ].map((provider) => (
+              <Pressable
+                key={provider.id}
+                onPress={() => handleOAuthLogin(provider.name)}
+                disabled={authLoading}
+                style={({ pressed }) => [
+                  styles.oauthButton,
+                  {
+                    borderColor: pressed ? colors.accent : colors.border,
+                    backgroundColor: pressed ? colors.cardAlt : "transparent",
+                    opacity: authLoading ? 0.5 : 1,
+                  },
+                ]}
+              >
+                <Feather
+                  name={provider.icon as any}
+                  size={16}
+                  color={colors.text}
+                />
+                <Text style={[styles.oauthButtonText, { color: colors.text }]}>
+                  {provider.name}
+                </Text>
+              </Pressable>
+            ))}
+          </View>
+
+          {/* Toggle Mode */}
+          <Pressable
+            onPress={() => {
+              setMode(mode === "login" ? "signup" : "login");
+              setName("");
+              setEmail("");
+              setPassword("");
+              setError("");
+            }}
+            disabled={authLoading}
+            style={styles.toggleMode}
+          >
+            <Text style={[styles.toggleModeText, { color: colors.accent }]}>
+              {mode === "login"
+                ? "Don't have an account? Sign up"
+                : "Already have an account? Sign in"}
+            </Text>
+          </Pressable>
+        </View>
+
+        {/* Footer */}
+        <Text style={[styles.footer, { color: colors.textSecondary }]}>
+          {skin === "historian"
+            ? "Preserving memories since 2026"
+            : "SCANNING TEMPORAL MEMORIES"}
+        </Text>
+      </ScrollView>
+    </KeyboardAvoidingView>
   );
 }
 
@@ -193,109 +317,158 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
   },
-  keyboardView: {
-    flex: 1,
-  },
   scrollContent: {
     flexGrow: 1,
     justifyContent: "center",
+    padding: 16,
   },
-  content: {
-    paddingHorizontal: Spacing.xl,
-    maxWidth: 400,
-    width: "100%",
-    alignSelf: "center",
-  },
-  header: {
-    marginBottom: Spacing["2xl"],
+  logoSection: {
     alignItems: "center",
+    marginBottom: 32,
   },
-  title: {
-    marginBottom: Spacing.sm,
-    textAlign: "center",
+  logoIcon: {
+    width: 64,
+    height: 64,
+    borderRadius: 16,
+    borderWidth: 2,
+    justifyContent: "center",
+    alignItems: "center",
+    marginBottom: 16,
   },
-  subtitle: {
-    textAlign: "center",
+  logoText: {
+    fontFamily: "Cinzel-Regular",
+    fontSize: 36,
+    fontWeight: "400",
+    marginBottom: 8,
+  },
+  logoSubtext: {
+    fontFamily: "JetBrainsMono-Regular",
+    fontSize: 11,
+    letterSpacing: 2,
+    textTransform: "uppercase",
+  },
+  card: {
+    borderRadius: 24,
+    borderWidth: 1,
+    padding: 32,
+    marginBottom: 24,
+  },
+  cardHeader: {
+    marginBottom: 24,
+  },
+  cardTitle: {
+    fontFamily: "Cinzel-Regular",
+    fontSize: 24,
+    fontWeight: "400",
+    marginBottom: 4,
+  },
+  cardSubtitle: {
+    fontSize: 13,
   },
   form: {
-    width: "100%",
+    gap: 16,
   },
-  inputContainer: {
-    marginBottom: Spacing.lg,
-  },
-  label: {
-    marginBottom: Spacing.xs,
-    textTransform: "uppercase",
-    letterSpacing: 0.5,
-  },
-  inputWrapper: {
+  errorBox: {
     flexDirection: "row",
     alignItems: "center",
+    gap: 8,
+    padding: 12,
+    borderRadius: 8,
     borderWidth: 1,
-    borderRadius: BorderRadius.md,
-    paddingHorizontal: Spacing.md,
-    height: Spacing.inputHeight,
-    backgroundColor: "transparent",
+    borderColor: "#fee2e2",
   },
-  inputIcon: {
-    marginRight: Spacing.sm,
+  errorText: {
+    flex: 1,
+    fontSize: 13,
+    fontFamily: "SpaceMono-Regular",
+  },
+  inputGroup: {
+    gap: 8,
+  },
+  label: {
+    fontFamily: "JetBrainsMono-Regular",
+    fontSize: 10,
+    letterSpacing: 1.5,
+    textTransform: "uppercase",
   },
   input: {
-    flex: 1,
-    fontSize: 16,
-    padding: 0,
+    height: 48,
+    borderWidth: 1,
+    borderRadius: 12,
+    paddingHorizontal: 16,
+    fontSize: 14,
   },
-  eyeButton: {
-    padding: Spacing.xs,
-  },
-  forgotPassword: {
-    alignSelf: "flex-end",
-    marginBottom: Spacing.lg,
+  passwordToggle: {
+    position: "absolute",
+    right: 16,
+    top: 14,
   },
   submitButton: {
-    marginBottom: Spacing.lg,
+    height: 48,
+    borderRadius: 12,
+    justifyContent: "center",
+    alignItems: "center",
+    marginTop: 8,
+  },
+  submitButtonText: {
+    fontFamily: "JetBrainsMono-Regular",
+    fontSize: 12,
+    letterSpacing: 1.5,
+    textTransform: "uppercase",
+    fontWeight: "600",
   },
   divider: {
     flexDirection: "row",
     alignItems: "center",
-    marginVertical: Spacing.lg,
+    marginVertical: 24,
+    gap: 12,
   },
   dividerLine: {
     flex: 1,
     height: 1,
   },
   dividerText: {
-    marginHorizontal: Spacing.md,
+    fontFamily: "JetBrainsMono-Regular",
+    fontSize: 10,
+    letterSpacing: 1.5,
     textTransform: "uppercase",
   },
-  ssoContainer: {
-    gap: Spacing.md,
-    marginBottom: Spacing.lg,
+  oauthGrid: {
+    flexDirection: "row",
+    flexWrap: "wrap",
+    gap: 12,
+    marginBottom: 24,
   },
-  ssoButton: {
+  oauthButton: {
+    flex: 1,
+    minWidth: "45%",
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "center",
+    gap: 8,
+    paddingVertical: 12,
     borderWidth: 1,
-    borderRadius: BorderRadius.md,
-    paddingVertical: Spacing.md,
-    paddingHorizontal: Spacing.lg,
-    gap: Spacing.sm,
+    borderRadius: 12,
   },
-  ssoButtonText: {
-    fontWeight: "500",
+  oauthButtonText: {
+    fontFamily: "JetBrainsMono-Regular",
+    fontSize: 11,
+    letterSpacing: 1.5,
+    textTransform: "uppercase",
+  },
+  toggleMode: {
+    alignItems: "center",
+  },
+  toggleModeText: {
+    fontFamily: "JetBrainsMono-Regular",
+    fontSize: 12,
   },
   footer: {
-    flexDirection: "row",
-    justifyContent: "center",
-    marginBottom: Spacing.md,
-  },
-  legal: {
-    alignItems: "center",
-  },
-  legalText: {
+    fontFamily: "JetBrainsMono-Regular",
+    fontSize: 10,
+    letterSpacing: 1.5,
+    textTransform: "uppercase",
     textAlign: "center",
-    fontSize: 11,
-    lineHeight: 16,
+    opacity: 0.7,
   },
 });

@@ -1,11 +1,5 @@
 import React, { useState } from "react";
-import { 
-  View, 
-  StyleSheet, 
-  Pressable,
-  Switch,
-  Alert,
-} from "react-native";
+import { View, StyleSheet, Pressable, Switch, Alert } from "react-native";
 import { Feather } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
 
@@ -43,14 +37,16 @@ function SettingRow({
       disabled={isSwitch}
       style={({ pressed }) => [
         styles.settingRow,
-        { 
+        {
           backgroundColor: theme.backgroundDefault,
           opacity: onPress && pressed ? 0.8 : 1,
         },
       ]}
     >
       <View style={styles.settingLeft}>
-        <View style={[styles.iconContainer, { backgroundColor: theme.sepiaLight }]}>
+        <View
+          style={[styles.iconContainer, { backgroundColor: theme.sepiaLight }]}
+        >
           <Feather
             name={icon}
             size={18}
@@ -85,15 +81,29 @@ function SettingRow({
   );
 }
 
-function SettingSection({ title, children }: { title: string; children: React.ReactNode }) {
+function SettingSection({
+  title,
+  children,
+}: {
+  title: string;
+  children: React.ReactNode;
+}) {
   const { theme } = useTheme();
 
   return (
     <View style={styles.section}>
-      <ThemedText type="caption" style={[styles.sectionTitle, { color: theme.textSecondary }]}>
+      <ThemedText
+        type="caption"
+        style={[styles.sectionTitle, { color: theme.textSecondary }]}
+      >
         {title}
       </ThemedText>
-      <View style={[styles.sectionContent, { backgroundColor: theme.backgroundDefault }]}>
+      <View
+        style={[
+          styles.sectionContent,
+          { backgroundColor: theme.backgroundDefault },
+        ]}
+      >
         {children}
       </View>
     </View>
@@ -103,21 +113,21 @@ function SettingSection({ title, children }: { title: string; children: React.Re
 export default function SettingsScreen() {
   const navigation = useNavigation();
   const { theme } = useTheme();
-  
+
   const [notifications, setNotifications] = useState(true);
   const [communityUpdates, setCommunityUpdates] = useState(true);
 
   const handleLogout = () => {
-    Alert.alert(
-      "Log Out",
-      "Are you sure you want to log out?",
-      [
-        { text: "Cancel", style: "cancel" },
-        { text: "Log Out", style: "destructive", onPress: () => {
+    Alert.alert("Log Out", "Are you sure you want to log out?", [
+      { text: "Cancel", style: "cancel" },
+      {
+        text: "Log Out",
+        style: "destructive",
+        onPress: () => {
           Alert.alert("Logged Out", "You have been logged out.");
-        }},
-      ]
-    );
+        },
+      },
+    ]);
   };
 
   const handleDeleteAccount = () => {
@@ -126,8 +136,8 @@ export default function SettingsScreen() {
       "This will permanently delete your account and all your photos. This action cannot be undone.",
       [
         { text: "Cancel", style: "cancel" },
-        { 
-          text: "Delete Account", 
+        {
+          text: "Delete Account",
           style: "destructive",
           onPress: () => {
             Alert.alert(
@@ -135,18 +145,21 @@ export default function SettingsScreen() {
               "Are you absolutely sure? All your memories will be lost forever.",
               [
                 { text: "Cancel", style: "cancel" },
-                { 
-                  text: "Yes, Delete Everything", 
+                {
+                  text: "Yes, Delete Everything",
                   style: "destructive",
                   onPress: () => {
-                    Alert.alert("Account Deleted", "Your account has been deleted.");
-                  }
+                    Alert.alert(
+                      "Account Deleted",
+                      "Your account has been deleted.",
+                    );
+                  },
                 },
-              ]
+              ],
             );
-          }
+          },
         },
-      ]
+      ],
     );
   };
 
@@ -175,7 +188,9 @@ export default function SettingsScreen() {
           icon="moon"
           label="Theme"
           value="System"
-          onPress={() => Alert.alert("Theme", "Theme follows your system settings.")}
+          onPress={() =>
+            Alert.alert("Theme", "Theme follows your system settings.")
+          }
         />
       </SettingSection>
 
@@ -185,22 +200,25 @@ export default function SettingsScreen() {
           label="Private Profile"
           isSwitch
           switchValue={false}
-          onSwitchChange={() => Alert.alert("Privacy", "Profile visibility updated.")}
+          onSwitchChange={() =>
+            Alert.alert("Privacy", "Profile visibility updated.")
+          }
         />
         <View style={[styles.divider, { backgroundColor: theme.border }]} />
         <SettingRow
           icon="shield"
           label="Data & Privacy"
-          onPress={() => Alert.alert("Privacy Policy", "View our privacy policy at chronolens.app/privacy")}
+          onPress={() =>
+            Alert.alert(
+              "Privacy Policy",
+              "View our privacy policy at chronolens.app/privacy",
+            )
+          }
         />
       </SettingSection>
 
       <SettingSection title="Account">
-        <SettingRow
-          icon="log-out"
-          label="Log Out"
-          onPress={handleLogout}
-        />
+        <SettingRow icon="log-out" label="Log Out" onPress={handleLogout} />
         <View style={[styles.divider, { backgroundColor: theme.border }]} />
         <SettingRow
           icon="trash-2"
@@ -211,11 +229,7 @@ export default function SettingsScreen() {
       </SettingSection>
 
       <SettingSection title="About">
-        <SettingRow
-          icon="info"
-          label="App Version"
-          value="1.0.0"
-        />
+        <SettingRow icon="info" label="App Version" value="1.0.0" />
         <View style={[styles.divider, { backgroundColor: theme.border }]} />
         <SettingRow
           icon="heart"
@@ -226,7 +240,9 @@ export default function SettingsScreen() {
         <SettingRow
           icon="help-circle"
           label="Help & Support"
-          onPress={() => Alert.alert("Support", "Contact us at support@chronolens.app")}
+          onPress={() =>
+            Alert.alert("Support", "Contact us at support@chronolens.app")
+          }
         />
       </SettingSection>
     </ScreenScrollView>

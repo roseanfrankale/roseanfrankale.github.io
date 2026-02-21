@@ -1,7 +1,5 @@
 {
   "name": "ChronoLens",
   "description": "A digital heritage application featuring a 3D Time Vortex Helix interface and a Skeptical Detective AI for analyzing historical photos using Gemini.",
-  "requestFramePermissions": [
-    "camera"
-  ]
+  "requestFramePermissions": ["camera"]
 }

@@ -1,5 +1,5 @@
 import { GoogleGenAI, Type, Schema } from "@google/genai";
-import { AnalysisResult } from '../types';
+import { AnalysisResult } from "../types";
 
 // Helper to convert blob/file to base64
 export const fileToGenerativePart = async (file: File): Promise<string> => {
@@ -8,7 +8,7 @@ export const fileToGenerativePart = async (file: File): Promise<string> => {
     reader.onloadend = () => {
       const base64String = reader.result as string;
       // Remove data url prefix (e.g. "data:image/jpeg;base64,")
-      const base64Data = base64String.split(',')[1];
+      const base64Data = base64String.split(",")[1];
       resolve(base64Data);
     };
     reader.onerror = reject;
@@ -17,10 +17,9 @@ export const fileToGenerativePart = async (file: File): Promise<string> => {
 };
 
 export const analyzePhotoWithGemini = async (
-  base64Image: string, 
-  exifData: string | undefined
+  base64Image: string,
+  exifData: string | undefined,
 ): Promise<AnalysisResult> => {
-  
   if (!process.env.API_KEY) {
     throw new Error("API_KEY is missing. Please set process.env.API_KEY.");
   }
@@ -33,27 +32,37 @@ export const analyzePhotoWithGemini = async (
       estimatedYearRange: {
         type: Type.ARRAY,
         items: { type: Type.INTEGER },
-        description: "A tuple of two years [start, end] representing the estimated era.",
+        description:
+          "A tuple of two years [start, end] representing the estimated era.",
       },
       locationClues: {
         type: Type.ARRAY,
         items: { type: Type.STRING },
-        description: "List of specific visual clues indicating location (e.g., 'French License Plate', 'Eiffel Tower', 'Vintage Coca-Cola Sign').",
+        description:
+          "List of specific visual clues indicating location (e.g., 'French License Plate', 'Eiffel Tower', 'Vintage Coca-Cola Sign').",
       },
       reasoning: {
         type: Type.STRING,
-        description: "Detailed detective-style deduction. Analyze fashion, cars, technology, and film grain.",
+        description:
+          "Detailed detective-style deduction. Analyze fashion, cars, technology, and film grain.",
       },
       isConflict: {
         type: Type.BOOLEAN,
-        description: "True if visual evidence strongly contradicts the claimed EXIF date (The Costume Party Paradox).",
+        description:
+          "True if visual evidence strongly contradicts the claimed EXIF date (The Costume Party Paradox).",
       },
       confidenceScore: {
         type: Type.NUMBER,
         description: "Confidence level between 0 and 1.",
-      }
+      },
     },
-    required: ["estimatedYearRange", "locationClues", "reasoning", "isConflict", "confidenceScore"],
+    required: [
+      "estimatedYearRange",
+      "locationClues",
+      "reasoning",
+      "isConflict",
+      "confidenceScore",
+    ],
   };
 
   const prompt = `
@@ -72,31 +81,30 @@ export const analyzePhotoWithGemini = async (
 
   try {
     const response = await ai.models.generateContent({
-      model: 'gemini-2.5-flash',
+      model: "gemini-2.5-flash",
       contents: {
-        role: 'user',
+        role: "user",
         parts: [
           {
             inlineData: {
-              mimeType: 'image/jpeg',
-              data: base64Image
-            }
+              mimeType: "image/jpeg",
+              data: base64Image,
+            },
           },
-          { text: prompt }
-        ]
+          { text: prompt },
+        ],
       },
       config: {
-        responseMimeType: 'application/json',
+        responseMimeType: "application/json",
         responseSchema: schema,
-        temperature: 0.4, 
-      }
+        temperature: 0.4,
+      },
     });
 
     const text = response.text;
     if (!text) throw new Error("No response from Gemini");
 
     return JSON.parse(text) as AnalysisResult;
-
   } catch (error) {
     console.error("Gemini Analysis Failed:", error);
     throw error;

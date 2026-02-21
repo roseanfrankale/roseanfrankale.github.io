@@ -1,11 +1,5 @@
 import React from "react";
-import { 
-  View, 
-  StyleSheet, 
-  Image, 
-  Pressable,
-  Dimensions,
-} from "react-native";
+import { View, StyleSheet, Image, Pressable, Dimensions } from "react-native";
 import { Feather } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
@@ -42,7 +36,8 @@ function StatItem({ label, value }: StatItemProps) {
 }
 
 export default function ProfileScreen() {
-  const navigation = useNavigation<NativeStackNavigationProp<ProfileStackParamList>>();
+  const navigation =
+    useNavigation<NativeStackNavigationProp<ProfileStackParamList>>();
   const { theme } = useTheme();
   const { user } = useUserStore();
   const { photos } = usePhotoStore();
@@ -69,11 +64,14 @@ export default function ProfileScreen() {
           {user.displayName}
         </ThemedText>
         {user.bio ? (
-          <ThemedText type="body" style={[styles.bio, { color: theme.textSecondary }]}>
+          <ThemedText
+            type="body"
+            style={[styles.bio, { color: theme.textSecondary }]}
+          >
             {user.bio}
           </ThemedText>
         ) : null}
-        
+
         <View style={[styles.pointsBadge, { backgroundColor: theme.accent }]}>
           <Feather name="star" size={14} color="#FFFFFF" />
           <ThemedText type="body" style={styles.pointsText}>
@@ -82,7 +80,9 @@ export default function ProfileScreen() {
         </View>
       </View>
 
-      <View style={[styles.statsRow, { backgroundColor: theme.backgroundDefault }]}>
+      <View
+        style={[styles.statsRow, { backgroundColor: theme.backgroundDefault }]}
+      >
         <StatItem label="Photos" value={photos.length} />
         <View style={[styles.statDivider, { backgroundColor: theme.border }]} />
         <StatItem label="Shared" value={sharedCount} />
@@ -100,7 +100,10 @@ export default function ProfileScreen() {
           },
         ]}
       >
-        <ThemedText type="body" style={[styles.editButtonText, { color: theme.sepia }]}>
+        <ThemedText
+          type="body"
+          style={[styles.editButtonText, { color: theme.sepia }]}
+        >
           Edit Profile
         </ThemedText>
       </Pressable>
@@ -116,7 +119,7 @@ export default function ProfileScreen() {
                 key={photo.id}
                 style={({ pressed }) => [
                   styles.photoContainer,
-                  { 
+                  {
                     backgroundColor: theme.backgroundSecondary,
                     opacity: pressed ? 0.8 : 1,
                   },
@@ -131,7 +134,10 @@ export default function ProfileScreen() {
 
       <View style={styles.joinedSection}>
         <Feather name="calendar" size={16} color={theme.textSecondary} />
-        <ThemedText type="small" style={{ color: theme.textSecondary, marginLeft: Spacing.sm }}>
+        <ThemedText
+          type="small"
+          style={{ color: theme.textSecondary, marginLeft: Spacing.sm }}
+        >
           Joined {user.joinedDate}
         </ThemedText>
       </View>

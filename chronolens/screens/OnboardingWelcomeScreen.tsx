@@ -14,7 +14,8 @@ import { Spacing } from "@/constants/theme";
 const { width } = Dimensions.get("window");
 
 export default function OnboardingWelcomeScreen() {
-  const navigation = useNavigation<NativeStackNavigationProp<AuthStackParamList>>();
+  const navigation =
+    useNavigation<NativeStackNavigationProp<AuthStackParamList>>();
   const { theme } = useTheme();
   const { paddingTop, paddingBottom } = useScreenInsets();
 
@@ -35,8 +36,12 @@ export default function OnboardingWelcomeScreen() {
           <ThemedText type="h1" style={styles.title}>
             Preserve your memories across time
           </ThemedText>
-          <ThemedText type="body" style={[styles.description, { color: theme.textSecondary }]}>
-            ChronoLens helps you organize, archive, and rediscover your photos with intelligent timeline organization and community sharing.
+          <ThemedText
+            type="body"
+            style={[styles.description, { color: theme.textSecondary }]}
+          >
+            ChronoLens helps you organize, archive, and rediscover your photos
+            with intelligent timeline organization and community sharing.
           </ThemedText>
         </View>
 

@@ -64,13 +64,17 @@ export function ErrorFallback({ error, resetError }: ErrorFallbackProps) {
           style={styles.appIcon}
           resizeMode="contain"
         />
-        
+
         <ThemedText type="h1" style={styles.title}>
           ChronoLens needs a moment
         </ThemedText>
 
-        <ThemedText type="body" style={[styles.message, { color: theme.textSecondary }]}>
-          Your memories are safe. Let's reload and continue preserving history together.
+        <ThemedText
+          type="body"
+          style={[styles.message, { color: theme.textSecondary }]}
+        >
+          Your memories are safe. Let's reload and continue preserving history
+          together.
         </ThemedText>
 
         <Pressable

@@ -1,227 +1,252 @@
 import React, { useState } from "react";
-import { 
-  View, 
-  StyleSheet, 
-  Image, 
+import {
+  View,
+  Text,
+  StyleSheet,
+  TextInput,
   Pressable,
-  ScrollView,
-  FlatList,
-  Dimensions,
+  Image,
+  SectionList,
 } from "react-native";
 import { Feather } from "@expo/vector-icons";
-import { useNavigation } from "@react-navigation/native";
-import { NativeStackNavigationProp } from "@react-navigation/native-stack";
-import Animated, {
-  useAnimatedStyle,
-  useSharedValue,
-  withSpring,
-} from "react-native-reanimated";
+import { CustomHeader } from "../components/CustomHeader";
+import { useTheme } from "../hooks/useTheme";
 
-import { ThemedText } from "@/components/ThemedText";
-import { ThemedView } from "@/components/ThemedView";
-import { useTheme } from "@/hooks/useTheme";
-import { useScreenInsets } from "@/hooks/useScreenInsets";
-import { Spacing, BorderRadius, Shadows } from "@/constants/theme";
-import { ExploreStackParamList } from "@/navigation/ExploreStackNavigator";
-import { usePhotoStore, Photo } from "@/store/photoStore";
-
-const { width } = Dimensions.get("window");
-const AnimatedPressable = Animated.createAnimatedComponent(Pressable);
-
-const DECADES = ["All", "2020s", "2010s", "2000s", "1990s", "1980s", "1970s", "1960s", "1950s"];
-
-interface FilterChipProps {
-  label: string;
-  isSelected: boolean;
-  onPress: () => void;
+interface Photo {
+  id: string;
+  catalogNumber: string;
+  url: string;
+  date: string;
+  location?: string;
+  era?: string;
+  title?: string;
+  description?: string;
 }
 
-function FilterChip({ label, isSelected, onPress }: FilterChipProps) {
-  const { theme } = useTheme();
+// Mock data
+const MOCK_PHOTOS: Photo[] = [
+  {
+    id: "1",
+    catalogNumber: "REF.2026-001-A",
+    url: "https://picsum.photos/400/400",
+    date: "2020-06-15",
+    location: "London, England",
+    title: "Summer Garden",
+    description: "Beautiful afternoon in Hyde Park",
+    era: "Contemporary",
+  },
+  {
+    id: "2",
+    catalogNumber: "REF.2026-002-B",
+    url: "https://picsum.photos/401/401",
+    date: "2019-03-22",
+    location: "Paris, France",
+    title: "Eiffel Tower",
+    description: "Classic Parisian view",
+    era: "Contemporary",
+  },
+  {
+    id: "3",
+    catalogNumber: "REF.2026-003-C",
+    url: "https://picsum.photos/402/402",
+    date: "2018-11-08",
+    location: "Tokyo, Japan",
+    title: "Shibuya Crossing",
+    description: "Night lights and crowds",
+    era: "Contemporary",
+  },
+  {
+    id: "4",
+    catalogNumber: "REF.2026-004-D",
+    url: "https://picsum.photos/403/403",
+    date: "2017-08-12",
+    location: "New York, USA",
+    title: "Manhattan Skyline",
+    era: "Contemporary",
+  },
+  {
+    id: "5",
+    catalogNumber: "REF.2026-005-E",
+    url: "https://picsum.photos/404/404",
+    date: "2016-05-30",
+    location: "Barcelona, Spain",
+    title: "Sagrada Familia",
+    era: "Contemporary",
+  },
+];
 
-  return (
+export default function ExploreScreen() {
+  const { colors } = useTheme();
+  const [searchText, setSearchText] = useState("");
+
+  // Group photos by year
+  const groupedPhotos = React.useMemo(() => {
+    const groups: Record<number, Photo[]> = {};
+    const sortedPhotos = [...MOCK_PHOTOS].sort(
+      (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime(),
+    );
+
+    sortedPhotos.forEach((photo) => {
+      const year = new Date(photo.date).getFullYear();
+      if (!groups[year]) {
+        groups[year] = [];
+      }
+      groups[year].push(photo);
+    });
+
+    return Object.entries(groups).sort(
+      ([yearA], [yearB]) => parseInt(yearB) - parseInt(yearA),
+    );
+  }, []);
+
+  // Filter based on search text
+  const filteredGroups = React.useMemo(() => {
+    if (!searchText.trim()) return groupedPhotos;
+
+    return groupedPhotos
+      .map(([year, photos]) => [
+        year,
+        photos.filter(
+          (photo) =>
+            photo.title?.toLowerCase().includes(searchText.toLowerCase()) ||
+            photo.location?.toLowerCase().includes(searchText.toLowerCase()) ||
+            photo.catalogNumber
+              .toLowerCase()
+              .includes(searchText.toLowerCase()),
+        ),
+      ])
+      .filter(([_, photos]) => (photos as Photo[]).length > 0);
+  }, [groupedPhotos, searchText]);
+
+  const renderYearHeader = ({ section: { title } }: any) => (
+    <View style={styles.yearHeaderContainer}>
+      <View style={[styles.yearLine, { backgroundColor: colors.border }]} />
+      <Text style={[styles.yearHeader, { color: colors.accent }]}>{title}</Text>
+      <View style={[styles.yearLine, { backgroundColor: colors.border }]} />
+    </View>
+  );
+
+  const renderPhotoEntry = ({ item }: { item: Photo }) => (
     <Pressable
-      onPress={onPress}
       style={[
-        styles.chip,
+        styles.photoEntry,
         {
-          backgroundColor: isSelected ? theme.sepia : theme.sepiaLight,
+          backgroundColor: colors.backgroundDefault,
+          borderColor: colors.border,
         },
       ]}
     >
-      <ThemedText
-        type="caption"
-        style={[
-          styles.chipText,
-          { color: isSelected ? "#FFFFFF" : theme.sepia },
-        ]}
-      >
-        {label}
-      </ThemedText>
+      <Image source={{ uri: item.url }} style={styles.photoThumbnail} />
+      <View style={styles.entryContent}>
+        <Text style={[styles.catalogNumber, { color: colors.textSecondary }]}>
+          {item.catalogNumber}
+        </Text>
+        {item.title && (
+          <Text
+            style={[styles.photoTitle, { color: colors.text }]}
+            numberOfLines={1}
+          >
+            {item.title}
+          </Text>
+        )}
+        <View style={styles.metadataRow}>
+          {item.location && (
+            <View style={styles.metadataTag}>
+              <Feather name="map-pin" size={10} color={colors.textSecondary} />
+              <Text
+                style={[styles.metadataText, { color: colors.textSecondary }]}
+                numberOfLines={1}
+              >
+                {item.location}
+              </Text>
+            </View>
+          )}
+        </View>
+        <View style={styles.tagsRow}>
+          <View
+            style={[
+              styles.tag,
+              { backgroundColor: colors.backgroundSecondary },
+            ]}
+          >
+            <Feather name="calendar" size={10} color={colors.textSecondary} />
+            <Text style={[styles.tagText, { color: colors.textSecondary }]}>
+              {new Date(item.date).toLocaleDateString("en-US", {
+                month: "short",
+                day: "numeric",
+              })}
+            </Text>
+          </View>
+          {item.era && (
+            <View
+              style={[styles.tag, { backgroundColor: colors.accent + "1A" }]}
+            >
+              <Text style={[styles.tagText, { color: colors.accent }]}>
+                {item.era}
+              </Text>
+            </View>
+          )}
+        </View>
+      </View>
     </Pressable>
   );
-}
 
-interface FeedCardProps {
-  photo: Photo;
-  onPress: () => void;
-  onUserPress: () => void;
-  onLike: () => void;
-  onComment: () => void;
-}
-
-function FeedCard({ photo, onPress, onUserPress, onLike, onComment }: FeedCardProps) {
-  const { theme } = useTheme();
-  const scale = useSharedValue(1);
-
-  const animatedStyle = useAnimatedStyle(() => ({
-    transform: [{ scale: scale.value }],
+  const sections = filteredGroups.map(([year, photos]) => ({
+    title: year.toString(),
+    data: photos as Photo[],
   }));
 
   return (
-    <AnimatedPressable
-      onPress={onPress}
-      onPressIn={() => {
-        scale.value = withSpring(0.98, { damping: 15, stiffness: 200 });
-      }}
-      onPressOut={() => {
-        scale.value = withSpring(1, { damping: 15, stiffness: 200 });
-      }}
-      style={[
-        styles.card,
-        { backgroundColor: theme.backgroundDefault },
-        Shadows.card,
-        animatedStyle,
-      ]}
+    <View
+      style={[styles.container, { backgroundColor: colors.backgroundDefault }]}
     >
-      <Image source={{ uri: photo.uri }} style={styles.cardImage} />
-      
-      <View style={styles.cardContent}>
-        <Pressable onPress={onUserPress} style={styles.userRow}>
-          <Image source={photo.userAvatar} style={styles.avatar} />
-          <View style={styles.userInfo}>
-            <ThemedText type="body" style={styles.username}>
-              {photo.userName}
-            </ThemedText>
-            <View style={styles.pointsBadge}>
-              <Feather name="star" size={10} color={theme.accent} />
-              <ThemedText type="caption" style={{ color: theme.accent, marginLeft: 2 }}>
-                {photo.userPoints}
-              </ThemedText>
-            </View>
-          </View>
-          <View style={[styles.yearBadge, { backgroundColor: theme.sepiaLight }]}>
-            <ThemedText type="caption" style={[styles.yearText, { color: theme.sepia }]}>
-              {photo.year}
-            </ThemedText>
-          </View>
-        </Pressable>
+      <CustomHeader />
 
-        {photo.caption ? (
-          <ThemedText type="body" style={styles.caption} numberOfLines={2}>
-            {photo.caption}
-          </ThemedText>
+      {/* Search Bar */}
+      <View style={styles.searchContainer}>
+        <Feather name="search" size={16} color={colors.textSecondary} />
+        <TextInput
+          placeholder="Search by title, location, or catalog..."
+          placeholderTextColor={colors.textSecondary}
+          value={searchText}
+          onChangeText={setSearchText}
+          style={[
+            styles.searchInput,
+            {
+              color: colors.text,
+              backgroundColor: colors.backgroundSecondary,
+              borderColor: colors.border,
+            },
+          ]}
+        />
+        {searchText ? (
+          <Pressable onPress={() => setSearchText("")}>
+            <Feather name="x" size={16} color={colors.textSecondary} />
+          </Pressable>
         ) : null}
+      </View>
 
-        <View style={styles.actionsRow}>
-          <Pressable onPress={onLike} style={styles.actionButton}>
-            <Feather 
-              name={photo.isLiked ? "heart" : "heart"} 
-              size={20} 
-              color={photo.isLiked ? theme.error : theme.textSecondary} 
-            />
-            <ThemedText type="small" style={[styles.actionCount, { color: theme.textSecondary }]}>
-              {photo.likes}
-            </ThemedText>
-          </Pressable>
-          <Pressable onPress={onComment} style={styles.actionButton}>
-            <Feather name="message-circle" size={20} color={theme.textSecondary} />
-            <ThemedText type="small" style={[styles.actionCount, { color: theme.textSecondary }]}>
-              {photo.comments}
-            </ThemedText>
-          </Pressable>
+      {/* Photo Entries */}
+      {sections.length > 0 ? (
+        <SectionList
+          sections={sections}
+          keyExtractor={(item) => item.id}
+          renderItem={renderPhotoEntry}
+          renderSectionHeader={renderYearHeader}
+          contentContainerStyle={styles.listContent}
+          showsVerticalScrollIndicator={false}
+          ItemSeparatorComponent={() => <View style={{ height: 8 }} />}
+          SectionSeparatorComponent={() => <View style={{ height: 16 }} />}
+        />
+      ) : (
+        <View style={styles.emptyContainer}>
+          <Feather name="inbox" size={48} color={colors.textSecondary} />
+          <Text style={[styles.emptyText, { color: colors.textSecondary }]}>
+            No photos found
+          </Text>
         </View>
-      </View>
-    </AnimatedPressable>
-  );
-}
-
-function EmptyState() {
-  const { theme } = useTheme();
-
-  return (
-    <View style={styles.emptyContainer}>
-      <Image
-        source={require("../assets/images/illustrations/empty-explore.png")}
-        style={styles.emptyImage}
-        resizeMode="contain"
-      />
-      <ThemedText type="h3" style={styles.emptyTitle}>
-        Explore Community Photos
-      </ThemedText>
-      <ThemedText type="body" style={[styles.emptyText, { color: theme.textSecondary }]}>
-        Be the first to share a photo with the community. Your memories could inspire others!
-      </ThemedText>
+      )}
     </View>
-  );
-}
-
-export default function ExploreScreen() {
-  const navigation = useNavigation<NativeStackNavigationProp<ExploreStackParamList>>();
-  const { theme } = useTheme();
-  const { paddingTop, paddingBottom } = useScreenInsets();
-  const { communityPhotos, toggleLike } = usePhotoStore();
-  const [selectedDecade, setSelectedDecade] = useState("All");
-
-  const filteredPhotos = communityPhotos.filter((photo) => {
-    if (selectedDecade === "All") return true;
-    const decade = `${Math.floor(photo.year / 10) * 10}s`;
-    return decade === selectedDecade;
-  });
-
-  const renderFeedCard = ({ item }: { item: Photo }) => (
-    <FeedCard
-      photo={item}
-      onPress={() => navigation.navigate("PhotoDetail", { photoId: item.id })}
-      onUserPress={() => navigation.navigate("UserProfile", { userId: item.userId || "1" })}
-      onLike={() => toggleLike(item.id)}
-      onComment={() => navigation.navigate("PhotoDetail", { photoId: item.id })}
-    />
-  );
-
-  return (
-    <ThemedView style={styles.container}>
-      <View style={[styles.filterContainer, { paddingTop }]}>
-        <ScrollView
-          horizontal
-          showsHorizontalScrollIndicator={false}
-          contentContainerStyle={styles.filterContent}
-        >
-          {DECADES.map((decade) => (
-            <FilterChip
-              key={decade}
-              label={decade}
-              isSelected={selectedDecade === decade}
-              onPress={() => setSelectedDecade(decade)}
-            />
-          ))}
-        </ScrollView>
-      </View>
-
-      <FlatList
-        data={filteredPhotos}
-        renderItem={renderFeedCard}
-        keyExtractor={(item) => item.id}
-        contentContainerStyle={[
-          styles.content,
-          { paddingBottom },
-          filteredPhotos.length === 0 && styles.emptyContent,
-        ]}
-        ListEmptyComponent={EmptyState}
-        showsVerticalScrollIndicator={false}
-        ItemSeparatorComponent={() => <View style={{ height: Spacing.lg }} />}
-      />
-    </ThemedView>
   );
 }
 
@@ -229,105 +254,111 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
   },
-  filterContainer: {
-    borderBottomWidth: 1,
-    borderBottomColor: "rgba(0,0,0,0.05)",
+  searchContainer: {
+    flexDirection: "row",
+    alignItems: "center",
+    paddingHorizontal: 16,
+    paddingVertical: 12,
+    gap: 8,
   },
-  filterContent: {
-    paddingHorizontal: Spacing.xl,
-    paddingBottom: Spacing.md,
-    gap: Spacing.sm,
+  searchInput: {
+    flex: 1,
+    height: 40,
+    borderRadius: 8,
+    borderWidth: 1,
+    paddingHorizontal: 12,
+    fontFamily: "JetBrainsMono-Regular",
+    fontSize: 12,
   },
-  chip: {
-    paddingHorizontal: Spacing.lg,
-    paddingVertical: Spacing.sm,
-    borderRadius: BorderRadius.full,
+  listContent: {
+    paddingHorizontal: 16,
+    paddingBottom: 24,
   },
-  chipText: {
+  yearHeaderContainer: {
+    flexDirection: "row",
+    alignItems: "center",
+    gap: 12,
+    marginVertical: 16,
+  },
+  yearLine: {
+    flex: 1,
+    height: 1,
+  },
+  yearHeader: {
+    fontFamily: "Cinzel-Regular",
+    fontSize: 14,
+    fontWeight: "600",
+    letterSpacing: 2,
+  },
+  photoEntry: {
+    flexDirection: "row",
+    borderWidth: 1,
+    borderRadius: 12,
+    overflow: "hidden",
+    gap: 12,
+  },
+  photoThumbnail: {
+    width: 100,
+    height: 100,
+  },
+  entryContent: {
+    flex: 1,
+    padding: 12,
+    justifyContent: "space-between",
+  },
+  catalogNumber: {
+    fontFamily: "JetBrainsMono-Regular",
+    fontSize: 10,
+    letterSpacing: 1,
     textTransform: "uppercase",
   },
-  content: {
-    paddingHorizontal: Spacing.xl,
-    paddingTop: Spacing.lg,
-    paddingBottom: Spacing.xl,
+  photoTitle: {
+    fontFamily: "Cinzel-Regular",
+    fontSize: 14,
+    fontWeight: "600",
+    marginTop: 4,
   },
-  emptyContent: {
-    flex: 1,
-    justifyContent: "center",
+  metadataRow: {
+    flexDirection: "row",
+    gap: 8,
+    marginTop: 4,
+  },
+  metadataTag: {
+    flexDirection: "row",
+    alignItems: "center",
+    gap: 4,
+  },
+  metadataText: {
+    fontFamily: "JetBrainsMono-Regular",
+    fontSize: 9,
+  },
+  tagsRow: {
+    flexDirection: "row",
+    gap: 6,
+    marginTop: 8,
+  },
+  tag: {
+    flexDirection: "row",
+    alignItems: "center",
+    gap: 4,
+    paddingHorizontal: 8,
+    paddingVertical: 4,
+    borderRadius: 4,
+  },
+  tagText: {
+    fontFamily: "JetBrainsMono-Regular",
+    fontSize: 9,
+    letterSpacing: 0.5,
   },
   emptyContainer: {
+    flex: 1,
+    justifyContent: "center",
     alignItems: "center",
-    paddingHorizontal: Spacing.xl,
-  },
-  emptyImage: {
-    width: 200,
-    height: 200,
-    marginBottom: Spacing.xl,
-    opacity: 0.9,
-  },
-  emptyTitle: {
-    textAlign: "center",
-    marginBottom: Spacing.md,
+    gap: 12,
   },
   emptyText: {
-    textAlign: "center",
-    maxWidth: 280,
-  },
-  card: {
-    borderRadius: BorderRadius.md,
-    overflow: "hidden",
-  },
-  cardImage: {
-    width: "100%",
-    height: 250,
-  },
-  cardContent: {
-    padding: Spacing.lg,
-  },
-  userRow: {
-    flexDirection: "row",
-    alignItems: "center",
-    marginBottom: Spacing.sm,
-  },
-  avatar: {
-    width: 36,
-    height: 36,
-    borderRadius: 18,
-  },
-  userInfo: {
-    flex: 1,
-    marginLeft: Spacing.md,
-  },
-  username: {
-    fontWeight: "600",
-  },
-  pointsBadge: {
-    flexDirection: "row",
-    alignItems: "center",
-    marginTop: 2,
-  },
-  yearBadge: {
-    paddingHorizontal: Spacing.md,
-    paddingVertical: Spacing.xs,
-    borderRadius: BorderRadius.full,
-  },
-  yearText: {
-    textTransform: "uppercase",
-  },
-  caption: {
-    marginBottom: Spacing.md,
-  },
-  actionsRow: {
-    flexDirection: "row",
-    gap: Spacing.xl,
-    marginTop: Spacing.sm,
-  },
-  actionButton: {
-    flexDirection: "row",
-    alignItems: "center",
-    gap: Spacing.xs,
-  },
-  actionCount: {
-    marginLeft: Spacing.xs,
+    fontFamily: "JetBrainsMono-Regular",
+    fontSize: 12,
+    letterSpacing: 1,
   },
 });

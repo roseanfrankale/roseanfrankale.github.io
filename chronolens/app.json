@@ -46,7 +46,8 @@
           "photosPermission": "ChronoLens needs access to your photos to help you archive and organize your memories.",
           "cameraPermission": "ChronoLens needs access to your camera to capture new memories."
         }
-      ]
-    ],
+      ],
+      "expo-font"
+    ]
   }
 }

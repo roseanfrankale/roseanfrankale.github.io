@@ -1,14 +1,9 @@
 import React from "react";
-import { View, StyleSheet, Pressable, Platform } from "react-native";
+import { View, StyleSheet, Pressable, Platform, Text } from "react-native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { Feather } from "@expo/vector-icons";
 import { BlurView } from "expo-blur";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
-import Animated, {
-  useAnimatedStyle,
-  useSharedValue,
-  withSpring,
-} from "react-native-reanimated";
 
 import TimelineStackNavigator from "@/navigation/TimelineStackNavigator";
 import ExploreStackNavigator from "@/navigation/ExploreStackNavigator";
@@ -20,65 +15,52 @@ import UploadModal from "@/screens/UploadModal";
 export type MainTabParamList = {
   TimelineTab: undefined;
   ExploreTab: undefined;
+  CameraTab: undefined;
+  UploadTab: undefined;
   ProfileTab: undefined;
 };
 
 const Tab = createBottomTabNavigator<MainTabParamList>();
 
-const AnimatedPressable = Animated.createAnimatedComponent(Pressable);
-
-interface FABProps {
-  onPress: () => void;
-}
-
-function FloatingActionButton({ onPress }: FABProps) {
+// Placeholder screens for Camera and Upload
+function CameraTabScreen() {
   const { theme } = useTheme();
-  const insets = useSafeAreaInsets();
-  const scale = useSharedValue(1);
-
-  const animatedStyle = useAnimatedStyle(() => ({
-    transform: [{ scale: scale.value }],
-  }));
-
-  const handlePressIn = () => {
-    scale.value = withSpring(0.92, { damping: 15, stiffness: 200 });
-  };
-
-  const handlePressOut = () => {
-    scale.value = withSpring(1, { damping: 15, stiffness: 200 });
-  };
-
   return (
-    <AnimatedPressable
-      onPress={onPress}
-      onPressIn={handlePressIn}
-      onPressOut={handlePressOut}
+    <View
       style={[
-        styles.fab,
-        {
-          backgroundColor: theme.accent,
-          bottom: insets.bottom + 60 + Spacing.md,
-          ...Shadows.float,
-        },
-        animatedStyle,
+        styles.placeholderScreen,
+        { backgroundColor: theme.backgroundDefault },
       ]}
     >
-      <Feather name="camera" size={24} color="#FFFFFF" accessibilityLabel="Upload a new post" />
-    </AnimatedPressable>
+      <Text style={{ color: theme.text }}>Camera</Text>
+    </View>
+  );
+}
+
+function UploadTabScreen() {
+  const { theme } = useTheme();
+  return (
+    <View
+      style={[
+        styles.placeholderScreen,
+        { backgroundColor: theme.backgroundDefault },
+      ]}
+    >
+      <Text style={{ color: theme.text }}>Upload</Text>
+    </View>
   );
 }
 
 export default function MainTabNavigator() {
   const { theme, isDark } = useTheme();
   const insets = useSafeAreaInsets();
-  const [showUploadModal, setShowUploadModal] = React.useState(false);
 
   return (
     <View style={styles.container}>
       <Tab.Navigator
         initialRouteName="TimelineTab"
         screenOptions={{
-          tabBarActiveTintColor: theme.sepia,
+          tabBarActiveTintColor: theme.accent,
           tabBarInactiveTintColor: theme.tabIconDefault,
           tabBarStyle: {
             position: "absolute",
@@ -89,7 +71,7 @@ export default function MainTabNavigator() {
             borderTopWidth: 1,
             borderTopColor: theme.border,
             elevation: 0,
-            height: 60 + insets.bottom,
+            height: 65 + insets.bottom,
             paddingBottom: insets.bottom,
             paddingTop: Spacing.sm,
           },
@@ -102,12 +84,12 @@ export default function MainTabNavigator() {
               />
             ) : null,
           tabBarLabelStyle: {
-            fontSize: 11,
+            fontSize: 10,
             fontWeight: "500",
-            marginTop: -Spacing.xs,
+            marginTop: Spacing.xs,
           },
           tabBarIconStyle: {
-            marginTop: Spacing.xs,
+            marginTop: Spacing.sm,
           },
           headerShown: false,
         }}
@@ -118,7 +100,12 @@ export default function MainTabNavigator() {
           options={{
             title: "Timeline",
             tabBarIcon: ({ color, size }) => (
-              <Feather name="clock" size={size} color={color} />
+              <Feather
+                name="trending-up"
+                size={size}
+                color={color}
+                strokeWidth={1.5}
+              />
             ),
           }}
         />
@@ -128,7 +115,56 @@ export default function MainTabNavigator() {
           options={{
             title: "Explore",
             tabBarIcon: ({ color, size }) => (
-              <Feather name="compass" size={size} color={color} />
+              <Feather
+                name="compass"
+                size={size}
+                color={color}
+                strokeWidth={1.5}
+              />
+            ),
+          }}
+        />
+        <Tab.Screen
+          name="CameraTab"
+          component={CameraTabScreen}
+          options={{
+            title: "Camera",
+            tabBarIcon: ({ color, size }) => (
+              <View
+                style={[styles.cameraIconContainer, { borderColor: color }]}
+              >
+                <Feather
+                  name="camera"
+                  size={size - 4}
+                  color={color}
+                  strokeWidth={1.5}
+                />
+              </View>
+            ),
+            tabBarLabel: ({ focused }) => (
+              <Text
+                style={[
+                  styles.cameraLabel,
+                  { color: focused ? theme.accent : theme.tabIconDefault },
+                ]}
+              >
+                Camera
+              </Text>
+            ),
+          }}
+        />
+        <Tab.Screen
+          name="UploadTab"
+          component={UploadTabScreen}
+          options={{
+            title: "Upload",
+            tabBarIcon: ({ color, size }) => (
+              <Feather
+                name="upload"
+                size={size}
+                color={color}
+                strokeWidth={1.5}
+              />
             ),
           }}
         />
@@ -138,18 +174,16 @@ export default function MainTabNavigator() {
           options={{
             title: "Profile",
             tabBarIcon: ({ color, size }) => (
-              <Feather name="user" size={size} color={color} />
+              <Feather
+                name="user"
+                size={size}
+                color={color}
+                strokeWidth={1.5}
+              />
             ),
           }}
         />
       </Tab.Navigator>
-
-      <FloatingActionButton onPress={() => setShowUploadModal(true)} />
-
-      <UploadModal
-        visible={showUploadModal}
-        onClose={() => setShowUploadModal(false)}
-      />
     </View>
   );
 }
@@ -167,5 +201,23 @@ const styles = StyleSheet.create({
   },
   container: {
     flex: 1,
+  },
+  placeholderScreen: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  cameraIconContainer: {
+    width: 44,
+    height: 44,
+    borderRadius: BorderRadius.full,
+    borderWidth: 2,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  cameraLabel: {
+    fontSize: 10,
+    fontWeight: "500",
+    marginTop: Spacing.xs,
   },
 });

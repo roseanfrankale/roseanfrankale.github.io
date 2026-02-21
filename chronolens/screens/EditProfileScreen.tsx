@@ -1,7 +1,7 @@
 import React, { useState } from "react";
-import { 
-  View, 
-  StyleSheet, 
+import {
+  View,
+  StyleSheet,
   Pressable,
   TextInput,
   Image,
@@ -24,7 +24,7 @@ export default function EditProfileScreen() {
   const [displayName, setDisplayName] = useState(user.displayName);
   const [bio, setBio] = useState(user.bio);
   const [selectedAvatarId, setSelectedAvatarId] = useState(
-    AVATAR_OPTIONS.find((a) => a.source === user.avatar)?.id || "camera"
+    AVATAR_OPTIONS.find((a) => a.source === user.avatar)?.id || "camera",
   );
 
   const handleSave = () => {
@@ -33,8 +33,10 @@ export default function EditProfileScreen() {
       return;
     }
 
-    const selectedAvatar = AVATAR_OPTIONS.find((a) => a.id === selectedAvatarId);
-    
+    const selectedAvatar = AVATAR_OPTIONS.find(
+      (a) => a.id === selectedAvatarId,
+    );
+
     updateUser({
       displayName: displayName.trim(),
       bio: bio.trim(),
@@ -61,7 +63,9 @@ export default function EditProfileScreen() {
                 styles.avatarOption,
                 {
                   borderColor:
-                    selectedAvatarId === avatar.id ? theme.sepia : "transparent",
+                    selectedAvatarId === avatar.id
+                      ? theme.sepia
+                      : "transparent",
                   backgroundColor: theme.backgroundSecondary,
                   opacity: pressed ? 0.8 : 1,
                 },
@@ -69,7 +73,9 @@ export default function EditProfileScreen() {
             >
               <Image source={avatar.source} style={styles.avatarImage} />
               {selectedAvatarId === avatar.id ? (
-                <View style={[styles.checkBadge, { backgroundColor: theme.sepia }]}>
+                <View
+                  style={[styles.checkBadge, { backgroundColor: theme.sepia }]}
+                >
                   <Feather name="check" size={12} color="#FFFFFF" />
                 </View>
               ) : null}
@@ -79,7 +85,10 @@ export default function EditProfileScreen() {
       </View>
 
       <View style={styles.fieldSection}>
-        <ThemedText type="small" style={[styles.fieldLabel, { color: theme.textSecondary }]}>
+        <ThemedText
+          type="small"
+          style={[styles.fieldLabel, { color: theme.textSecondary }]}
+        >
           Display Name
         </ThemedText>
         <TextInput
@@ -96,7 +105,10 @@ export default function EditProfileScreen() {
       </View>
 
       <View style={styles.fieldSection}>
-        <ThemedText type="small" style={[styles.fieldLabel, { color: theme.textSecondary }]}>
+        <ThemedText
+          type="small"
+          style={[styles.fieldLabel, { color: theme.textSecondary }]}
+        >
           Bio
         </ThemedText>
         <TextInput
@@ -113,7 +125,10 @@ export default function EditProfileScreen() {
           numberOfLines={3}
           maxLength={150}
         />
-        <ThemedText type="caption" style={[styles.charCount, { color: theme.textSecondary }]}>
+        <ThemedText
+          type="caption"
+          style={[styles.charCount, { color: theme.textSecondary }]}
+        >
           {bio.length}/150
         </ThemedText>
       </View>
