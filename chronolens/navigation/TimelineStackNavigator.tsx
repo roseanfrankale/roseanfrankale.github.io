@@ -27,6 +27,7 @@ export default function TimelineStackNavigator() {
         name="Timeline"
         component={TimelineScreen}
         options={{
+          headerShown: false,
           headerTitle: () => <HeaderTitle title="ChronoLens" />,
         }}
       />

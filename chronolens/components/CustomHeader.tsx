@@ -16,6 +16,8 @@ interface CustomHeaderProps {
   title?: string;
   showNotificationButton?: boolean;
   onNotificationPress?: () => void;
+  showProfileButton?: boolean;
+  onProfilePress?: () => void;
   style?: ViewStyle;
 }
 
@@ -23,6 +25,8 @@ export function CustomHeader({
   title = "archives",
   showNotificationButton = true,
   onNotificationPress,
+  showProfileButton = false,
+  onProfilePress,
   style,
 }: CustomHeaderProps) {
   const { theme } = useTheme();
@@ -34,6 +38,12 @@ export function CustomHeader({
     }
   };
 
+  const handleProfilePress = () => {
+    if (onProfilePress) {
+      onProfilePress();
+    }
+  };
+
   return (
     <View
       style={[
@@ -41,7 +51,7 @@ export function CustomHeader({
         {
           backgroundColor: theme.backgroundDefault,
           borderBottomColor: theme.border,
-          paddingTop: Math.max(paddingTop, Spacing.md),
+          paddingTop: paddingTop + Spacing.md,
         },
         style,
       ]}
@@ -66,7 +76,7 @@ export function CustomHeader({
         <Text style={[styles.titleText, { color: theme.text }]}>{title}</Text>
       )}
 
-      {/* Notification Button */}
+      {/* Notification or Profile Button */}
       {showNotificationButton && (
         <Pressable
           onPress={handleNotificationPress}
@@ -77,6 +87,21 @@ export function CustomHeader({
           ]}
         >
           <Feather name="bell" size={20} color={theme.text} strokeWidth={1.5} />
+        </Pressable>
+      )}
+      {showProfileButton && (
+        <Pressable
+          onPress={handleProfilePress}
+          style={({ pressed }) => [
+            styles.profileButton,
+            {
+              opacity: pressed ? 0.7 : 1,
+              backgroundColor: theme.backgroundSecondary,
+              borderColor: theme.border,
+            },
+          ]}
+        >
+          <Feather name="user" size={16} color={theme.text} strokeWidth={1.5} />
         </Pressable>
       )}
     </View>
@@ -124,5 +149,13 @@ const styles = StyleSheet.create({
     flex: 1,
     textAlign: "center",
     textTransform: "lowercase",
+  },
+  profileButton: {
+    width: 32,
+    height: 32,
+    borderRadius: 16,
+    borderWidth: 1,
+    alignItems: "center",
+    justifyContent: "center",
   },
 });

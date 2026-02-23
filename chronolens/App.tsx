@@ -11,9 +11,28 @@ import RootNavigator from "@/navigation/RootNavigator";
 import { AuthProvider } from "@/contexts/AuthContext";
 import { ThemeProvider } from "@/contexts/ThemeContext";
 import { ErrorBoundary } from "@/components/ErrorBoundary";
+import { useTheme } from "@/hooks/useTheme";
 
 // Keep the splash screen visible while we fetch resources
 SplashScreen.preventAutoHideAsync();
+
+function AppShell() {
+  const { theme, isDark } = useTheme();
+
+  return (
+    <GestureHandlerRootView
+      style={[styles.root, { backgroundColor: theme.backgroundDefault }]}
+    >
+      <NavigationContainer>
+        <RootNavigator />
+      </NavigationContainer>
+      <StatusBar
+        style={isDark ? "light" : "dark"}
+        backgroundColor={theme.backgroundDefault}
+      />
+    </GestureHandlerRootView>
+  );
+}
 
 export default function App() {
   const [appIsReady, setAppIsReady] = useState(false);
@@ -59,12 +78,7 @@ export default function App() {
       <ThemeProvider>
         <AuthProvider>
           <SafeAreaProvider>
-            <GestureHandlerRootView style={styles.root}>
-              <NavigationContainer>
-                <RootNavigator />
-              </NavigationContainer>
-              <StatusBar style="auto" />
-            </GestureHandlerRootView>
+            <AppShell />
           </SafeAreaProvider>
         </AuthProvider>
       </ThemeProvider>

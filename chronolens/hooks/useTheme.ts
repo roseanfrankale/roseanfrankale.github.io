@@ -52,6 +52,11 @@ export function useTheme() {
   // Get glass morphism styles
   const glass = designTokens.glass[skin][actualColorMode];
 
+  // Toggle between historian and cyberpunk skins
+  const toggleTheme = () => {
+    setSkin(skin === "historian" ? "cyberpunk" : "historian");
+  };
+
   return {
     // Legacy properties
     theme: colors,
@@ -71,5 +76,6 @@ export function useTheme() {
     // Methods
     setSkin,
     setColorMode,
+    toggleTheme,
   };
 }

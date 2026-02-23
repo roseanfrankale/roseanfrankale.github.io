@@ -27,7 +27,10 @@ export default function ExploreStackNavigator() {
       <Stack.Screen
         name="Explore"
         component={ExploreScreen}
-        options={{ headerTitle: "Explore" }}
+        options={{
+          headerShown: false,
+          headerTitle: "Explore",
+        }}
       />
       <Stack.Screen
         name="PhotoDetail"

@@ -4,6 +4,7 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { Feather } from "@expo/vector-icons";
 import { BlurView } from "expo-blur";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
+import { useIsFocused } from "@react-navigation/native";
 
 import TimelineStackNavigator from "@/navigation/TimelineStackNavigator";
 import ExploreStackNavigator from "@/navigation/ExploreStackNavigator";
@@ -25,16 +26,20 @@ const Tab = createBottomTabNavigator<MainTabParamList>();
 
 // Upload screen wrapper for modal
 function UploadTabScreen({ navigation }: any) {
+  const isFocused = useIsFocused();
   const { theme } = useTheme();
   const [isModalOpen, setIsModalOpen] = React.useState(false);
 
   React.useEffect(() => {
-    const unsubscribe = navigation.addListener('tabPress', (e: any) => {
-      e.preventDefault();
+    if (isFocused) {
       setIsModalOpen(true);
-    });
-    return unsubscribe;
-  }, [navigation]);
+    }
+  }, [isFocused]);
+
+  const handleClose = () => {
+    setIsModalOpen(false);
+    navigation.navigate("TimelineTab");
+  };
 
   return (
     <>
@@ -48,10 +53,10 @@ function UploadTabScreen({ navigation }: any) {
       </View>
       <UploadModal
         isOpen={isModalOpen}
-        onClose={() => setIsModalOpen(false)}
+        onClose={handleClose}
         onCameraClick={() => {
           setIsModalOpen(false);
-          navigation.navigate('CameraTab');
+          navigation.navigate("CameraTab");
         }}
       />
     </>

@@ -1,452 +1,839 @@
 import React, { useState } from "react";
-import { 
-  View, 
-  StyleSheet, 
-  Image, 
-  Pressable, 
-  TextInput, 
-  Alert,
+import {
+  View,
+  StyleSheet,
+  Image,
+  Pressable,
   ScrollView,
-  ActivityIndicator 
+  Switch,
+  Alert,
 } from "react-native";
 import { Feather } from "@expo/vector-icons";
-import { useNavigation } from "@react-navigation/native";
-import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import * as ImagePicker from "expo-image-picker";
-import * as Location from "expo-location";
 
 import { ThemedText } from "@/components/ThemedText";
 import { useTheme } from "@/hooks/useTheme";
 import { Spacing, BorderRadius } from "@/constants/theme";
-import { ProfileStackParamList } from "@/navigation/ProfileStackNavigator";
 import { useAuth } from "@/contexts/AuthContext";
 import { usePhotoStore } from "@/store/photoStore";
 
-interface StatItemProps {
-  label: string;
-  value: number | string;
-}
-
-function StatItem({ label, value }: StatItemProps) {
-  const { theme } = useTheme();
-
-  return (
-    <View style={styles.statItem}>
-      <ThemedText type="h3" style={{ color: theme.accent }}>
-        {value}
-      </ThemedText>
-      <ThemedText type="caption" style={{ color: theme.textSecondary }}>
-        {label}
-      </ThemedText>
-    </View>
-  );
-}
+type TabType = "overview" | "settings" | "leonardo";
 
 export default function ProfileScreen() {
-  const navigation = useNavigation<NativeStackNavigationProp<ProfileStackParamList>>();
-  const { theme, fonts } = useTheme();
-  const { user, updateProfile, logout } = useAuth();
+  const { theme, fonts, skin, toggleTheme } = useTheme();
+  const { user, logout } = useAuth();
   const { photos } = usePhotoStore();
+  const [activeTab, setActiveTab] = useState<TabType>("overview");
+  const [avatar, setAvatar] = useState(user?.avatar);
 
-  const [isEditing, setIsEditing] = useState(false);
-  const [isSaving, setIsSaving] = useState(false);
-  const [isDetectingLocation, setIsDetectingLocation] = useState(false);
-  
-  const [editedName, setEditedName] = useState(user?.name || "");
-  const [editedEmail, setEditedEmail] = useState(user?.email || "");
-  const [editedBirthdate, setEditedBirthdate] = useState(user?.birthdate || "");
-  const [editedLocation, setEditedLocation] = useState(user?.location || "");
-  const [editedAvatar, setEditedAvatar] = useState(user?.avatar);
+  // Mock family statistics
+  const stats = {
+    members: 12,
+    generations: 3,
+    locations: 8,
+    decades: 7,
+    oldestPhoto: 1945,
+    newestPhoto: 2024,
+    totalPhotos: photos.length,
+  };
 
-  const cataloguedCount = photos.filter((p) => p.isShared).length;
-  const memberSince = "January 2024"; // TODO: Calculate from user.createdAt
-
-  const handlePickImage = async () => {
-    const permissionResult = await ImagePicker.requestMediaLibraryPermissionsAsync();
-    
+  const handlePickAvatar = async () => {
+    const permissionResult =
+      await ImagePicker.requestMediaLibraryPermissionsAsync();
     if (!permissionResult.granted) {
-      Alert.alert("Permission Required", "Please grant photo library access to change your profile picture.");
+      Alert.alert("Permission Required", "Please grant photo library access.");
       return;
     }
-
     const result = await ImagePicker.launchImageLibraryAsync({
       mediaTypes: ImagePicker.MediaTypeOptions.Images,
       allowsEditing: true,
       aspect: [1, 1],
       quality: 0.8,
     });
-
     if (!result.canceled && result.assets[0]) {
-      setEditedAvatar({ uri: result.assets[0].uri });
+      setAvatar({ uri: result.assets[0].uri });
     }
   };
 
-  const handleDetectLocation = async () => {
-    setIsDetectingLocation(true);
-    
-    try {
-      const { status } = await Location.requestForegroundPermissionsAsync();
-      
-      if (status !== "granted") {
-        Alert.alert("Permission Required", "Please grant location access to detect your location.");
-        setIsDetectingLocation(false);
-        return;
-      }
-
-      const location = await Location.getCurrentPositionAsync({});
-      const [address] = await Location.reverseGeocodeAsync({
-        latitude: location.coords.latitude,
-        longitude: location.coords.longitude,
-      });
-
-      if (address) {
-        const locationString = [address.city, address.region, address.country]
-          .filter(Boolean)
-          .join(", ");
-        setEditedLocation(locationString);
-      }
-    } catch (error) {
-      console.error("Location detection error:", error);
-      Alert.alert("Error", "Failed to detect location. Please try again.");
-    } finally {
-      setIsDetectingLocation(false);
-    }
-  };
-
-  const handleSave = async () => {
-    setIsSaving(true);
-    
-    try {
-      await updateProfile({
-        name: editedName,
-        email: editedEmail,
-        birthdate: editedBirthdate,
-        location: editedLocation,
-        avatar: editedAvatar,
-      });
-      
-      setIsEditing(false);
-    } catch (error) {
-      console.error("Save profile error:", error);
-      Alert.alert("Error", "Failed to save profile. Please try again.");
-    } finally {
-      setIsSaving(false);
-    }
-  };
-
-  const handleCancel = () => {
-    setEditedName(user?.name || "");
-    setEditedEmail(user?.email || "");
-    setEditedBirthdate(user?.birthdate || "");
-    setEditedLocation(user?.location || "");
-    setEditedAvatar(user?.avatar);
-    setIsEditing(false);
-  };
-
-  const handleLogout = () => {
-    Alert.alert(
-      "Logout",
-      "Are you sure you want to logout?",
-      [
-        { text: "Cancel", style: "cancel" },
-        { 
-          text: "Logout", 
-          style: "destructive",
-          onPress: async () => {
-            await logout();
-          }
+  const renderTabButton = (
+    tab: TabType,
+    label: string,
+    icon: keyof typeof Feather.glyphMap,
+  ) => (
+    <Pressable
+      style={[
+        styles.tabButton,
+        activeTab === tab && {
+          backgroundColor: theme.accent,
+          borderColor: theme.accent,
         },
-      ]
-    );
-  };
+        { borderColor: theme.border },
+      ]}
+      onPress={() => setActiveTab(tab)}
+    >
+      <Feather
+        name={icon}
+        size={18}
+        color={activeTab === tab ? theme.backgroundDefault : theme.text}
+      />
+      <ThemedText
+        style={[
+          styles.tabButtonText,
+          { fontFamily: fonts.mono },
+          activeTab === tab && { color: theme.backgroundDefault },
+        ]}
+      >
+        {label}
+      </ThemedText>
+    </Pressable>
+  );
 
-  return (
-    <ScrollView style={[styles.container, { backgroundColor: theme.backgroundDefault }]}>
-      {/* Header */}
-      <View style={styles.header}>
-        <ThemedText 
-          style={[styles.headerTitle, { fontFamily: fonts.primary, color: theme.text }]}
-        >
-          Profile
-        </ThemedText>
-        {!isEditing && (
-          <Pressable
-            onPress={() => setIsEditing(true)}
-            style={({ pressed }) => [
-              styles.headerButton,
-              { opacity: pressed ? 0.7 : 1 },
-            ]}
-          >
-            <Feather name="edit-2" size={20} color={theme.accent} />
-          </Pressable>
-        )}
-      </View>
-
-      {/* Avatar Section */}
-      <View style={styles.avatarSection}>
-        <Pressable
-          onPress={isEditing ? handlePickImage : undefined}
-          disabled={!isEditing}
-          style={({ pressed }) => [
-            styles.avatarContainer,
-            { opacity: pressed ? 0.8 : 1 },
+  const renderOverviewTab = () => (
+    <ScrollView style={styles.tabContent} showsVerticalScrollIndicator={false}>
+      {/* Family Statistics */}
+      <View
+        style={[
+          styles.section,
+          { backgroundColor: theme.card, borderColor: theme.border },
+        ]}
+      >
+        <ThemedText
+          style={[
+            styles.sectionTitle,
+            { fontFamily: fonts.header, color: theme.text },
           ]}
         >
-          {editedAvatar ? (
-            <Image source={editedAvatar} style={styles.avatar} />
-          ) : (
-            <View 
+          Family Archive Statistics
+        </ThemedText>
+        <View style={styles.statsGrid}>
+          <View style={styles.statCard}>
+            <ThemedText
               style={[
-                styles.avatarPlaceholder, 
-                { backgroundColor: theme.backgroundSecondary }
+                styles.statValue,
+                { fontFamily: fonts.mono, color: theme.accent },
               ]}
             >
-              <Feather name="user" size={48} color={theme.textSecondary} />
-            </View>
-          )}
-          {isEditing && (
-            <View style={[styles.avatarEditBadge, { backgroundColor: theme.accent }]}>
-              <Feather name="camera" size={16} color="#FFFFFF" />
-            </View>
-          )}
+              {stats.members}
+            </ThemedText>
+            <ThemedText
+              style={[styles.statLabel, { color: theme.textSecondary }]}
+            >
+              Family Members
+            </ThemedText>
+          </View>
+          <View style={styles.statCard}>
+            <ThemedText
+              style={[
+                styles.statValue,
+                { fontFamily: fonts.mono, color: theme.accent },
+              ]}
+            >
+              {stats.generations}
+            </ThemedText>
+            <ThemedText
+              style={[styles.statLabel, { color: theme.textSecondary }]}
+            >
+              Generations
+            </ThemedText>
+          </View>
+          <View style={styles.statCard}>
+            <ThemedText
+              style={[
+                styles.statValue,
+                { fontFamily: fonts.mono, color: theme.accent },
+              ]}
+            >
+              {stats.locations}
+            </ThemedText>
+            <ThemedText
+              style={[styles.statLabel, { color: theme.textSecondary }]}
+            >
+              Locations
+            </ThemedText>
+          </View>
+          <View style={styles.statCard}>
+            <ThemedText
+              style={[
+                styles.statValue,
+                { fontFamily: fonts.mono, color: theme.accent },
+              ]}
+            >
+              {stats.decades}
+            </ThemedText>
+            <ThemedText
+              style={[styles.statLabel, { color: theme.textSecondary }]}
+            >
+              Decades
+            </ThemedText>
+          </View>
+        </View>
+      </View>
+
+      {/* Archive Timeline */}
+      <View
+        style={[
+          styles.section,
+          { backgroundColor: theme.card, borderColor: theme.border },
+        ]}
+      >
+        <View style={styles.timelineBanner}>
+          <View style={styles.timelineYearBox}>
+            <ThemedText
+              style={[
+                styles.timelineYear,
+                { fontFamily: fonts.mono, color: theme.accent },
+              ]}
+            >
+              {stats.oldestPhoto}
+            </ThemedText>
+            <ThemedText
+              style={[styles.timelineLabel, { color: theme.textSecondary }]}
+            >
+              Oldest
+            </ThemedText>
+          </View>
+          <View
+            style={[styles.timelineLine, { backgroundColor: theme.accent }]}
+          />
+          <View style={styles.timelineYearBox}>
+            <ThemedText
+              style={[
+                styles.timelineYear,
+                { fontFamily: fonts.mono, color: theme.accent },
+              ]}
+            >
+              {stats.newestPhoto}
+            </ThemedText>
+            <ThemedText
+              style={[styles.timelineLabel, { color: theme.textSecondary }]}
+            >
+              Newest
+            </ThemedText>
+          </View>
+        </View>
+        <ThemedText
+          style={[
+            styles.timelineCaption,
+            { fontFamily: fonts.mono, color: theme.textSecondary },
+          ]}
+        >
+          {stats.newestPhoto - stats.oldestPhoto} years of family history
+          preserved
+        </ThemedText>
+      </View>
+
+      {/* Quick Actions */}
+      <View
+        style={[
+          styles.section,
+          { backgroundColor: theme.card, borderColor: theme.border },
+        ]}
+      >
+        <ThemedText
+          style={[
+            styles.sectionTitle,
+            { fontFamily: fonts.header, color: theme.text },
+          ]}
+        >
+          Quick Actions
+        </ThemedText>
+        <Pressable
+          style={[
+            styles.actionButton,
+            { backgroundColor: theme.backgroundSecondary },
+          ]}
+        >
+          <Feather name="image" size={20} color={theme.text} />
+          <ThemedText style={{ flex: 1, color: theme.text }}>
+            View All Photos
+          </ThemedText>
+          <ThemedText
+            style={[
+              styles.actionCount,
+              { fontFamily: fonts.mono, color: theme.accent },
+            ]}
+          >
+            {stats.totalPhotos}
+          </ThemedText>
+        </Pressable>
+        <Pressable
+          style={[
+            styles.actionButton,
+            { backgroundColor: theme.backgroundSecondary },
+          ]}
+        >
+          <Feather name="users" size={20} color={theme.text} />
+          <ThemedText style={{ flex: 1, color: theme.text }}>
+            Family Members
+          </ThemedText>
+          <ThemedText
+            style={[
+              styles.actionCount,
+              { fontFamily: fonts.mono, color: theme.accent },
+            ]}
+          >
+            {stats.members}
+          </ThemedText>
+        </Pressable>
+        <Pressable
+          style={[
+            styles.actionButton,
+            { backgroundColor: theme.backgroundSecondary },
+          ]}
+        >
+          <Feather name="map-pin" size={20} color={theme.text} />
+          <ThemedText style={{ flex: 1, color: theme.text }}>
+            Locations
+          </ThemedText>
+          <ThemedText
+            style={[
+              styles.actionCount,
+              { fontFamily: fonts.mono, color: theme.accent },
+            ]}
+          >
+            {stats.locations}
+          </ThemedText>
+        </Pressable>
+        <Pressable
+          style={[
+            styles.actionButton,
+            { backgroundColor: theme.backgroundSecondary },
+          ]}
+        >
+          <Feather name="heart" size={20} color={theme.text} />
+          <ThemedText style={{ flex: 1, color: theme.text }}>
+            Favorites
+          </ThemedText>
+          <Feather name="chevron-right" size={20} color={theme.textSecondary} />
         </Pressable>
       </View>
 
-      {/* Profile Fields */}
-      <View style={[styles.section, { backgroundColor: theme.card }]}>
-        <View style={styles.field}>
-          <ThemedText type="caption" style={{ color: theme.textSecondary }}>
-            NAME
+      {/* Account Info */}
+      <View
+        style={[
+          styles.section,
+          { backgroundColor: theme.card, borderColor: theme.border },
+        ]}
+      >
+        <ThemedText
+          style={[
+            styles.sectionTitle,
+            { fontFamily: fonts.header, color: theme.text },
+          ]}
+        >
+          Account Information
+        </ThemedText>
+        <View style={styles.infoRow}>
+          <ThemedText
+            style={[styles.infoLabel, { color: theme.textSecondary }]}
+          >
+            Family Archive
           </ThemedText>
-          {isEditing ? (
-            <TextInput
-              value={editedName}
-              onChangeText={setEditedName}
-              style={[
-                styles.input,
-                { 
-                  color: theme.text, 
-                  borderColor: theme.border,
-                  fontFamily: fonts.mono,
-                },
-              ]}
-              placeholderTextColor={theme.textSecondary}
-            />
-          ) : (
-            <ThemedText 
-              style={[styles.fieldValue, { fontFamily: fonts.mono }]}
-            >
-              {user?.name}
-            </ThemedText>
-          )}
-        </View>
-
-        <View style={[styles.divider, { backgroundColor: theme.border }]} />
-
-        <View style={styles.field}>
-          <ThemedText type="caption" style={{ color: theme.textSecondary }}>
-            EMAIL
+          <ThemedText
+            style={[
+              styles.infoValue,
+              { fontFamily: fonts.mono, color: theme.text },
+            ]}
+          >
+            Frank-Alexander Family
           </ThemedText>
-          {isEditing ? (
-            <TextInput
-              value={editedEmail}
-              onChangeText={setEditedEmail}
-              style={[
-                styles.input,
-                { 
-                  color: theme.text, 
-                  borderColor: theme.border,
-                  fontFamily: fonts.mono,
-                },
-              ]}
-              keyboardType="email-address"
-              autoCapitalize="none"
-              placeholderTextColor={theme.textSecondary}
-            />
-          ) : (
-            <ThemedText 
-              style={[styles.fieldValue, { fontFamily: fonts.mono }]}
-            >
-              {user?.email}
-            </ThemedText>
-          )}
         </View>
-
-        <View style={[styles.divider, { backgroundColor: theme.border }]} />
-
-        <View style={styles.field}>
-          <ThemedText type="caption" style={{ color: theme.textSecondary }}>
-            BIRTHDATE
+        <View style={styles.infoRow}>
+          <ThemedText
+            style={[styles.infoLabel, { color: theme.textSecondary }]}
+          >
+            Member Since
           </ThemedText>
-          {isEditing ? (
-            <TextInput
-              value={editedBirthdate}
-              onChangeText={setEditedBirthdate}
-              style={[
-                styles.input,
-                { 
-                  color: theme.text, 
-                  borderColor: theme.border,
-                  fontFamily: fonts.mono,
-                },
-              ]}
-              placeholder="YYYY-MM-DD"
-              placeholderTextColor={theme.textSecondary}
-            />
-          ) : (
-            <ThemedText 
-              style={[styles.fieldValue, { fontFamily: fonts.mono }]}
-            >
-              {user?.birthdate || "Not set"}
-            </ThemedText>
-          )}
+          <ThemedText
+            style={[
+              styles.infoValue,
+              { fontFamily: fonts.mono, color: theme.text },
+            ]}
+          >
+            January 2024
+          </ThemedText>
         </View>
+        <View style={styles.infoRow}>
+          <ThemedText
+            style={[styles.infoLabel, { color: theme.textSecondary }]}
+          >
+            Role
+          </ThemedText>
+          <ThemedText
+            style={[
+              styles.infoValue,
+              { fontFamily: fonts.mono, color: theme.text },
+            ]}
+          >
+            Curator
+          </ThemedText>
+        </View>
+      </View>
+    </ScrollView>
+  );
 
-        <View style={[styles.divider, { backgroundColor: theme.border }]} />
-
-        <View style={styles.field}>
-          <View style={styles.fieldHeader}>
-            <ThemedText type="caption" style={{ color: theme.textSecondary }}>
-              LOCATION
+  const renderSettingsTab = () => (
+    <ScrollView style={styles.tabContent} showsVerticalScrollIndicator={false}>
+      {/* Theme Switcher */}
+      <View
+        style={[
+          styles.section,
+          { backgroundColor: theme.card, borderColor: theme.border },
+        ]}
+      >
+        <ThemedText
+          style={[
+            styles.sectionTitle,
+            { fontFamily: fonts.header, color: theme.text },
+          ]}
+        >
+          App Theme
+        </ThemedText>
+        <View style={styles.themeGrid}>
+          <Pressable
+            style={[
+              styles.themeCard,
+              skin === "historian" && {
+                borderColor: theme.accent,
+                borderWidth: 2,
+              },
+              { backgroundColor: "#FFF8E7", borderColor: "#D4AF37" },
+            ]}
+            onPress={() => {
+              if (skin !== "historian" && toggleTheme) {
+                toggleTheme();
+              }
+            }}
+          >
+            <View style={[styles.themeIcon, { backgroundColor: "#8B7355" }]}>
+              <ThemedText style={styles.themeEmoji}>🗺️</ThemedText>
+            </View>
+            <ThemedText style={[styles.themeName, { color: "#2C2416" }]}>
+              Historian
             </ThemedText>
-            {isEditing && (
-              <Pressable
-                onPress={handleDetectLocation}
-                disabled={isDetectingLocation}
-                style={({ pressed }) => [
-                  styles.detectButton,
-                  { opacity: pressed ? 0.7 : 1 },
+            <ThemedText style={[styles.themeDescription, { color: "#8B7355" }]}>
+              Warm & Classic
+            </ThemedText>
+            {skin === "historian" && (
+              <View
+                style={[
+                  styles.themeCheckmark,
+                  { backgroundColor: theme.accent },
                 ]}
               >
-                {isDetectingLocation ? (
-                  <ActivityIndicator size="small" color={theme.accent} />
-                ) : (
-                  <Feather name="map-pin" size={16} color={theme.accent} />
-                )}
-              </Pressable>
+                <Feather name="check" size={12} color="#FFF" />
+              </View>
             )}
-          </View>
-          {isEditing ? (
-            <TextInput
-              value={editedLocation}
-              onChangeText={setEditedLocation}
-              style={[
-                styles.input,
-                { 
-                  color: theme.text, 
-                  borderColor: theme.border,
-                  fontFamily: fonts.mono,
-                },
-              ]}
-              placeholder="City, Country"
-              placeholderTextColor={theme.textSecondary}
-            />
-          ) : (
-            <ThemedText 
-              style={[styles.fieldValue, { fontFamily: fonts.mono }]}
-            >
-              {user?.location || "Not set"}
+          </Pressable>
+
+          <Pressable
+            style={[
+              styles.themeCard,
+              skin === "cyberpunk" && {
+                borderColor: theme.accent,
+                borderWidth: 2,
+              },
+              { backgroundColor: "#0A0E27", borderColor: "#00F0FF" },
+            ]}
+            onPress={() => {
+              if (skin !== "cyberpunk" && toggleTheme) {
+                toggleTheme();
+              }
+            }}
+          >
+            <View style={[styles.themeIcon, { backgroundColor: "#00F0FF" }]}>
+              <ThemedText style={styles.themeEmoji}>🌐</ThemedText>
+            </View>
+            <ThemedText style={[styles.themeName, { color: "#E0E0E0" }]}>
+              Cyberpunk
             </ThemedText>
-          )}
-        </View>
-      </View>
-
-      {/* Action Buttons */}
-      {isEditing && (
-        <View style={styles.actionButtons}>
-          <Pressable
-            onPress={handleCancel}
-            disabled={isSaving}
-            style={({ pressed }) => [
-              styles.cancelButton,
-              { 
-                borderColor: theme.border,
-                opacity: pressed || isSaving ? 0.7 : 1,
-              },
-            ]}
-          >
-            <ThemedText style={{ color: theme.text }}>Cancel</ThemedText>
-          </Pressable>
-          
-          <Pressable
-            onPress={handleSave}
-            disabled={isSaving}
-            style={({ pressed }) => [
-              styles.saveButton,
-              { 
-                backgroundColor: theme.accent,
-                opacity: pressed || isSaving ? 0.7 : 1,
-              },
-            ]}
-          >
-            {isSaving ? (
-              <ActivityIndicator color="#FFFFFF" />
-            ) : (
-              <ThemedText style={{ color: "#FFFFFF" }}>Save</ThemedText>
+            <ThemedText style={[styles.themeDescription, { color: "#9CA3AF" }]}>
+              Dark & Modern
+            </ThemedText>
+            {skin === "cyberpunk" && (
+              <View
+                style={[
+                  styles.themeCheckmark,
+                  { backgroundColor: theme.accent },
+                ]}
+              >
+                <Feather name="check" size={12} color="#0A0E27" />
+              </View>
             )}
           </Pressable>
         </View>
-      )}
+      </View>
 
-      {/* Stats */}
-      <View style={[styles.statsSection, { backgroundColor: theme.card }]}>
-        <ThemedText 
-          type="small" 
-          style={[styles.sectionTitle, { color: theme.textSecondary }]}
+      {/* Preferences */}
+      <View
+        style={[
+          styles.section,
+          { backgroundColor: theme.card, borderColor: theme.border },
+        ]}
+      >
+        <ThemedText
+          style={[
+            styles.sectionTitle,
+            { fontFamily: fonts.header, color: theme.text },
+          ]}
         >
-          STATISTICS
+          Preferences
         </ThemedText>
-        <View style={styles.statsRow}>
-          <StatItem label="Photos" value={photos.length} />
-          <View style={[styles.statDivider, { backgroundColor: theme.border }]} />
-          <StatItem label="Catalogued" value={cataloguedCount} />
-          <View style={[styles.statDivider, { backgroundColor: theme.border }]} />
-          <StatItem label="Member Since" value={memberSince} />
+        <View style={[styles.settingRow, { borderBottomColor: theme.border }]}>
+          <View style={styles.settingInfo}>
+            <Feather name="bell" size={20} color={theme.text} />
+            <View style={{ flex: 1 }}>
+              <ThemedText style={[styles.settingLabel, { color: theme.text }]}>
+                Notifications
+              </ThemedText>
+              <ThemedText
+                style={[
+                  styles.settingDescription,
+                  { color: theme.textSecondary },
+                ]}
+              >
+                Family updates and new photos
+              </ThemedText>
+            </View>
+          </View>
+          <Switch value={true} onValueChange={() => {}} />
+        </View>
+        <View style={[styles.settingRow, { borderBottomColor: theme.border }]}>
+          <View style={styles.settingInfo}>
+            <Feather name="lock" size={20} color={theme.text} />
+            <View style={{ flex: 1 }}>
+              <ThemedText style={[styles.settingLabel, { color: theme.text }]}>
+                Privacy
+              </ThemedText>
+              <ThemedText
+                style={[
+                  styles.settingDescription,
+                  { color: theme.textSecondary },
+                ]}
+              >
+                Control who sees your profile
+              </ThemedText>
+            </View>
+          </View>
+          <Feather name="chevron-right" size={20} color={theme.textSecondary} />
+        </View>
+        <View style={styles.settingRow}>
+          <View style={styles.settingInfo}>
+            <Feather name="help-circle" size={20} color={theme.text} />
+            <View style={{ flex: 1 }}>
+              <ThemedText style={[styles.settingLabel, { color: theme.text }]}>
+                Help & Support
+              </ThemedText>
+              <ThemedText
+                style={[
+                  styles.settingDescription,
+                  { color: theme.textSecondary },
+                ]}
+              >
+                FAQs, tutorials, and contact
+              </ThemedText>
+            </View>
+          </View>
+          <Feather name="chevron-right" size={20} color={theme.textSecondary} />
         </View>
       </View>
 
-      {/* Account Actions */}
-      {!isEditing && (
-        <View style={[styles.actionsSection, { backgroundColor: theme.card }]}>
-          <Pressable
-            onPress={() => navigation.navigate("Settings")}
-            style={({ pressed }) => [
-              styles.actionItem,
-              { opacity: pressed ? 0.7 : 1 },
-            ]}
-          >
-            <View style={styles.actionLeft}>
-              <Feather name="settings" size={20} color={theme.text} />
-              <ThemedText style={[styles.actionText, { fontFamily: fonts.mono }]}>
-                Settings
-              </ThemedText>
-            </View>
-            <Feather name="chevron-right" size={20} color={theme.textSecondary} />
-          </Pressable>
-
-          <View style={[styles.divider, { backgroundColor: theme.border }]} />
-
-          <Pressable
-            onPress={handleLogout}
-            style={({ pressed }) => [
-              styles.actionItem,
-              { opacity: pressed ? 0.7 : 1 },
-            ]}
-          >
-            <View style={styles.actionLeft}>
-              <Feather name="log-out" size={20} color={theme.error} />
-              <ThemedText 
-                style={[styles.actionText, { fontFamily: fonts.mono, color: theme.error }]}
-              >
-                Logout
-              </ThemedText>
-            </View>
-          </Pressable>
-        </View>
-      )}
-
-      <View style={{ height: Spacing.xl }} />
+      {/* Logout */}
+      <Pressable
+        style={[
+          styles.logoutButton,
+          {
+            backgroundColor: theme.card,
+            borderColor: theme.border,
+          },
+        ]}
+        onPress={() => {
+          Alert.alert("Sign Out", "Are you sure you want to sign out?", [
+            { text: "Cancel", style: "cancel" },
+            { text: "Sign Out", style: "destructive", onPress: logout },
+          ]);
+        }}
+      >
+        <Feather name="log-out" size={20} color="#EF4444" />
+        <ThemedText style={[styles.logoutText, { fontFamily: fonts.mono }]}>
+          Sign Out
+        </ThemedText>
+      </Pressable>
     </ScrollView>
+  );
+
+  const renderLeonardoTab = () => (
+    <ScrollView style={styles.tabContent} showsVerticalScrollIndicator={false}>
+      {/* Leonardo AI Banner */}
+      <View
+        style={[
+          styles.section,
+          {
+            backgroundColor: theme.accent + "20",
+            borderColor: theme.accent,
+            borderWidth: 2,
+          },
+        ]}
+      >
+        <View style={styles.leonardoHeader}>
+          <ThemedText style={styles.leonardoEmoji}>🎨</ThemedText>
+          <View style={{ flex: 1 }}>
+            <ThemedText
+              style={[
+                styles.leonardoTitle,
+                { fontFamily: fonts.header, color: theme.text },
+              ]}
+            >
+              Leonardo AI Animations
+            </ThemedText>
+            <ThemedText
+              style={[styles.leonardoSubtitle, { color: theme.textSecondary }]}
+            >
+              Bring your family photos to life
+            </ThemedText>
+          </View>
+        </View>
+      </View>
+
+      {/* Description */}
+      <View
+        style={[
+          styles.section,
+          { backgroundColor: theme.card, borderColor: theme.border },
+        ]}
+      >
+        <ThemedText style={[styles.leonardoDescription, { color: theme.text }]}>
+          Transform static family photographs into animated memories using
+          advanced AI technology. Watch ancestors smile, children wave, and
+          special moments come alive with realistic movement.
+        </ThemedText>
+      </View>
+
+      {/* Features */}
+      <View
+        style={[
+          styles.section,
+          { backgroundColor: theme.card, borderColor: theme.border },
+        ]}
+      >
+        <ThemedText
+          style={[
+            styles.sectionTitle,
+            { fontFamily: fonts.header, color: theme.text },
+          ]}
+        >
+          Animation Features
+        </ThemedText>
+        <View style={styles.featureList}>
+          <View style={styles.featureItem}>
+            <View
+              style={[
+                styles.featureIcon,
+                { backgroundColor: theme.accent + "20" },
+              ]}
+            >
+              <ThemedText style={styles.featureEmoji}>✨</ThemedText>
+            </View>
+            <View style={{ flex: 1 }}>
+              <ThemedText style={[styles.featureTitle, { color: theme.text }]}>
+                Natural Motion
+              </ThemedText>
+              <ThemedText
+                style={[
+                  styles.featureDescription,
+                  { color: theme.textSecondary },
+                ]}
+              >
+                Subtle facial expressions and realistic movement
+              </ThemedText>
+            </View>
+          </View>
+          <View style={styles.featureItem}>
+            <View
+              style={[
+                styles.featureIcon,
+                { backgroundColor: theme.accent + "20" },
+              ]}
+            >
+              <ThemedText style={styles.featureEmoji}>🎭</ThemedText>
+            </View>
+            <View style={{ flex: 1 }}>
+              <ThemedText style={[styles.featureTitle, { color: theme.text }]}>
+                Portrait Animation
+              </ThemedText>
+              <ThemedText
+                style={[
+                  styles.featureDescription,
+                  { color: theme.textSecondary },
+                ]}
+              >
+                Make portrait photos smile, blink, and turn their heads
+              </ThemedText>
+            </View>
+          </View>
+          <View style={styles.featureItem}>
+            <View
+              style={[
+                styles.featureIcon,
+                { backgroundColor: theme.accent + "20" },
+              ]}
+            >
+              <ThemedText style={styles.featureEmoji}>⚡</ThemedText>
+            </View>
+            <View style={{ flex: 1 }}>
+              <ThemedText style={[styles.featureTitle, { color: theme.text }]}>
+                Fast Processing
+              </ThemedText>
+              <ThemedText
+                style={[
+                  styles.featureDescription,
+                  { color: theme.textSecondary },
+                ]}
+              >
+                Generate animations in seconds with cloud processing
+              </ThemedText>
+            </View>
+          </View>
+          <View style={styles.featureItem}>
+            <View
+              style={[
+                styles.featureIcon,
+                { backgroundColor: theme.accent + "20" },
+              ]}
+            >
+              <ThemedText style={styles.featureEmoji}>💾</ThemedText>
+            </View>
+            <View style={{ flex: 1 }}>
+              <ThemedText style={[styles.featureTitle, { color: theme.text }]}>
+                Save & Share
+              </ThemedText>
+              <ThemedText
+                style={[
+                  styles.featureDescription,
+                  { color: theme.textSecondary },
+                ]}
+              >
+                Export animated memories to share with family
+              </ThemedText>
+            </View>
+          </View>
+        </View>
+      </View>
+
+      {/* Connect Button */}
+      <Pressable
+        style={[
+          styles.connectButton,
+          {
+            backgroundColor: theme.accent,
+          },
+        ]}
+        onPress={() => {
+          Alert.alert(
+            "Leonardo AI",
+            "Connect your Leonardo AI account to enable photo animations. You'll need an API key from leonardo.ai",
+            [
+              { text: "Cancel", style: "cancel" },
+              { text: "Learn More", onPress: () => {} },
+            ],
+          );
+        }}
+      >
+        <Feather name="link" size={20} color={theme.backgroundDefault} />
+        <ThemedText
+          style={[
+            styles.connectButtonText,
+            {
+              fontFamily: fonts.mono,
+              color: theme.backgroundDefault,
+            },
+          ]}
+        >
+          Connect Leonardo AI
+        </ThemedText>
+      </Pressable>
+
+      {/* API Note */}
+      <View
+        style={[
+          styles.section,
+          {
+            backgroundColor: theme.backgroundSecondary,
+            borderColor: theme.border,
+          },
+        ]}
+      >
+        <ThemedText style={[styles.apiNote, { color: theme.textSecondary }]}>
+          <Feather name="info" size={14} color={theme.textSecondary} /> Requires
+          Leonardo AI account and API key. Visit leonardo.ai to sign up.
+        </ThemedText>
+      </View>
+    </ScrollView>
+  );
+
+  return (
+    <View
+      style={[styles.container, { backgroundColor: theme.backgroundDefault }]}
+    >
+      {/* Header with Avatar */}
+      <View
+        style={[
+          styles.header,
+          {
+            backgroundColor: theme.backgroundDefault,
+            borderBottomColor: theme.border,
+          },
+        ]}
+      >
+        <Pressable onPress={handlePickAvatar}>
+          <Image
+            source={avatar || require("@/assets/images/avatars/camera.png")}
+            style={[styles.avatar, { borderColor: theme.accent }]}
+          />
+          <View style={[styles.avatarEdit, { backgroundColor: theme.accent }]}>
+            <Feather name="camera" size={14} color={theme.backgroundDefault} />
+          </View>
+        </Pressable>
+        <View style={styles.headerInfo}>
+          <ThemedText
+            style={[
+              styles.headerName,
+              { fontFamily: fonts.header, color: theme.text },
+            ]}
+          >
+            {user?.name || "Family Curator"}
+          </ThemedText>
+          <ThemedText
+            style={[
+              styles.headerEmail,
+              { fontFamily: fonts.mono, color: theme.textSecondary },
+            ]}
+          >
+            {user?.email || "curator@chronolens.app"}
+          </ThemedText>
+        </View>
+      </View>
+
+      {/* Tab Navigation */}
+      <View
+        style={[
+          styles.tabBar,
+          {
+            backgroundColor: theme.backgroundDefault,
+            borderBottomColor: theme.border,
+          },
+        ]}
+      >
+        {renderTabButton("overview", "Overview", "home")}
+        {renderTabButton("settings", "Settings", "settings")}
+        {renderTabButton("leonardo", "Leonardo AI", "zap")}
+      </View>
+
+      {/* Tab Content */}
+      {activeTab === "overview" && renderOverviewTab()}
+      {activeTab === "settings" && renderSettingsTab()}
+      {activeTab === "leonardo" && renderLeonardoTab()}
+    </View>
   );
 }
 
@@ -456,141 +843,285 @@ const styles = StyleSheet.create({
   },
   header: {
     flexDirection: "row",
-    justifyContent: "space-between",
     alignItems: "center",
-    paddingHorizontal: Spacing.xl,
-    paddingTop: Spacing.xl,
-    paddingBottom: Spacing.lg,
-  },
-  headerTitle: {
-    fontSize: 28,
-    fontWeight: "600",
-  },
-  headerButton: {
-    padding: Spacing.sm,
-  },
-  avatarSection: {
-    alignItems: "center",
-    paddingVertical: Spacing.xl,
-  },
-  avatarContainer: {
-    position: "relative",
+    padding: Spacing.lg,
+    borderBottomWidth: 1,
+    gap: Spacing.md,
   },
   avatar: {
-    width: 120,
-    height: 120,
-    borderRadius: 60,
+    width: 64,
+    height: 64,
+    borderRadius: 32,
+    borderWidth: 2,
   },
-  avatarPlaceholder: {
-    width: 120,
-    height: 120,
-    borderRadius: 60,
-    justifyContent: "center",
-    alignItems: "center",
-  },
-  avatarEditBadge: {
+  avatarEdit: {
     position: "absolute",
     bottom: 0,
     right: 0,
-    width: 36,
-    height: 36,
-    borderRadius: 18,
+    width: 24,
+    height: 24,
+    borderRadius: 12,
     justifyContent: "center",
     alignItems: "center",
   },
-  section: {
-    marginHorizontal: Spacing.xl,
-    marginBottom: Spacing.lg,
-    borderRadius: BorderRadius.lg,
-    padding: Spacing.lg,
+  headerInfo: {
+    flex: 1,
   },
-  field: {
+  headerName: {
+    fontSize: 20,
+    fontWeight: "400",
+    marginBottom: 4,
+  },
+  headerEmail: {
+    fontSize: 12,
+    opacity: 0.7,
+  },
+  tabBar: {
+    flexDirection: "row",
+    paddingHorizontal: Spacing.lg,
     paddingVertical: Spacing.md,
+    gap: Spacing.sm,
+    borderBottomWidth: 1,
   },
-  fieldHeader: {
+  tabButton: {
+    flex: 1,
     flexDirection: "row",
-    justifyContent: "space-between",
     alignItems: "center",
-    marginBottom: Spacing.xs,
-  },
-  fieldValue: {
-    fontSize: 16,
-    marginTop: Spacing.xs,
-  },
-  input: {
-    marginTop: Spacing.xs,
-    padding: Spacing.md,
+    justifyContent: "center",
+    paddingVertical: Spacing.sm,
+    paddingHorizontal: Spacing.md,
+    borderRadius: BorderRadius.full,
     borderWidth: 1,
-    borderRadius: BorderRadius.md,
-    fontSize: 16,
+    gap: Spacing.xs,
   },
-  detectButton: {
-    padding: Spacing.xs,
+  tabButtonText: {
+    fontSize: 12,
   },
-  divider: {
-    height: 1,
-  },
-  actionButtons: {
-    flexDirection: "row",
-    marginHorizontal: Spacing.xl,
-    marginBottom: Spacing.lg,
-    gap: Spacing.md,
-  },
-  cancelButton: {
+  tabContent: {
     flex: 1,
     padding: Spacing.lg,
-    borderRadius: BorderRadius.md,
-    borderWidth: 1,
-    alignItems: "center",
   },
-  saveButton: {
-    flex: 1,
+  section: {
     padding: Spacing.lg,
-    borderRadius: BorderRadius.md,
-    alignItems: "center",
-  },
-  statsSection: {
-    marginHorizontal: Spacing.xl,
-    marginBottom: Spacing.lg,
     borderRadius: BorderRadius.lg,
-    padding: Spacing.lg,
+    borderWidth: 1,
+    marginBottom: Spacing.md,
   },
   sectionTitle: {
+    fontSize: 16,
+    fontWeight: "400",
     marginBottom: Spacing.md,
-    letterSpacing: 0.5,
   },
-  statsRow: {
+  statsGrid: {
     flexDirection: "row",
-    justifyContent: "space-around",
-    alignItems: "center",
+    flexWrap: "wrap",
+    gap: Spacing.md,
   },
-  statItem: {
-    alignItems: "center",
+  statCard: {
     flex: 1,
+    minWidth: "45%",
+    alignItems: "center",
+    padding: Spacing.md,
   },
-  statDivider: {
-    width: 1,
-    height: 40,
+  statValue: {
+    fontSize: 32,
+    fontWeight: "bold",
+    marginBottom: 4,
   },
-  actionsSection: {
-    marginHorizontal: Spacing.xl,
-    marginBottom: Spacing.lg,
-    borderRadius: BorderRadius.lg,
-    padding: Spacing.lg,
+  statLabel: {
+    fontSize: 12,
+    textAlign: "center",
   },
-  actionItem: {
+  timelineBanner: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
+    marginBottom: Spacing.md,
+  },
+  timelineYearBox: {
+    alignItems: "center",
+  },
+  timelineYear: {
+    fontSize: 24,
+    fontWeight: "bold",
+    marginBottom: 4,
+  },
+  timelineLabel: {
+    fontSize: 10,
+    textTransform: "uppercase",
+    letterSpacing: 1,
+  },
+  timelineLine: {
+    flex: 1,
+    height: 2,
+    marginHorizontal: Spacing.md,
+  },
+  timelineCaption: {
+    fontSize: 12,
+    textAlign: "center",
+    opacity: 0.7,
+  },
+  actionButton: {
+    flexDirection: "row",
+    alignItems: "center",
+    padding: Spacing.md,
+    borderRadius: BorderRadius.md,
+    gap: Spacing.md,
+    marginBottom: Spacing.sm,
+  },
+  actionCount: {
+    fontSize: 14,
+    fontWeight: "bold",
+  },
+  infoRow: {
     flexDirection: "row",
     justifyContent: "space-between",
-    alignItems: "center",
-    paddingVertical: Spacing.md,
+    paddingVertical: Spacing.sm,
   },
-  actionLeft: {
+  infoLabel: {
+    fontSize: 14,
+  },
+  infoValue: {
+    fontSize: 14,
+  },
+  themeGrid: {
+    flexDirection: "row",
+    gap: Spacing.md,
+  },
+  themeCard: {
+    flex: 1,
+    padding: Spacing.md,
+    borderRadius: BorderRadius.lg,
+    borderWidth: 1,
+    alignItems: "center",
+    position: "relative",
+  },
+  themeIcon: {
+    width: 48,
+    height: 48,
+    borderRadius: 24,
+    justifyContent: "center",
+    alignItems: "center",
+    marginBottom: Spacing.sm,
+  },
+  themeEmoji: {
+    fontSize: 24,
+  },
+  themeName: {
+    fontSize: 14,
+    fontWeight: "600",
+    marginBottom: 4,
+  },
+  themeDescription: {
+    fontSize: 12,
+  },
+  themeCheckmark: {
+    position: "absolute",
+    top: Spacing.sm,
+    right: Spacing.sm,
+    width: 20,
+    height: 20,
+    borderRadius: 10,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  settingRow: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
+    paddingVertical: Spacing.md,
+    borderBottomWidth: 1,
+  },
+  settingInfo: {
+    flexDirection: "row",
+    alignItems: "center",
+    flex: 1,
+    gap: Spacing.md,
+  },
+  settingLabel: {
+    fontSize: 14,
+    fontWeight: "500",
+    marginBottom: 4,
+  },
+  settingDescription: {
+    fontSize: 12,
+  },
+  logoutButton: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "center",
+    padding: Spacing.md,
+    borderRadius: BorderRadius.lg,
+    borderWidth: 1,
+    gap: Spacing.sm,
+    marginBottom: Spacing.xl,
+  },
+  logoutText: {
+    fontSize: 14,
+    color: "#EF4444",
+  },
+  leonardoHeader: {
     flexDirection: "row",
     alignItems: "center",
     gap: Spacing.md,
   },
-  actionText: {
+  leonardoEmoji: {
+    fontSize: 48,
+  },
+  leonardoTitle: {
+    fontSize: 20,
+    fontWeight: "400",
+    marginBottom: 4,
+  },
+  leonardoSubtitle: {
+    fontSize: 14,
+  },
+  leonardoDescription: {
+    fontSize: 14,
+    lineHeight: 22,
+  },
+  featureList: {
+    gap: Spacing.md,
+  },
+  featureItem: {
+    flexDirection: "row",
+    gap: Spacing.md,
+  },
+  featureIcon: {
+    width: 40,
+    height: 40,
+    borderRadius: 20,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  featureEmoji: {
+    fontSize: 20,
+  },
+  featureTitle: {
+    fontSize: 14,
+    fontWeight: "600",
+    marginBottom: 4,
+  },
+  featureDescription: {
+    fontSize: 12,
+    lineHeight: 18,
+  },
+  connectButton: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "center",
+    padding: Spacing.lg,
+    borderRadius: BorderRadius.lg,
+    gap: Spacing.sm,
+    marginBottom: Spacing.md,
+  },
+  connectButtonText: {
     fontSize: 16,
+    fontWeight: "bold",
+  },
+  apiNote: {
+    fontSize: 12,
+    lineHeight: 18,
+    textAlign: "center",
   },
 });
-

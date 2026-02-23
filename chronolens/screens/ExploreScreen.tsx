@@ -8,6 +8,7 @@ import {
   Image,
   SectionList,
 } from "react-native";
+import { useNavigation } from "@react-navigation/native";
 import { Feather } from "@expo/vector-icons";
 import { CustomHeader } from "../components/CustomHeader";
 import { useTheme } from "../hooks/useTheme";
@@ -21,6 +22,15 @@ interface Photo {
   era?: string;
   title?: string;
   description?: string;
+}
+
+interface CommunityPost {
+  id: string;
+  user: string;
+  location: string;
+  imageUrl: string;
+  caption: string;
+  likes: number;
 }
 
 // Mock data
@@ -75,8 +85,36 @@ const MOCK_PHOTOS: Photo[] = [
   },
 ];
 
+const MOCK_COMMUNITY_POSTS: CommunityPost[] = [
+  {
+    id: "cp-1",
+    user: "@archive.anna",
+    location: "Lisbon, Portugal",
+    imageUrl: "https://picsum.photos/410/300",
+    caption: "Found this beautiful tile alley at golden hour.",
+    likes: 128,
+  },
+  {
+    id: "cp-2",
+    user: "@miles.catalog",
+    location: "Seoul, South Korea",
+    imageUrl: "https://picsum.photos/411/300",
+    caption: "Night market textures and colors from last weekend.",
+    likes: 204,
+  },
+  {
+    id: "cp-3",
+    user: "@retro.frames",
+    location: "Mexico City, Mexico",
+    imageUrl: "https://picsum.photos/412/300",
+    caption: "Street portrait series from Centro Histórico.",
+    likes: 176,
+  },
+];
+
 export default function ExploreScreen() {
   const { colors } = useTheme();
+  const navigation = useNavigation();
   const [searchText, setSearchText] = useState("");
 
   // Group photos by year
@@ -191,6 +229,42 @@ export default function ExploreScreen() {
     </Pressable>
   );
 
+  const renderCommunityPost = (item: CommunityPost) => (
+    <Pressable
+      key={item.id}
+      style={[
+        styles.communityCard,
+        {
+          backgroundColor: colors.backgroundDefault,
+          borderColor: colors.border,
+        },
+      ]}
+    >
+      <Image source={{ uri: item.imageUrl }} style={styles.communityImage} />
+      <View style={styles.communityContent}>
+        <View style={styles.communityMetaRow}>
+          <Text style={[styles.communityUser, { color: colors.text }]}>
+            {item.user}
+          </Text>
+          <View style={styles.communityLikes}>
+            <Feather name="heart" size={12} color={colors.accent} />
+            <Text style={[styles.communityLikesText, { color: colors.accent }]}>
+              {item.likes}
+            </Text>
+          </View>
+        </View>
+        <Text
+          style={[styles.communityLocation, { color: colors.textSecondary }]}
+        >
+          {item.location}
+        </Text>
+        <Text style={[styles.communityCaption, { color: colors.text }]}>
+          {item.caption}
+        </Text>
+      </View>
+    </Pressable>
+  );
+
   const sections = filteredGroups.map(([year, photos]) => ({
     title: year.toString(),
     data: photos as Photo[],
@@ -200,10 +274,23 @@ export default function ExploreScreen() {
     <View
       style={[styles.container, { backgroundColor: colors.backgroundDefault }]}
     >
-      <CustomHeader title="explore" />
+      <CustomHeader
+        title="explore"
+        showNotificationButton={false}
+        showProfileButton={true}
+        onProfilePress={() => navigation.navigate("ProfileTab" as never)}
+      />
 
       {/* Search Bar */}
-      <View style={styles.searchContainer}>
+      <View
+        style={[
+          styles.searchContainer,
+          {
+            backgroundColor: colors.backgroundSecondary,
+            borderColor: colors.border,
+          },
+        ]}
+      >
         <Feather name="search" size={16} color={colors.textSecondary} />
         <TextInput
           placeholder="Search by title, location, or catalog..."
@@ -214,8 +301,6 @@ export default function ExploreScreen() {
             styles.searchInput,
             {
               color: colors.text,
-              backgroundColor: colors.backgroundSecondary,
-              borderColor: colors.border,
             },
           ]}
         />
@@ -233,6 +318,22 @@ export default function ExploreScreen() {
           keyExtractor={(item) => item.id}
           renderItem={renderPhotoEntry}
           renderSectionHeader={renderYearHeader}
+          ListFooterComponent={
+            <View style={styles.communitySection}>
+              <View style={styles.yearHeaderContainer}>
+                <View
+                  style={[styles.yearLine, { backgroundColor: colors.border }]}
+                />
+                <Text style={[styles.yearHeader, { color: colors.accent }]}>
+                  community
+                </Text>
+                <View
+                  style={[styles.yearLine, { backgroundColor: colors.border }]}
+                />
+              </View>
+              {MOCK_COMMUNITY_POSTS.map(renderCommunityPost)}
+            </View>
+          }
           contentContainerStyle={styles.listContent}
           showsVerticalScrollIndicator={false}
           ItemSeparatorComponent={() => <View style={{ height: 8 }} />}
@@ -257,18 +358,18 @@ const styles = StyleSheet.create({
   searchContainer: {
     flexDirection: "row",
     alignItems: "center",
-    paddingHorizontal: 16,
-    paddingVertical: 12,
+    marginHorizontal: 16,
+    marginVertical: 12,
+    paddingHorizontal: 12,
+    height: 48,
+    borderRadius: 12,
+    borderWidth: 1,
     gap: 8,
   },
   searchInput: {
     flex: 1,
-    height: 40,
-    borderRadius: 8,
-    borderWidth: 1,
-    paddingHorizontal: 12,
     fontFamily: "JetBrainsMono-Regular",
-    fontSize: 12,
+    fontSize: 14,
   },
   listContent: {
     paddingHorizontal: 16,
@@ -360,5 +461,49 @@ const styles = StyleSheet.create({
     fontFamily: "JetBrainsMono-Regular",
     fontSize: 12,
     letterSpacing: 1,
+  },
+  communitySection: {
+    marginTop: 12,
+    gap: 10,
+  },
+  communityCard: {
+    borderWidth: 1,
+    borderRadius: 12,
+    overflow: "hidden",
+  },
+  communityImage: {
+    width: "100%",
+    height: 160,
+  },
+  communityContent: {
+    padding: 12,
+    gap: 6,
+  },
+  communityMetaRow: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+  },
+  communityUser: {
+    fontFamily: "JetBrainsMono-Bold",
+    fontSize: 12,
+  },
+  communityLikes: {
+    flexDirection: "row",
+    alignItems: "center",
+    gap: 4,
+  },
+  communityLikesText: {
+    fontFamily: "JetBrainsMono-Regular",
+    fontSize: 11,
+  },
+  communityLocation: {
+    fontFamily: "JetBrainsMono-Regular",
+    fontSize: 11,
+  },
+  communityCaption: {
+    fontFamily: "JetBrainsMono-Regular",
+    fontSize: 12,
+    lineHeight: 18,
   },
 });

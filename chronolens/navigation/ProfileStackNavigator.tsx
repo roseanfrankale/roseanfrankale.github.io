@@ -24,6 +24,7 @@ export default function ProfileStackNavigator() {
         name="Profile"
         component={ProfileScreen}
         options={{
+          headerShown: false,
           title: "Profile",
         }}
       />
