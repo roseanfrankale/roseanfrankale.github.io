@@ -194,7 +194,7 @@ export default function TimelineScreen() {
       <CustomHeader
         photoCount={photos.length}
         title="archives"
-        showProfileButton={true}
+        showMessageButton={true}
       />
 
       <FlatList

@@ -13,6 +13,7 @@ import MapView, { Marker, PROVIDER_DEFAULT } from "react-native-maps";
 import { Feather } from "@expo/vector-icons";
 import { ThemedText } from "@/components/ThemedText";
 import { useTheme } from "@/hooks/useTheme";
+import { useScreenInsets } from "@/hooks/useScreenInsets";
 import { Spacing, BorderRadius } from "@/constants/theme";
 import { usePhotoStore, Photo, PhotoLocation } from "@/store/photoStore";
 
@@ -52,6 +53,7 @@ function groupPhotosByLocation(photos: Photo[]): ClusteredLocation[] {
 
 export default function MapScreen() {
   const { theme, fonts, skin } = useTheme();
+  const { paddingTop } = useScreenInsets();
   const { photos } = usePhotoStore();
   const [selectedCluster, setSelectedCluster] =
     useState<ClusteredLocation | null>(null);
@@ -133,6 +135,7 @@ export default function MapScreen() {
           {
             backgroundColor: theme.backgroundDefault,
             borderBottomColor: theme.border,
+            paddingTop: paddingTop + Spacing.xl,
           },
         ]}
       >

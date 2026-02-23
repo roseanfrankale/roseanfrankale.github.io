@@ -13,6 +13,7 @@ import * as ImagePicker from "expo-image-picker";
 
 import { ThemedText } from "@/components/ThemedText";
 import { useTheme } from "@/hooks/useTheme";
+import { useScreenInsets } from "@/hooks/useScreenInsets";
 import { Spacing, BorderRadius } from "@/constants/theme";
 import { useAuth } from "@/contexts/AuthContext";
 import { usePhotoStore } from "@/store/photoStore";
@@ -21,6 +22,7 @@ type TabType = "overview" | "settings" | "leonardo";
 
 export default function ProfileScreen() {
   const { theme, fonts, skin, toggleTheme } = useTheme();
+  const { paddingTop } = useScreenInsets();
   const { user, logout } = useAuth();
   const { photos } = usePhotoStore();
   const [activeTab, setActiveTab] = useState<TabType>("overview");
@@ -782,6 +784,7 @@ export default function ProfileScreen() {
           {
             backgroundColor: theme.backgroundDefault,
             borderBottomColor: theme.border,
+            paddingTop: paddingTop + Spacing.xl,
           },
         ]}
       >

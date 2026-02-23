@@ -8,7 +8,6 @@ import {
   Image,
   SectionList,
 } from "react-native";
-import { useNavigation } from "@react-navigation/native";
 import { Feather } from "@expo/vector-icons";
 import { CustomHeader } from "../components/CustomHeader";
 import { useTheme } from "../hooks/useTheme";
@@ -114,7 +113,6 @@ const MOCK_COMMUNITY_POSTS: CommunityPost[] = [
 
 export default function ExploreScreen() {
   const { colors } = useTheme();
-  const navigation = useNavigation();
   const [searchText, setSearchText] = useState("");
 
   // Group photos by year
@@ -276,9 +274,8 @@ export default function ExploreScreen() {
     >
       <CustomHeader
         title="explore"
-        showNotificationButton={false}
-        showProfileButton={true}
-        onProfilePress={() => navigation.navigate("ProfileTab" as never)}
+        showNotificationButton={true}
+        showMessageButton={true}
       />
 
       {/* Search Bar */}

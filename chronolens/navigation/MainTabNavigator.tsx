@@ -21,6 +21,7 @@ export type MainTabParamList = {
   CameraTab: undefined;
   UploadTab: undefined;
   MapTab: undefined;
+  ProfileTab: undefined;
 };
 
 const Tab = createBottomTabNavigator<MainTabParamList>();
@@ -189,6 +190,21 @@ export default function MainTabNavigator() {
             tabBarIcon: ({ color, size }) => (
               <Feather
                 name="map"
+                size={size}
+                color={color}
+                strokeWidth={1.5}
+              />
+            ),
+          }}
+        />
+        <Tab.Screen
+          name="ProfileTab"
+          component={ProfileStackNavigator}
+          options={{
+            title: "Profile",
+            tabBarIcon: ({ color, size }) => (
+              <Feather
+                name="user"
                 size={size}
                 color={color}
                 strokeWidth={1.5}
