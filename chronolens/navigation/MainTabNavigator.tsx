@@ -9,6 +9,7 @@ import { useIsFocused } from "@react-navigation/native";
 import TimelineStackNavigator from "@/navigation/TimelineStackNavigator";
 import ExploreStackNavigator from "@/navigation/ExploreStackNavigator";
 import ProfileStackNavigator from "@/navigation/ProfileStackNavigator";
+import MapStackNavigator from "@/navigation/MapStackNavigator";
 import CameraScreen from "@/screens/CameraScreen";
 import { useTheme } from "@/hooks/useTheme";
 import { Spacing, BorderRadius, Shadows } from "@/constants/theme";
@@ -19,7 +20,7 @@ export type MainTabParamList = {
   ExploreTab: undefined;
   CameraTab: undefined;
   UploadTab: undefined;
-  ProfileTab: undefined;
+  MapTab: undefined;
 };
 
 const Tab = createBottomTabNavigator<MainTabParamList>();
@@ -181,13 +182,13 @@ export default function MainTabNavigator() {
           }}
         />
         <Tab.Screen
-          name="ProfileTab"
-          component={ProfileStackNavigator}
+          name="MapTab"
+          component={MapStackNavigator}
           options={{
-            title: "Profile",
+            title: "Map",
             tabBarIcon: ({ color, size }) => (
               <Feather
-                name="user"
+                name="map"
                 size={size}
                 color={color}
                 strokeWidth={1.5}

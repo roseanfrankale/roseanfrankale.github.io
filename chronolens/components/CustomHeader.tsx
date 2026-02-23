@@ -51,7 +51,7 @@ export function CustomHeader({
         {
           backgroundColor: theme.backgroundDefault,
           borderBottomColor: theme.border,
-          paddingTop: paddingTop + Spacing.md,
+          paddingTop: paddingTop + Spacing.xl,
         },
         style,
       ]}
@@ -83,6 +83,7 @@ export function CustomHeader({
           style={({ pressed }) => [
             {
               opacity: pressed ? 0.7 : 1,
+              marginRight: showProfileButton ? Spacing.md : 0,
             },
           ]}
         >

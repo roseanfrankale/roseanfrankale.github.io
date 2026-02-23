@@ -17,12 +17,13 @@ import { useTheme } from "../hooks/useTheme";
 import { useAuth } from "@/contexts/AuthContext";
 import { AuthStackParamList } from "@/navigation/AuthStackNavigator";
 
-export default function LoginScreen() {
+export default function SignupScreen() {
   const navigation =
     useNavigation<NativeStackNavigationProp<AuthStackParamList>>();
   const { colors, skin } = useTheme();
-  const { login, isLoading: authLoading } = useAuth();
+  const { signup, isLoading: authLoading } = useAuth();
 
+  const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
@@ -31,14 +32,19 @@ export default function LoginScreen() {
   const handleSubmit = async () => {
     setError("");
 
-    if (!email || !password) {
-      setError("Please enter email and password");
+    if (!name || !email || !password) {
+      setError("Please fill in all fields");
+      return;
+    }
+
+    if (password.length < 6) {
+      setError("Password must be at least 6 characters");
       return;
     }
 
     try {
-      await login(email, password);
-      // Auth state will update automatically and trigger navigation change
+      await signup(email, password, name);
+      // Auth state will update automatically and trigger navigation change to OnboardingScreen
     } catch (err) {
       setError(
         err instanceof Error
@@ -48,11 +54,7 @@ export default function LoginScreen() {
     }
   };
 
-  const handleSignUpPress = () => {
-    navigation.navigate("Signup");
-  };
-
-  const handleOAuthLogin = (provider: string) => {
+  const handleOAuthSignup = (provider: string) => {
     setError(`${provider} OAuth is not configured in this demo.`);
   };
 
@@ -78,7 +80,7 @@ export default function LoginScreen() {
           </Text>
         </View>
 
-        {/* Login Card */}
+        {/* Signup Card */}
         <View
           style={[
             styles.card,
@@ -87,12 +89,12 @@ export default function LoginScreen() {
         >
           <View style={styles.cardHeader}>
             <Text style={[styles.cardTitle, { color: colors.text }]}>
-              Welcome Back
+              Create Account
             </Text>
             <Text
               style={[styles.cardSubtitle, { color: colors.textSecondary }]}
             >
-              Access your photo archive
+              Begin your archival journey
             </Text>
           </View>
 
@@ -107,6 +109,29 @@ export default function LoginScreen() {
                 </Text>
               </View>
             ) : null}
+
+            {/* Name */}
+            <View style={styles.inputGroup}>
+              <Text style={[styles.label, { color: colors.text }]}>
+                FULL NAME
+              </Text>
+              <TextInput
+                value={name}
+                onChangeText={setName}
+                placeholder="Enter your name"
+                placeholderTextColor={colors.textSecondary}
+                style={[
+                  styles.input,
+                  {
+                    color: colors.text,
+                    backgroundColor: colors.cardAlt,
+                    borderColor: colors.border,
+                  },
+                ]}
+                editable={!authLoading}
+                autoCapitalize="words"
+              />
+            </View>
 
             {/* Email */}
             <View style={styles.inputGroup}>
@@ -188,7 +213,7 @@ export default function LoginScreen() {
                     { color: colors.background },
                   ]}
                 >
-                  SIGN IN
+                  CREATE ACCOUNT
                 </Text>
               )}
             </Pressable>
@@ -200,7 +225,7 @@ export default function LoginScreen() {
               style={[styles.dividerLine, { backgroundColor: colors.border }]}
             />
             <Text style={[styles.dividerText, { color: colors.textSecondary }]}>
-              OR CONTINUE WITH
+              OR SIGN UP WITH
             </Text>
             <View
               style={[styles.dividerLine, { backgroundColor: colors.border }]}
@@ -217,7 +242,7 @@ export default function LoginScreen() {
             ].map((provider) => (
               <Pressable
                 key={provider.id}
-                onPress={() => handleOAuthLogin(provider.name)}
+                onPress={() => handleOAuthSignup(provider.name)}
                 disabled={authLoading}
                 style={({ pressed }) => [
                   styles.oauthButton,
@@ -240,14 +265,14 @@ export default function LoginScreen() {
             ))}
           </View>
 
-          {/* Sign Up Link */}
+          {/* Back to Login Link */}
           <Pressable
-            onPress={handleSignUpPress}
+            onPress={() => navigation.goBack()}
             disabled={authLoading}
             style={styles.toggleMode}
           >
             <Text style={[styles.toggleModeText, { color: colors.accent }]}>
-              Don&apos;t have an account? Sign up
+              Already have an account? Sign in
             </Text>
           </Pressable>
         </View>
@@ -345,7 +370,7 @@ const styles = StyleSheet.create({
     top: 14,
   },
   submitButton: {
-    height: 48,
+    height: 52,
     borderRadius: 12,
     justifyContent: "center",
     alignItems: "center",
@@ -398,18 +423,20 @@ const styles = StyleSheet.create({
     textTransform: "uppercase",
   },
   toggleMode: {
-    alignItems: "center",
+    paddingVertical: 12,
   },
   toggleModeText: {
     fontFamily: "JetBrainsMono-Regular",
-    fontSize: 12,
+    fontSize: 11,
+    letterSpacing: 1.5,
+    textTransform: "uppercase",
+    textAlign: "center",
   },
   footer: {
     fontFamily: "JetBrainsMono-Regular",
     fontSize: 10,
-    letterSpacing: 1.5,
-    textTransform: "uppercase",
+    letterSpacing: 1,
     textAlign: "center",
-    opacity: 0.7,
+    marginBottom: 8,
   },
 });
