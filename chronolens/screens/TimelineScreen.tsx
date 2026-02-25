@@ -9,6 +9,8 @@ import {
   TextInput,
 } from "react-native";
 import { Feather } from "@expo/vector-icons";
+import { useNavigation } from "@react-navigation/native";
+import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import Animated, {
   useAnimatedStyle,
   useSharedValue,
@@ -22,6 +24,8 @@ import { useTheme } from "@/hooks/useTheme";
 import { useStaggeredAnimation } from "@/hooks/useStaggeredAnimation";
 import { Spacing, BorderRadius } from "@/constants/theme";
 import { pressableConfig } from "@/utils/animations";
+import { TimelineStackParamList } from "@/navigation/TimelineStackNavigator";
+import { usePhotoStore, Photo } from "@/store/photoStore";
 
 const { width } = Dimensions.get("window");
 const NUM_COLUMNS = 3;
@@ -31,54 +35,8 @@ const PHOTO_SIZE =
 
 const AnimatedPressable = Animated.createAnimatedComponent(Pressable);
 
-// Mock data
-const MOCK_PHOTOS = [
-  {
-    id: "1",
-    uri: "https://picsum.photos/300/300?random=1",
-    date: "2024-06-15",
-    year: 2024,
-    catalogNumber: "REF.2024-001",
-  },
-  {
-    id: "2",
-    uri: "https://picsum.photos/300/300?random=2",
-    date: "2024-03-22",
-    year: 2024,
-    catalogNumber: "REF.2024-002",
-  },
-  {
-    id: "3",
-    uri: "https://picsum.photos/300/300?random=3",
-    date: "2023-11-08",
-    year: 2023,
-    catalogNumber: "REF.2023-001",
-  },
-  {
-    id: "4",
-    uri: "https://picsum.photos/300/300?random=4",
-    date: "2023-08-14",
-    year: 2023,
-    catalogNumber: "REF.2023-002",
-  },
-  {
-    id: "5",
-    uri: "https://picsum.photos/300/300?random=5",
-    date: "2022-05-20",
-    year: 2022,
-    catalogNumber: "REF.2022-001",
-  },
-  {
-    id: "6",
-    uri: "https://picsum.photos/300/300?random=6",
-    date: "2022-02-10",
-    year: 2022,
-    catalogNumber: "REF.2022-002",
-  },
-];
-
 interface PhotoCardProps {
-  photo: (typeof MOCK_PHOTOS)[0];
+  photo: Photo;
   onPress: () => void;
   index: number;
 }
@@ -157,13 +115,15 @@ function EmptyState() {
 
 export default function TimelineScreen() {
   const { theme } = useTheme();
-  const [photos] = useState(MOCK_PHOTOS);
+  const navigation =
+    useNavigation<NativeStackNavigationProp<TimelineStackParamList>>();
+  const { communityPhotos } = usePhotoStore();
   const [searchQuery, setSearchQuery] = useState("");
 
   // Group photos by decade (descending)
   const groupedByDecade = React.useMemo(() => {
-    const grouped: Record<string, (typeof MOCK_PHOTOS)[number][]> = {};
-    photos.forEach((photo) => {
+    const grouped: Record<string, typeof communityPhotos> = {};
+    communityPhotos.forEach((photo) => {
       const decade = Math.floor(photo.year / 10) * 10;
       const decadeKey = `${decade}S`;
       if (!grouped[decadeKey]) grouped[decadeKey] = [];
@@ -173,16 +133,16 @@ export default function TimelineScreen() {
     return Object.entries(grouped)
       .sort((a, b) => parseInt(b[0]) - parseInt(a[0]))
       .map(([decade, photos]) => ({ decade, photos }));
-  }, [photos]);
+  }, [communityPhotos]);
 
-  const handlePhotoPress = (photo: (typeof MOCK_PHOTOS)[0]) => {
-    // Navigate to photo details if needed
+  const handlePhotoPress = (photo: (typeof communityPhotos)[0]) => {
+    navigation.navigate("PhotoDetail", { photoId: photo.id });
   };
 
   return (
     <ThemedView style={styles.container}>
       <CustomHeader
-        photoCount={photos.length}
+        photoCount={communityPhotos.length}
         title="archives"
         showMessageButton={true}
       />

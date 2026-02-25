@@ -1,9 +1,4 @@
-import {
-  Platform,
-  StyleSheet,
-  ScrollView,
-  ScrollViewProps,
-} from "react-native";
+import { StyleSheet, ScrollViewProps } from "react-native";
 
 import { useTheme } from "@/hooks/useTheme";
 import { useScreenInsets } from "@/hooks/useScreenInsets";

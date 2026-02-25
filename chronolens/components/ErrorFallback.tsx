@@ -73,8 +73,8 @@ export function ErrorFallback({ error, resetError }: ErrorFallbackProps) {
           type="body"
           style={[styles.message, { color: theme.textSecondary }]}
         >
-          Your memories are safe. Let's reload and continue preserving history
-          together.
+          Your memories are safe. Let&apos;s reload and continue preserving
+          history together.
         </ThemedText>
 
         <Pressable

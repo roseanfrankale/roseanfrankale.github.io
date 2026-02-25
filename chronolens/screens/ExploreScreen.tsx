@@ -9,19 +9,12 @@ import {
   SectionList,
 } from "react-native";
 import { Feather } from "@expo/vector-icons";
+import { useNavigation } from "@react-navigation/native";
+import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { CustomHeader } from "../components/CustomHeader";
 import { useTheme } from "../hooks/useTheme";
-
-interface Photo {
-  id: string;
-  catalogNumber: string;
-  url: string;
-  date: string;
-  location?: string;
-  era?: string;
-  title?: string;
-  description?: string;
-}
+import { ExploreStackParamList } from "@/navigation/ExploreStackNavigator";
+import { usePhotoStore, Photo } from "@/store/photoStore";
 
 interface CommunityPost {
   id: string;
@@ -31,58 +24,6 @@ interface CommunityPost {
   caption: string;
   likes: number;
 }
-
-// Mock data
-const MOCK_PHOTOS: Photo[] = [
-  {
-    id: "1",
-    catalogNumber: "REF.2026-001-A",
-    url: "https://picsum.photos/400/400",
-    date: "2020-06-15",
-    location: "London, England",
-    title: "Summer Garden",
-    description: "Beautiful afternoon in Hyde Park",
-    era: "Contemporary",
-  },
-  {
-    id: "2",
-    catalogNumber: "REF.2026-002-B",
-    url: "https://picsum.photos/401/401",
-    date: "2019-03-22",
-    location: "Paris, France",
-    title: "Eiffel Tower",
-    description: "Classic Parisian view",
-    era: "Contemporary",
-  },
-  {
-    id: "3",
-    catalogNumber: "REF.2026-003-C",
-    url: "https://picsum.photos/402/402",
-    date: "2018-11-08",
-    location: "Tokyo, Japan",
-    title: "Shibuya Crossing",
-    description: "Night lights and crowds",
-    era: "Contemporary",
-  },
-  {
-    id: "4",
-    catalogNumber: "REF.2026-004-D",
-    url: "https://picsum.photos/403/403",
-    date: "2017-08-12",
-    location: "New York, USA",
-    title: "Manhattan Skyline",
-    era: "Contemporary",
-  },
-  {
-    id: "5",
-    catalogNumber: "REF.2026-005-E",
-    url: "https://picsum.photos/404/404",
-    date: "2016-05-30",
-    location: "Barcelona, Spain",
-    title: "Sagrada Familia",
-    era: "Contemporary",
-  },
-];
 
 const MOCK_COMMUNITY_POSTS: CommunityPost[] = [
   {
@@ -113,12 +54,15 @@ const MOCK_COMMUNITY_POSTS: CommunityPost[] = [
 
 export default function ExploreScreen() {
   const { colors } = useTheme();
+  const navigation =
+    useNavigation<NativeStackNavigationProp<ExploreStackParamList>>();
+  const { communityPhotos } = usePhotoStore();
   const [searchText, setSearchText] = useState("");
 
   // Group photos by year
   const groupedPhotos = React.useMemo(() => {
     const groups: Record<number, Photo[]> = {};
-    const sortedPhotos = [...MOCK_PHOTOS].sort(
+    const sortedPhotos = [...communityPhotos].sort(
       (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime(),
     );
 
@@ -133,7 +77,7 @@ export default function ExploreScreen() {
     return Object.entries(groups).sort(
       ([yearA], [yearB]) => parseInt(yearB) - parseInt(yearA),
     );
-  }, []);
+  }, [communityPhotos]);
 
   // Filter based on search text
   const filteredGroups = React.useMemo(() => {
@@ -145,9 +89,16 @@ export default function ExploreScreen() {
         photos.filter(
           (photo) =>
             photo.title?.toLowerCase().includes(searchText.toLowerCase()) ||
-            photo.location?.toLowerCase().includes(searchText.toLowerCase()) ||
+            (typeof photo.location === "string" &&
+              photo.location
+                .toLowerCase()
+                .includes(searchText.toLowerCase())) ||
+            (typeof photo.location === "object" &&
+              photo.location?.name
+                .toLowerCase()
+                .includes(searchText.toLowerCase())) ||
             photo.catalogNumber
-              .toLowerCase()
+              ?.toLowerCase()
               .includes(searchText.toLowerCase()),
         ),
       ])
@@ -164,6 +115,7 @@ export default function ExploreScreen() {
 
   const renderPhotoEntry = ({ item }: { item: Photo }) => (
     <Pressable
+      onPress={() => navigation.navigate("PhotoDetail", { photoId: item.id })}
       style={[
         styles.photoEntry,
         {
@@ -172,7 +124,7 @@ export default function ExploreScreen() {
         },
       ]}
     >
-      <Image source={{ uri: item.url }} style={styles.photoThumbnail} />
+      <Image source={{ uri: item.uri }} style={styles.photoThumbnail} />
       <View style={styles.entryContent}>
         <Text style={[styles.catalogNumber, { color: colors.textSecondary }]}>
           {item.catalogNumber}
@@ -193,7 +145,9 @@ export default function ExploreScreen() {
                 style={[styles.metadataText, { color: colors.textSecondary }]}
                 numberOfLines={1}
               >
-                {item.location}
+                {typeof item.location === "string"
+                  ? item.location
+                  : item.location.name}
               </Text>
             </View>
           )}
@@ -230,6 +184,7 @@ export default function ExploreScreen() {
   const renderCommunityPost = (item: CommunityPost) => (
     <Pressable
       key={item.id}
+      onPress={() => navigation.navigate("PhotoDetail", { photoId: item.id })}
       style={[
         styles.communityCard,
         {
