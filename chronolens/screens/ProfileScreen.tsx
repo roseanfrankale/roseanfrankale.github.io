@@ -21,7 +21,7 @@ import { usePhotoStore } from "@/store/photoStore";
 type TabType = "overview" | "settings" | "leonardo";
 
 export default function ProfileScreen() {
-  const { theme, fonts, skin, toggleTheme } = useTheme();
+  const { theme, fonts, skin, toggleTheme, setColorMode, colorMode } = useTheme();
   const { paddingTop } = useScreenInsets();
   const { user, logout } = useAuth();
   const { photos } = usePhotoStore();
@@ -460,6 +460,105 @@ export default function ProfileScreen() {
                 ]}
               >
                 <Feather name="check" size={12} color="#0A0E27" />
+              </View>
+            )}
+          </Pressable>
+        </View>
+      </View>
+
+      {/* Color Mode (Light/Dark) */}
+      <View
+        style={[
+          styles.section,
+          { backgroundColor: theme.card, borderColor: theme.border },
+        ]}
+      >
+        <ThemedText
+          style={[
+            styles.sectionTitle,
+            { fontFamily: fonts.header, color: theme.text },
+          ]}
+        >
+          Appearance
+        </ThemedText>
+        <View style={styles.modeGrid}>
+          <Pressable
+            style={[
+              styles.modeCard,
+              colorMode === "light" && {
+                borderColor: theme.accent,
+                borderWidth: 2,
+              },
+              { backgroundColor: theme.backgroundSecondary },
+            ]}
+            onPress={() => setColorMode("light")}
+          >
+            <Feather name="sun" size={24} color={theme.accent} />
+            <ThemedText style={[styles.modeName, { color: theme.text }]}>
+              Light
+            </ThemedText>
+            {colorMode === "light" && (
+              <View
+                style={[
+                  styles.modeCheckmark,
+                  { backgroundColor: theme.accent },
+                ]}
+              >
+                <Feather name="check" size={12} color="#FFF" />
+              </View>
+            )}
+          </Pressable>
+
+          <Pressable
+            style={[
+              styles.modeCard,
+              colorMode === "dark" && {
+                borderColor: theme.accent,
+                borderWidth: 2,
+              },
+              { backgroundColor: theme.backgroundSecondary },
+            ]}
+            onPress={() => setColorMode("dark")}
+          >
+            <Feather name="moon" size={24} color={theme.accent} />
+            <ThemedText style={[styles.modeName, { color: theme.text }]}>
+              Dark
+            </ThemedText>
+            {colorMode === "dark" && (
+              <View
+                style={[
+                  styles.modeCheckmark,
+                  { backgroundColor: theme.accent },
+                ]}
+              >
+                <Feather name="check" size={12} color="#FFF" />
+              </View>
+            )}
+          </Pressable>
+
+          <Pressable
+            style={[
+              styles.modeCard,
+              colorMode === "system" && {
+                borderColor: theme.accent,
+                borderWidth: 2,
+              },
+              { backgroundColor: theme.backgroundSecondary },
+            ]}
+            onPress={() => setColorMode("system")}
+          >
+            <Feather name="settings" size={24} color={theme.accent} />
+            <ThemedText style={[styles.modeName, { color: theme.text }]}>
+              System
+            </ThemedText>
+            {colorMode === "system" && (
+              <View
+                style={[
+                  styles.modeCheckmark,
+                  { backgroundColor: theme.accent },
+                ]}
+              >
+                <Feather name="check" size={12} color="#FFF" />
               </View>
             )}
           </Pressable>
@@ -1019,6 +1118,34 @@ const styles = StyleSheet.create({
     fontSize: 12,
   },
   themeCheckmark: {
+    position: "absolute",
+    top: Spacing.sm,
+    right: Spacing.sm,
+    width: 20,
+    height: 20,
+    borderRadius: 10,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  modeGrid: {
+    flexDirection: "row",
+    gap: Spacing.md,
+  },
+  modeCard: {
+    flex: 1,
+    padding: Spacing.md,
+    borderRadius: BorderRadius.lg,
+    borderWidth: 1,
+    alignItems: "center",
+    justifyContent: "center",
+    position: "relative",
+  },
+  modeName: {
+    fontSize: 14,
+    fontWeight: "600",
+    marginTop: Spacing.sm,
+  },
+  modeCheckmark: {
     position: "absolute",
     top: Spacing.sm,
     right: Spacing.sm,
