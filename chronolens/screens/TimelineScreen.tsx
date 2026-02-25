@@ -7,11 +7,8 @@ import {
   Dimensions,
   FlatList,
   TextInput,
-  ScrollView,
 } from "react-native";
 import { Feather } from "@expo/vector-icons";
-import { useNavigation } from "@react-navigation/native";
-import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import Animated, {
   useAnimatedStyle,
   useSharedValue,
@@ -22,10 +19,8 @@ import { ThemedText } from "@/components/ThemedText";
 import { ThemedView } from "@/components/ThemedView";
 import { CustomHeader } from "@/components/CustomHeader";
 import { useTheme } from "@/hooks/useTheme";
-import { useScreenInsets } from "@/hooks/useScreenInsets";
 import { useStaggeredAnimation } from "@/hooks/useStaggeredAnimation";
-import { Spacing, BorderRadius, Shadows } from "@/constants/theme";
-import { TimelineStackParamList } from "@/navigation/TimelineStackNavigator";
+import { Spacing, BorderRadius } from "@/constants/theme";
 import { pressableConfig } from "@/utils/animations";
 
 const { width } = Dimensions.get("window");
@@ -160,11 +155,6 @@ function EmptyState() {
   );
 }
 
-interface DecadeSection {
-  decade: string;
-  photos: (typeof MOCK_PHOTOS)[];
-}
-
 export default function TimelineScreen() {
   const { theme } = useTheme();
   const [photos] = useState(MOCK_PHOTOS);
@@ -172,7 +162,7 @@ export default function TimelineScreen() {
 
   // Group photos by decade (descending)
   const groupedByDecade = React.useMemo(() => {
-    const grouped: Record<string, (typeof MOCK_PHOTOS)[]> = {};
+    const grouped: Record<string, (typeof MOCK_PHOTOS)[number][]> = {};
     photos.forEach((photo) => {
       const decade = Math.floor(photo.year / 10) * 10;
       const decadeKey = `${decade}S`;

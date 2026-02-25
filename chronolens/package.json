@@ -4,6 +4,7 @@
   "version": "1.0.0",
   "scripts": {
     "start": "npx expo start",
+    "build": "npx expo export --platform web",
     "start:lan": "REACT_NATIVE_PACKAGER_HOSTNAME=192.168.1.37 EXPO_DEVTOOLS_LISTEN_ADDRESS=0.0.0.0 npx expo start --dev-client --host lan --port 8081 --clear",
     "android": "npx expo start --android",
     "android:lan": "REACT_NATIVE_PACKAGER_HOSTNAME=192.168.1.37 EXPO_DEVTOOLS_LISTEN_ADDRESS=0.0.0.0 npx expo start --dev-client --host lan --port 8081 --android --clear",
