@@ -10,7 +10,7 @@ import {
 import { Feather } from "@expo/vector-icons";
 import { useTheme } from "@/hooks/useTheme";
 import { useScreenInsets } from "@/hooks/useScreenInsets";
-import { Spacing } from "@/constants/theme";
+import { Spacing, Glass } from "@/constants/theme";
 
 interface CustomHeaderProps {
   photoCount?: number;
@@ -63,6 +63,7 @@ export function CustomHeader({
           backgroundColor: theme.backgroundDefault,
           borderBottomColor: theme.border,
           paddingTop: paddingTop + Spacing.xl + 16,
+          ...Glass[theme.isDark ? "dark" : "light"],
         },
         style,
       ]}
