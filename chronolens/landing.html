@@ -40,7 +40,7 @@
           
           <!-- Icons & Toggle -->
           <div class="flex items-center space-x-5 border-l pl-8 border-gray-300 dark:border-gray-700 space-x-4">
-            <a href="#" data-auth="login" class="custom-btn px-4 py-2">LOGIN</a>
+            <a href="/chronolens/dist/" class="custom-btn px-4 py-2">LOGIN</a>
             
             <button id="theme-toggle" class="p-2 rounded-full bg-bg text-text hover:text-accent transition-all hover:rotate-90 border-none">
               <i data-lucide="moon" class="w-5 h-5"></i>
@@ -89,8 +89,8 @@
           </p>
 
           <div class="mt-6 flex flex-col sm:flex-row gap-3 cl-reveal">
-            <a href="#live-preview" class="custom-btn">view live preview</a>
-            <a href="#" data-auth="signup" class="custom-btn-outline">sign up</a>
+            <a href="/chronolens/index.html#live-preview" class="custom-btn">view live preview</a>
+            <a href="/chronolens/dist/?auth=signup" class="custom-btn-outline">sign up</a>
             <a href="/chronolens/index.html" class="custom-btn-outline">read case study</a>
           </div>
 
@@ -178,27 +178,6 @@
             Built to feel safe. Your memories deserve careful defaults and transparent choices.
           </p>
         </article>
-      </div>
-    </div>
-  </section>
-
-  <!-- LIVE PREVIEW -->
-  <section id="live-preview" class="py-12 md:py-14">
-    <div class="container mx-auto px-4 md:px-6">
-      <div class="max-w-5xl mx-auto cl-glass-card p-6 md:p-8">
-        <div class="flex items-end justify-between gap-6 flex-wrap">
-          <div>
-            <p class="cl-label mb-3">live preview</p>
-            <h2 class="cl-heading text-3xl md:text-5xl">soon: app running directly in page</h2>
-          </div>
-          <a href="#" data-auth="signup" class="custom-btn">join the waitlist</a>
-        </div>
-        <div class="mt-6 cl-glass-card p-7 md:p-9 border border-[var(--border)]">
-          <p class="cl-label">deploy target</p>
-          <p class="mt-3 text-text-muted leading-relaxed">
-            This section is reserved for a Vercel-hosted interactive app embed. Until then, explore static screens and the case study for progress updates.
-          </p>
-        </div>
       </div>
     </div>
   </section>
@@ -371,8 +350,8 @@
             <a href="https://dribbble.com/rjfa" target="_blank" class="text-text-muted hover:text-accent transition-colors"><i data-lucide="dribbble" class="w-6 h-6"></i></a>
           </div>
           <div class="mt-6 flex flex-wrap gap-3">
-            <a href="#" data-auth="login" class="custom-btn-outline">login</a>
-            <a href="#" data-auth="signup" class="custom-btn">sign up</a>
+            <a href="/chronolens/dist/" class="custom-btn-outline">login</a>
+            <a href="/chronolens/dist/?auth=signup" class="custom-btn">sign up</a>
           </div>
         </div>
       </div>
@@ -519,7 +498,6 @@
   <script src="../assets/js/main.js"></script>
   <script src="../assets/js/chronolens-animations.js"></script>
   <script src="../assets/js/chronolens-landing.js"></script>
-  <script src="../assets/js/chronolens-auth.js"></script>
   <script>
     // Re-initialize icons after modals are added
     if (typeof lucide !== 'undefined') {

@@ -81,6 +81,7 @@ export default function MainTabNavigator() {
             backgroundColor: Platform.select({
               ios: "transparent",
               android: theme.backgroundRoot,
+              web: isDark ? "rgba(26, 25, 23, 0.78)" : "rgba(255, 255, 255, 0.78)",
             }),
             borderTopWidth: 1,
             borderTopColor: theme.border,
@@ -88,6 +89,12 @@ export default function MainTabNavigator() {
             height: 65 + insets.bottom,
             paddingBottom: insets.bottom,
             paddingTop: Spacing.sm,
+            ...(Platform.OS === "web"
+              ? ({
+                  backdropFilter: "blur(16px)",
+                  WebkitBackdropFilter: "blur(16px)",
+                } as any)
+              : {}),
           },
           tabBarBackground: () =>
             Platform.OS === "ios" ? (

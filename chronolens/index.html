@@ -117,6 +117,35 @@
     </div>
   </section>
 
+  <!-- Live Preview -->
+  <section id="live-preview" class="py-20 container mx-auto px-4">
+    <div class="max-w-6xl mx-auto">
+      <div class="flex items-end justify-between gap-6 flex-wrap mb-8">
+        <div class="max-w-3xl">
+          <p class="text-xs uppercase tracking-[0.24em] text-text-muted mb-3">Live Preview</p>
+          <h2 class="text-3xl md:text-5xl font-black text-text">Interactive app preview</h2>
+          <p class="mt-4 text-lg text-text-muted leading-relaxed">
+            This embed runs the current ChronoLens web build. Open full-screen for the complete experience.
+          </p>
+        </div>
+        <div class="flex gap-3">
+          <a href="/chronolens/dist/" class="custom-btn">Open app</a>
+          <a href="/chronolens/dist/?auth=signup" class="custom-btn-outline">Open signup</a>
+        </div>
+      </div>
+
+      <div class="case-image plain p-0 overflow-hidden border border-gray-300 dark:border-gray-700 rounded-2xl bg-card-bg" style="min-height: 760px;">
+        <iframe
+          src="/chronolens/dist/"
+          title="ChronoLens live app preview"
+          class="w-full"
+          style="height: 760px; border: 0;"
+          loading="lazy"
+        ></iframe>
+      </div>
+    </div>
+  </section>
+
   <!-- Overview Section -->
   <section class="py-20 container mx-auto px-4">
     <div class="max-w-5xl mx-auto">

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { StyleSheet } from "react-native";
+import { Platform, StyleSheet, View, useWindowDimensions } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 import { SafeAreaProvider } from "react-native-safe-area-context";
@@ -18,14 +18,31 @@ SplashScreen.preventAutoHideAsync();
 
 function AppShell() {
   const { theme, isDark } = useTheme();
+  const { width } = useWindowDimensions();
+  const isDesktopWeb = Platform.OS === "web" && width >= 768;
 
   return (
     <GestureHandlerRootView
       style={[styles.root, { backgroundColor: theme.backgroundDefault }]}
     >
-      <NavigationContainer>
-        <RootNavigator />
-      </NavigationContainer>
+      <View
+        style={[
+          styles.appFrame,
+          isDesktopWeb && {
+            maxWidth: 500,
+            width: "100%",
+            alignSelf: "center",
+            borderLeftWidth: 1,
+            borderRightWidth: 1,
+            borderColor: theme.border,
+            backgroundColor: theme.backgroundDefault,
+          },
+        ]}
+      >
+        <NavigationContainer>
+          <RootNavigator />
+        </NavigationContainer>
+      </View>
       <StatusBar
         style={isDark ? "light" : "dark"}
         backgroundColor={theme.backgroundDefault}
@@ -88,6 +105,9 @@ export default function App() {
 
 const styles = StyleSheet.create({
   root: {
+    flex: 1,
+  },
+  appFrame: {
     flex: 1,
   },
 });

@@ -5,3 +5,11 @@
 body {
   font-family: var(--font-sans);
 }
+
+@media (hover: hover) and (pointer: fine) {
+  a,
+  button,
+  [role='button'] {
+    cursor: pointer;
+  }
+}

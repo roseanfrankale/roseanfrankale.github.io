@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   View,
   Text,
@@ -27,6 +27,14 @@ export default function LoginScreen() {
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState("");
+
+  useEffect(() => {
+    if (Platform.OS !== "web") return;
+    const params = new URLSearchParams(window.location.search);
+    if (params.get("auth") === "signup") {
+      navigation.navigate("Signup");
+    }
+  }, [navigation]);
 
   const handleSubmit = async () => {
     setError("");
