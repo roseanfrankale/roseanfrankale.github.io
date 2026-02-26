@@ -13,6 +13,8 @@ export function useTheme() {
       colors: Colors.dark,
       isDark: true,
       skin: "historian" as const,
+      colorMode: "dark" as const,
+      colorModeSetting: "system" as const,
       setSkin: () => {},
       setColorMode: () => {},
       spacing: designTokens.spacing,
@@ -65,6 +67,7 @@ export function useTheme() {
     // New design tokens
     skin,
     colorMode: actualColorMode,
+    colorModeSetting: colorMode,
     colors,
     fonts,
     spacing: designTokens.spacing,

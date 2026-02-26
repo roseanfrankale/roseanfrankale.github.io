@@ -21,7 +21,14 @@ import { usePhotoStore } from "@/store/photoStore";
 type TabType = "overview" | "settings" | "leonardo";
 
 export default function ProfileScreen() {
-  const { theme, fonts, skin, toggleTheme, setColorMode, colorMode } = useTheme();
+  const {
+    theme,
+    fonts,
+    skin,
+    toggleTheme,
+    setColorMode,
+    colorModeSetting,
+  } = useTheme();
   const { paddingTop } = useScreenInsets();
   const { user, logout } = useAuth();
   const { photos } = usePhotoStore();
@@ -485,7 +492,7 @@ export default function ProfileScreen() {
           <Pressable
             style={[
               styles.modeCard,
-              colorMode === "light" && {
+              colorModeSetting === "light" && {
                 borderColor: theme.accent,
                 borderWidth: 2,
               },
@@ -497,7 +504,7 @@ export default function ProfileScreen() {
             <ThemedText style={[styles.modeName, { color: theme.text }]}>
               Light
             </ThemedText>
-            {colorMode === "light" && (
+            {colorModeSetting === "light" && (
               <View
                 style={[
                   styles.modeCheckmark,
@@ -512,7 +519,7 @@ export default function ProfileScreen() {
           <Pressable
             style={[
               styles.modeCard,
-              colorMode === "dark" && {
+              colorModeSetting === "dark" && {
                 borderColor: theme.accent,
                 borderWidth: 2,
               },
@@ -524,7 +531,7 @@ export default function ProfileScreen() {
             <ThemedText style={[styles.modeName, { color: theme.text }]}>
               Dark
             </ThemedText>
-            {colorMode === "dark" && (
+            {colorModeSetting === "dark" && (
               <View
                 style={[
                   styles.modeCheckmark,
@@ -539,7 +546,7 @@ export default function ProfileScreen() {
           <Pressable
             style={[
               styles.modeCard,
-              colorMode === "system" && {
+              colorModeSetting === "system" && {
                 borderColor: theme.accent,
                 borderWidth: 2,
               },
@@ -551,7 +558,7 @@ export default function ProfileScreen() {
             <ThemedText style={[styles.modeName, { color: theme.text }]}>
               System
             </ThemedText>
-            {colorMode === "system" && (
+            {colorModeSetting === "system" && (
               <View
                 style={[
                   styles.modeCheckmark,
