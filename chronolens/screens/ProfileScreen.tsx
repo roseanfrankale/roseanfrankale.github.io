@@ -21,14 +21,8 @@ import { usePhotoStore } from "@/store/photoStore";
 type TabType = "overview" | "settings" | "leonardo";
 
 export default function ProfileScreen() {
-  const {
-    theme,
-    fonts,
-    skin,
-    toggleTheme,
-    setColorMode,
-    colorModeSetting,
-  } = useTheme();
+  const { theme, fonts, skin, toggleTheme, setColorMode, colorModeSetting } =
+    useTheme();
   const { paddingTop } = useScreenInsets();
   const { user, logout } = useAuth();
   const { photos } = usePhotoStore();

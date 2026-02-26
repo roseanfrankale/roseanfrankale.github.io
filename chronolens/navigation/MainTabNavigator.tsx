@@ -1,5 +1,12 @@
 import React from "react";
-import { View, StyleSheet, Pressable, Platform, Text } from "react-native";
+import {
+  View,
+  StyleSheet,
+  Pressable,
+  Platform,
+  Text,
+  useWindowDimensions,
+} from "react-native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { Feather } from "@expo/vector-icons";
 import { BlurView } from "expo-blur";
@@ -14,6 +21,7 @@ import CameraScreen from "@/screens/CameraScreen";
 import { useTheme } from "@/hooks/useTheme";
 import { Spacing, BorderRadius, Shadows } from "@/constants/theme";
 import UploadModal from "@/screens/UploadModal";
+import { WebLayout } from "@/components/WebLayout";
 
 export type MainTabParamList = {
   TimelineTab: undefined;
@@ -68,11 +76,30 @@ function UploadTabScreen({ navigation }: any) {
 export default function MainTabNavigator() {
   const { theme, isDark } = useTheme();
   const insets = useSafeAreaInsets();
+  const { width } = useWindowDimensions();
+  const isLargeLayout = width >= 768;
+  const [activeTab, setActiveTab] = React.useState<keyof MainTabParamList>(
+    "TimelineTab",
+  );
 
-  return (
+  const tabNavigator = (
     <View style={styles.container}>
       <Tab.Navigator
         initialRouteName="TimelineTab"
+        screenListeners={{
+          state: (event) => {
+            const tabState = event.data.state as
+              | {
+                  index: number;
+                  routes: Array<{ name: keyof MainTabParamList }>;
+                }
+              | undefined;
+            const focusedRoute = tabState?.routes?.[tabState.index]?.name;
+            if (focusedRoute) {
+              setActiveTab(focusedRoute);
+            }
+          },
+        }}
         screenOptions={{
           tabBarActiveTintColor: theme.accent,
           tabBarInactiveTintColor: theme.tabIconDefault,
@@ -95,6 +122,7 @@ export default function MainTabNavigator() {
                   WebkitBackdropFilter: "blur(16px)",
                 } as any)
               : {}),
+            ...(isLargeLayout ? { display: "none" } : {}),
           },
           tabBarBackground: () =>
             Platform.OS === "ios" ? (
@@ -222,6 +250,12 @@ export default function MainTabNavigator() {
       </Tab.Navigator>
     </View>
   );
+
+  if (isLargeLayout) {
+    return <WebLayout activeTab={activeTab}>{tabNavigator}</WebLayout>;
+  }
+
+  return tabNavigator;
 }
 
 const styles = StyleSheet.create({

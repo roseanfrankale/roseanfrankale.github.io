@@ -34,8 +34,8 @@ export const WebLayout: React.FC<WebLayoutProps> = ({
   const { theme, skin, colorMode } = useTheme();
   const navigation = useNavigation<NavigationProp<MainTabParamList>>();
 
-  // Show sidebar only on larger screens (720px or wider)
-  const isWebView = width >= 720;
+  // Show sidebar only on larger screens (768px or wider)
+  const isWebView = width >= 768;
   const sidebarWidth = 240;
   const contentMaxWidth = 1000;
 
