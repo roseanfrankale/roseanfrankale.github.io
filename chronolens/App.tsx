@@ -19,7 +19,7 @@ SplashScreen.preventAutoHideAsync();
 function AppShell() {
   const { theme, isDark } = useTheme();
   const { width } = useWindowDimensions();
-  const isDesktopWeb = Platform.OS === "web" && width >= 768;
+  const isDesktopWeb = Platform.OS === "web" && width >= 1280;
 
   return (
     <GestureHandlerRootView
@@ -29,7 +29,7 @@ function AppShell() {
         style={[
           styles.appFrame,
           isDesktopWeb && {
-            maxWidth: 500,
+            maxWidth: 1480,
             width: "100%",
             alignSelf: "center",
             borderLeftWidth: 1,

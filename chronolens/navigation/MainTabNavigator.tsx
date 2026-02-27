@@ -77,7 +77,7 @@ export default function MainTabNavigator() {
   const { theme, isDark } = useTheme();
   const insets = useSafeAreaInsets();
   const { width } = useWindowDimensions();
-  const isLargeLayout = width >= 768;
+  const isLargeLayout = Platform.OS === "web" && width >= 1280;
   const [activeTab, setActiveTab] = React.useState<keyof MainTabParamList>(
     "TimelineTab",
   );

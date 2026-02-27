@@ -34,10 +34,10 @@ export const WebLayout: React.FC<WebLayoutProps> = ({
   const { theme, skin, colorMode } = useTheme();
   const navigation = useNavigation<NavigationProp<MainTabParamList>>();
 
-  // Show sidebar only on larger screens (768px or wider)
-  const isWebView = width >= 768;
+  // Show sidebar only on desktop-sized web screens
+  const isWebView = width >= 1280;
   const sidebarWidth = 240;
-  const contentMaxWidth = 1000;
+  const contentMaxWidth = 1200;
 
   if (!isWebView) {
     // Mobile layout - just return children
@@ -143,17 +143,18 @@ export const WebLayout: React.FC<WebLayoutProps> = ({
       </View>
 
       {/* Content Area */}
-      <View
-        style={[
-          styles.contentWrapper,
-          {
-            flex: 1,
-            maxWidth: contentMaxWidth,
-            backgroundColor: theme.backgroundRoot,
-          },
-        ]}
-      >
-        {children}
+      <View style={styles.contentArea}>
+        <View
+          style={[
+            styles.contentWrapper,
+            {
+              maxWidth: contentMaxWidth,
+              backgroundColor: theme.backgroundRoot,
+            },
+          ]}
+        >
+          {children}
+        </View>
       </View>
     </View>
   );
@@ -166,6 +167,10 @@ const styles = StyleSheet.create({
   webContainer: {
     flex: 1,
     flexDirection: "row",
+  },
+  contentArea: {
+    flex: 1,
+    alignItems: "center",
   },
   sidebar: {
     borderRightWidth: 1,
@@ -216,6 +221,8 @@ const styles = StyleSheet.create({
     fontSize: 12,
   },
   contentWrapper: {
+    flex: 1,
+    width: "100%",
     overflow: "hidden",
   },
 });
