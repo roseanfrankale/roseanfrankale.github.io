@@ -1,5 +1,5 @@
 import React from "react";
-import { View, StyleSheet } from "react-native";
+import { View, StyleSheet, ImageBackground } from "react-native";
 import { Feather } from "@expo/vector-icons";
 
 import { ThemedText } from "@/components/ThemedText";
@@ -7,8 +7,15 @@ import { useTheme } from "@/hooks/useTheme";
 import { useScreenInsets } from "@/hooks/useScreenInsets";
 import { Spacing, BorderRadius } from "@/constants/theme";
 
+const MAP_BACKGROUNDS = {
+  historian:
+    "https://images.unsplash.com/photo-1744911617351-da45df2861f3?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHx3b3JsZCUyMG1hcCUyMHZpbnRhZ2UlMjBwYXBlcnxlbnwxfHx8fDE3NzE4NTIwMDV8MA&ixlib=rb-4.1.0&q=80&w=1080",
+  cyberpunk:
+    "https://images.unsplash.com/photo-1547930206-82ac0a7aa08d?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHx3b3JsZCUyMG1hcCUyMGJsYWNrJTIwdGVjaG5vbG9neXxlbnwxfHx8fDE3NzE4NTIwMTF8MA&ixlib=rb-4.1.0&q=80&w=1080",
+} as const;
+
 export default function MapScreenWeb() {
-  const { theme, fonts } = useTheme();
+  const { theme, fonts, skin } = useTheme();
   const { paddingTop } = useScreenInsets();
 
   return (
@@ -46,28 +53,39 @@ export default function MapScreenWeb() {
         </View>
       </View>
 
-      <View style={styles.emptyState}>
-        <Feather
-          name="map"
-          size={64}
-          color={theme.textSecondary}
-          style={{ opacity: 0.3 }}
-        />
-        <ThemedText
+      <ImageBackground
+        source={{ uri: MAP_BACKGROUNDS[skin] }}
+        style={styles.emptyState}
+        imageStyle={styles.emptyStateImage}
+      >
+        <View
           style={[
-            styles.emptyTitle,
-            { fontFamily: fonts.header, color: theme.text },
+            styles.emptyOverlay,
+            { backgroundColor: theme.backgroundDefault + "CC" },
           ]}
         >
-          Maps are not available on web
-        </ThemedText>
-        <ThemedText
-          type="body"
-          style={[styles.emptySubtitle, { color: theme.textSecondary }]}
-        >
-          Open the mobile app build to explore interactive map locations.
-        </ThemedText>
-      </View>
+          <Feather
+            name="map"
+            size={64}
+            color={theme.textSecondary}
+            style={{ opacity: 0.3 }}
+          />
+          <ThemedText
+            style={[
+              styles.emptyTitle,
+              { fontFamily: fonts.header, color: theme.text },
+            ]}
+          >
+            Maps are not available on web
+          </ThemedText>
+          <ThemedText
+            type="body"
+            style={[styles.emptySubtitle, { color: theme.textSecondary }]}
+          >
+            Open the mobile app build to explore interactive map locations.
+          </ThemedText>
+        </View>
+      </ImageBackground>
     </View>
   );
 }
@@ -97,6 +115,16 @@ const styles = StyleSheet.create({
   },
   emptyState: {
     flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    paddingHorizontal: Spacing["3xl"],
+  },
+  emptyStateImage: {
+    opacity: 0.35,
+  },
+  emptyOverlay: {
+    flex: 1,
+    width: "100%",
     justifyContent: "center",
     alignItems: "center",
     paddingHorizontal: Spacing["3xl"],

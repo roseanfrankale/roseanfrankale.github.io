@@ -13,10 +13,12 @@ const { width } = Dimensions.get("window");
 const PHOTO_SIZE = (width - Spacing.xl * 2 - Spacing.sm * 2) / 3;
 
 const SAMPLE_USER_PHOTOS = [
-  "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=300",
-  "https://images.unsplash.com/photo-1529156069898-49953e39b3ac?w=300",
-  "https://images.unsplash.com/photo-1542037104857-ffbb0b9155fb?w=300",
-  "https://images.unsplash.com/photo-1501139083538-0139583c060f?w=300",
+  "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=400",
+  "https://images.unsplash.com/photo-1469474968028-56623f02e42e?w=400",
+  "https://images.unsplash.com/photo-1447752875215-b2761acb3c5d?w=400",
+  "https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=400",
+  "https://images.unsplash.com/photo-1426604966848-d7adac402bff?w=400",
+  "https://images.unsplash.com/photo-1472214103451-9374bd1c798e?w=400",
 ];
 
 const AVATARS = {
