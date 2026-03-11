@@ -2,26 +2,35 @@
 document.addEventListener('DOMContentLoaded', () => {
     
     const grid = document.querySelector('#gallery-grid');
+    if (!grid) return;
+
     let iso;
 
-    if (grid) {
-        // Initialize Isotope immediately so structure exists
-        iso = new Isotope(grid, {
-            itemSelector: '.gallery-item',
-            layoutMode: 'masonry',
-            percentPosition: true,
-            masonry: {
-                columnWidth: '.grid-sizer',
-                gutter: 0 // VITAL: Set gutter to 0. CSS padding handles the gap.
+    // Initialize Isotope immediately so structure exists
+    iso = new Isotope(grid, {
+        itemSelector: '.gallery-item',
+        layoutMode: 'masonry',
+        percentPosition: true,
+        masonry: {
+            columnWidth: '.grid-sizer',
+            gutter: 0 // VITAL: Set gutter to 0. CSS padding handles the gap.
+        }
+    });
+
+    // Update layout progressively as each image loads
+    // This prevents waiting for ALL images before showing ANYTHING
+    imagesLoaded(grid).on('progress', function() {
+        iso.layout();
+    });
+
+    iso.on('arrangeComplete', function() {
+        requestAnimationFrame(() => {
+            iso.layout();
+            if (window.ScrollTrigger && typeof window.ScrollTrigger.refresh === 'function') {
+                window.ScrollTrigger.refresh();
             }
         });
-
-        // Update layout progressively as each image loads
-        // This prevents waiting for ALL images before showing ANYTHING
-        imagesLoaded(grid).on('progress', function() {
-            iso.layout();
-        });
-    }
+    });
 
     // Filter Logic
     const filterBtns = document.querySelectorAll('.filter-btn');
@@ -33,13 +42,15 @@ document.addEventListener('DOMContentLoaded', () => {
             btn.classList.add('active');
 
             const filterValue = btn.getAttribute('data-filter');
-            iso.arrange({ filter: filterValue });
+            if (!iso) return;
+
+            iso.arrange({ filter: filterValue || '*' });
 
             // Check if any items are visible
             if (iso.filteredItems.length === 0) {
-                noResultsMsg.classList.remove('hidden');
+                if (noResultsMsg) noResultsMsg.classList.remove('hidden');
             } else {
-                noResultsMsg.classList.add('hidden');
+                if (noResultsMsg) noResultsMsg.classList.add('hidden');
             }
         });
     });

@@ -19,7 +19,7 @@ SplashScreen.preventAutoHideAsync();
 function AppShell() {
   const { theme, isDark } = useTheme();
   const { width } = useWindowDimensions();
-  const isDesktopWeb = Platform.OS === "web" && width >= 1280;
+  const isDesktopWeb = Platform.OS === "web" && width >= 768;
 
   return (
     <GestureHandlerRootView
@@ -29,13 +29,27 @@ function AppShell() {
         style={[
           styles.appFrame,
           isDesktopWeb && {
-            maxWidth: 1480,
+            maxWidth: 520,
             width: "100%",
             alignSelf: "center",
-            borderLeftWidth: 1,
-            borderRightWidth: 1,
-            borderColor: theme.border,
-            backgroundColor: theme.backgroundDefault,
+            minHeight: "92%",
+            borderWidth: 1,
+            borderRadius: 28,
+            borderColor: theme.glassBorder,
+            backgroundColor: isDark
+              ? "rgba(26, 25, 23, 0.78)"
+              : "rgba(255, 255, 255, 0.78)",
+            shadowColor: isDark ? "#000000" : "#1C140C",
+            shadowOpacity: isDark ? 0.4 : 0.15,
+            shadowRadius: 30,
+            shadowOffset: { width: 0, height: 12 },
+            overflow: "hidden",
+            ...(Platform.OS === "web"
+              ? ({
+                  backdropFilter: "blur(18px)",
+                  WebkitBackdropFilter: "blur(18px)",
+                } as any)
+              : {}),
           },
         ]}
       >
@@ -106,6 +120,11 @@ export default function App() {
 const styles = StyleSheet.create({
   root: {
     flex: 1,
+    ...(Platform.OS === "web"
+      ? ({
+          padding: 16,
+        } as any)
+      : {}),
   },
   appFrame: {
     flex: 1,

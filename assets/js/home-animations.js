@@ -64,21 +64,28 @@ document.addEventListener('DOMContentLoaded', () => {
     // ===== GALLERY PAGE ANIMATIONS =====
 
     // 3. Gallery Items - Staggered grid reveals
-    const galleryItems = document.querySelectorAll('.gallery-item');
-    if (galleryItems.length > 0) {
-        gsap.to(galleryItems, {
-            scrollTrigger: {
-                trigger: galleryItems[0],
-                start: "top 80%",
-                toggleActions: "play none none reverse"
+    const galleryGrid = document.querySelector('#gallery-grid');
+    const galleryCards = document.querySelectorAll('.gallery-item a');
+    if (galleryGrid && galleryCards.length > 0) {
+        gsap.fromTo(
+            galleryCards,
+            {
+                opacity: 0,
+                y: 18,
             },
-            opacity: 1,
-            y: 0,
-            scale: 1,
-            duration: 0.6,
-            stagger: 0.08,
-            ease: "power3.out"
-        });
+            {
+                scrollTrigger: {
+                    trigger: galleryGrid,
+                    start: "top 80%",
+                    toggleActions: "play none none none"
+                },
+                opacity: 1,
+                y: 0,
+                duration: 0.6,
+                stagger: 0.06,
+                ease: "power3.out"
+            },
+        );
     }
 
     // 4. Filter buttons animation
