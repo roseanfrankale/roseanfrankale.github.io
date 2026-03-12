@@ -3,7 +3,13 @@
   <head>
     <meta charset="utf-8" />
     <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="theme-color" content="#1A1917" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="apple-mobile-web-app-title" content="ChronoLens" />
+    <meta name="format-detection" content="telephone=no" />
     <title>ChronoLens</title>
     <!-- The `react-native-web` recommended style reset: https://necolas.github.io/react-native-web/docs/setup/#root-element -->
     <style id="expo-reset">
@@ -21,6 +27,22 @@
         display: flex;
         height: 100%;
         flex: 1;
+      }
+    </style>
+    <style id="chronolens-mobile-web">
+      html,
+      body {
+        background: #1A1917;
+        overscroll-behavior: none;
+      }
+    
+      body {
+        min-height: 100dvh;
+        -webkit-tap-highlight-color: transparent;
+      }
+    
+      #root {
+        min-height: 100dvh;
       }
     </style>
   <link rel="icon" href="./favicon.ico" /></head>
