@@ -1,1258 +1,715 @@
-import React, { useState } from "react";
+import React, { useMemo } from "react";
 import {
-  View,
-  StyleSheet,
-  Image,
+  Alert,
   Pressable,
   ScrollView,
-  Switch,
-  Alert,
+  StyleSheet,
+  Text,
+  View,
 } from "react-native";
 import { Feather } from "@expo/vector-icons";
-import * as ImagePicker from "expo-image-picker";
+import { NativeStackNavigationProp } from "@react-navigation/native-stack";
+import { useNavigation } from "@react-navigation/native";
 
-import { ThemedText } from "@/components/ThemedText";
 import { useTheme } from "@/hooks/useTheme";
 import { useScreenInsets } from "@/hooks/useScreenInsets";
-import { Spacing, BorderRadius } from "@/constants/theme";
 import { useAuth } from "@/contexts/AuthContext";
 import { usePhotoStore } from "@/store/photoStore";
+import { ProfileStackParamList } from "@/navigation/ProfileStackNavigator";
 
-type TabType = "overview" | "settings" | "leonardo";
+type ProfileNav = NativeStackNavigationProp<ProfileStackParamList>;
+
+type ThemeMode = "light" | "dark" | "system";
 
 export default function ProfileScreen() {
-  const { theme, fonts, skin, toggleTheme, setColorMode, colorModeSetting } =
-    useTheme();
-  const { paddingTop } = useScreenInsets();
+  const navigation = useNavigation<ProfileNav>();
+  const { paddingTop, paddingBottom } = useScreenInsets();
   const { user, logout } = useAuth();
   const { photos } = usePhotoStore();
-  const [activeTab, setActiveTab] = useState<TabType>("overview");
-  const [avatar, setAvatar] = useState(user?.avatar);
+  const {
+    theme,
+    fonts,
+    skin,
+    toggleTheme,
+    colorModeSetting,
+    setColorMode,
+    isDark,
+  } = useTheme();
 
-  // Mock family statistics
-  const stats = {
-    members: 12,
-    generations: 3,
-    locations: 8,
-    decades: 7,
-    oldestPhoto: 1945,
-    newestPhoto: 2024,
-    totalPhotos: photos.length,
-  };
+  const styles = useMemo(
+    () => createStyles(theme, fonts, skin, paddingTop, paddingBottom, isDark),
+    [theme, fonts, skin, paddingTop, paddingBottom, isDark],
+  );
 
-  const handlePickAvatar = async () => {
-    const permissionResult =
-      await ImagePicker.requestMediaLibraryPermissionsAsync();
-    if (!permissionResult.granted) {
-      Alert.alert("Permission Required", "Please grant photo library access.");
-      return;
+  const stats = useMemo(
+    () => [
+      { label: "Memories", value: String(photos.length), icon: "image" as const },
+      { label: "Members", value: "12", icon: "users" as const },
+      { label: "Generations", value: "3", icon: "git-branch" as const },
+      { label: "Animated", value: "12", icon: "zap" as const },
+    ],
+    [photos.length],
+  );
+
+  const achievements = useMemo(
+    () => [
+      {
+        title: "First Century",
+        description: "100 photos catalogued",
+        unlocked: true,
+      },
+      {
+        title: "Daily Chronicler",
+        description: "7 days in a row",
+        unlocked: true,
+      },
+      {
+        title: "World Explorer",
+        description: "25+ locations",
+        unlocked: false,
+      },
+      {
+        title: "Metadata Master",
+        description: "100 photos edited",
+        unlocked: false,
+      },
+    ],
+    [],
+  );
+
+  const recentActivity = useMemo(
+    () => [
+      {
+        action: "Catalogued 12 photos",
+        location: "1980s Album",
+        time: "2 hours ago",
+      },
+      {
+        action: "Animated Grandpa Joe",
+        location: "Leonardo AI",
+        time: "Yesterday",
+      },
+      {
+        action: "Added story to REF.1954-002",
+        location: "Miller Wedding",
+        time: "3 days ago",
+      },
+    ],
+    [],
+  );
+
+  const displayName = user?.name || "ChronoLens Curator";
+  const displayEmail = user?.email || "curator@chronolens.app";
+
+  const handleLogout = async () => {
+    try {
+      await logout();
+    } catch (error) {
+      Alert.alert("Sign out failed", "Please try again.");
     }
-    const result = await ImagePicker.launchImageLibraryAsync({
-      mediaTypes: ImagePicker.MediaTypeOptions.Images,
-      allowsEditing: true,
-      aspect: [1, 1],
-      quality: 0.8,
-    });
-    if (!result.canceled && result.assets[0]) {
-      setAvatar({ uri: result.assets[0].uri });
-    }
   };
-
-  const renderTabButton = (
-    tab: TabType,
-    label: string,
-    icon: keyof typeof Feather.glyphMap,
-  ) => (
-    <Pressable
-      style={[
-        styles.tabButton,
-        activeTab === tab && {
-          backgroundColor: theme.accent,
-          borderColor: theme.accent,
-        },
-        { borderColor: theme.border },
-      ]}
-      onPress={() => setActiveTab(tab)}
-    >
-      <Feather
-        name={icon}
-        size={18}
-        color={activeTab === tab ? theme.backgroundDefault : theme.text}
-      />
-      <ThemedText
-        style={[
-          styles.tabButtonText,
-          { fontFamily: fonts.mono },
-          activeTab === tab && { color: theme.backgroundDefault },
-        ]}
-      >
-        {label}
-      </ThemedText>
-    </Pressable>
-  );
-
-  const renderOverviewTab = () => (
-    <ScrollView style={styles.tabContent} showsVerticalScrollIndicator={false}>
-      {/* Family Statistics */}
-      <View
-        style={[
-          styles.section,
-          { backgroundColor: theme.card, borderColor: theme.border },
-        ]}
-      >
-        <ThemedText
-          style={[
-            styles.sectionTitle,
-            { fontFamily: fonts.header, color: theme.text },
-          ]}
-        >
-          Family Archive Statistics
-        </ThemedText>
-        <View style={styles.statsGrid}>
-          <View style={styles.statCard}>
-            <ThemedText
-              style={[
-                styles.statValue,
-                { fontFamily: fonts.mono, color: theme.accent },
-              ]}
-            >
-              {stats.members}
-            </ThemedText>
-            <ThemedText
-              style={[styles.statLabel, { color: theme.textSecondary }]}
-            >
-              Family Members
-            </ThemedText>
-          </View>
-          <View style={styles.statCard}>
-            <ThemedText
-              style={[
-                styles.statValue,
-                { fontFamily: fonts.mono, color: theme.accent },
-              ]}
-            >
-              {stats.generations}
-            </ThemedText>
-            <ThemedText
-              style={[styles.statLabel, { color: theme.textSecondary }]}
-            >
-              Generations
-            </ThemedText>
-          </View>
-          <View style={styles.statCard}>
-            <ThemedText
-              style={[
-                styles.statValue,
-                { fontFamily: fonts.mono, color: theme.accent },
-              ]}
-            >
-              {stats.locations}
-            </ThemedText>
-            <ThemedText
-              style={[styles.statLabel, { color: theme.textSecondary }]}
-            >
-              Locations
-            </ThemedText>
-          </View>
-          <View style={styles.statCard}>
-            <ThemedText
-              style={[
-                styles.statValue,
-                { fontFamily: fonts.mono, color: theme.accent },
-              ]}
-            >
-              {stats.decades}
-            </ThemedText>
-            <ThemedText
-              style={[styles.statLabel, { color: theme.textSecondary }]}
-            >
-              Decades
-            </ThemedText>
-          </View>
-        </View>
-      </View>
-
-      {/* Archive Timeline */}
-      <View
-        style={[
-          styles.section,
-          { backgroundColor: theme.card, borderColor: theme.border },
-        ]}
-      >
-        <View style={styles.timelineBanner}>
-          <View style={styles.timelineYearBox}>
-            <ThemedText
-              style={[
-                styles.timelineYear,
-                { fontFamily: fonts.mono, color: theme.accent },
-              ]}
-            >
-              {stats.oldestPhoto}
-            </ThemedText>
-            <ThemedText
-              style={[styles.timelineLabel, { color: theme.textSecondary }]}
-            >
-              Oldest
-            </ThemedText>
-          </View>
-          <View
-            style={[styles.timelineLine, { backgroundColor: theme.accent }]}
-          />
-          <View style={styles.timelineYearBox}>
-            <ThemedText
-              style={[
-                styles.timelineYear,
-                { fontFamily: fonts.mono, color: theme.accent },
-              ]}
-            >
-              {stats.newestPhoto}
-            </ThemedText>
-            <ThemedText
-              style={[styles.timelineLabel, { color: theme.textSecondary }]}
-            >
-              Newest
-            </ThemedText>
-          </View>
-        </View>
-        <ThemedText
-          style={[
-            styles.timelineCaption,
-            { fontFamily: fonts.mono, color: theme.textSecondary },
-          ]}
-        >
-          {stats.newestPhoto - stats.oldestPhoto} years of family history
-          preserved
-        </ThemedText>
-      </View>
-
-      {/* Quick Actions */}
-      <View
-        style={[
-          styles.section,
-          { backgroundColor: theme.card, borderColor: theme.border },
-        ]}
-      >
-        <ThemedText
-          style={[
-            styles.sectionTitle,
-            { fontFamily: fonts.header, color: theme.text },
-          ]}
-        >
-          Quick Actions
-        </ThemedText>
-        <Pressable
-          style={[
-            styles.actionButton,
-            { backgroundColor: theme.backgroundSecondary },
-          ]}
-        >
-          <Feather name="image" size={20} color={theme.text} />
-          <ThemedText style={{ flex: 1, color: theme.text }}>
-            View All Photos
-          </ThemedText>
-          <ThemedText
-            style={[
-              styles.actionCount,
-              { fontFamily: fonts.mono, color: theme.accent },
-            ]}
-          >
-            {stats.totalPhotos}
-          </ThemedText>
-        </Pressable>
-        <Pressable
-          style={[
-            styles.actionButton,
-            { backgroundColor: theme.backgroundSecondary },
-          ]}
-        >
-          <Feather name="users" size={20} color={theme.text} />
-          <ThemedText style={{ flex: 1, color: theme.text }}>
-            Family Members
-          </ThemedText>
-          <ThemedText
-            style={[
-              styles.actionCount,
-              { fontFamily: fonts.mono, color: theme.accent },
-            ]}
-          >
-            {stats.members}
-          </ThemedText>
-        </Pressable>
-        <Pressable
-          style={[
-            styles.actionButton,
-            { backgroundColor: theme.backgroundSecondary },
-          ]}
-        >
-          <Feather name="map-pin" size={20} color={theme.text} />
-          <ThemedText style={{ flex: 1, color: theme.text }}>
-            Locations
-          </ThemedText>
-          <ThemedText
-            style={[
-              styles.actionCount,
-              { fontFamily: fonts.mono, color: theme.accent },
-            ]}
-          >
-            {stats.locations}
-          </ThemedText>
-        </Pressable>
-        <Pressable
-          style={[
-            styles.actionButton,
-            { backgroundColor: theme.backgroundSecondary },
-          ]}
-        >
-          <Feather name="heart" size={20} color={theme.text} />
-          <ThemedText style={{ flex: 1, color: theme.text }}>
-            Favorites
-          </ThemedText>
-          <Feather name="chevron-right" size={20} color={theme.textSecondary} />
-        </Pressable>
-      </View>
-
-      {/* Account Info */}
-      <View
-        style={[
-          styles.section,
-          { backgroundColor: theme.card, borderColor: theme.border },
-        ]}
-      >
-        <ThemedText
-          style={[
-            styles.sectionTitle,
-            { fontFamily: fonts.header, color: theme.text },
-          ]}
-        >
-          Account Information
-        </ThemedText>
-        <View style={styles.infoRow}>
-          <ThemedText
-            style={[styles.infoLabel, { color: theme.textSecondary }]}
-          >
-            Family Archive
-          </ThemedText>
-          <ThemedText
-            style={[
-              styles.infoValue,
-              { fontFamily: fonts.mono, color: theme.text },
-            ]}
-          >
-            Frank-Alexander Family
-          </ThemedText>
-        </View>
-        <View style={styles.infoRow}>
-          <ThemedText
-            style={[styles.infoLabel, { color: theme.textSecondary }]}
-          >
-            Member Since
-          </ThemedText>
-          <ThemedText
-            style={[
-              styles.infoValue,
-              { fontFamily: fonts.mono, color: theme.text },
-            ]}
-          >
-            January 2024
-          </ThemedText>
-        </View>
-        <View style={styles.infoRow}>
-          <ThemedText
-            style={[styles.infoLabel, { color: theme.textSecondary }]}
-          >
-            Role
-          </ThemedText>
-          <ThemedText
-            style={[
-              styles.infoValue,
-              { fontFamily: fonts.mono, color: theme.text },
-            ]}
-          >
-            Curator
-          </ThemedText>
-        </View>
-      </View>
-    </ScrollView>
-  );
-
-  const renderSettingsTab = () => (
-    <ScrollView style={styles.tabContent} showsVerticalScrollIndicator={false}>
-      {/* Theme Switcher */}
-      <View
-        style={[
-          styles.section,
-          { backgroundColor: theme.card, borderColor: theme.border },
-        ]}
-      >
-        <ThemedText
-          style={[
-            styles.sectionTitle,
-            { fontFamily: fonts.header, color: theme.text },
-          ]}
-        >
-          App Theme
-        </ThemedText>
-        <View style={styles.themeGrid}>
-          <Pressable
-            style={[
-              styles.themeCard,
-              skin === "historian" && {
-                borderColor: theme.accent,
-                borderWidth: 2,
-              },
-              { backgroundColor: "#FFF8E7", borderColor: "#D4AF37" },
-            ]}
-            onPress={() => {
-              if (skin !== "historian" && toggleTheme) {
-                toggleTheme();
-              }
-            }}
-          >
-            <View style={[styles.themeIcon, { backgroundColor: "#8B7355" }]}>
-              <ThemedText style={styles.themeEmoji}>🗺️</ThemedText>
-            </View>
-            <ThemedText style={[styles.themeName, { color: "#2C2416" }]}>
-              Historian
-            </ThemedText>
-            <ThemedText style={[styles.themeDescription, { color: "#8B7355" }]}>
-              Warm & Classic
-            </ThemedText>
-            {skin === "historian" && (
-              <View
-                style={[
-                  styles.themeCheckmark,
-                  { backgroundColor: theme.accent },
-                ]}
-              >
-                <Feather name="check" size={12} color="#FFF" />
-              </View>
-            )}
-          </Pressable>
-
-          <Pressable
-            style={[
-              styles.themeCard,
-              skin === "cyberpunk" && {
-                borderColor: theme.accent,
-                borderWidth: 2,
-              },
-              { backgroundColor: "#0A0E27", borderColor: "#00F0FF" },
-            ]}
-            onPress={() => {
-              if (skin !== "cyberpunk" && toggleTheme) {
-                toggleTheme();
-              }
-            }}
-          >
-            <View style={[styles.themeIcon, { backgroundColor: "#00F0FF" }]}>
-              <ThemedText style={styles.themeEmoji}>🌐</ThemedText>
-            </View>
-            <ThemedText style={[styles.themeName, { color: "#E0E0E0" }]}>
-              Cyberpunk
-            </ThemedText>
-            <ThemedText style={[styles.themeDescription, { color: "#9CA3AF" }]}>
-              Dark & Modern
-            </ThemedText>
-            {skin === "cyberpunk" && (
-              <View
-                style={[
-                  styles.themeCheckmark,
-                  { backgroundColor: theme.accent },
-                ]}
-              >
-                <Feather name="check" size={12} color="#0A0E27" />
-              </View>
-            )}
-          </Pressable>
-        </View>
-      </View>
-
-      {/* Color Mode (Light/Dark) */}
-      <View
-        style={[
-          styles.section,
-          { backgroundColor: theme.card, borderColor: theme.border },
-        ]}
-      >
-        <ThemedText
-          style={[
-            styles.sectionTitle,
-            { fontFamily: fonts.header, color: theme.text },
-          ]}
-        >
-          Appearance
-        </ThemedText>
-        <View style={styles.modeGrid}>
-          <Pressable
-            style={[
-              styles.modeCard,
-              colorModeSetting === "light" && {
-                borderColor: theme.accent,
-                borderWidth: 2,
-              },
-              { backgroundColor: theme.backgroundSecondary },
-            ]}
-            onPress={() => setColorMode("light")}
-          >
-            <Feather name="sun" size={24} color={theme.accent} />
-            <ThemedText style={[styles.modeName, { color: theme.text }]}>
-              Light
-            </ThemedText>
-            {colorModeSetting === "light" && (
-              <View
-                style={[
-                  styles.modeCheckmark,
-                  { backgroundColor: theme.accent },
-                ]}
-              >
-                <Feather name="check" size={12} color="#FFF" />
-              </View>
-            )}
-          </Pressable>
-
-          <Pressable
-            style={[
-              styles.modeCard,
-              colorModeSetting === "dark" && {
-                borderColor: theme.accent,
-                borderWidth: 2,
-              },
-              { backgroundColor: theme.backgroundSecondary },
-            ]}
-            onPress={() => setColorMode("dark")}
-          >
-            <Feather name="moon" size={24} color={theme.accent} />
-            <ThemedText style={[styles.modeName, { color: theme.text }]}>
-              Dark
-            </ThemedText>
-            {colorModeSetting === "dark" && (
-              <View
-                style={[
-                  styles.modeCheckmark,
-                  { backgroundColor: theme.accent },
-                ]}
-              >
-                <Feather name="check" size={12} color="#FFF" />
-              </View>
-            )}
-          </Pressable>
-
-          <Pressable
-            style={[
-              styles.modeCard,
-              colorModeSetting === "system" && {
-                borderColor: theme.accent,
-                borderWidth: 2,
-              },
-              { backgroundColor: theme.backgroundSecondary },
-            ]}
-            onPress={() => setColorMode("system")}
-          >
-            <Feather name="settings" size={24} color={theme.accent} />
-            <ThemedText style={[styles.modeName, { color: theme.text }]}>
-              System
-            </ThemedText>
-            {colorModeSetting === "system" && (
-              <View
-                style={[
-                  styles.modeCheckmark,
-                  { backgroundColor: theme.accent },
-                ]}
-              >
-                <Feather name="check" size={12} color="#FFF" />
-              </View>
-            )}
-          </Pressable>
-        </View>
-      </View>
-
-      {/* Preferences */}
-      <View
-        style={[
-          styles.section,
-          { backgroundColor: theme.card, borderColor: theme.border },
-        ]}
-      >
-        <ThemedText
-          style={[
-            styles.sectionTitle,
-            { fontFamily: fonts.header, color: theme.text },
-          ]}
-        >
-          Preferences
-        </ThemedText>
-        <View style={[styles.settingRow, { borderBottomColor: theme.border }]}>
-          <View style={styles.settingInfo}>
-            <Feather name="bell" size={20} color={theme.text} />
-            <View style={{ flex: 1 }}>
-              <ThemedText style={[styles.settingLabel, { color: theme.text }]}>
-                Notifications
-              </ThemedText>
-              <ThemedText
-                style={[
-                  styles.settingDescription,
-                  { color: theme.textSecondary },
-                ]}
-              >
-                Family updates and new photos
-              </ThemedText>
-            </View>
-          </View>
-          <Switch value={true} onValueChange={() => {}} />
-        </View>
-        <View style={[styles.settingRow, { borderBottomColor: theme.border }]}>
-          <View style={styles.settingInfo}>
-            <Feather name="lock" size={20} color={theme.text} />
-            <View style={{ flex: 1 }}>
-              <ThemedText style={[styles.settingLabel, { color: theme.text }]}>
-                Privacy
-              </ThemedText>
-              <ThemedText
-                style={[
-                  styles.settingDescription,
-                  { color: theme.textSecondary },
-                ]}
-              >
-                Control who sees your profile
-              </ThemedText>
-            </View>
-          </View>
-          <Feather name="chevron-right" size={20} color={theme.textSecondary} />
-        </View>
-        <View style={styles.settingRow}>
-          <View style={styles.settingInfo}>
-            <Feather name="help-circle" size={20} color={theme.text} />
-            <View style={{ flex: 1 }}>
-              <ThemedText style={[styles.settingLabel, { color: theme.text }]}>
-                Help & Support
-              </ThemedText>
-              <ThemedText
-                style={[
-                  styles.settingDescription,
-                  { color: theme.textSecondary },
-                ]}
-              >
-                FAQs, tutorials, and contact
-              </ThemedText>
-            </View>
-          </View>
-          <Feather name="chevron-right" size={20} color={theme.textSecondary} />
-        </View>
-      </View>
-
-      {/* Logout */}
-      <Pressable
-        style={[
-          styles.logoutButton,
-          {
-            backgroundColor: theme.card,
-            borderColor: theme.border,
-          },
-        ]}
-        onPress={() => {
-          Alert.alert("Sign Out", "Are you sure you want to sign out?", [
-            { text: "Cancel", style: "cancel" },
-            { text: "Sign Out", style: "destructive", onPress: logout },
-          ]);
-        }}
-      >
-        <Feather name="log-out" size={20} color="#EF4444" />
-        <ThemedText style={[styles.logoutText, { fontFamily: fonts.mono }]}>
-          Sign Out
-        </ThemedText>
-      </Pressable>
-    </ScrollView>
-  );
-
-  const renderLeonardoTab = () => (
-    <ScrollView style={styles.tabContent} showsVerticalScrollIndicator={false}>
-      {/* Leonardo AI Banner */}
-      <View
-        style={[
-          styles.section,
-          {
-            backgroundColor: theme.accent + "20",
-            borderColor: theme.accent,
-            borderWidth: 2,
-          },
-        ]}
-      >
-        <View style={styles.leonardoHeader}>
-          <ThemedText style={styles.leonardoEmoji}>🎨</ThemedText>
-          <View style={{ flex: 1 }}>
-            <ThemedText
-              style={[
-                styles.leonardoTitle,
-                { fontFamily: fonts.header, color: theme.text },
-              ]}
-            >
-              Leonardo AI Animations
-            </ThemedText>
-            <ThemedText
-              style={[styles.leonardoSubtitle, { color: theme.textSecondary }]}
-            >
-              Bring your family photos to life
-            </ThemedText>
-          </View>
-        </View>
-      </View>
-
-      {/* Description */}
-      <View
-        style={[
-          styles.section,
-          { backgroundColor: theme.card, borderColor: theme.border },
-        ]}
-      >
-        <ThemedText style={[styles.leonardoDescription, { color: theme.text }]}>
-          Transform static family photographs into animated memories using
-          advanced AI technology. Watch ancestors smile, children wave, and
-          special moments come alive with realistic movement.
-        </ThemedText>
-      </View>
-
-      {/* Features */}
-      <View
-        style={[
-          styles.section,
-          { backgroundColor: theme.card, borderColor: theme.border },
-        ]}
-      >
-        <ThemedText
-          style={[
-            styles.sectionTitle,
-            { fontFamily: fonts.header, color: theme.text },
-          ]}
-        >
-          Animation Features
-        </ThemedText>
-        <View style={styles.featureList}>
-          <View style={styles.featureItem}>
-            <View
-              style={[
-                styles.featureIcon,
-                { backgroundColor: theme.accent + "20" },
-              ]}
-            >
-              <ThemedText style={styles.featureEmoji}>✨</ThemedText>
-            </View>
-            <View style={{ flex: 1 }}>
-              <ThemedText style={[styles.featureTitle, { color: theme.text }]}>
-                Natural Motion
-              </ThemedText>
-              <ThemedText
-                style={[
-                  styles.featureDescription,
-                  { color: theme.textSecondary },
-                ]}
-              >
-                Subtle facial expressions and realistic movement
-              </ThemedText>
-            </View>
-          </View>
-          <View style={styles.featureItem}>
-            <View
-              style={[
-                styles.featureIcon,
-                { backgroundColor: theme.accent + "20" },
-              ]}
-            >
-              <ThemedText style={styles.featureEmoji}>🎭</ThemedText>
-            </View>
-            <View style={{ flex: 1 }}>
-              <ThemedText style={[styles.featureTitle, { color: theme.text }]}>
-                Portrait Animation
-              </ThemedText>
-              <ThemedText
-                style={[
-                  styles.featureDescription,
-                  { color: theme.textSecondary },
-                ]}
-              >
-                Make portrait photos smile, blink, and turn their heads
-              </ThemedText>
-            </View>
-          </View>
-          <View style={styles.featureItem}>
-            <View
-              style={[
-                styles.featureIcon,
-                { backgroundColor: theme.accent + "20" },
-              ]}
-            >
-              <ThemedText style={styles.featureEmoji}>⚡</ThemedText>
-            </View>
-            <View style={{ flex: 1 }}>
-              <ThemedText style={[styles.featureTitle, { color: theme.text }]}>
-                Fast Processing
-              </ThemedText>
-              <ThemedText
-                style={[
-                  styles.featureDescription,
-                  { color: theme.textSecondary },
-                ]}
-              >
-                Generate animations in seconds with cloud processing
-              </ThemedText>
-            </View>
-          </View>
-          <View style={styles.featureItem}>
-            <View
-              style={[
-                styles.featureIcon,
-                { backgroundColor: theme.accent + "20" },
-              ]}
-            >
-              <ThemedText style={styles.featureEmoji}>💾</ThemedText>
-            </View>
-            <View style={{ flex: 1 }}>
-              <ThemedText style={[styles.featureTitle, { color: theme.text }]}>
-                Save & Share
-              </ThemedText>
-              <ThemedText
-                style={[
-                  styles.featureDescription,
-                  { color: theme.textSecondary },
-                ]}
-              >
-                Export animated memories to share with family
-              </ThemedText>
-            </View>
-          </View>
-        </View>
-      </View>
-
-      {/* Connect Button */}
-      <Pressable
-        style={[
-          styles.connectButton,
-          {
-            backgroundColor: theme.accent,
-          },
-        ]}
-        onPress={() => {
-          Alert.alert(
-            "Leonardo AI",
-            "Connect your Leonardo AI account to enable photo animations. You'll need an API key from leonardo.ai",
-            [
-              { text: "Cancel", style: "cancel" },
-              { text: "Learn More", onPress: () => {} },
-            ],
-          );
-        }}
-      >
-        <Feather name="link" size={20} color={theme.backgroundDefault} />
-        <ThemedText
-          style={[
-            styles.connectButtonText,
-            {
-              fontFamily: fonts.mono,
-              color: theme.backgroundDefault,
-            },
-          ]}
-        >
-          Connect Leonardo AI
-        </ThemedText>
-      </Pressable>
-
-      {/* API Note */}
-      <View
-        style={[
-          styles.section,
-          {
-            backgroundColor: theme.backgroundSecondary,
-            borderColor: theme.border,
-          },
-        ]}
-      >
-        <ThemedText style={[styles.apiNote, { color: theme.textSecondary }]}>
-          <Feather name="info" size={14} color={theme.textSecondary} /> Requires
-          Leonardo AI account and API key. Visit leonardo.ai to sign up.
-        </ThemedText>
-      </View>
-    </ScrollView>
-  );
 
   return (
-    <View
-      style={[styles.container, { backgroundColor: theme.backgroundDefault }]}
+    <ScrollView
+      style={styles.screen}
+      contentContainerStyle={styles.contentContainer}
+      showsVerticalScrollIndicator={false}
     >
-      {/* Header with Avatar */}
-      <View
-        style={[
-          styles.header,
-          {
-            backgroundColor: theme.backgroundDefault,
-            borderBottomColor: theme.border,
-            paddingTop: paddingTop + Spacing.xl,
-          },
-        ]}
-      >
-        <Pressable onPress={handlePickAvatar}>
-          <Image
-            source={avatar || require("@/assets/images/avatars/camera.png")}
-            style={[styles.avatar, { borderColor: theme.accent }]}
-          />
-          <View style={[styles.avatarEdit, { backgroundColor: theme.accent }]}>
-            <Feather name="camera" size={14} color={theme.backgroundDefault} />
-          </View>
-        </Pressable>
-        <View style={styles.headerInfo}>
-          <ThemedText
-            style={[
-              styles.headerName,
-              { fontFamily: fonts.header, color: theme.text },
-            ]}
-          >
-            {user?.name || "Family Curator"}
-          </ThemedText>
-          <ThemedText
-            style={[
-              styles.headerEmail,
-              { fontFamily: fonts.mono, color: theme.textSecondary },
-            ]}
-          >
-            {user?.email || "curator@chronolens.app"}
-          </ThemedText>
+      <View style={styles.heroCard}>
+        <View style={styles.avatarCircle}>
+          <Text style={styles.avatarText}>{displayName.charAt(0).toUpperCase()}</Text>
+        </View>
+        <View style={styles.heroTextWrap}>
+          <Text style={styles.name}>{displayName}</Text>
+          <Text style={styles.metaText}>{displayEmail}</Text>
+          <Text style={styles.bioText}>
+            Preserving family archives and crafting stories across generations.
+          </Text>
         </View>
       </View>
 
-      {/* Tab Navigation */}
-      <View
-        style={[
-          styles.tabBar,
-          {
-            backgroundColor: theme.backgroundDefault,
-            borderBottomColor: theme.border,
-          },
-        ]}
-      >
-        {renderTabButton("overview", "Overview", "home")}
-        {renderTabButton("settings", "Settings", "settings")}
-        {renderTabButton("leonardo", "Leonardo AI", "zap")}
+      <View style={styles.statsGrid}>
+        {stats.map((item) => (
+          <View key={item.label} style={styles.statCard}>
+            <View style={styles.statIconWrap}>
+              <Feather name={item.icon} size={16} color={theme.accent} />
+            </View>
+            <Text style={styles.statValue}>{item.value}</Text>
+            <Text style={styles.statLabel}>{item.label}</Text>
+          </View>
+        ))}
       </View>
 
-      {/* Tab Content */}
-      {activeTab === "overview" && renderOverviewTab()}
-      {activeTab === "settings" && renderSettingsTab()}
-      {activeTab === "leonardo" && renderLeonardoTab()}
-    </View>
+      <View style={styles.sectionCard}>
+        <Text style={styles.sectionTitle}>Quick Actions</Text>
+        <View style={styles.rowActions}>
+          <ActionButton
+            label="Invite Family"
+            icon="user-plus"
+            onPress={() => Alert.alert("Invite", "Coming soon")}
+            styles={styles}
+          />
+          <ActionButton
+            label="Add Story"
+            icon="book-open"
+            onPress={() => Alert.alert("Stories", "Coming soon")}
+            styles={styles}
+          />
+          <ActionButton
+            label="Animate"
+            icon="zap"
+            onPress={() => Alert.alert("Animate", "Connect Leonardo flow next")}
+            styles={styles}
+          />
+          <ActionButton
+            label="Share"
+            icon="share-2"
+            onPress={() => Alert.alert("Share", "Coming soon")}
+            styles={styles}
+          />
+        </View>
+      </View>
+
+      <View style={styles.sectionCard}>
+        <Text style={styles.sectionTitle}>Appearance</Text>
+
+        <Text style={styles.groupLabel}>Skin</Text>
+        <View style={styles.toggleRow}>
+          <ToggleChip
+            label="Historian"
+            active={skin === "historian"}
+            onPress={() => skin !== "historian" && toggleTheme?.()}
+            styles={styles}
+          />
+          <ToggleChip
+            label="Cyberpunk"
+            active={skin === "cyberpunk"}
+            onPress={() => skin !== "cyberpunk" && toggleTheme?.()}
+            styles={styles}
+          />
+        </View>
+
+        <Text style={styles.groupLabel}>Color Mode</Text>
+        <View style={styles.toggleRow}>
+          <ToggleChip
+            label="Light"
+            active={colorModeSetting === "light"}
+            onPress={() => setColorMode?.("light" as ThemeMode)}
+            styles={styles}
+          />
+          <ToggleChip
+            label="Dark"
+            active={colorModeSetting === "dark"}
+            onPress={() => setColorMode?.("dark" as ThemeMode)}
+            styles={styles}
+          />
+          <ToggleChip
+            label="System"
+            active={colorModeSetting === "system"}
+            onPress={() => setColorMode?.("system" as ThemeMode)}
+            styles={styles}
+          />
+        </View>
+      </View>
+
+      <View style={styles.sectionCard}>
+        <Text style={styles.sectionTitle}>Storage</Text>
+
+        <View style={styles.storageHeaderRow}>
+          <Text style={styles.storageMainText}>12.4 GB used</Text>
+          <Text style={styles.storageSecondaryText}>50 GB total</Text>
+        </View>
+        <View style={styles.progressTrack}>
+          <View style={styles.progressFill} />
+        </View>
+
+        <View style={styles.backupCard}>
+          <Feather name="cloud" size={15} color={theme.accent} />
+          <View>
+            <Text style={styles.backupTitle}>Last Backup</Text>
+            <Text style={styles.backupSubtitle}>Today at 04:30 AM</Text>
+          </View>
+        </View>
+      </View>
+
+      <View style={styles.sectionCard}>
+        <Text style={styles.sectionTitle}>Achievements</Text>
+        {achievements.map((item) => (
+          <View
+            key={item.title}
+            style={[
+              styles.achievementRow,
+              item.unlocked ? styles.achievementUnlocked : styles.achievementLocked,
+            ]}
+          >
+            <View style={styles.achievementLeft}>
+              <Feather
+                name="award"
+                size={15}
+                color={item.unlocked ? theme.accent : theme.textSecondary}
+              />
+              <View>
+                <Text
+                  style={[
+                    styles.achievementTitle,
+                    !item.unlocked && styles.dimmedText,
+                  ]}
+                >
+                  {item.title}
+                </Text>
+                <Text
+                  style={[
+                    styles.achievementDesc,
+                    !item.unlocked && styles.dimmedText,
+                  ]}
+                >
+                  {item.description}
+                </Text>
+              </View>
+            </View>
+            {item.unlocked && <Feather name="check-circle" size={15} color={theme.accent} />}
+          </View>
+        ))}
+      </View>
+
+      <View style={styles.sectionCard}>
+        <Text style={styles.sectionTitle}>Recent Activity</Text>
+        {recentActivity.map((item, index) => (
+          <View key={`${item.action}-${index}`} style={styles.activityRow}>
+            <View style={styles.activityDot} />
+            <View style={styles.activityBody}>
+              <Text style={styles.activityAction}>{item.action}</Text>
+              <View style={styles.activityMetaRow}>
+                <View style={styles.activityMetaItem}>
+                  <Feather name="map-pin" size={11} color={theme.textSecondary} />
+                  <Text style={styles.activityMetaText}>{item.location}</Text>
+                </View>
+                <View style={styles.activityMetaItem}>
+                  <Feather name="clock" size={11} color={theme.textSecondary} />
+                  <Text style={styles.activityMetaText}>{item.time}</Text>
+                </View>
+              </View>
+            </View>
+          </View>
+        ))}
+      </View>
+
+      <View style={styles.sectionCard}>
+        <Text style={styles.sectionTitle}>Account</Text>
+
+        <Pressable
+          onPress={() => navigation.navigate("EditProfile")}
+          style={styles.linkRow}
+        >
+          <View style={styles.linkRowLeft}>
+            <Feather name="edit-3" size={16} color={theme.text} />
+            <Text style={styles.linkText}>Edit Profile</Text>
+          </View>
+          <Feather name="chevron-right" size={16} color={theme.textSecondary} />
+        </Pressable>
+
+        <Pressable
+          onPress={() => navigation.navigate("Settings")}
+          style={styles.linkRow}
+        >
+          <View style={styles.linkRowLeft}>
+            <Feather name="settings" size={16} color={theme.text} />
+            <Text style={styles.linkText}>Settings</Text>
+          </View>
+          <Feather name="chevron-right" size={16} color={theme.textSecondary} />
+        </Pressable>
+
+        <Pressable onPress={handleLogout} style={[styles.linkRow, styles.logoutRow]}>
+          <View style={styles.linkRowLeft}>
+            <Feather name="log-out" size={16} color={theme.error} />
+            <Text style={styles.logoutText}>Sign Out</Text>
+          </View>
+        </Pressable>
+      </View>
+    </ScrollView>
   );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
-  header: {
-    flexDirection: "row",
-    alignItems: "center",
-    padding: Spacing.lg,
-    borderBottomWidth: 1,
-    gap: Spacing.md,
-  },
-  avatar: {
-    width: 64,
-    height: 64,
-    borderRadius: 32,
-    borderWidth: 2,
-  },
-  avatarEdit: {
-    position: "absolute",
-    bottom: 0,
-    right: 0,
-    width: 24,
-    height: 24,
-    borderRadius: 12,
-    justifyContent: "center",
-    alignItems: "center",
-  },
-  headerInfo: {
-    flex: 1,
-  },
-  headerName: {
-    fontSize: 20,
-    fontWeight: "400",
-    marginBottom: 4,
-  },
-  headerEmail: {
-    fontSize: 12,
-    opacity: 0.7,
-  },
-  tabBar: {
-    flexDirection: "row",
-    paddingHorizontal: Spacing.lg,
-    paddingVertical: Spacing.md,
-    gap: Spacing.sm,
-    borderBottomWidth: 1,
-  },
-  tabButton: {
-    flex: 1,
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "center",
-    paddingVertical: Spacing.sm,
-    paddingHorizontal: Spacing.md,
-    borderRadius: BorderRadius.full,
-    borderWidth: 1,
-    gap: Spacing.xs,
-  },
-  tabButtonText: {
-    fontSize: 12,
-  },
-  tabContent: {
-    flex: 1,
-    padding: Spacing.lg,
-  },
-  section: {
-    padding: Spacing.lg,
-    borderRadius: BorderRadius.lg,
-    borderWidth: 1,
-    marginBottom: Spacing.md,
-  },
-  sectionTitle: {
-    fontSize: 16,
-    fontWeight: "400",
-    marginBottom: Spacing.md,
-  },
-  statsGrid: {
-    flexDirection: "row",
-    flexWrap: "wrap",
-    gap: Spacing.md,
-  },
-  statCard: {
-    flex: 1,
-    minWidth: "45%",
-    alignItems: "center",
-    padding: Spacing.md,
-  },
-  statValue: {
-    fontSize: 32,
-    fontWeight: "bold",
-    marginBottom: 4,
-  },
-  statLabel: {
-    fontSize: 12,
-    textAlign: "center",
-  },
-  timelineBanner: {
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "space-between",
-    marginBottom: Spacing.md,
-  },
-  timelineYearBox: {
-    alignItems: "center",
-  },
-  timelineYear: {
-    fontSize: 24,
-    fontWeight: "bold",
-    marginBottom: 4,
-  },
-  timelineLabel: {
-    fontSize: 10,
-    textTransform: "uppercase",
-    letterSpacing: 1,
-  },
-  timelineLine: {
-    flex: 1,
-    height: 2,
-    marginHorizontal: Spacing.md,
-  },
-  timelineCaption: {
-    fontSize: 12,
-    textAlign: "center",
-    opacity: 0.7,
-  },
-  actionButton: {
-    flexDirection: "row",
-    alignItems: "center",
-    padding: Spacing.md,
-    borderRadius: BorderRadius.md,
-    gap: Spacing.md,
-    marginBottom: Spacing.sm,
-  },
-  actionCount: {
-    fontSize: 14,
-    fontWeight: "bold",
-  },
-  infoRow: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    paddingVertical: Spacing.sm,
-  },
-  infoLabel: {
-    fontSize: 14,
-  },
-  infoValue: {
-    fontSize: 14,
-  },
-  themeGrid: {
-    flexDirection: "row",
-    gap: Spacing.md,
-  },
-  themeCard: {
-    flex: 1,
-    padding: Spacing.md,
-    borderRadius: BorderRadius.lg,
-    borderWidth: 1,
-    alignItems: "center",
-    position: "relative",
-  },
-  themeIcon: {
-    width: 48,
-    height: 48,
-    borderRadius: 24,
-    justifyContent: "center",
-    alignItems: "center",
-    marginBottom: Spacing.sm,
-  },
-  themeEmoji: {
-    fontSize: 24,
-  },
-  themeName: {
-    fontSize: 14,
-    fontWeight: "600",
-    marginBottom: 4,
-  },
-  themeDescription: {
-    fontSize: 12,
-  },
-  themeCheckmark: {
-    position: "absolute",
-    top: Spacing.sm,
-    right: Spacing.sm,
-    width: 20,
-    height: 20,
-    borderRadius: 10,
-    justifyContent: "center",
-    alignItems: "center",
-  },
-  modeGrid: {
-    flexDirection: "row",
-    gap: Spacing.md,
-  },
-  modeCard: {
-    flex: 1,
-    padding: Spacing.md,
-    borderRadius: BorderRadius.lg,
-    borderWidth: 1,
-    alignItems: "center",
-    justifyContent: "center",
-    position: "relative",
-  },
-  modeName: {
-    fontSize: 14,
-    fontWeight: "600",
-    marginTop: Spacing.sm,
-  },
-  modeCheckmark: {
-    position: "absolute",
-    top: Spacing.sm,
-    right: Spacing.sm,
-    width: 20,
-    height: 20,
-    borderRadius: 10,
-    justifyContent: "center",
-    alignItems: "center",
-  },
-  settingRow: {
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "space-between",
-    paddingVertical: Spacing.md,
-    borderBottomWidth: 1,
-  },
-  settingInfo: {
-    flexDirection: "row",
-    alignItems: "center",
-    flex: 1,
-    gap: Spacing.md,
-  },
-  settingLabel: {
-    fontSize: 14,
-    fontWeight: "500",
-    marginBottom: 4,
-  },
-  settingDescription: {
-    fontSize: 12,
-  },
-  logoutButton: {
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "center",
-    padding: Spacing.md,
-    borderRadius: BorderRadius.lg,
-    borderWidth: 1,
-    gap: Spacing.sm,
-    marginBottom: Spacing.xl,
-  },
-  logoutText: {
-    fontSize: 14,
-    color: "#EF4444",
-  },
-  leonardoHeader: {
-    flexDirection: "row",
-    alignItems: "center",
-    gap: Spacing.md,
-  },
-  leonardoEmoji: {
-    fontSize: 48,
-  },
-  leonardoTitle: {
-    fontSize: 20,
-    fontWeight: "400",
-    marginBottom: 4,
-  },
-  leonardoSubtitle: {
-    fontSize: 14,
-  },
-  leonardoDescription: {
-    fontSize: 14,
-    lineHeight: 22,
-  },
-  featureList: {
-    gap: Spacing.md,
-  },
-  featureItem: {
-    flexDirection: "row",
-    gap: Spacing.md,
-  },
-  featureIcon: {
-    width: 40,
-    height: 40,
-    borderRadius: 20,
-    justifyContent: "center",
-    alignItems: "center",
-  },
-  featureEmoji: {
-    fontSize: 20,
-  },
-  featureTitle: {
-    fontSize: 14,
-    fontWeight: "600",
-    marginBottom: 4,
-  },
-  featureDescription: {
-    fontSize: 12,
-    lineHeight: 18,
-  },
-  connectButton: {
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "center",
-    padding: Spacing.lg,
-    borderRadius: BorderRadius.lg,
-    gap: Spacing.sm,
-    marginBottom: Spacing.md,
-  },
-  connectButtonText: {
-    fontSize: 16,
-    fontWeight: "bold",
-  },
-  apiNote: {
-    fontSize: 12,
-    lineHeight: 18,
-    textAlign: "center",
-  },
-});
+function ActionButton({
+  label,
+  icon,
+  onPress,
+  styles,
+}: {
+  label: string;
+  icon: keyof typeof Feather.glyphMap;
+  onPress: () => void;
+  styles: ReturnType<typeof createStyles>;
+}) {
+  return (
+    <Pressable onPress={onPress} style={styles.actionButton}>
+      <Feather name={icon} size={16} color={styles.__accentColor} />
+      <Text style={styles.actionLabel}>{label}</Text>
+    </Pressable>
+  );
+}
+
+function ToggleChip({
+  label,
+  active,
+  onPress,
+  styles,
+}: {
+  label: string;
+  active: boolean;
+  onPress: () => void;
+  styles: ReturnType<typeof createStyles>;
+}) {
+  return (
+    <Pressable
+      onPress={onPress}
+      style={[styles.chip, active ? styles.chipActive : styles.chipInactive]}
+    >
+      <Text style={[styles.chipText, active ? styles.chipTextActive : styles.chipTextInactive]}>
+        {label}
+      </Text>
+    </Pressable>
+  );
+}
+
+function createStyles(
+  theme: any,
+  fonts: any,
+  skin: "historian" | "cyberpunk",
+  paddingTop: number,
+  bottomInset: number,
+  isDark: boolean,
+) {
+  const accentGlow = skin === "cyberpunk" ? theme.accent : theme.border;
+
+  return Object.assign(
+    StyleSheet.create({
+      screen: {
+        flex: 1,
+        backgroundColor: theme.backgroundRoot,
+      },
+      contentContainer: {
+        paddingTop,
+        paddingHorizontal: 16,
+        paddingBottom: Math.max(bottomInset, 20) + 24,
+        gap: 14,
+      },
+      heroCard: {
+        backgroundColor: theme.card,
+        borderWidth: 1,
+        borderColor: theme.border,
+        borderRadius: 18,
+        padding: 16,
+        flexDirection: "row",
+        gap: 14,
+        alignItems: "center",
+      },
+      avatarCircle: {
+        width: 72,
+        height: 72,
+        borderRadius: 36,
+        alignItems: "center",
+        justifyContent: "center",
+        backgroundColor: `${theme.accent}22`,
+        borderWidth: 1,
+        borderColor: `${theme.accent}55`,
+      },
+      avatarText: {
+        color: theme.accent,
+        fontSize: 30,
+        fontFamily: fonts.header,
+      },
+      heroTextWrap: {
+        flex: 1,
+      },
+      name: {
+        color: theme.text,
+        fontSize: 22,
+        fontFamily: fonts.header,
+      },
+      metaText: {
+        color: theme.textSecondary,
+        fontSize: 12,
+        marginTop: 2,
+        fontFamily: fonts.mono,
+      },
+      bioText: {
+        color: theme.text,
+        opacity: 0.85,
+        marginTop: 8,
+        fontSize: 13,
+        lineHeight: 18,
+        fontFamily: fonts.body,
+      },
+      statsGrid: {
+        flexDirection: "row",
+        flexWrap: "wrap",
+        gap: 10,
+      },
+      statCard: {
+        width: "48.5%",
+        backgroundColor: theme.card,
+        borderWidth: 1,
+        borderColor: theme.border,
+        borderRadius: 14,
+        padding: 12,
+      },
+      statIconWrap: {
+        width: 30,
+        height: 30,
+        borderRadius: 8,
+        alignItems: "center",
+        justifyContent: "center",
+        backgroundColor: `${theme.accent}1A`,
+      },
+      statValue: {
+        color: theme.text,
+        marginTop: 10,
+        fontSize: 20,
+        fontFamily: fonts.header,
+      },
+      statLabel: {
+        color: theme.textSecondary,
+        marginTop: 2,
+        fontSize: 11,
+        fontFamily: fonts.mono,
+        textTransform: "uppercase",
+      },
+      sectionCard: {
+        backgroundColor: theme.card,
+        borderWidth: 1,
+        borderColor: theme.border,
+        borderRadius: 14,
+        padding: 14,
+      },
+      sectionTitle: {
+        color: theme.text,
+        fontSize: 16,
+        marginBottom: 12,
+        fontFamily: fonts.header,
+      },
+      dimmedText: {
+        opacity: 0.5,
+      },
+      rowActions: {
+        flexDirection: "row",
+        flexWrap: "wrap",
+        gap: 8,
+      },
+      actionButton: {
+        width: "48.5%",
+        borderWidth: 1,
+        borderColor: theme.border,
+        borderRadius: 10,
+        paddingVertical: 12,
+        paddingHorizontal: 10,
+        alignItems: "center",
+        gap: 6,
+        backgroundColor: theme.backgroundSecondary,
+      },
+      actionLabel: {
+        color: theme.text,
+        fontSize: 11,
+        textAlign: "center",
+        fontFamily: fonts.mono,
+      },
+      groupLabel: {
+        color: theme.textSecondary,
+        marginBottom: 8,
+        marginTop: 4,
+        fontSize: 11,
+        textTransform: "uppercase",
+        fontFamily: fonts.mono,
+      },
+      toggleRow: {
+        flexDirection: "row",
+        flexWrap: "wrap",
+        gap: 8,
+        marginBottom: 10,
+      },
+      storageHeaderRow: {
+        flexDirection: "row",
+        alignItems: "center",
+        justifyContent: "space-between",
+        marginBottom: 8,
+      },
+      storageMainText: {
+        color: theme.text,
+        fontSize: 13,
+        fontFamily: fonts.body,
+      },
+      storageSecondaryText: {
+        color: theme.textSecondary,
+        fontSize: 12,
+        fontFamily: fonts.mono,
+      },
+      progressTrack: {
+        height: 8,
+        borderRadius: 999,
+        overflow: "hidden",
+        backgroundColor: theme.backgroundSecondary,
+        borderWidth: 1,
+        borderColor: theme.border,
+      },
+      progressFill: {
+        width: "25%",
+        height: "100%",
+        backgroundColor: theme.accent,
+      },
+      backupCard: {
+        marginTop: 12,
+        borderWidth: 1,
+        borderColor: theme.border,
+        borderRadius: 10,
+        backgroundColor: theme.backgroundSecondary,
+        paddingVertical: 10,
+        paddingHorizontal: 12,
+        flexDirection: "row",
+        alignItems: "center",
+        gap: 10,
+      },
+      backupTitle: {
+        color: theme.text,
+        fontSize: 13,
+        fontFamily: fonts.body,
+      },
+      backupSubtitle: {
+        color: theme.textSecondary,
+        fontSize: 11,
+        marginTop: 1,
+        fontFamily: fonts.mono,
+      },
+      achievementRow: {
+        borderRadius: 10,
+        borderWidth: 1,
+        paddingVertical: 10,
+        paddingHorizontal: 12,
+        marginBottom: 8,
+        flexDirection: "row",
+        alignItems: "center",
+        justifyContent: "space-between",
+      },
+      achievementUnlocked: {
+        borderColor: `${theme.accent}66`,
+        backgroundColor: `${theme.accent}12`,
+      },
+      achievementLocked: {
+        borderColor: theme.border,
+        backgroundColor: theme.backgroundSecondary,
+      },
+      achievementLeft: {
+        flexDirection: "row",
+        alignItems: "center",
+        gap: 10,
+      },
+      achievementTitle: {
+        color: theme.text,
+        fontSize: 13,
+        fontFamily: fonts.body,
+      },
+      achievementDesc: {
+        color: theme.textSecondary,
+        marginTop: 2,
+        fontSize: 11,
+        fontFamily: fonts.mono,
+      },
+      activityRow: {
+        flexDirection: "row",
+        alignItems: "flex-start",
+        gap: 10,
+        marginBottom: 12,
+      },
+      activityDot: {
+        marginTop: 5,
+        width: 9,
+        height: 9,
+        borderRadius: 999,
+        backgroundColor: theme.accent,
+      },
+      activityBody: {
+        flex: 1,
+      },
+      activityAction: {
+        color: theme.text,
+        fontSize: 13,
+        fontFamily: fonts.body,
+      },
+      activityMetaRow: {
+        marginTop: 4,
+        flexDirection: "row",
+        flexWrap: "wrap",
+        gap: 12,
+      },
+      activityMetaItem: {
+        flexDirection: "row",
+        alignItems: "center",
+        gap: 4,
+      },
+      activityMetaText: {
+        color: theme.textSecondary,
+        fontSize: 11,
+        fontFamily: fonts.mono,
+      },
+      chip: {
+        borderRadius: 999,
+        paddingHorizontal: 14,
+        paddingVertical: 8,
+        borderWidth: 1,
+      },
+      chipActive: {
+        backgroundColor: `${theme.accent}20`,
+        borderColor: theme.accent,
+      },
+      chipInactive: {
+        backgroundColor: theme.backgroundSecondary,
+        borderColor: theme.border,
+      },
+      chipText: {
+        fontSize: 11,
+        textTransform: "uppercase",
+        fontFamily: fonts.mono,
+      },
+      chipTextActive: {
+        color: theme.accent,
+      },
+      chipTextInactive: {
+        color: theme.textSecondary,
+      },
+      linkRow: {
+        flexDirection: "row",
+        alignItems: "center",
+        justifyContent: "space-between",
+        borderWidth: 1,
+        borderColor: theme.border,
+        borderRadius: 10,
+        backgroundColor: theme.backgroundSecondary,
+        paddingHorizontal: 12,
+        paddingVertical: 11,
+        marginBottom: 8,
+      },
+      linkRowLeft: {
+        flexDirection: "row",
+        alignItems: "center",
+        gap: 10,
+      },
+      linkText: {
+        color: theme.text,
+        fontSize: 14,
+        fontFamily: fonts.body,
+      },
+      logoutRow: {
+        marginTop: 4,
+      },
+      logoutText: {
+        color: theme.error,
+        fontSize: 14,
+        fontFamily: fonts.body,
+      },
+    }),
+    {
+      __accentColor: theme.accent,
+      __glowColor: accentGlow,
+      __darkMode: isDark,
+    },
+  );
+}

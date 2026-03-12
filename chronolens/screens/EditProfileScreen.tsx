@@ -15,14 +15,25 @@ import { ThemedText } from "@/components/ThemedText";
 import { useTheme } from "@/hooks/useTheme";
 import { Spacing, BorderRadius } from "@/constants/theme";
 import { useUserStore, AVATAR_OPTIONS } from "@/store/userStore";
+import { useAuth } from "@/contexts/AuthContext";
 
 export default function EditProfileScreen() {
   const navigation = useNavigation();
   const { theme } = useTheme();
   const { user, updateUser } = useUserStore();
+  const { user: authUser, updateProfile } = useAuth();
 
   const [displayName, setDisplayName] = useState(user.displayName);
   const [bio, setBio] = useState(user.bio);
+  const [fullName, setFullName] = useState(authUser?.name || user.displayName);
+  const [email, setEmail] = useState(authUser?.email || "");
+  const [location, setLocation] = useState(authUser?.location || "");
+  const [style, setStyle] = useState("Documentary / Archival");
+  const [curatorBio, setCuratorBio] = useState(
+    authUser?.birthdate
+      ? `${authUser.birthdate} · Preserving family narratives.`
+      : "Preserving family narratives.",
+  );
   const [selectedAvatarId, setSelectedAvatarId] = useState(
     AVATAR_OPTIONS.find((a) => a.source === user.avatar)?.id || "camera",
   );
@@ -30,6 +41,16 @@ export default function EditProfileScreen() {
   const handleSave = () => {
     if (!displayName.trim()) {
       Alert.alert("Error", "Please enter a display name.");
+      return;
+    }
+
+    if (!fullName.trim()) {
+      Alert.alert("Error", "Please enter your full name.");
+      return;
+    }
+
+    if (!email.trim()) {
+      Alert.alert("Error", "Please enter an email address.");
       return;
     }
 
@@ -41,6 +62,19 @@ export default function EditProfileScreen() {
       displayName: displayName.trim(),
       bio: bio.trim(),
       avatar: selectedAvatar?.source || user.avatar,
+    });
+
+    updateProfile({
+      name: fullName.trim(),
+      email: email.trim(),
+      location: location.trim(),
+      birthdate: curatorBio.trim() || undefined,
+      avatar: selectedAvatar?.source || user.avatar,
+    }).catch(() => {
+      Alert.alert(
+        "Profile Saved Locally",
+        "Personal info sync failed, but your local profile changes were saved.",
+      );
     });
 
     Alert.alert("Profile Updated", "Your profile has been saved.", [
@@ -101,6 +135,107 @@ export default function EditProfileScreen() {
           placeholder="Enter your display name"
           placeholderTextColor={theme.textSecondary}
           maxLength={30}
+        />
+      </View>
+
+      <View style={styles.sectionDivider} />
+
+      <View style={styles.fieldSection}>
+        <ThemedText type="h4" style={styles.sectionTitle}>
+          Personal Information
+        </ThemedText>
+
+        <ThemedText
+          type="small"
+          style={[styles.fieldLabel, { color: theme.textSecondary }]}
+        >
+          Full Name
+        </ThemedText>
+        <TextInput
+          style={[
+            styles.input,
+            { backgroundColor: theme.backgroundSecondary, color: theme.text },
+          ]}
+          value={fullName}
+          onChangeText={setFullName}
+          placeholder="Enter your full name"
+          placeholderTextColor={theme.textSecondary}
+          maxLength={60}
+        />
+
+        <ThemedText
+          type="small"
+          style={[styles.fieldLabel, styles.inlineFieldLabel, { color: theme.textSecondary }]}
+        >
+          Email
+        </ThemedText>
+        <TextInput
+          style={[
+            styles.input,
+            { backgroundColor: theme.backgroundSecondary, color: theme.text },
+          ]}
+          value={email}
+          onChangeText={setEmail}
+          placeholder="you@example.com"
+          placeholderTextColor={theme.textSecondary}
+          keyboardType="email-address"
+          autoCapitalize="none"
+        />
+
+        <ThemedText
+          type="small"
+          style={[styles.fieldLabel, styles.inlineFieldLabel, { color: theme.textSecondary }]}
+        >
+          Location
+        </ThemedText>
+        <TextInput
+          style={[
+            styles.input,
+            { backgroundColor: theme.backgroundSecondary, color: theme.text },
+          ]}
+          value={location}
+          onChangeText={setLocation}
+          placeholder="City, State"
+          placeholderTextColor={theme.textSecondary}
+        />
+
+        <ThemedText
+          type="small"
+          style={[styles.fieldLabel, styles.inlineFieldLabel, { color: theme.textSecondary }]}
+        >
+          Photography Style
+        </ThemedText>
+        <TextInput
+          style={[
+            styles.input,
+            { backgroundColor: theme.backgroundSecondary, color: theme.text },
+          ]}
+          value={style}
+          onChangeText={setStyle}
+          placeholder="Documentary / Archival"
+          placeholderTextColor={theme.textSecondary}
+          maxLength={80}
+        />
+
+        <ThemedText
+          type="small"
+          style={[styles.fieldLabel, styles.inlineFieldLabel, { color: theme.textSecondary }]}
+        >
+          Curator Bio
+        </ThemedText>
+        <TextInput
+          style={[
+            styles.input,
+            styles.bioInput,
+            { backgroundColor: theme.backgroundSecondary, color: theme.text },
+          ]}
+          value={curatorBio}
+          onChangeText={setCuratorBio}
+          placeholder="Short curator bio"
+          placeholderTextColor={theme.textSecondary}
+          multiline
+          numberOfLines={3}
+          maxLength={180}
         />
       </View>
 
@@ -191,9 +326,17 @@ const styles = StyleSheet.create({
   fieldSection: {
     marginBottom: Spacing.xl,
   },
+  sectionDivider: {
+    height: 1,
+    backgroundColor: "rgba(127,127,127,0.18)",
+    marginBottom: Spacing.xl,
+  },
   fieldLabel: {
     marginBottom: Spacing.sm,
     fontWeight: "600",
+  },
+  inlineFieldLabel: {
+    marginTop: Spacing.md,
   },
   input: {
     height: 48,

@@ -1,12 +1,12 @@
-import React, { useState } from "react";
+import React, { useMemo, useState } from "react";
 import {
-  View,
-  StyleSheet,
+  FlatList,
   Image,
   Pressable,
-  Dimensions,
-  FlatList,
+  StyleSheet,
   TextInput,
+  useWindowDimensions,
+  View,
 } from "react-native";
 import { Feather } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
@@ -21,41 +21,55 @@ import { ThemedText } from "@/components/ThemedText";
 import { ThemedView } from "@/components/ThemedView";
 import { CustomHeader } from "@/components/CustomHeader";
 import { useTheme } from "@/hooks/useTheme";
+import { useScreenInsets } from "@/hooks/useScreenInsets";
 import { useStaggeredAnimation } from "@/hooks/useStaggeredAnimation";
-import { Spacing, BorderRadius } from "@/constants/theme";
-import { pressableConfig } from "@/utils/animations";
 import { TimelineStackParamList } from "@/navigation/TimelineStackNavigator";
 import { usePhotoStore, Photo } from "@/store/photoStore";
+import { pressableConfig } from "@/utils/animations";
 
-const { width } = Dimensions.get("window");
-const NUM_COLUMNS = 3;
-const ITEM_SPACING = Spacing.sm;
-const PHOTO_SIZE =
-  (width - Spacing.lg * 2 - ITEM_SPACING * (NUM_COLUMNS - 1)) / NUM_COLUMNS;
+type TimelineNav = NativeStackNavigationProp<TimelineStackParamList>;
 
 const AnimatedPressable = Animated.createAnimatedComponent(Pressable);
 
-interface PhotoCardProps {
-  photo: Photo;
-  onPress: () => void;
-  index: number;
+interface DecadeGroup {
+  decade: string;
+  photos: Photo[];
+  startIndex: number;
 }
 
-function PhotoCard({ photo, onPress, index }: PhotoCardProps) {
-  const { theme, skin } = useTheme();
+function TimelineTile({
+  photo,
+  index,
+  tileSize,
+  isSelected,
+  onOpen,
+  onToggle,
+}: {
+  photo: Photo;
+  index: number;
+  tileSize: number;
+  isSelected: boolean;
+  onOpen: () => void;
+  onToggle: () => void;
+}) {
+  const { theme, fonts, skin } = useTheme();
   const scale = useSharedValue(1);
-  const { opacity, translateY } = useStaggeredAnimation(index);
+  const { opacity, translateY } = useStaggeredAnimation(index, {
+    delay: 40,
+    startDelay: 60,
+    initialTranslateY: 16,
+  });
+
+  const config = pressableConfig[skin];
 
   const animatedStyle = useAnimatedStyle(() => ({
     opacity: opacity.value,
     transform: [{ scale: scale.value }, { translateY: translateY.value }],
   }));
 
-  const config = pressableConfig[skin];
-
   return (
     <AnimatedPressable
-      onPress={onPress}
+      onPress={onOpen}
       onPressIn={() => {
         scale.value = withSpring(config.scaleDown, {
           damping: config.damping,
@@ -69,145 +83,244 @@ function PhotoCard({ photo, onPress, index }: PhotoCardProps) {
         });
       }}
       style={[
-        styles.photoCard,
-        {
-          width: PHOTO_SIZE,
-          height: PHOTO_SIZE,
-          backgroundColor: theme.backgroundSecondary,
-          borderColor: theme.border,
-        },
+        styles.cardWrap,
+        { width: tileSize, height: tileSize + 32 },
         animatedStyle,
       ]}
     >
-      <Image
-        source={{ uri: photo.uri }}
-        style={styles.photoImage}
-        resizeMode="cover"
-      />
       <View
         style={[
-          styles.photoMeta,
-          { backgroundColor: theme.backgroundTertiary },
+          styles.photoCard,
+          {
+            borderColor: isSelected ? theme.accent : theme.border,
+            backgroundColor: theme.card,
+          },
         ]}
       >
-        <ThemedText
-          style={[styles.catalogNumber, { color: theme.textSecondary }]}
+        <Image source={{ uri: photo.uri }} style={styles.photoImage} resizeMode="cover" />
+
+        <Pressable
+          onPress={onToggle}
+          style={[
+            styles.selectToggle,
+            {
+              borderColor: isSelected ? theme.accent : "rgba(255,255,255,0.65)",
+              backgroundColor: isSelected ? theme.accent : "rgba(0,0,0,0.4)",
+            },
+          ]}
         >
-          {photo.catalogNumber}
+          {isSelected ? (
+            <Feather name="check" size={12} color={skin === "cyberpunk" ? "#000" : "#fff"} />
+          ) : null}
+        </Pressable>
+      </View>
+
+      <View
+        style={[
+          styles.metaRow,
+          {
+            backgroundColor: theme.backgroundSecondary,
+            borderColor: theme.border,
+          },
+        ]}
+      >
+        <ThemedText style={[styles.metaText, { color: theme.textSecondary, fontFamily: fonts.mono }]}> 
+          {photo.catalogNumber || `REF.${photo.year}`}
         </ThemedText>
       </View>
     </AnimatedPressable>
   );
 }
 
-function EmptyState() {
-  const { theme } = useTheme();
-
-  return (
-    <View style={styles.emptyContainer}>
-      <Feather name="inbox" size={48} color={theme.textSecondary} />
-      <ThemedText type="h3" style={styles.emptyTitle}>
-        No photos yet
-      </ThemedText>
-    </View>
-  );
-}
-
 export default function TimelineScreen() {
-  const { theme } = useTheme();
-  const navigation =
-    useNavigation<NativeStackNavigationProp<TimelineStackParamList>>();
+  const { theme, fonts } = useTheme();
+  const { paddingBottom, scrollInsetBottom } = useScreenInsets();
+  const { width } = useWindowDimensions();
+  const navigation = useNavigation<TimelineNav>();
   const { communityPhotos } = usePhotoStore();
+
   const [searchQuery, setSearchQuery] = useState("");
+  const [selectedIds, setSelectedIds] = useState<Set<string>>(new Set());
 
-  // Group photos by decade (descending)
-  const groupedByDecade = React.useMemo(() => {
-    const grouped: Record<string, typeof communityPhotos> = {};
-    communityPhotos.forEach((photo) => {
-      const decade = Math.floor(photo.year / 10) * 10;
-      const decadeKey = `${decade}S`;
-      if (!grouped[decadeKey]) grouped[decadeKey] = [];
-      grouped[decadeKey].push(photo);
+  const columns = width >= 1320 ? 5 : width >= 960 ? 4 : width >= 700 ? 3 : 2;
+  const sidePadding = 16;
+  const gap = 10;
+  const tileSize =
+    (width - sidePadding * 2 - gap * (columns - 1)) /
+    (columns > 0 ? columns : 1);
+
+  const filteredPhotos = useMemo(() => {
+    if (!searchQuery.trim()) return communityPhotos;
+
+    const normalized = searchQuery.trim().toLowerCase();
+    return communityPhotos.filter((photo) => {
+      const fields = [
+        photo.title,
+        photo.caption,
+        photo.catalogNumber,
+        photo.userName,
+        typeof photo.location === "string" ? photo.location : photo.location?.name,
+        String(photo.year),
+      ];
+
+      return fields.some((value) => value?.toLowerCase().includes(normalized));
     });
+  }, [communityPhotos, searchQuery]);
 
+  const decadeGroups = useMemo(() => {
+    const grouped: Record<string, Photo[]> = {};
+
+    [...filteredPhotos]
+      .sort((a, b) => b.year - a.year)
+      .forEach((photo) => {
+        const decade = `${Math.floor(photo.year / 10) * 10}s`;
+        if (!grouped[decade]) grouped[decade] = [];
+        grouped[decade].push(photo);
+      });
+
+    let runningIndex = 0;
     return Object.entries(grouped)
-      .sort((a, b) => parseInt(b[0]) - parseInt(a[0]))
-      .map(([decade, photos]) => ({ decade, photos }));
-  }, [communityPhotos]);
+      .sort((a, b) => parseInt(b[0], 10) - parseInt(a[0], 10))
+      .map(([decade, photos]) => {
+        const group: DecadeGroup = {
+          decade,
+          photos,
+          startIndex: runningIndex,
+        };
+        runningIndex += photos.length;
+        return group;
+      });
+  }, [filteredPhotos]);
 
-  const handlePhotoPress = (photo: (typeof communityPhotos)[0]) => {
+  const toggleSelection = (photoId: string) => {
+    setSelectedIds((prev) => {
+      const next = new Set(prev);
+      if (next.has(photoId)) {
+        next.delete(photoId);
+      } else {
+        next.add(photoId);
+      }
+      return next;
+    });
+  };
+
+  const clearSelection = () => setSelectedIds(new Set());
+
+  const openPhoto = (photo: Photo) => {
     navigation.navigate("PhotoDetail", { photoId: photo.id });
   };
 
   return (
     <ThemedView style={styles.container}>
-      <CustomHeader
-        photoCount={communityPhotos.length}
-        title="archives"
-        showMessageButton={true}
-      />
+      <CustomHeader title="archives" showMessageButton />
 
       <FlatList
-        data={groupedByDecade}
-        contentContainerStyle={styles.listContent}
-        scrollIndicatorInsets={{ right: 1 }}
+        data={decadeGroups}
+        keyExtractor={(item) => item.decade}
+        contentContainerStyle={{
+          paddingHorizontal: sidePadding,
+          paddingTop: 14,
+          paddingBottom: paddingBottom + 96,
+        }}
+        scrollIndicatorInsets={{ bottom: scrollInsetBottom + 72 }}
         ListHeaderComponent={
-          <View style={styles.headerSection}>
-            {/* Search Bar */}
+          <View style={styles.listHeader}>
             <View
               style={[
-                styles.searchContainer,
+                styles.searchBar,
                 {
                   backgroundColor: theme.backgroundSecondary,
                   borderColor: theme.border,
                 },
               ]}
             >
-              <Feather
-                name="search"
-                size={18}
-                color={theme.textSecondary}
-                style={styles.searchIcon}
-              />
+              <Feather name="search" size={16} color={theme.textSecondary} />
               <TextInput
-                style={[
-                  styles.searchInput,
-                  { color: theme.text, outlineStyle: "none" } as any,
-                ]}
-                placeholder="SEARCH"
-                placeholderTextColor={theme.textSecondary}
                 value={searchQuery}
                 onChangeText={setSearchQuery}
+                placeholder="Search by title, location or catalog..."
+                placeholderTextColor={theme.textSecondary}
+                style={[styles.searchInput, { color: theme.text, fontFamily: fonts.body }]}
               />
+            </View>
+
+            <View style={styles.summaryRow}>
+              <ThemedText style={[styles.summaryText, { color: theme.textSecondary, fontFamily: fonts.mono }]}> 
+                {filteredPhotos.length} records
+              </ThemedText>
+              {selectedIds.size > 0 ? (
+                <ThemedText style={[styles.summaryText, { color: theme.accent, fontFamily: fonts.mono }]}> 
+                  {selectedIds.size} selected
+                </ThemedText>
+              ) : null}
             </View>
           </View>
         }
         renderItem={({ item }) => (
           <View style={styles.decadeSection}>
-            {/* Decade Header */}
-            <ThemedText
-              type="h2"
-              style={[styles.decadeText, { color: theme.text }]}
-            >
-              {item.decade}
-            </ThemedText>
+            <View style={styles.decadeHeaderRow}>
+              <View style={[styles.decadeLine, { backgroundColor: theme.border }]} />
+              <ThemedText style={[styles.decadeText, { color: theme.accent, fontFamily: fonts.header }]}> 
+                {item.decade}
+              </ThemedText>
+              <View style={[styles.decadeLine, { backgroundColor: theme.border }]} />
+            </View>
 
-            {/* Photo Grid */}
-            <View style={styles.photoGrid}>
-              {item.photos.map((photo, index) => (
-                <PhotoCard
+            <View style={[styles.photoGrid, { gap }]}> 
+              {item.photos.map((photo, photoIndex) => (
+                <TimelineTile
                   key={photo.id}
                   photo={photo}
-                  index={index}
-                  onPress={() => handlePhotoPress(photo)}
+                  index={item.startIndex + photoIndex}
+                  tileSize={tileSize}
+                  isSelected={selectedIds.has(photo.id)}
+                  onOpen={() => openPhoto(photo)}
+                  onToggle={() => toggleSelection(photo.id)}
                 />
               ))}
             </View>
           </View>
         )}
-        keyExtractor={(item) => item.decade}
-        ListEmptyComponent={EmptyState}
+        ListEmptyComponent={
+          <View style={styles.emptyState}>
+            <Feather name="inbox" size={34} color={theme.textSecondary} />
+            <ThemedText style={[styles.emptyTitle, { color: theme.text }]}>No records found</ThemedText>
+            <ThemedText style={[styles.emptyHint, { color: theme.textSecondary }]}>Try a different search query.</ThemedText>
+          </View>
+        }
       />
+
+      {selectedIds.size > 0 ? (
+        <View
+          style={[
+            styles.batchToolbar,
+            {
+              borderColor: theme.border,
+              backgroundColor: theme.card,
+              bottom: Math.max(paddingBottom, 18),
+            },
+          ]}
+        >
+          <ThemedText style={[styles.batchText, { color: theme.text, fontFamily: fonts.mono }]}> 
+            {selectedIds.size} selected
+          </ThemedText>
+
+          <View style={styles.batchActions}>
+            <Pressable onPress={clearSelection} style={styles.batchButton}>
+              <Feather name="x" size={16} color={theme.textSecondary} />
+            </Pressable>
+            <Pressable onPress={() => {}} style={styles.batchButton}>
+              <Feather name="download" size={16} color={theme.textSecondary} />
+            </Pressable>
+            <Pressable onPress={() => {}} style={styles.batchButton}>
+              <Feather name="tag" size={16} color={theme.textSecondary} />
+            </Pressable>
+            <Pressable onPress={() => {}} style={styles.batchButton}>
+              <Feather name="trash-2" size={16} color={theme.error} />
+            </Pressable>
+          </View>
+        </View>
+      ) : null}
     </ThemedView>
   );
 }
@@ -216,73 +329,129 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
   },
-  listContent: {
-    paddingHorizontal: Spacing.lg,
-    paddingBottom: Spacing["2xl"],
+  listHeader: {
+    marginBottom: 14,
+    gap: 10,
   },
-  headerSection: {
-    paddingTop: Spacing.lg,
-    paddingBottom: Spacing.xl,
-    gap: Spacing.md,
-  },
-  searchContainer: {
+  searchBar: {
+    height: 44,
+    borderRadius: 12,
+    borderWidth: 1,
+    paddingHorizontal: 12,
     flexDirection: "row",
     alignItems: "center",
-    borderWidth: 1,
-    borderRadius: BorderRadius.sm,
-    paddingHorizontal: Spacing.md,
-    paddingVertical: Spacing.sm,
-  },
-  searchIcon: {
-    marginRight: Spacing.sm,
+    gap: 8,
   },
   searchInput: {
     flex: 1,
     fontSize: 14,
-    letterSpacing: 0.5,
-    padding: 0,
+    paddingVertical: 0,
   },
-  emptyContainer: {
-    flex: 1,
+  summaryRow: {
+    flexDirection: "row",
+    justifyContent: "space-between",
     alignItems: "center",
-    justifyContent: "center",
-    gap: Spacing.md,
-    paddingTop: Spacing["2xl"],
   },
-  emptyTitle: {
-    textAlign: "center",
+  summaryText: {
+    fontSize: 11,
+    textTransform: "uppercase",
   },
   decadeSection: {
-    marginBottom: Spacing["2xl"],
+    marginBottom: 16,
+  },
+  decadeHeaderRow: {
+    flexDirection: "row",
+    alignItems: "center",
+    gap: 10,
+    marginBottom: 10,
+  },
+  decadeLine: {
+    flex: 1,
+    height: 1,
   },
   decadeText: {
-    fontSize: 28,
-    fontWeight: "700",
-    marginBottom: Spacing.lg,
-    letterSpacing: 0.5,
+    fontSize: 14,
+    letterSpacing: 0.8,
+    textTransform: "uppercase",
   },
   photoGrid: {
     flexDirection: "row",
     flexWrap: "wrap",
-    gap: ITEM_SPACING,
+  },
+  cardWrap: {
+    overflow: "hidden",
   },
   photoCard: {
+    flex: 1,
     borderWidth: 1,
-    borderRadius: BorderRadius.xs,
+    borderRadius: 12,
     overflow: "hidden",
   },
   photoImage: {
-    flex: 1,
     width: "100%",
     height: "100%",
   },
-  photoMeta: {
-    padding: Spacing.xs,
+  selectToggle: {
+    position: "absolute",
+    top: 8,
+    right: 8,
+    width: 22,
+    height: 22,
+    borderRadius: 11,
+    borderWidth: 1,
+    alignItems: "center",
     justifyContent: "center",
+  },
+  metaRow: {
+    marginTop: 6,
+    borderWidth: 1,
+    borderRadius: 8,
+    paddingHorizontal: 8,
+    paddingVertical: 6,
     alignItems: "center",
   },
-  catalogNumber: {
-    fontSize: 8,
-    letterSpacing: 0.5,
+  metaText: {
+    fontSize: 9,
+    letterSpacing: 0.3,
+  },
+  emptyState: {
+    alignItems: "center",
+    justifyContent: "center",
+    paddingVertical: 48,
+    gap: 6,
+  },
+  emptyTitle: {
+    fontSize: 18,
+  },
+  emptyHint: {
+    fontSize: 13,
+  },
+  batchToolbar: {
+    position: "absolute",
+    left: 16,
+    right: 16,
+    borderRadius: 14,
+    borderWidth: 1,
+    paddingHorizontal: 12,
+    paddingVertical: 10,
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
+  },
+  batchText: {
+    fontSize: 11,
+    textTransform: "uppercase",
+  },
+  batchActions: {
+    flexDirection: "row",
+    alignItems: "center",
+    gap: 4,
+  },
+  batchButton: {
+    width: 34,
+    height: 34,
+    borderRadius: 10,
+    alignItems: "center",
+    justifyContent: "center",
   },
 });

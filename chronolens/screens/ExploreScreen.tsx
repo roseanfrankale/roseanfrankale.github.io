@@ -13,6 +13,7 @@ import { useNavigation } from "@react-navigation/native";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { CustomHeader } from "../components/CustomHeader";
 import { useTheme } from "../hooks/useTheme";
+import { useScreenInsets } from "@/hooks/useScreenInsets";
 import { ExploreStackParamList } from "@/navigation/ExploreStackNavigator";
 import { usePhotoStore, Photo } from "@/store/photoStore";
 
@@ -54,6 +55,7 @@ const MOCK_COMMUNITY_POSTS: CommunityPost[] = [
 
 export default function ExploreScreen() {
   const { colors } = useTheme();
+  const { paddingBottom, scrollInsetBottom } = useScreenInsets();
   const navigation =
     useNavigation<NativeStackNavigationProp<ExploreStackParamList>>();
   const { communityPhotos } = usePhotoStore();
@@ -245,7 +247,7 @@ export default function ExploreScreen() {
       >
         <Feather name="search" size={16} color={colors.textSecondary} />
         <TextInput
-          placeholder="Search by title, location, or catalog..."
+          placeholder="Search by title, location or catalog..."
           placeholderTextColor={colors.textSecondary}
           value={searchText}
           onChangeText={setSearchText}
@@ -286,7 +288,11 @@ export default function ExploreScreen() {
               {MOCK_COMMUNITY_POSTS.map(renderCommunityPost)}
             </View>
           }
-          contentContainerStyle={styles.listContent}
+          contentContainerStyle={[
+            styles.listContent,
+            { paddingBottom: paddingBottom + 24 },
+          ]}
+          scrollIndicatorInsets={{ bottom: scrollInsetBottom }}
           showsVerticalScrollIndicator={false}
           ItemSeparatorComponent={() => <View style={{ height: 8 }} />}
           SectionSeparatorComponent={() => <View style={{ height: 16 }} />}
