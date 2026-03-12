@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { View, StyleSheet, Pressable, Switch, Alert } from "react-native";
+import { View, StyleSheet, Pressable, Switch, Alert, Text } from "react-native";
 import { Feather } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
 
@@ -7,6 +7,8 @@ import { ScreenScrollView } from "@/components/ScreenScrollView";
 import { ThemedText } from "@/components/ThemedText";
 import { useTheme } from "@/hooks/useTheme";
 import { Spacing, BorderRadius } from "@/constants/theme";
+
+type ThemeMode = "light" | "dark" | "system";
 
 interface SettingRowProps {
   icon: keyof typeof Feather.glyphMap;
@@ -113,6 +115,12 @@ function SettingSection({
 export default function SettingsScreen() {
   const navigation = useNavigation();
   const { theme } = useTheme();
+  const {
+    skin,
+    toggleTheme,
+    colorModeSetting,
+    setColorMode,
+  } = useTheme();
 
   const [notifications, setNotifications] = useState(true);
   const [communityUpdates, setCommunityUpdates] = useState(true);
@@ -184,14 +192,59 @@ export default function SettingsScreen() {
       </SettingSection>
 
       <SettingSection title="Appearance">
-        <SettingRow
-          icon="moon"
-          label="Theme"
-          value="System"
-          onPress={() =>
-            Alert.alert("Theme", "Theme follows your system settings.")
-          }
-        />
+        <View style={styles.appearanceGroup}>
+          <ThemedText
+            type="small"
+            style={[styles.groupLabel, { color: theme.textSecondary }]}
+          >
+            SKIN
+          </ThemedText>
+          <View style={styles.toggleRow}>
+            <ToggleChip
+              label="Historian"
+              active={skin === "historian"}
+              onPress={() => skin !== "historian" && toggleTheme?.()}
+              theme={theme}
+            />
+            <ToggleChip
+              label="Cyberpunk"
+              active={skin === "cyberpunk"}
+              onPress={() => skin !== "cyberpunk" && toggleTheme?.()}
+              theme={theme}
+            />
+          </View>
+        </View>
+
+        <View style={[styles.divider, { backgroundColor: theme.border }]} />
+
+        <View style={styles.appearanceGroup}>
+          <ThemedText
+            type="small"
+            style={[styles.groupLabel, { color: theme.textSecondary }]}
+          >
+            COLOR MODE
+          </ThemedText>
+          <View style={styles.toggleRow}>
+            <ToggleChip
+              label="Light"
+              active={colorModeSetting === "light"}
+              onPress={() => setColorMode?.("light" as ThemeMode)}
+              theme={theme}
+            />
+            <ToggleChip
+              label="Dark"
+              active={colorModeSetting === "dark"}
+              onPress={() => setColorMode?.("dark" as ThemeMode)}
+              theme={theme}
+            />
+            <ToggleChip
+              label="System"
+              active={colorModeSetting === "system"}
+              onPress={() => setColorMode?.("system" as ThemeMode)}
+              theme={theme}
+            />
+          </View>
+        </View>
       </SettingSection>
 
       <SettingSection title="Privacy">
@@ -249,6 +302,43 @@ export default function SettingsScreen() {
   );
 }
 
+function ToggleChip({
+  label,
+  active,
+  onPress,
+  theme,
+}: {
+  label: string;
+  active: boolean;
+  onPress: () => void;
+  theme: any;
+}) {
+  return (
+    <Pressable
+      onPress={onPress}
+      style={[
+        styles.chip,
+        {
+          backgroundColor: active ? theme.accent : theme.backgroundSecondary,
+          borderColor: active ? theme.accent : theme.border,
+        },
+      ]}
+    >
+      <Text
+        style={[
+          styles.chipText,
+          {
+            color: active ? theme.backgroundRoot : theme.text,
+            fontWeight: active ? "600" : "500",
+          },
+        ]}
+      >
+        {label}
+      </Text>
+    </Pressable>
+  );
+}
+
 const styles = StyleSheet.create({
   section: {
     marginBottom: Spacing.xl,
@@ -293,5 +383,34 @@ const styles = StyleSheet.create({
   divider: {
     height: 1,
     marginLeft: 56,
+  },
+  appearanceGroup: {
+    paddingVertical: Spacing.lg,
+    paddingHorizontal: Spacing.lg,
+  },
+  groupLabel: {
+    fontSize: 10,
+    textTransform: "uppercase",
+    letterSpacing: 0.5,
+    marginBottom: Spacing.md,
+    fontWeight: "600",
+  },
+  toggleRow: {
+    flexDirection: "row",
+    gap: Spacing.sm,
+  },
+  chip: {
+    flex: 1,
+    paddingVertical: Spacing.md,
+    paddingHorizontal: Spacing.md,
+    borderRadius: BorderRadius.md,
+    borderWidth: 1.5,
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  chipText: {
+    fontSize: 12,
+    letterSpacing: 0.3,
+    textTransform: "uppercase",
   },
 });

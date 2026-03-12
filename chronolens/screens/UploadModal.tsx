@@ -15,12 +15,14 @@ interface UploadModalProps {
   isOpen: boolean;
   onClose: () => void;
   onCameraClick?: () => void;
+  onUploadComplete?: (assets: Array<{ uri: string; creationTime?: number }>) => void;
 }
 
 export default function UploadModal({
   isOpen,
   onClose,
   onCameraClick,
+  onUploadComplete,
 }: UploadModalProps) {
   const { colors } = useTheme();
   const [isProcessing, setIsProcessing] = useState(false);
@@ -50,6 +52,17 @@ export default function UploadModal({
       era: "Contemporary",
       confidence: 0.87,
     });
+
+    if (onUploadComplete) {
+      onUploadComplete(
+        assets
+          .filter((asset) => Boolean(asset?.uri))
+          .map((asset) => ({
+            uri: asset.uri,
+            creationTime: asset.creationTime,
+          })),
+      );
+    }
 
     setIsProcessing(false);
 

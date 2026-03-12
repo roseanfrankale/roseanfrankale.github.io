@@ -191,7 +191,24 @@ const SAMPLE_COMMUNITY_PHOTOS: Photo[] = [
   },
 ];
 
-let globalPhotos: Photo[] = [];
+const SAMPLE_ARCHIVE_PHOTOS: Photo[] = SAMPLE_COMMUNITY_PHOTOS.slice(0, 3).map(
+  (photo, index) => ({
+    ...photo,
+    id: `p-seed-${index + 1}`,
+    catalogNumber: `ARCH.${photo.year}-${String(index + 1).padStart(3, "0")}`,
+    isShared: false,
+    likes: 0,
+    comments: 0,
+    isLiked: false,
+    uploadDate: "2026-03-12",
+    userName: undefined,
+    userAvatar: undefined,
+    userPoints: undefined,
+    userId: undefined,
+  }),
+);
+
+let globalPhotos: Photo[] = [...SAMPLE_ARCHIVE_PHOTOS];
 let globalCommunityPhotos: Photo[] = [...SAMPLE_COMMUNITY_PHOTOS];
 let listeners: Set<() => void> = new Set();
 

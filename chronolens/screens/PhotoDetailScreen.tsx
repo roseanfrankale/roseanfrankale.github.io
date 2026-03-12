@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import {
   View,
   StyleSheet,
@@ -64,6 +64,10 @@ export default function PhotoDetailScreen() {
   const photo = getPhotoById(route.params.photoId);
   const [showComments, setShowComments] = useState(false);
   const [commentText, setCommentText] = useState("");
+  const [imageDimensions, setImageDimensions] = useState<{
+    width: number;
+    height: number;
+  } | null>(null);
 
   const deleteScale = useSharedValue(1);
   const deleteAnimatedStyle = useAnimatedStyle(() => ({
@@ -77,6 +81,52 @@ export default function PhotoDetailScreen() {
       </ThemedView>
     );
   }
+
+  useEffect(() => {
+    Image.getSize(
+      photo.uri,
+      (widthValue, heightValue) => {
+        setImageDimensions({ width: widthValue, height: heightValue });
+      },
+      () => {
+        setImageDimensions(null);
+      },
+    );
+  }, [photo.uri]);
+
+  const locationText =
+    typeof photo.location === "string"
+      ? photo.location
+      : photo.location?.name || "Location unknown";
+
+  const catalogText =
+    photo.catalogNumber || `CATALOG #A-${photo.year}${photo.id.toUpperCase()}`;
+
+  const titleText = photo.title || photo.caption || "Untitled Archive";
+  const descriptionText =
+    photo.caption ||
+    "No description has been added yet for this archival record.";
+
+  const classificationTags =
+    photo.tags && photo.tags.length > 0 ? photo.tags : ["Mechanism"];
+
+  const formatText = useMemo(() => {
+    const match = photo.uri.match(/\.([a-zA-Z0-9]+)(?:\?|$)/);
+    return match?.[1] ? match[1].toUpperCase() : "JPEG";
+  }, [photo.uri]);
+
+  const dimensionsText = imageDimensions
+    ? `${imageDimensions.width} x ${imageDimensions.height}`
+    : "Unknown";
+
+  const estimatedSizeText = imageDimensions
+    ? `${(
+        (imageDimensions.width * imageDimensions.height * 0.35) /
+        (1024 * 1024)
+      ).toFixed(1)} MB`
+    : "--";
+
+  const archivedByText = photo.userName || "ChronoLens Archive";
 
   const isOwnPhoto = photo.userId === "self" || !photo.userId;
 
@@ -102,6 +152,10 @@ export default function PhotoDetailScreen() {
     Alert.alert("Share", "Sharing functionality coming soon!");
   };
 
+  const handleDownload = () => {
+    Alert.alert("Download", "Download functionality coming soon!");
+  };
+
   return (
     <ThemedView style={styles.container}>
       <ScrollView
@@ -120,6 +174,145 @@ export default function PhotoDetailScreen() {
           style={styles.image}
           resizeMode="cover"
         />
+
+        <View style={styles.detailHeader}>
+          <ThemedText
+            type="caption"
+            style={[styles.catalogText, { color: theme.textSecondary }]}
+          >
+            {catalogText}
+          </ThemedText>
+          <ThemedText
+            type="h2"
+            style={[styles.detailTitle, { color: theme.text }]}
+          >
+            {titleText}
+          </ThemedText>
+          <View style={styles.detailMetaRow}>
+            <View style={styles.inlineMetaRow}>
+              <Feather name="calendar" size={14} color={theme.textSecondary} />
+              <ThemedText
+                type="body"
+                style={[styles.detailMetaText, { color: theme.textSecondary }]}
+              >
+                {photo.date}
+              </ThemedText>
+            </View>
+            <View style={styles.inlineMetaRow}>
+              <Feather name="map-pin" size={14} color={theme.textSecondary} />
+              <ThemedText
+                type="body"
+                style={[styles.detailMetaText, { color: theme.textSecondary }]}
+                numberOfLines={1}
+              >
+                {locationText}
+              </ThemedText>
+            </View>
+          </View>
+        </View>
+
+        <View
+          style={[styles.divider, { backgroundColor: theme.border, opacity: 0.8 }]}
+        />
+
+        <View style={styles.infoBlock}>
+          <ThemedText
+            type="caption"
+            style={[styles.sectionLabel, { color: theme.textSecondary }]}
+          >
+            Description
+          </ThemedText>
+          <ThemedText type="body" style={styles.sectionBody}>
+            {descriptionText}
+          </ThemedText>
+        </View>
+
+        <View style={styles.infoBlock}>
+          <ThemedText
+            type="caption"
+            style={[styles.sectionLabel, { color: theme.textSecondary }]}
+          >
+            Classification
+          </ThemedText>
+          <View style={styles.classificationRow}>
+            {classificationTags.map((tag, index) => {
+              const normalizedTag = tag.startsWith("#") ? tag : `#${tag}`;
+              return (
+                <View
+                  key={`${normalizedTag}-${index}`}
+                  style={[
+                    styles.classificationChip,
+                    {
+                      backgroundColor: theme.backgroundSecondary,
+                      borderColor: theme.border,
+                    },
+                  ]}
+                >
+                  <ThemedText type="body" style={styles.classificationText}>
+                    {normalizedTag}
+                  </ThemedText>
+                </View>
+              );
+            })}
+          </View>
+        </View>
+
+        <View
+          style={[
+            styles.technicalCard,
+            { backgroundColor: theme.backgroundSecondary, borderColor: theme.border },
+          ]}
+        >
+          <View style={styles.technicalRow}>
+            <View style={styles.technicalItem}>
+              <ThemedText
+                type="caption"
+                style={[styles.technicalLabel, { color: theme.textSecondary }]}
+              >
+                Dimensions
+              </ThemedText>
+              <ThemedText type="h4" style={styles.technicalValue}>
+                {dimensionsText}
+              </ThemedText>
+            </View>
+            <View style={styles.technicalItem}>
+              <ThemedText
+                type="caption"
+                style={[styles.technicalLabel, { color: theme.textSecondary }]}
+              >
+                Size
+              </ThemedText>
+              <ThemedText type="h4" style={styles.technicalValue}>
+                {estimatedSizeText}
+              </ThemedText>
+            </View>
+          </View>
+
+          <View style={styles.technicalRow}>
+            <View style={styles.technicalItem}>
+              <ThemedText
+                type="caption"
+                style={[styles.technicalLabel, { color: theme.textSecondary }]}
+              >
+                Format
+              </ThemedText>
+              <ThemedText type="h4" style={styles.technicalValue}>
+                {formatText}
+              </ThemedText>
+            </View>
+            <View style={styles.technicalItem}>
+              <ThemedText
+                type="caption"
+                style={[styles.technicalLabel, { color: theme.textSecondary }]}
+              >
+                Archived By
+              </ThemedText>
+              <ThemedText type="h4" style={styles.technicalValue}>
+                {archivedByText}
+              </ThemedText>
+            </View>
+          </View>
+        </View>
 
         <View style={styles.metadataSection}>
           <View
@@ -226,6 +419,16 @@ export default function PhotoDetailScreen() {
               ]}
             >
               <Feather name="share" size={24} color={theme.textSecondary} />
+            </Pressable>
+
+            <Pressable
+              onPress={handleDownload}
+              style={({ pressed }) => [
+                styles.actionButton,
+                { opacity: pressed ? 0.7 : 1 },
+              ]}
+            >
+              <Feather name="download" size={24} color={theme.textSecondary} />
             </Pressable>
           </View>
         ) : null}
@@ -334,6 +537,85 @@ const styles = StyleSheet.create({
     height: width - Spacing.xl * 2,
     borderRadius: BorderRadius.md,
     marginBottom: Spacing.xl,
+  },
+  detailHeader: {
+    marginBottom: Spacing.lg,
+  },
+  catalogText: {
+    textTransform: "uppercase",
+    letterSpacing: 1.2,
+    marginBottom: Spacing.sm,
+  },
+  detailTitle: {
+    textTransform: "uppercase",
+    marginBottom: Spacing.md,
+  },
+  detailMetaRow: {
+    flexDirection: "row",
+    flexWrap: "wrap",
+    gap: Spacing.md,
+  },
+  inlineMetaRow: {
+    flexDirection: "row",
+    alignItems: "center",
+    gap: Spacing.xs,
+    maxWidth: "100%",
+  },
+  detailMetaText: {
+    fontSize: 16,
+  },
+  divider: {
+    width: "100%",
+    height: 1,
+    marginBottom: Spacing.xl,
+  },
+  infoBlock: {
+    marginBottom: Spacing.xl,
+  },
+  sectionLabel: {
+    textTransform: "uppercase",
+    letterSpacing: 1.1,
+    marginBottom: Spacing.md,
+  },
+  sectionBody: {
+    lineHeight: 30,
+  },
+  classificationRow: {
+    flexDirection: "row",
+    flexWrap: "wrap",
+    gap: Spacing.sm,
+  },
+  classificationChip: {
+    borderWidth: 1,
+    borderRadius: BorderRadius.full,
+    paddingHorizontal: Spacing.md,
+    paddingVertical: Spacing.xs,
+  },
+  classificationText: {
+    fontWeight: "600",
+  },
+  technicalCard: {
+    borderWidth: 1,
+    borderRadius: BorderRadius.md,
+    padding: Spacing.lg,
+    marginBottom: Spacing.xl,
+    gap: Spacing.md,
+  },
+  technicalRow: {
+    flexDirection: "row",
+    gap: Spacing.lg,
+  },
+  technicalItem: {
+    flex: 1,
+    minWidth: 0,
+    gap: Spacing.xs,
+  },
+  technicalLabel: {
+    textTransform: "none",
+    letterSpacing: 0,
+  },
+  technicalValue: {
+    fontSize: 22,
   },
   metadataSection: {
     flexDirection: "row",

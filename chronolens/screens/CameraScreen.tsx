@@ -1,21 +1,46 @@
 import React, { useState, useRef, useEffect } from "react";
-import { View, Text, StyleSheet, Pressable } from "react-native";
+import { View, Text, StyleSheet, Pressable, Alert } from "react-native";
 import { CameraView, useCameraPermissions } from "expo-camera";
 import { Feather } from "@expo/vector-icons";
 import { useTheme } from "../hooks/useTheme";
 import * as MediaLibrary from "expo-media-library";
-import * as ImagePicker from "expo-image-picker";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
+import { usePhotoStore } from "@/store/photoStore";
+import UploadModal from "@/screens/UploadModal";
 
 export default function CameraScreen({ navigation }: any) {
   const { theme } = useTheme();
   const insets = useSafeAreaInsets();
   const cameraRef = useRef<any>(null);
   const [permission, requestPermission] = useCameraPermissions();
+  const { addPhoto } = usePhotoStore();
 
   const [cameraType, setCameraType] = useState<any>("back");
   const [flashMode, setFlashMode] = useState<any>("off");
   const [showGrid, setShowGrid] = useState(true);
+  const [showUploadModal, setShowUploadModal] = useState(false);
+
+  const addToArchive = (
+    photoUri: string,
+    createdAt?: string | number | Date,
+  ) => {
+    const parsedDate = createdAt ? new Date(createdAt) : new Date();
+    const isValidDate = !Number.isNaN(parsedDate.getTime());
+    const date = isValidDate ? parsedDate : new Date();
+    const year = date.getFullYear();
+    const isoDate = date.toISOString().split("T")[0];
+
+    addPhoto({
+      uri: photoUri,
+      year,
+      date: isoDate,
+      title: `New Capture ${year}`,
+      caption: "Added from camera",
+      catalogNumber: `REF.${year}-${Date.now().toString().slice(-4)}`,
+      tags: ["New"],
+      isShared: false,
+    });
+  };
 
   useEffect(() => {
     if (!permission?.granted) {
@@ -34,8 +59,16 @@ export default function CameraScreen({ navigation }: any) {
         // Save to media library
         await MediaLibrary.saveToLibraryAsync(photo.uri);
 
-        // Navigate back
-        navigation.goBack();
+        // Add to app archive
+        addToArchive(photo.uri);
+
+        Alert.alert("Captured", "Photo added to your archive.", [
+          { text: "Stay", style: "cancel" },
+          {
+            text: "View Timeline",
+            onPress: () => navigation.navigate("TimelineTab"),
+          },
+        ]);
       } catch (error) {
         console.error("Error taking picture:", error);
       }
@@ -51,26 +84,7 @@ export default function CameraScreen({ navigation }: any) {
   };
 
   const handleImport = async () => {
-    try {
-      const permissionResult =
-        await ImagePicker.requestMediaLibraryPermissionsAsync();
-
-      if (!permissionResult.granted) {
-        return;
-      }
-
-      const result = await ImagePicker.launchImageLibraryAsync({
-        mediaTypes: ImagePicker.MediaTypeOptions.Images,
-        allowsMultipleSelection: true,
-        quality: 0.95,
-      });
-
-      if (!result.canceled) {
-        navigation.navigate("TimelineTab");
-      }
-    } catch (error) {
-      console.error("Error importing photo:", error);
-    }
+    setShowUploadModal(true);
   };
 
   if (!permission?.granted) {
@@ -176,13 +190,17 @@ export default function CameraScreen({ navigation }: any) {
         </View>
 
         {/* Top Controls */}
-        <View style={[styles.topControls, { top: insets.top + 12 }]}>
+        <View style={[styles.topControls, { top: insets.top + 24 }]}>
           <Pressable
             onPress={() => navigation.goBack()}
-            style={[styles.iconButton, { backgroundColor: "rgba(0,0,0,0.5)" }]}
+            style={[styles.iconButton, { backgroundColor: "rgba(0,0,0,0.6)" }]}
           >
             <Feather name="x" size={24} color="white" />
           </Pressable>
+
+          <View style={styles.scannerModeLabel}>
+            <Text style={styles.scannerModeText}>CAPTURE / SCAN</Text>
+          </View>
 
           <View style={styles.topRightControls}>
             <Pressable
@@ -220,12 +238,22 @@ export default function CameraScreen({ navigation }: any) {
         </View>
 
         {/* Bottom Controls */}
-        <View style={[styles.bottomControls, { bottom: insets.bottom + 18 }]}>
+        <View
+          style={[
+            styles.bottomControls,
+            { bottom: Math.max(insets.bottom, 24) + 80 },
+          ]}
+        >
           <Pressable
             onPress={handleImport}
-            style={[styles.iconButton, { backgroundColor: "rgba(0,0,0,0.5)" }]}
+            style={styles.tabLikeButton}
           >
-            <Feather name="image" size={20} color="white" />
+            <View style={styles.tabLikeIconContainer}>
+              <Feather name="image" size={24} color={theme.tabIconDefault} />
+            </View>
+            <Text style={[styles.tabLikeLabel, { color: theme.tabIconDefault }]}>
+              Library
+            </Text>
           </Pressable>
 
           {/* Capture Button */}
@@ -239,26 +267,50 @@ export default function CameraScreen({ navigation }: any) {
                 { backgroundColor: theme.accent },
               ]}
             />
+            <Text style={[styles.captureLabel, { color: theme.accent }]}>
+              Capture
+            </Text>
           </Pressable>
 
           {/* Switch Camera */}
           <Pressable
             onPress={toggleCameraType}
-            style={[
-              styles.iconButton,
-              { backgroundColor: "rgba(0,0,0,0.5)", marginLeft: 16 },
-            ]}
+            style={styles.tabLikeButton}
           >
-            <Feather name="repeat" size={20} color="white" />
+            <View style={styles.tabLikeIconContainer}>
+              <Feather name="repeat" size={24} color={theme.tabIconDefault} />
+            </View>
+            <Text style={[styles.tabLikeLabel, { color: theme.tabIconDefault }]}>
+              Switch
+            </Text>
           </Pressable>
-
-          <View style={{ flex: 1 }} />
-
-          <Text style={[styles.cameraInfo, { color: theme.textSecondary }]}>
-            {cameraType === "back" ? "Back Camera" : "Front Camera"}
-          </Text>
         </View>
       </CameraView>
+
+      <UploadModal
+        isOpen={showUploadModal}
+        onClose={() => setShowUploadModal(false)}
+        onUploadComplete={(assets) => {
+          assets.forEach((asset) => {
+            if (asset?.uri) {
+              addToArchive(asset.uri, asset.creationTime);
+            }
+          });
+
+          if (assets.length > 0) {
+            Alert.alert(
+              "Uploaded",
+              `${assets.length} photo${assets.length > 1 ? "s" : ""} added to your archive.`,
+              [
+                {
+                  text: "OK",
+                  onPress: () => navigation.navigate("TimelineTab"),
+                },
+              ],
+            );
+          }
+        }}
+      />
     </View>
   );
 }
@@ -367,51 +419,88 @@ const styles = StyleSheet.create({
   },
   topControls: {
     position: "absolute",
-    left: 16,
-    right: 16,
+    top: 0,
+    left: 0,
+    right: 0,
+    zIndex: 999,
     flexDirection: "row",
     justifyContent: "space-between",
+    alignItems: "center",
+    paddingHorizontal: 16,
+    paddingVertical: 12,
+  },
+  scannerModeLabel: {
+    flex: 1,
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  scannerModeText: {
+    color: "white",
+    fontFamily: "JetBrainsMono-Regular",
+    fontSize: 10,
+    letterSpacing: 1.2,
+    textTransform: "uppercase",
+    opacity: 0.8,
   },
   topRightControls: {
     flexDirection: "row",
+    alignItems: "center",
     gap: 12,
   },
   iconButton: {
-    width: 48,
-    height: 48,
-    borderRadius: 24,
+    width: 50,
+    height: 50,
+    borderRadius: 25,
     justifyContent: "center",
     alignItems: "center",
+    zIndex: 1000,
   },
   bottomControls: {
     position: "absolute",
-    bottom: 40,
+    bottom: 0,
     left: 0,
     right: 0,
+    zIndex: 999,
     flexDirection: "row",
     justifyContent: "center",
-    alignItems: "center",
+    alignItems: "flex-end",
     paddingHorizontal: 16,
-    gap: 12,
+    paddingVertical: 12,
+    gap: 16,
   },
-  captureButton: {
-    width: 80,
-    height: 80,
-    borderRadius: 40,
-    borderWidth: 4,
-    backgroundColor: "white",
+  tabLikeButton: {
+    alignItems: "center",
+    justifyContent: "flex-end",
+    zIndex: 1000,
+    gap: 4,
+  },
+  tabLikeIconContainer: {
+    width: 44,
+    height: 44,
     justifyContent: "center",
     alignItems: "center",
+  },
+  tabLikeLabel: {
+    fontSize: 10,
+    fontWeight: "500",
+    fontFamily: "JetBrainsMono-Regular",
+  },
+  captureButton: {
+    alignItems: "center",
+    justifyContent: "flex-end",
+    gap: 8,
+    zIndex: 1000,
   },
   captureButtonInner: {
     width: 64,
     height: 64,
     borderRadius: 32,
   },
-  cameraInfo: {
-    fontFamily: "JetBrainsMono-Regular",
+  captureLabel: {
     fontSize: 10,
-    letterSpacing: 1,
+    fontWeight: "500",
+    fontFamily: "JetBrainsMono-Regular",
+    letterSpacing: 0.5,
     textTransform: "uppercase",
   },
 });

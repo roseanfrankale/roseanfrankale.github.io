@@ -68,7 +68,7 @@ export default function ExploreScreen() {
 
   return (
     <View style={[styles.container, { backgroundColor: theme.backgroundRoot }]}>
-      <CustomHeader title="home" showNotificationButton showMessageButton />
+      <CustomHeader variant="actionsOnly" />
 
       <ScrollView
         contentContainerStyle={{

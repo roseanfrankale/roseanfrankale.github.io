@@ -10,11 +10,12 @@ import {
 import { Feather } from "@expo/vector-icons";
 import { useTheme } from "@/hooks/useTheme";
 import { useScreenInsets } from "@/hooks/useScreenInsets";
-import { Spacing, Glass } from "@/constants/theme";
+import { Spacing } from "@/constants/theme";
 
 interface CustomHeaderProps {
   photoCount?: number;
   title?: string;
+  variant?: "default" | "actionsOnly";
   showNotificationButton?: boolean;
   onNotificationPress?: () => void;
   showMessageButton?: boolean;
@@ -25,7 +26,8 @@ interface CustomHeaderProps {
 }
 
 export function CustomHeader({
-  title = "archives",
+  title,
+  variant = "default",
   showNotificationButton = true,
   onNotificationPress,
   showMessageButton = false,
@@ -36,6 +38,11 @@ export function CustomHeader({
 }: CustomHeaderProps) {
   const { theme } = useTheme();
   const { paddingTop } = useScreenInsets();
+  const actionsOnly = variant === "actionsOnly";
+  const shouldShowNotificationButton =
+    actionsOnly ? true : showNotificationButton;
+  const shouldShowMessageButton = actionsOnly ? true : showMessageButton;
+  const shouldShowTitle = !actionsOnly && !!title;
 
   const handleNotificationPress = () => {
     if (onNotificationPress) {
@@ -60,10 +67,9 @@ export function CustomHeader({
       style={[
         styles.container,
         {
-          backgroundColor: theme.backgroundDefault,
+          backgroundColor: theme.backgroundRoot,
           borderBottomColor: theme.border,
           paddingTop: paddingTop + Spacing.xl + 16,
-          ...Glass[theme.isDark ? "dark" : "light"],
         },
         style,
       ]}
@@ -84,13 +90,13 @@ export function CustomHeader({
       </View>
 
       {/* Title */}
-      {title && (
+      {shouldShowTitle && (
         <Text style={[styles.titleText, { color: theme.text }]}>{title}</Text>
       )}
 
       {/* Buttons Container */}
       <View style={styles.buttonsContainer}>
-        {showNotificationButton && (
+        {shouldShowNotificationButton && (
           <Pressable
             onPress={handleNotificationPress}
             style={({ pressed }) => [
@@ -108,7 +114,7 @@ export function CustomHeader({
             />
           </Pressable>
         )}
-        {showMessageButton && (
+        {shouldShowMessageButton && (
           <Pressable
             onPress={handleMessagePress}
             style={({ pressed }) => [

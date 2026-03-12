@@ -11,6 +11,7 @@ import { Feather } from "@expo/vector-icons";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { useNavigation } from "@react-navigation/native";
 
+import { CustomHeader } from "@/components/CustomHeader";
 import { useTheme } from "@/hooks/useTheme";
 import { useScreenInsets } from "@/hooks/useScreenInsets";
 import { useAuth } from "@/contexts/AuthContext";
@@ -19,26 +20,21 @@ import { ProfileStackParamList } from "@/navigation/ProfileStackNavigator";
 
 type ProfileNav = NativeStackNavigationProp<ProfileStackParamList>;
 
-type ThemeMode = "light" | "dark" | "system";
-
 export default function ProfileScreen() {
   const navigation = useNavigation<ProfileNav>();
-  const { paddingTop, paddingBottom } = useScreenInsets();
+  const { paddingBottom } = useScreenInsets();
   const { user, logout } = useAuth();
   const { photos } = usePhotoStore();
   const {
     theme,
     fonts,
     skin,
-    toggleTheme,
-    colorModeSetting,
-    setColorMode,
     isDark,
   } = useTheme();
 
   const styles = useMemo(
-    () => createStyles(theme, fonts, skin, paddingTop, paddingBottom, isDark),
-    [theme, fonts, skin, paddingTop, paddingBottom, isDark],
+    () => createStyles(theme, fonts, skin, paddingBottom, isDark),
+    [theme, fonts, skin, paddingBottom, isDark],
   );
 
   const stats = useMemo(
@@ -110,11 +106,13 @@ export default function ProfileScreen() {
   };
 
   return (
-    <ScrollView
-      style={styles.screen}
-      contentContainerStyle={styles.contentContainer}
-      showsVerticalScrollIndicator={false}
-    >
+    <View style={styles.screen}>
+      <CustomHeader variant="actionsOnly" />
+
+      <ScrollView
+        contentContainerStyle={styles.contentContainer}
+        showsVerticalScrollIndicator={false}
+      >
       <View style={styles.heroCard}>
         <View style={styles.avatarCircle}>
           <Text style={styles.avatarText}>{displayName.charAt(0).toUpperCase()}</Text>
@@ -165,48 +163,6 @@ export default function ProfileScreen() {
             label="Share"
             icon="share-2"
             onPress={() => Alert.alert("Share", "Coming soon")}
-            styles={styles}
-          />
-        </View>
-      </View>
-
-      <View style={styles.sectionCard}>
-        <Text style={styles.sectionTitle}>Appearance</Text>
-
-        <Text style={styles.groupLabel}>Skin</Text>
-        <View style={styles.toggleRow}>
-          <ToggleChip
-            label="Historian"
-            active={skin === "historian"}
-            onPress={() => skin !== "historian" && toggleTheme?.()}
-            styles={styles}
-          />
-          <ToggleChip
-            label="Cyberpunk"
-            active={skin === "cyberpunk"}
-            onPress={() => skin !== "cyberpunk" && toggleTheme?.()}
-            styles={styles}
-          />
-        </View>
-
-        <Text style={styles.groupLabel}>Color Mode</Text>
-        <View style={styles.toggleRow}>
-          <ToggleChip
-            label="Light"
-            active={colorModeSetting === "light"}
-            onPress={() => setColorMode?.("light" as ThemeMode)}
-            styles={styles}
-          />
-          <ToggleChip
-            label="Dark"
-            active={colorModeSetting === "dark"}
-            onPress={() => setColorMode?.("dark" as ThemeMode)}
-            styles={styles}
-          />
-          <ToggleChip
-            label="System"
-            active={colorModeSetting === "system"}
-            onPress={() => setColorMode?.("system" as ThemeMode)}
             styles={styles}
           />
         </View>
@@ -326,7 +282,8 @@ export default function ProfileScreen() {
           </View>
         </Pressable>
       </View>
-    </ScrollView>
+      </ScrollView>
+    </View>
   );
 }
 
@@ -349,34 +306,10 @@ function ActionButton({
   );
 }
 
-function ToggleChip({
-  label,
-  active,
-  onPress,
-  styles,
-}: {
-  label: string;
-  active: boolean;
-  onPress: () => void;
-  styles: ReturnType<typeof createStyles>;
-}) {
-  return (
-    <Pressable
-      onPress={onPress}
-      style={[styles.chip, active ? styles.chipActive : styles.chipInactive]}
-    >
-      <Text style={[styles.chipText, active ? styles.chipTextActive : styles.chipTextInactive]}>
-        {label}
-      </Text>
-    </Pressable>
-  );
-}
-
 function createStyles(
   theme: any,
   fonts: any,
   skin: "historian" | "cyberpunk",
-  paddingTop: number,
   bottomInset: number,
   isDark: boolean,
 ) {
@@ -389,7 +322,7 @@ function createStyles(
         backgroundColor: theme.backgroundRoot,
       },
       contentContainer: {
-        paddingTop,
+        paddingTop: 12,
         paddingHorizontal: 16,
         paddingBottom: Math.max(bottomInset, 20) + 24,
         gap: 14,
@@ -513,20 +446,6 @@ function createStyles(
         textAlign: "center",
         fontFamily: fonts.mono,
       },
-      groupLabel: {
-        color: theme.textSecondary,
-        marginBottom: 8,
-        marginTop: 4,
-        fontSize: 11,
-        textTransform: "uppercase",
-        fontFamily: fonts.mono,
-      },
-      toggleRow: {
-        flexDirection: "row",
-        flexWrap: "wrap",
-        gap: 8,
-        marginBottom: 10,
-      },
       storageHeaderRow: {
         flexDirection: "row",
         alignItems: "center",
@@ -649,31 +568,6 @@ function createStyles(
         color: theme.textSecondary,
         fontSize: 11,
         fontFamily: fonts.mono,
-      },
-      chip: {
-        borderRadius: 999,
-        paddingHorizontal: 14,
-        paddingVertical: 8,
-        borderWidth: 1,
-      },
-      chipActive: {
-        backgroundColor: `${theme.accent}20`,
-        borderColor: theme.accent,
-      },
-      chipInactive: {
-        backgroundColor: theme.backgroundSecondary,
-        borderColor: theme.border,
-      },
-      chipText: {
-        fontSize: 11,
-        textTransform: "uppercase",
-        fontFamily: fonts.mono,
-      },
-      chipTextActive: {
-        color: theme.accent,
-      },
-      chipTextInactive: {
-        color: theme.textSecondary,
       },
       linkRow: {
         flexDirection: "row",

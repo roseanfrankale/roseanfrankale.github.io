@@ -8,13 +8,18 @@ import {
   Dimensions,
   ScrollView,
   FlatList,
+  TextInput,
 } from "react-native";
 import MapView, { Marker, PROVIDER_DEFAULT } from "react-native-maps";
 import { Feather } from "@expo/vector-icons";
+import { useNavigation } from "@react-navigation/native";
+import { NativeStackNavigationProp } from "@react-navigation/native-stack";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { ThemedText } from "@/components/ThemedText";
+import { CustomHeader } from "@/components/CustomHeader";
 import { useTheme } from "@/hooks/useTheme";
-import { useScreenInsets } from "@/hooks/useScreenInsets";
 import { Spacing, BorderRadius } from "@/constants/theme";
+import { MapStackParamList } from "@/navigation/MapStackNavigator";
 import { usePhotoStore, Photo, PhotoLocation } from "@/store/photoStore";
 
 const { height } = Dimensions.get("window");
@@ -24,7 +29,8 @@ interface ClusteredLocation {
   photos: Photo[];
 }
 
-// Group photos by location (clustering nearby coordinates)
+type MapNav = NativeStackNavigationProp<MapStackParamList>;
+
 function groupPhotosByLocation(photos: Photo[]): ClusteredLocation[] {
   const groups = new Map<string, ClusteredLocation>();
 
@@ -35,7 +41,6 @@ function groupPhotosByLocation(photos: Photo[]): ClusteredLocation[] {
       photo.location.lat &&
       photo.location.lng
     ) {
-      // Round to 3 decimal places for clustering (~111m precision)
       const key = `${photo.location.lat.toFixed(3)},${photo.location.lng.toFixed(3)}`;
 
       if (!groups.has(key)) {
@@ -52,23 +57,29 @@ function groupPhotosByLocation(photos: Photo[]): ClusteredLocation[] {
 }
 
 export default function MapScreen() {
+  const navigation = useNavigation<MapNav>();
   const { theme, fonts, skin } = useTheme();
-  const { paddingTop } = useScreenInsets();
-  const { photos } = usePhotoStore();
+  const { photos, communityPhotos } = usePhotoStore();
+  const insets = useSafeAreaInsets();
   const [selectedCluster, setSelectedCluster] =
     useState<ClusteredLocation | null>(null);
+  const [searchQuery, setSearchQuery] = useState("");
 
-  // Filter photos with valid location data
+  const mapSourcePhotos = useMemo(
+    () => [...photos, ...communityPhotos],
+    [photos, communityPhotos],
+  );
+
   const photosWithLocation = useMemo(
     () =>
-      photos.filter(
+      mapSourcePhotos.filter(
         (photo) =>
           photo.location &&
           typeof photo.location === "object" &&
           photo.location.lat &&
           photo.location.lng,
       ),
-    [photos],
+    [mapSourcePhotos],
   );
 
   const locationGroups = useMemo(
@@ -76,35 +87,45 @@ export default function MapScreen() {
     [photosWithLocation],
   );
 
-  // Calculate map region to fit all markers
-  const mapRegion = useMemo(() => {
-    if (locationGroups.length === 0) {
+  const filteredLocations = useMemo(
+    () =>
+      locationGroups.filter((group) =>
+        group.location.name.toLowerCase().includes(searchQuery.toLowerCase()),
+      ),
+    [locationGroups, searchQuery],
+  );
+
+  const previewRegion = useMemo(() => {
+    const source =
+      filteredLocations.length > 0 ? filteredLocations : locationGroups;
+
+    if (source.length === 0) {
       return {
         latitude: 20,
         longitude: 0,
-        latitudeDelta: 80,
-        longitudeDelta: 80,
+        latitudeDelta: 120,
+        longitudeDelta: 120,
       };
     }
 
-    const lats = locationGroups.map((g) => g.location.lat);
-    const lngs = locationGroups.map((g) => g.location.lng);
+    const latitudes = source.map((item) => item.location.lat);
+    const longitudes = source.map((item) => item.location.lng);
 
-    const minLat = Math.min(...lats);
-    const maxLat = Math.max(...lats);
-    const minLng = Math.min(...lngs);
-    const maxLng = Math.max(...lngs);
+    const minLat = Math.min(...latitudes);
+    const maxLat = Math.max(...latitudes);
+    const minLng = Math.min(...longitudes);
+    const maxLng = Math.max(...longitudes);
 
     return {
       latitude: (minLat + maxLat) / 2,
       longitude: (minLng + maxLng) / 2,
-      latitudeDelta: Math.max((maxLat - minLat) * 1.5, 10),
-      longitudeDelta: Math.max((maxLng - minLng) * 1.5, 10),
+      latitudeDelta: Math.max((maxLat - minLat) * 1.9, 30),
+      longitudeDelta: Math.max((maxLng - minLng) * 1.9, 40),
     };
-  }, [locationGroups]);
+  }, [filteredLocations, locationGroups]);
 
-  // Custom map style based on theme
-  const mapStyle = skin === "historian" ? historianMapStyle : cyberpunkMapStyle;
+  const previewMapStyle =
+    skin === "cyberpunk" ? cyberpunkPreviewMapStyle : historianPreviewMapStyle;
 
   const renderPhotoItem = ({ item }: { item: Photo }) => (
     <Pressable
@@ -116,8 +137,8 @@ export default function MapScreen() {
         },
       ]}
       onPress={() => {
-        // TODO: Navigate to photo detail
         setSelectedCluster(null);
+        navigation.navigate("PhotoDetail", { photoId: item.id });
       }}
     >
       <Image source={{ uri: item.uri }} style={styles.photoGridImage} />
@@ -128,94 +149,194 @@ export default function MapScreen() {
     <View
       style={[styles.container, { backgroundColor: theme.backgroundDefault }]}
     >
-      {/* Header */}
-      <View
-        style={[
-          styles.header,
-          {
-            backgroundColor: theme.backgroundDefault,
-            borderBottomColor: theme.border,
-            paddingTop: paddingTop + Spacing.xl,
-          },
-        ]}
-      >
-        <View>
-          <ThemedText
-            style={[
-              styles.headerTitle,
-              { fontFamily: fonts.header, color: theme.text },
-            ]}
-          >
-            Family Map
-          </ThemedText>
-          <ThemedText
-            type="caption"
-            style={[
-              styles.headerSubtitle,
-              { fontFamily: fonts.mono, color: theme.textSecondary },
-            ]}
-          >
-            {photosWithLocation.length} memories • {locationGroups.length}{" "}
-            locations
-          </ThemedText>
-        </View>
-        <View
-          style={[
-            styles.themeBadge,
-            {
-              borderColor: theme.border,
-              backgroundColor: theme.backgroundSecondary,
-            },
-          ]}
-        >
-          <ThemedText
-            type="small"
-            style={[
-              styles.themeBadgeText,
-              { fontFamily: fonts.mono, color: theme.textSecondary },
-            ]}
-          >
-            {skin === "historian" ? "🗺️ Vintage" : "🌐 Digital"}
-          </ThemedText>
-        </View>
-      </View>
+      <CustomHeader variant="actionsOnly" />
 
       {photosWithLocation.length > 0 ? (
-        <>
-          {/* Map */}
-          <View style={styles.mapContainer}>
-            <MapView
-              style={styles.map}
-              initialRegion={mapRegion}
-              provider={PROVIDER_DEFAULT}
-              customMapStyle={mapStyle}
-              showsUserLocation={false}
-              showsMyLocationButton={false}
-            >
-              {locationGroups.map((cluster, index) => (
-                <Marker
-                  key={index}
-                  coordinate={{
-                    latitude: cluster.location.lat,
-                    longitude: cluster.location.lng,
-                  }}
-                  onPress={() => setSelectedCluster(cluster)}
+        <ScrollView
+          contentContainerStyle={{
+            paddingHorizontal: Spacing.lg,
+            paddingTop: Spacing.lg,
+            paddingBottom: Math.max(insets.bottom, 20) + Spacing["2xl"],
+            gap: Spacing.lg,
+          }}
+          showsVerticalScrollIndicator={false}
+        >
+          {/* Search Bar */}
+          <View
+            style={[
+              styles.searchContainer,
+              {
+                backgroundColor: theme.backgroundSecondary,
+                borderColor: theme.border,
+              },
+            ]}
+          >
+            <Feather name="search" size={16} color={theme.textSecondary} />
+            <TextInput
+              placeholder="Search locations..."
+              placeholderTextColor={theme.textSecondary}
+              value={searchQuery}
+              onChangeText={setSearchQuery}
+              style={[
+                styles.searchInput,
+                { color: theme.text, fontFamily: fonts.mono },
+              ]}
+            />
+            {searchQuery ? (
+              <Pressable onPress={() => setSearchQuery("")}>
+                <Feather name="x" size={16} color={theme.textSecondary} />
+              </Pressable>
+            ) : null}
+          </View>
+
+          {/* Hero Card */}
+          <View
+            style={[
+              styles.heroCard,
+              {
+                backgroundColor: theme.card,
+                borderColor: theme.border,
+              },
+            ]}
+          >
+            <View style={styles.heroLeft}>
+              <View style={styles.heroLabelRow}>
+                <Feather name="map" size={14} color={theme.accent} />
+                <ThemedText
+                  style={[
+                    styles.heroLabel,
+                    { color: theme.accent, fontFamily: fonts.mono },
+                  ]}
                 >
-                  <View style={styles.markerContainer}>
+                  Spatial Archive
+                </ThemedText>
+              </View>
+              <ThemedText
+                style={[
+                  styles.heroTitle,
+                  {
+                    color: theme.text,
+                    fontFamily:
+                      skin === "cyberpunk" ? fonts.mono : fonts.header,
+                  },
+                ]}
+              >
+                {skin === "cyberpunk" ? "GEO_NODES" : "Family Locations"}
+              </ThemedText>
+              <ThemedText
+                style={[styles.heroBody, { color: theme.textSecondary }]}
+              >
+                {skin === "cyberpunk"
+                  ? `${filteredLocations.length} geographic clusters mapped`
+                  : `Visualize memories across ${filteredLocations.length} locations`}
+              </ThemedText>
+            </View>
+
+            <View
+              style={[styles.heroRight, { borderColor: `${theme.accent}44` }]}
+            >
+              <ThemedText
+                style={[
+                  styles.syncValue,
+                  { color: theme.accent, fontFamily: fonts.header },
+                ]}
+              >
+                {filteredLocations.length}
+              </ThemedText>
+              <ThemedText
+                style={[
+                  styles.syncLabel,
+                  { color: theme.textSecondary, fontFamily: fonts.mono },
+                ]}
+              >
+                Places
+              </ThemedText>
+            </View>
+          </View>
+
+          {/* Preview Map */}
+          <View
+            style={[
+              styles.previewCard,
+              {
+                backgroundColor: theme.card,
+                borderColor: theme.border,
+              },
+            ]}
+          >
+            <View style={styles.previewToolbar}>
+              <Pressable
+                style={[
+                  styles.previewToolbarButton,
+                  {
+                    backgroundColor: theme.backgroundSecondary,
+                    borderColor: theme.border,
+                  },
+                ]}
+              >
+                <Feather name="filter" size={16} color={theme.text} />
+              </Pressable>
+              <Pressable
+                style={[
+                  styles.previewToolbarButton,
+                  styles.previewToolbarButtonActive,
+                  { backgroundColor: theme.accent },
+                ]}
+              >
+                <Feather
+                  name="download"
+                  size={16}
+                  color={theme.backgroundRoot}
+                />
+              </Pressable>
+            </View>
+
+            <View
+              style={[
+                styles.previewMapFrame,
+                {
+                  borderColor: `${theme.border}AA`,
+                },
+              ]}
+            >
+              <MapView
+                style={styles.previewMap}
+                initialRegion={previewRegion}
+                region={previewRegion}
+                provider={PROVIDER_DEFAULT}
+                customMapStyle={previewMapStyle}
+                zoomEnabled={false}
+                rotateEnabled={false}
+                pitchEnabled={false}
+                scrollEnabled={false}
+                toolbarEnabled={false}
+                showsCompass={false}
+                showsScale={false}
+                mapType="standard"
+              >
+                {filteredLocations.slice(0, 8).map((cluster, index) => (
+                  <Marker
+                    key={`${cluster.location.name}-${index}`}
+                    coordinate={{
+                      latitude: cluster.location.lat,
+                      longitude: cluster.location.lng,
+                    }}
+                    onPress={() => setSelectedCluster(cluster)}
+                  >
                     <View
                       style={[
-                        styles.markerPin,
+                        styles.previewPin,
                         {
                           backgroundColor: theme.accent,
-                          borderColor: theme.backgroundDefault,
+                          shadowColor: theme.accent,
                         },
                       ]}
                     >
                       <ThemedText
                         style={[
-                          styles.markerCount,
+                          styles.previewPinText,
                           {
-                            color: theme.backgroundDefault,
+                            color: theme.backgroundRoot,
                             fontFamily: fonts.mono,
                           },
                         ]}
@@ -223,119 +344,53 @@ export default function MapScreen() {
                         {cluster.photos.length}
                       </ThemedText>
                     </View>
-                    <View
-                      style={[
-                        styles.markerLabel,
-                        {
-                          backgroundColor: theme.card,
-                          borderColor: theme.border,
-                        },
-                      ]}
-                    >
-                      <ThemedText
-                        type="small"
-                        style={[
-                          styles.markerLabelText,
-                          { fontFamily: fonts.mono, color: theme.text },
-                        ]}
-                      >
-                        {cluster.location.name}
-                      </ThemedText>
-                    </View>
-                  </View>
-                </Marker>
-              ))}
-            </MapView>
+                  </Marker>
+                ))}
+              </MapView>
+            </View>
+          </View>
 
-            {/* Attribution */}
-            <View
+          {/* Locations Section */}
+          <View>
+            <ThemedText
               style={[
-                styles.attribution,
+                styles.sectionTitle,
                 {
-                  backgroundColor: theme.card + "CC",
-                  borderColor: theme.border,
+                  color: theme.text,
+                  fontFamily: fonts.header,
+                  marginBottom: Spacing.md,
                 },
               ]}
             >
-              <ThemedText
-                type="small"
-                style={[
-                  styles.attributionText,
-                  { fontFamily: fonts.mono, color: theme.textSecondary },
-                ]}
-              >
-                CHRONOLENS FAMILY ATLAS
-              </ThemedText>
-            </View>
-          </View>
-
-          {/* Instructions */}
-          <View
-            style={[
-              styles.instructionsCard,
-              {
-                backgroundColor: theme.card,
-                borderColor: theme.accent + "40",
-              },
-            ]}
-          >
-            <Feather name="map-pin" size={18} color={theme.accent} />
-            <View style={styles.instructionsText}>
-              <ThemedText
-                style={[
-                  styles.instructionsTitle,
-                  { fontFamily: fonts.mono, color: theme.text },
-                ]}
-              >
-                Tap markers to view photos at that location
-              </ThemedText>
-              <ThemedText
-                type="small"
-                style={[
-                  styles.instructionsSubtitle,
-                  { color: theme.textSecondary },
-                ]}
-              >
-                Visualize your family&apos;s journey across time and geography
-              </ThemedText>
-            </View>
-          </View>
-
-          {/* Location Grid */}
-          <ScrollView style={styles.locationListContainer}>
-            <ThemedText
-              style={[
-                styles.locationListTitle,
-                { fontFamily: fonts.header, color: theme.text },
-              ]}
-            >
-              All Locations
+              Documented Locations
             </ThemedText>
-            {locationGroups.map((cluster, index) => (
+
+            {filteredLocations.map((cluster, index) => (
               <Pressable
                 key={index}
+                onPress={() => setSelectedCluster(cluster)}
                 style={[
                   styles.locationCard,
                   {
                     backgroundColor: theme.card,
                     borderColor: theme.border,
+                    marginBottom: Spacing.sm,
                   },
                 ]}
-                onPress={() => setSelectedCluster(cluster)}
               >
                 <View
                   style={[
                     styles.locationIcon,
-                    { backgroundColor: theme.accent + "20" },
+                    { backgroundColor: `${theme.accent}20` },
                   ]}
                 >
-                  <Feather name="map-pin" size={20} color={theme.accent} />
+                  <Feather name="map-pin" size={18} color={theme.accent} />
                 </View>
                 <View style={styles.locationInfo}>
                   <ThemedText
                     style={[
                       styles.locationName,
-                      { fontFamily: fonts.mono, color: theme.text },
+                      { color: theme.text, fontFamily: fonts.mono },
                     ]}
                     numberOfLines={1}
                   >
@@ -343,28 +398,35 @@ export default function MapScreen() {
                   </ThemedText>
                   <ThemedText
                     type="small"
-                    style={{ color: theme.textSecondary }}
+                    style={{ color: theme.textSecondary, fontSize: 11 }}
                   >
                     {cluster.photos.length}{" "}
-                    {cluster.photos.length === 1 ? "photo" : "photos"}
+                    {cluster.photos.length === 1 ? "memory" : "memories"}
                   </ThemedText>
                   <ThemedText
                     type="small"
                     style={[
-                      styles.locationCoords,
-                      { fontFamily: fonts.mono, color: theme.textSecondary },
+                      {
+                        color: theme.textSecondary,
+                        fontSize: 10,
+                        marginTop: 2,
+                        fontFamily: fonts.mono,
+                      },
                     ]}
                   >
-                    {cluster.location.lat.toFixed(2)}°,{" "}
-                    {cluster.location.lng.toFixed(2)}°
+                    {`${cluster.location.lat.toFixed(2)}°, ${cluster.location.lng.toFixed(2)}°`}
                   </ThemedText>
                 </View>
+                <Feather
+                  name="chevron-right"
+                  size={18}
+                  color={theme.textSecondary}
+                />
               </Pressable>
             ))}
-          </ScrollView>
-        </>
+          </View>
+        </ScrollView>
       ) : (
-        // Empty State
         <View style={styles.emptyState}>
           <Feather
             name="map"
@@ -398,20 +460,18 @@ export default function MapScreen() {
           transparent={true}
           onRequestClose={() => setSelectedCluster(null)}
         >
-          <Pressable
-            style={styles.modalBackdrop}
-            onPress={() => setSelectedCluster(null)}
-          />
           <View
             style={[
               styles.modalContent,
+              {
+                bottom: Math.max(insets.bottom, 16) + 54,
+              },
               {
                 backgroundColor: theme.card,
                 borderColor: theme.border,
               },
             ]}
           >
-            {/* Modal Header */}
             <View style={styles.modalHeader}>
               <View>
                 <ThemedText
@@ -444,7 +504,6 @@ export default function MapScreen() {
               </Pressable>
             </View>
 
-            {/* Photo Grid */}
             <FlatList
               data={selectedCluster.photos}
               renderItem={renderPhotoItem}
@@ -454,7 +513,6 @@ export default function MapScreen() {
               contentContainerStyle={styles.photoGridContainer}
             />
 
-            {/* Location Stats */}
             <View
               style={[
                 styles.statsContainer,
@@ -507,8 +565,7 @@ export default function MapScreen() {
                     { fontFamily: fonts.mono, color: theme.text },
                   ]}
                 >
-                  {selectedCluster.location.lat.toFixed(2)}°,{" "}
-                  {selectedCluster.location.lng.toFixed(2)}°
+                  {`${selectedCluster.location.lat.toFixed(2)}°, ${selectedCluster.location.lng.toFixed(2)}°`}
                 </ThemedText>
               </View>
             </View>
@@ -519,167 +576,154 @@ export default function MapScreen() {
   );
 }
 
-// Map styles
-const historianMapStyle = [
-  {
-    elementType: "geometry",
-    stylers: [{ color: "#F4E8D8" }],
-  },
-  {
-    elementType: "labels.text.fill",
-    stylers: [{ color: "#8B7355" }],
-  },
-  {
-    elementType: "labels.text.stroke",
-    stylers: [{ color: "#FFF8E7" }],
-  },
-  {
-    featureType: "water",
-    elementType: "geometry",
-    stylers: [{ color: "#C8DAE8" }],
-  },
-];
-
-const cyberpunkMapStyle = [
-  {
-    elementType: "geometry",
-    stylers: [{ color: "#0A0E27" }],
-  },
-  {
-    elementType: "labels.text.fill",
-    stylers: [{ color: "#00F0FF" }],
-  },
-  {
-    elementType: "labels.text.stroke",
-    stylers: [{ color: "#0A0E27" }],
-  },
-  {
-    featureType: "water",
-    elementType: "geometry",
-    stylers: [{ color: "#1A1F3A" }],
-  },
-];
-
 const styles = StyleSheet.create({
   container: {
     flex: 1,
   },
-  header: {
+  searchContainer: {
     flexDirection: "row",
-    justifyContent: "space-between",
     alignItems: "center",
-    paddingHorizontal: Spacing.lg,
-    paddingVertical: Spacing.md,
-    borderBottomWidth: 1,
+    paddingHorizontal: 12,
+    height: 46,
+    borderRadius: 12,
+    borderWidth: 1,
+    gap: 8,
   },
-  headerTitle: {
-    fontSize: 24,
-    fontWeight: "400",
-    marginBottom: 4,
+  searchInput: {
+    flex: 1,
+    fontSize: 14,
+    paddingVertical: 0,
   },
-  headerSubtitle: {
+  heroCard: {
+    borderWidth: 1,
+    borderRadius: 16,
+    padding: 14,
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
+    gap: 12,
+  },
+  heroLeft: {
+    flex: 1,
+  },
+  heroLabelRow: {
+    flexDirection: "row",
+    alignItems: "center",
+    gap: 6,
+    marginBottom: 6,
+  },
+  heroLabel: {
     fontSize: 10,
     textTransform: "uppercase",
     letterSpacing: 1,
-    opacity: 0.7,
   },
-  themeBadge: {
-    paddingHorizontal: Spacing.md,
-    paddingVertical: Spacing.xs,
-    borderRadius: BorderRadius.full,
-    borderWidth: 1,
+  heroTitle: {
+    fontSize: 20,
   },
-  themeBadgeText: {
+  heroBody: {
+    marginTop: 4,
     fontSize: 12,
+    lineHeight: 17,
   },
-  mapContainer: {
-    height: height * 0.4,
-    marginHorizontal: Spacing.lg,
-    marginTop: Spacing.lg,
-    borderRadius: BorderRadius.lg,
+  heroRight: {
+    width: 76,
+    height: 76,
+    borderRadius: 38,
+    borderWidth: 2,
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  syncValue: {
+    fontSize: 22,
+  },
+  syncLabel: {
+    marginTop: 2,
+    fontSize: 10,
+    textTransform: "uppercase",
+  },
+  previewCard: {
+    borderWidth: 1,
+    borderRadius: 18,
+    padding: 12,
+    gap: 12,
+  },
+  previewToolbar: {
+    flexDirection: "row",
+    gap: 10,
+  },
+  previewToolbarButton: {
+    flex: 1,
+    height: 42,
+    borderRadius: 10,
+    borderWidth: 1,
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  previewToolbarButtonActive: {
+    borderWidth: 0,
+  },
+  previewMapFrame: {
+    height: 320,
+    borderRadius: 16,
+    borderWidth: 1,
     overflow: "hidden",
     position: "relative",
   },
-  map: {
+  previewMap: {
     ...StyleSheet.absoluteFillObject,
   },
-  markerContainer: {
+  previewPin: {
+    minWidth: 36,
+    height: 36,
+    borderRadius: 18,
+    paddingHorizontal: 10,
     alignItems: "center",
-  },
-  markerPin: {
-    width: 40,
-    height: 40,
-    borderRadius: 20,
-    borderWidth: 3,
     justifyContent: "center",
-    alignItems: "center",
-    transform: [{ rotate: "-45deg" }],
+    shadowOffset: { width: 0, height: 8 },
+    shadowOpacity: 0.24,
+    shadowRadius: 16,
+    elevation: 4,
   },
-  markerCount: {
-    fontSize: 12,
-    fontWeight: "bold",
-    transform: [{ rotate: "45deg" }],
+  previewPinText: {
+    fontSize: 13,
   },
-  markerLabel: {
-    marginTop: 8,
-    paddingHorizontal: Spacing.sm,
-    paddingVertical: Spacing.xs,
-    borderRadius: BorderRadius.sm,
-    borderWidth: 1,
-  },
-  markerLabelText: {
-    fontSize: 10,
-  },
-  attribution: {
-    position: "absolute",
-    bottom: Spacing.sm,
-    right: Spacing.sm,
-    paddingHorizontal: Spacing.sm,
-    paddingVertical: Spacing.xs,
-    borderRadius: BorderRadius.sm,
-    borderWidth: 1,
-  },
-  attributionText: {
-    fontSize: 8,
-    opacity: 0.5,
-  },
-  instructionsCard: {
+  statsGrid: {
     flexDirection: "row",
-    marginHorizontal: Spacing.lg,
-    marginTop: Spacing.lg,
-    padding: Spacing.md,
-    borderRadius: BorderRadius.lg,
+    flexWrap: "wrap",
+    gap: 10,
+  },
+  statCard: {
+    width: "48.5%",
     borderWidth: 1,
-    gap: Spacing.md,
+    borderRadius: 12,
+    padding: 10,
   },
-  instructionsText: {
-    flex: 1,
+  statIcon: {
+    width: 28,
+    height: 28,
+    borderRadius: 8,
+    alignItems: "center",
+    justifyContent: "center",
+    marginBottom: 8,
   },
-  instructionsTitle: {
-    fontSize: 14,
-    marginBottom: 4,
+  statLabel: {
+    fontSize: 10,
+    textTransform: "uppercase",
   },
-  instructionsSubtitle: {
-    fontSize: 12,
-    opacity: 0.7,
-  },
-  locationListContainer: {
-    flex: 1,
-    paddingHorizontal: Spacing.lg,
-    marginTop: Spacing.lg,
-  },
-  locationListTitle: {
+  statValue: {
+    marginTop: 2,
     fontSize: 18,
-    fontWeight: "400",
-    marginBottom: Spacing.md,
+  },
+  sectionTitle: {
+    fontSize: 16,
   },
   locationCard: {
     flexDirection: "row",
     padding: Spacing.md,
     borderRadius: BorderRadius.lg,
     borderWidth: 1,
-    marginBottom: Spacing.sm,
     gap: Spacing.md,
+    alignItems: "center",
   },
   locationIcon: {
     width: 48,
@@ -695,11 +739,6 @@ const styles = StyleSheet.create({
   locationName: {
     fontSize: 14,
     marginBottom: 4,
-  },
-  locationCoords: {
-    fontSize: 10,
-    opacity: 0.5,
-    marginTop: 4,
   },
   emptyState: {
     flex: 1,
@@ -719,20 +758,19 @@ const styles = StyleSheet.create({
     opacity: 0.7,
     maxWidth: 300,
   },
-  modalBackdrop: {
-    flex: 1,
-    backgroundColor: "rgba(0,0,0,0.6)",
-  },
   modalContent: {
     position: "absolute",
-    bottom: 0,
-    left: 0,
-    right: 0,
-    maxHeight: height * 0.8,
-    borderTopLeftRadius: BorderRadius["2xl"],
-    borderTopRightRadius: BorderRadius["2xl"],
+    left: Spacing.md,
+    right: Spacing.md,
+    maxHeight: height * 0.72,
+    borderRadius: BorderRadius["2xl"],
     borderTopWidth: 1,
     paddingBottom: Spacing.xl,
+    shadowColor: "#000",
+    shadowOffset: { width: 0, height: 10 },
+    shadowOpacity: 0.2,
+    shadowRadius: 20,
+    elevation: 12,
   },
   modalHeader: {
     flexDirection: "row",
@@ -794,3 +832,33 @@ const styles = StyleSheet.create({
     fontSize: 12,
   },
 });
+
+const historianPreviewMapStyle = [
+  { elementType: "geometry", stylers: [{ color: "#e9ddcc" }] },
+  { elementType: "labels.text.fill", stylers: [{ color: "#5d4a39" }] },
+  { elementType: "labels.text.stroke", stylers: [{ color: "#f7efe2" }] },
+  {
+    featureType: "water",
+    elementType: "geometry",
+    stylers: [{ color: "#b7d2df" }],
+  },
+  { featureType: "poi", stylers: [{ visibility: "off" }] },
+  { featureType: "transit", stylers: [{ visibility: "off" }] },
+];
+
+const cyberpunkPreviewMapStyle = [
+  { elementType: "geometry", stylers: [{ color: "#091221" }] },
+  { elementType: "labels.text.fill", stylers: [{ color: "#89c7ff" }] },
+  { elementType: "labels.text.stroke", stylers: [{ color: "#0a1529" }] },
+  {
+    featureType: "water",
+    elementType: "geometry",
+    stylers: [{ color: "#142c4f" }],
+  },
+  {
+    featureType: "road",
+    elementType: "geometry",
+    stylers: [{ color: "#19385d" }],
+  },
+  { featureType: "poi", stylers: [{ visibility: "off" }] },
+];

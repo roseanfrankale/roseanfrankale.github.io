@@ -84,7 +84,7 @@ function TimelineTile({
       }}
       style={[
         styles.cardWrap,
-        { width: tileSize, height: tileSize + 32 },
+        { width: tileSize, height: tileSize + 56 },
         animatedStyle,
       ]}
     >
@@ -127,6 +127,35 @@ function TimelineTile({
         <ThemedText style={[styles.metaText, { color: theme.textSecondary, fontFamily: fonts.mono }]}> 
           {photo.catalogNumber || `REF.${photo.year}`}
         </ThemedText>
+
+        <View style={styles.metaInfoRow}>
+          <View style={styles.metaItem}>
+            <Feather name="calendar" size={10} color={theme.textSecondary} />
+            <ThemedText
+              style={[
+                styles.metaSubText,
+                { color: theme.textSecondary, fontFamily: fonts.body },
+              ]}
+            >
+              {photo.date}
+            </ThemedText>
+          </View>
+
+          <View style={styles.metaItem}>
+            <Feather name="map-pin" size={10} color={theme.textSecondary} />
+            <ThemedText
+              numberOfLines={1}
+              style={[
+                styles.metaSubText,
+                { color: theme.textSecondary, fontFamily: fonts.body },
+              ]}
+            >
+              {typeof photo.location === "string"
+                ? photo.location
+                : photo.location?.name || "Unknown"}
+            </ThemedText>
+          </View>
+        </View>
       </View>
     </AnimatedPressable>
   );
@@ -212,7 +241,7 @@ export default function TimelineScreen() {
 
   return (
     <ThemedView style={styles.container}>
-      <CustomHeader title="archives" showMessageButton />
+      <CustomHeader variant="actionsOnly" />
 
       <FlatList
         data={decadeGroups}
@@ -408,11 +437,25 @@ const styles = StyleSheet.create({
     borderRadius: 8,
     paddingHorizontal: 8,
     paddingVertical: 6,
-    alignItems: "center",
+    alignItems: "flex-start",
+    gap: 4,
   },
   metaText: {
     fontSize: 9,
     letterSpacing: 0.3,
+  },
+  metaInfoRow: {
+    width: "100%",
+    gap: 4,
+  },
+  metaItem: {
+    flexDirection: "row",
+    alignItems: "center",
+    gap: 4,
+  },
+  metaSubText: {
+    fontSize: 10,
+    flexShrink: 1,
   },
   emptyState: {
     alignItems: "center",

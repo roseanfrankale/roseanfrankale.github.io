@@ -79,6 +79,7 @@ export default function MainTabNavigator() {
                   WebkitBackdropFilter: "blur(16px)",
                 } as any)
               : {}),
+            ...(activeTab === "CameraTab" ? { display: "none" } : {}),
             ...(isLargeLayout ? { display: "none" } : {}),
           },
           tabBarBackground: () =>
@@ -135,14 +136,20 @@ export default function MainTabNavigator() {
           component={CameraScreen}
           options={{
             title: "Camera",
-            tabBarIcon: ({ color, size }) => (
+            tabBarIcon: ({ color, size, focused }) => (
               <View
-                style={[styles.cameraIconContainer, { borderColor: color }]}
+                style={[
+                  styles.cameraIconContainer,
+                  {
+                    backgroundColor: focused ? color : "transparent",
+                    borderColor: color,
+                  },
+                ]}
               >
                 <Feather
                   name="camera"
                   size={size - 4}
-                  color={color}
+                  color={focused ? theme.backgroundRoot : color}
                   strokeWidth={1.5}
                 />
               </View>
@@ -221,6 +228,7 @@ const styles = StyleSheet.create({
     borderWidth: 2,
     justifyContent: "center",
     alignItems: "center",
+    marginBottom: -8,
   },
   cameraLabel: {
     fontSize: 10,
