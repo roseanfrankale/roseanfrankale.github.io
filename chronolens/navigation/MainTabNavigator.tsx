@@ -4,7 +4,6 @@ import {
   StyleSheet,
   Platform,
   Text,
-  useWindowDimensions,
 } from "react-native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { Feather } from "@expo/vector-icons";
@@ -18,7 +17,6 @@ import MapStackNavigator from "@/navigation/MapStackNavigator";
 import CameraScreen from "@/screens/CameraScreen";
 import { useTheme } from "@/hooks/useTheme";
 import { Spacing, BorderRadius } from "@/constants/theme";
-import { WebLayout } from "@/components/WebLayout";
 
 export type MainTabParamList = {
   ExploreTab: undefined;
@@ -33,8 +31,6 @@ const Tab = createBottomTabNavigator<MainTabParamList>();
 export default function MainTabNavigator() {
   const { theme, isDark } = useTheme();
   const insets = useSafeAreaInsets();
-  const { width } = useWindowDimensions();
-  const isLargeLayout = Platform.OS === "web" && width >= 1280;
   const [activeTab, setActiveTab] = React.useState<keyof MainTabParamList>(
     "ExploreTab",
   );
@@ -80,7 +76,6 @@ export default function MainTabNavigator() {
                 } as any)
               : {}),
             ...(activeTab === "CameraTab" ? { display: "none" } : {}),
-            ...(isLargeLayout ? { display: "none" } : {}),
           },
           tabBarBackground: () =>
             Platform.OS === "ios" ? (
@@ -199,10 +194,6 @@ export default function MainTabNavigator() {
       </Tab.Navigator>
     </View>
   );
-
-  if (isLargeLayout) {
-    return <WebLayout activeTab={activeTab}>{tabNavigator}</WebLayout>;
-  }
 
   return tabNavigator;
 }
