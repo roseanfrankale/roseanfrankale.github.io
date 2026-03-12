@@ -1,310 +1,251 @@
-import React, { useState } from "react";
+import React, { useMemo, useState } from "react";
 import {
-  View,
-  Text,
+  Image,
+  Pressable,
+  ScrollView,
   StyleSheet,
   TextInput,
-  Pressable,
-  Image,
-  SectionList,
+  View,
 } from "react-native";
 import { Feather } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
-import { CustomHeader } from "../components/CustomHeader";
-import { useTheme } from "../hooks/useTheme";
+
+import { CustomHeader } from "@/components/CustomHeader";
+import { ThemedText } from "@/components/ThemedText";
+import { useTheme } from "@/hooks/useTheme";
 import { useScreenInsets } from "@/hooks/useScreenInsets";
 import { ExploreStackParamList } from "@/navigation/ExploreStackNavigator";
-import { usePhotoStore, Photo } from "@/store/photoStore";
+import { usePhotoStore } from "@/store/photoStore";
 
-interface CommunityPost {
-  id: string;
-  user: string;
-  location: string;
-  imageUrl: string;
-  caption: string;
-  likes: number;
-}
-
-const MOCK_COMMUNITY_POSTS: CommunityPost[] = [
-  {
-    id: "cp-1",
-    user: "@archive.anna",
-    location: "Lisbon, Portugal",
-    imageUrl: "https://picsum.photos/410/300",
-    caption: "Found this beautiful tile alley at golden hour.",
-    likes: 128,
-  },
-  {
-    id: "cp-2",
-    user: "@miles.catalog",
-    location: "Seoul, South Korea",
-    imageUrl: "https://picsum.photos/411/300",
-    caption: "Night market textures and colors from last weekend.",
-    likes: 204,
-  },
-  {
-    id: "cp-3",
-    user: "@retro.frames",
-    location: "Mexico City, Mexico",
-    imageUrl: "https://picsum.photos/412/300",
-    caption: "Street portrait series from Centro Histórico.",
-    likes: 176,
-  },
-];
+type ExploreNav = NativeStackNavigationProp<ExploreStackParamList>;
 
 export default function ExploreScreen() {
-  const { colors } = useTheme();
-  const { paddingBottom, scrollInsetBottom } = useScreenInsets();
-  const navigation =
-    useNavigation<NativeStackNavigationProp<ExploreStackParamList>>();
+  const { theme, skin, fonts } = useTheme();
+  const { paddingBottom } = useScreenInsets();
+  const navigation = useNavigation<ExploreNav>();
   const { communityPhotos } = usePhotoStore();
   const [searchText, setSearchText] = useState("");
 
-  // Group photos by year
-  const groupedPhotos = React.useMemo(() => {
-    const groups: Record<number, Photo[]> = {};
-    const sortedPhotos = [...communityPhotos].sort(
-      (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime(),
-    );
+  const filteredPhotos = useMemo(() => {
+    if (!searchText.trim()) return communityPhotos;
 
-    sortedPhotos.forEach((photo) => {
-      const year = new Date(photo.date).getFullYear();
-      if (!groups[year]) {
-        groups[year] = [];
-      }
-      groups[year].push(photo);
+    const normalized = searchText.trim().toLowerCase();
+    return communityPhotos.filter((photo) => {
+      const fields = [
+        photo.title,
+        photo.caption,
+        photo.catalogNumber,
+        typeof photo.location === "string" ? photo.location : photo.location?.name,
+      ];
+      return fields.some((value) => value?.toLowerCase().includes(normalized));
     });
+  }, [communityPhotos, searchText]);
 
-    return Object.entries(groups).sort(
-      ([yearA], [yearB]) => parseInt(yearB) - parseInt(yearA),
-    );
-  }, [communityPhotos]);
+  const totalPhotos = communityPhotos.length;
+  const locations = new Set(
+    communityPhotos.map((photo) =>
+      typeof photo.location === "string" ? photo.location : photo.location?.name,
+    ),
+  ).size;
+  const years = communityPhotos.map((photo) => photo.year);
+  const oldestYear = years.length ? Math.min(...years) : 0;
+  const newestYear = years.length ? Math.max(...years) : 0;
 
-  // Filter based on search text
-  const filteredGroups = React.useMemo(() => {
-    if (!searchText.trim()) return groupedPhotos;
+  const stats = [
+    { label: "Total Archives", value: String(totalPhotos).padStart(3, "0"), icon: "image" as const },
+    { label: "Anomalies", value: "03", icon: "zap" as const },
+    { label: "Sectors", value: String(locations).padStart(2, "0"), icon: "map-pin" as const },
+    {
+      label: "Temporal Span",
+      value: oldestYear && newestYear ? `${oldestYear}-${newestYear}` : "N/A",
+      icon: "calendar" as const,
+    },
+  ];
 
-    return groupedPhotos
-      .map(([year, photos]) => [
-        year,
-        photos.filter(
-          (photo) =>
-            photo.title?.toLowerCase().includes(searchText.toLowerCase()) ||
-            (typeof photo.location === "string" &&
-              photo.location
-                .toLowerCase()
-                .includes(searchText.toLowerCase())) ||
-            (typeof photo.location === "object" &&
-              photo.location?.name
-                .toLowerCase()
-                .includes(searchText.toLowerCase())) ||
-            photo.catalogNumber
-              ?.toLowerCase()
-              .includes(searchText.toLowerCase()),
-        ),
-      ])
-      .filter(([_, photos]) => (photos as Photo[]).length > 0);
-  }, [groupedPhotos, searchText]);
-
-  const renderYearHeader = ({ section: { title } }: any) => (
-    <View style={styles.yearHeaderContainer}>
-      <View style={[styles.yearLine, { backgroundColor: colors.border }]} />
-      <Text style={[styles.yearHeader, { color: colors.accent }]}>{title}</Text>
-      <View style={[styles.yearLine, { backgroundColor: colors.border }]} />
-    </View>
-  );
-
-  const renderPhotoEntry = ({ item }: { item: Photo }) => (
-    <Pressable
-      onPress={() => navigation.navigate("PhotoDetail", { photoId: item.id })}
-      style={[
-        styles.photoEntry,
-        {
-          backgroundColor: colors.backgroundDefault,
-          borderColor: colors.border,
-        },
-      ]}
-    >
-      <Image source={{ uri: item.uri }} style={styles.photoThumbnail} />
-      <View style={styles.entryContent}>
-        <Text style={[styles.catalogNumber, { color: colors.textSecondary }]}>
-          {item.catalogNumber}
-        </Text>
-        {item.title && (
-          <Text
-            style={[styles.photoTitle, { color: colors.text }]}
-            numberOfLines={1}
-          >
-            {item.title}
-          </Text>
-        )}
-        <View style={styles.metadataRow}>
-          {item.location && (
-            <View style={styles.metadataTag}>
-              <Feather name="map-pin" size={10} color={colors.textSecondary} />
-              <Text
-                style={[styles.metadataText, { color: colors.textSecondary }]}
-                numberOfLines={1}
-              >
-                {typeof item.location === "string"
-                  ? item.location
-                  : item.location.name}
-              </Text>
-            </View>
-          )}
-        </View>
-        <View style={styles.tagsRow}>
-          <View
-            style={[
-              styles.tag,
-              { backgroundColor: colors.backgroundSecondary },
-            ]}
-          >
-            <Feather name="calendar" size={10} color={colors.textSecondary} />
-            <Text style={[styles.tagText, { color: colors.textSecondary }]}>
-              {new Date(item.date).toLocaleDateString("en-US", {
-                month: "short",
-                day: "numeric",
-              })}
-            </Text>
-          </View>
-          {item.era && (
-            <View
-              style={[styles.tag, { backgroundColor: colors.accent + "1A" }]}
-            >
-              <Text style={[styles.tagText, { color: colors.accent }]}>
-                {item.era}
-              </Text>
-            </View>
-          )}
-        </View>
-      </View>
-    </Pressable>
-  );
-
-  const renderCommunityPost = (item: CommunityPost) => (
-    <Pressable
-      key={item.id}
-      onPress={() => navigation.navigate("PhotoDetail", { photoId: item.id })}
-      style={[
-        styles.communityCard,
-        {
-          backgroundColor: colors.backgroundDefault,
-          borderColor: colors.border,
-        },
-      ]}
-    >
-      <Image source={{ uri: item.imageUrl }} style={styles.communityImage} />
-      <View style={styles.communityContent}>
-        <View style={styles.communityMetaRow}>
-          <Text style={[styles.communityUser, { color: colors.text }]}>
-            {item.user}
-          </Text>
-          <View style={styles.communityLikes}>
-            <Feather name="heart" size={12} color={colors.accent} />
-            <Text style={[styles.communityLikesText, { color: colors.accent }]}>
-              {item.likes}
-            </Text>
-          </View>
-        </View>
-        <Text
-          style={[styles.communityLocation, { color: colors.textSecondary }]}
-        >
-          {item.location}
-        </Text>
-        <Text style={[styles.communityCaption, { color: colors.text }]}>
-          {item.caption}
-        </Text>
-      </View>
-    </Pressable>
-  );
-
-  const sections = filteredGroups.map(([year, photos]) => ({
-    title: year.toString(),
-    data: photos as Photo[],
-  }));
+  const recent = filteredPhotos.slice(0, 6);
+  const communityHighlights = filteredPhotos.slice(0, 3);
 
   return (
-    <View
-      style={[styles.container, { backgroundColor: colors.backgroundDefault }]}
-    >
-      <CustomHeader
-        title="explore"
-        showNotificationButton={true}
-        showMessageButton={true}
-      />
+    <View style={[styles.container, { backgroundColor: theme.backgroundRoot }]}>
+      <CustomHeader title="home" showNotificationButton showMessageButton />
 
-      {/* Search Bar */}
-      <View
-        style={[
-          styles.searchContainer,
-          {
-            backgroundColor: colors.backgroundSecondary,
-            borderColor: colors.border,
-          },
-        ]}
+      <ScrollView
+        contentContainerStyle={{
+          paddingHorizontal: 16,
+          paddingTop: 12,
+          paddingBottom: paddingBottom + 28,
+          gap: 12,
+        }}
+        showsVerticalScrollIndicator={false}
       >
-        <Feather name="search" size={16} color={colors.textSecondary} />
-        <TextInput
-          placeholder="Search by title, location or catalog..."
-          placeholderTextColor={colors.textSecondary}
-          value={searchText}
-          onChangeText={setSearchText}
+        <View
           style={[
-            styles.searchInput,
+            styles.searchContainer,
             {
-              color: colors.text,
+              backgroundColor: theme.backgroundSecondary,
+              borderColor: theme.border,
             },
           ]}
-        />
-        {searchText ? (
-          <Pressable onPress={() => setSearchText("")}>
-            <Feather name="x" size={16} color={colors.textSecondary} />
-          </Pressable>
-        ) : null}
-      </View>
-
-      {/* Photo Entries */}
-      {sections.length > 0 ? (
-        <SectionList
-          sections={sections}
-          keyExtractor={(item) => item.id}
-          renderItem={renderPhotoEntry}
-          renderSectionHeader={renderYearHeader}
-          ListFooterComponent={
-            <View style={styles.communitySection}>
-              <View style={styles.yearHeaderContainer}>
-                <View
-                  style={[styles.yearLine, { backgroundColor: colors.border }]}
-                />
-                <Text style={[styles.yearHeader, { color: colors.accent }]}>
-                  community
-                </Text>
-                <View
-                  style={[styles.yearLine, { backgroundColor: colors.border }]}
-                />
-              </View>
-              {MOCK_COMMUNITY_POSTS.map(renderCommunityPost)}
-            </View>
-          }
-          contentContainerStyle={[
-            styles.listContent,
-            { paddingBottom: paddingBottom + 24 },
-          ]}
-          scrollIndicatorInsets={{ bottom: scrollInsetBottom }}
-          showsVerticalScrollIndicator={false}
-          ItemSeparatorComponent={() => <View style={{ height: 8 }} />}
-          SectionSeparatorComponent={() => <View style={{ height: 16 }} />}
-        />
-      ) : (
-        <View style={styles.emptyContainer}>
-          <Feather name="inbox" size={48} color={colors.textSecondary} />
-          <Text style={[styles.emptyText, { color: colors.textSecondary }]}>
-            No photos found
-          </Text>
+        >
+          <Feather name="search" size={16} color={theme.textSecondary} />
+          <TextInput
+            placeholder="Search by title, location or catalog..."
+            placeholderTextColor={theme.textSecondary}
+            value={searchText}
+            onChangeText={setSearchText}
+            style={[styles.searchInput, { color: theme.text, fontFamily: fonts.body }]}
+          />
+          {searchText ? (
+            <Pressable onPress={() => setSearchText("")}>
+              <Feather name="x" size={16} color={theme.textSecondary} />
+            </Pressable>
+          ) : null}
         </View>
-      )}
+
+        <View
+          style={[
+            styles.heroCard,
+            {
+              backgroundColor: theme.card,
+              borderColor: theme.border,
+            },
+          ]}
+        >
+          <View style={styles.heroLeft}>
+            <View style={styles.heroLabelRow}>
+              <Feather name="activity" size={14} color={theme.accent} />
+              <ThemedText style={[styles.heroLabel, { color: theme.accent, fontFamily: fonts.mono }]}> 
+                System Online
+              </ThemedText>
+            </View>
+            <ThemedText
+              style={[
+                styles.heroTitle,
+                {
+                  color: theme.text,
+                  fontFamily: skin === "cyberpunk" ? fonts.mono : fonts.header,
+                },
+              ]}
+            >
+              {skin === "cyberpunk" ? "NEURAL_LINK_ACTIVE" : "Chronicle Status"}
+            </ThemedText>
+            <ThemedText style={[styles.heroBody, { color: theme.textSecondary }]}> 
+              {skin === "cyberpunk"
+                ? "All optical sensors are functioning within normal parameters."
+                : "Your archival collection is safely stored across the timeline."}
+            </ThemedText>
+          </View>
+
+          <View style={[styles.heroRight, { borderColor: `${theme.accent}44` }]}> 
+            <ThemedText style={[styles.syncValue, { color: theme.accent, fontFamily: fonts.header }]}> 
+              98%
+            </ThemedText>
+            <ThemedText style={[styles.syncLabel, { color: theme.textSecondary, fontFamily: fonts.mono }]}> 
+              Sync
+            </ThemedText>
+          </View>
+        </View>
+
+        <View style={styles.statsGrid}>
+          {stats.map((stat) => (
+            <View
+              key={stat.label}
+              style={[
+                styles.statCard,
+                {
+                  backgroundColor: theme.card,
+                  borderColor: theme.border,
+                },
+              ]}
+            >
+              <View style={[styles.statIcon, { backgroundColor: `${theme.accent}14` }]}> 
+                <Feather name={stat.icon} size={16} color={theme.accent} />
+              </View>
+              <ThemedText style={[styles.statLabel, { color: theme.textSecondary, fontFamily: fonts.mono }]}> 
+                {stat.label}
+              </ThemedText>
+              <ThemedText style={[styles.statValue, { color: theme.text, fontFamily: fonts.header }]}> 
+                {stat.value}
+              </ThemedText>
+            </View>
+          ))}
+        </View>
+
+        <SectionTitle title="Recent Ingestions" themeText={theme.text} font={fonts.header} />
+        <View style={styles.recentGrid}>
+          {recent.map((photo) => (
+            <Pressable
+              key={photo.id}
+              onPress={() => navigation.navigate("PhotoDetail", { photoId: photo.id })}
+              style={[
+                styles.recentCard,
+                { backgroundColor: theme.card, borderColor: theme.border },
+              ]}
+            >
+              <Image source={{ uri: photo.uri }} style={styles.recentImage} />
+              <View style={styles.recentMeta}>
+                <ThemedText style={[styles.recentCatalog, { color: theme.textSecondary, fontFamily: fonts.mono }]}> 
+                  {photo.catalogNumber || `REF.${photo.year}`}
+                </ThemedText>
+              </View>
+            </Pressable>
+          ))}
+        </View>
+
+        <SectionTitle title="Community Highlights" themeText={theme.text} font={fonts.header} />
+        <View style={styles.communityWrap}>
+          {communityHighlights.map((photo) => (
+            <Pressable
+              key={`community-${photo.id}`}
+              onPress={() => navigation.navigate("PhotoDetail", { photoId: photo.id })}
+              style={[
+                styles.communityCard,
+                { backgroundColor: theme.card, borderColor: theme.border },
+              ]}
+            >
+              <Image source={{ uri: photo.uri }} style={styles.communityImage} />
+              <View style={styles.communityBody}>
+                <View style={styles.communityTopRow}>
+                  <ThemedText style={[styles.communityUser, { color: theme.text }]}> 
+                    {photo.userName || "@community"}
+                  </ThemedText>
+                  <View style={styles.communityLikes}>
+                    <Feather name="heart" size={12} color={theme.accent} />
+                    <ThemedText style={[styles.communityLikesText, { color: theme.accent, fontFamily: fonts.mono }]}> 
+                      {photo.likes}
+                    </ThemedText>
+                  </View>
+                </View>
+                <ThemedText style={[styles.communityLocation, { color: theme.textSecondary }]}> 
+                  {typeof photo.location === "string" ? photo.location : photo.location?.name}
+                </ThemedText>
+                <ThemedText style={[styles.communityCaption, { color: theme.text }]} numberOfLines={2}> 
+                  {photo.caption || photo.title || "Community archive update"}
+                </ThemedText>
+              </View>
+            </Pressable>
+          ))}
+        </View>
+      </ScrollView>
+    </View>
+  );
+}
+
+function SectionTitle({
+  title,
+  themeText,
+  font,
+}: {
+  title: string;
+  themeText: string;
+  font: string;
+}) {
+  return (
+    <View style={styles.sectionTitleRow}>
+      <ThemedText style={[styles.sectionTitle, { color: themeText, fontFamily: font }]}> 
+        {title}
+      </ThemedText>
     </View>
   );
 }
@@ -316,112 +257,120 @@ const styles = StyleSheet.create({
   searchContainer: {
     flexDirection: "row",
     alignItems: "center",
-    marginHorizontal: 16,
-    marginVertical: 12,
     paddingHorizontal: 12,
-    height: 48,
+    height: 46,
     borderRadius: 12,
     borderWidth: 1,
     gap: 8,
   },
   searchInput: {
     flex: 1,
-    fontFamily: "JetBrainsMono-Regular",
     fontSize: 14,
+    paddingVertical: 0,
   },
-  listContent: {
-    paddingHorizontal: 16,
-    paddingBottom: 24,
-  },
-  yearHeaderContainer: {
+  heroCard: {
+    borderWidth: 1,
+    borderRadius: 16,
+    padding: 14,
     flexDirection: "row",
     alignItems: "center",
+    justifyContent: "space-between",
     gap: 12,
-    marginVertical: 16,
   },
-  yearLine: {
+  heroLeft: {
     flex: 1,
-    height: 1,
   },
-  yearHeader: {
-    fontFamily: "Cinzel-Regular",
-    fontSize: 14,
-    fontWeight: "600",
-    letterSpacing: 2,
-  },
-  photoEntry: {
+  heroLabelRow: {
     flexDirection: "row",
+    alignItems: "center",
+    gap: 6,
+    marginBottom: 6,
+  },
+  heroLabel: {
+    fontSize: 10,
+    textTransform: "uppercase",
+    letterSpacing: 1,
+  },
+  heroTitle: {
+    fontSize: 20,
+  },
+  heroBody: {
+    marginTop: 4,
+    fontSize: 12,
+    lineHeight: 17,
+  },
+  heroRight: {
+    width: 76,
+    height: 76,
+    borderRadius: 38,
+    borderWidth: 2,
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  syncValue: {
+    fontSize: 22,
+  },
+  syncLabel: {
+    marginTop: 2,
+    fontSize: 10,
+    textTransform: "uppercase",
+  },
+  statsGrid: {
+    flexDirection: "row",
+    flexWrap: "wrap",
+    gap: 10,
+  },
+  statCard: {
+    width: "48.5%",
+    borderWidth: 1,
+    borderRadius: 12,
+    padding: 10,
+  },
+  statIcon: {
+    width: 28,
+    height: 28,
+    borderRadius: 8,
+    alignItems: "center",
+    justifyContent: "center",
+    marginBottom: 8,
+  },
+  statLabel: {
+    fontSize: 10,
+    textTransform: "uppercase",
+  },
+  statValue: {
+    marginTop: 2,
+    fontSize: 18,
+  },
+  sectionTitleRow: {
+    marginTop: 2,
+  },
+  sectionTitle: {
+    fontSize: 16,
+  },
+  recentGrid: {
+    flexDirection: "row",
+    flexWrap: "wrap",
+    gap: 10,
+  },
+  recentCard: {
+    width: "48.5%",
     borderWidth: 1,
     borderRadius: 12,
     overflow: "hidden",
-    gap: 12,
   },
-  photoThumbnail: {
-    width: 100,
-    height: 100,
+  recentImage: {
+    width: "100%",
+    height: 124,
   },
-  entryContent: {
-    flex: 1,
-    padding: 12,
-    justifyContent: "space-between",
+  recentMeta: {
+    padding: 8,
   },
-  catalogNumber: {
-    fontFamily: "JetBrainsMono-Regular",
-    fontSize: 10,
-    letterSpacing: 1,
+  recentCatalog: {
+    fontSize: 9,
     textTransform: "uppercase",
   },
-  photoTitle: {
-    fontFamily: "Cinzel-Regular",
-    fontSize: 14,
-    fontWeight: "600",
-    marginTop: 4,
-  },
-  metadataRow: {
-    flexDirection: "row",
-    gap: 8,
-    marginTop: 4,
-  },
-  metadataTag: {
-    flexDirection: "row",
-    alignItems: "center",
-    gap: 4,
-  },
-  metadataText: {
-    fontFamily: "JetBrainsMono-Regular",
-    fontSize: 9,
-  },
-  tagsRow: {
-    flexDirection: "row",
-    gap: 6,
-    marginTop: 8,
-  },
-  tag: {
-    flexDirection: "row",
-    alignItems: "center",
-    gap: 4,
-    paddingHorizontal: 8,
-    paddingVertical: 4,
-    borderRadius: 4,
-  },
-  tagText: {
-    fontFamily: "JetBrainsMono-Regular",
-    fontSize: 9,
-    letterSpacing: 0.5,
-  },
-  emptyContainer: {
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-    gap: 12,
-  },
-  emptyText: {
-    fontFamily: "JetBrainsMono-Regular",
-    fontSize: 12,
-    letterSpacing: 1,
-  },
-  communitySection: {
-    marginTop: 12,
+  communityWrap: {
     gap: 10,
   },
   communityCard: {
@@ -431,19 +380,18 @@ const styles = StyleSheet.create({
   },
   communityImage: {
     width: "100%",
-    height: 160,
+    height: 170,
   },
-  communityContent: {
-    padding: 12,
-    gap: 6,
+  communityBody: {
+    padding: 10,
+    gap: 5,
   },
-  communityMetaRow: {
+  communityTopRow: {
     flexDirection: "row",
-    justifyContent: "space-between",
     alignItems: "center",
+    justifyContent: "space-between",
   },
   communityUser: {
-    fontFamily: "JetBrainsMono-Bold",
     fontSize: 12,
   },
   communityLikes: {
@@ -452,16 +400,13 @@ const styles = StyleSheet.create({
     gap: 4,
   },
   communityLikesText: {
-    fontFamily: "JetBrainsMono-Regular",
     fontSize: 11,
   },
   communityLocation: {
-    fontFamily: "JetBrainsMono-Regular",
     fontSize: 11,
   },
   communityCaption: {
-    fontFamily: "JetBrainsMono-Regular",
     fontSize: 12,
-    lineHeight: 18,
+    lineHeight: 17,
   },
 });

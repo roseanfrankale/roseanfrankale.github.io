@@ -16,19 +16,19 @@ type NavigationScreens = keyof MainTabParamList;
 interface NavItem {
   name: NavigationScreens;
   label: string;
-  icon: "archive" | "compass" | "map-pin" | "user" | "settings";
+  icon: "home" | "archive" | "map-pin" | "user" | "settings";
 }
 
 const NAV_ITEMS: NavItem[] = [
+  { name: "ExploreTab", label: "Home", icon: "home" },
   { name: "TimelineTab", label: "Timeline", icon: "archive" },
-  { name: "ExploreTab", label: "Explore", icon: "compass" },
   { name: "MapTab", label: "Map", icon: "map-pin" },
   { name: "ProfileTab", label: "Profile", icon: "user" },
 ];
 
 export const WebLayout: React.FC<WebLayoutProps> = ({
   children,
-  activeTab = "TimelineTab",
+  activeTab = "ExploreTab",
 }) => {
   const { width } = useWindowDimensions();
   const { theme, skin, colorMode } = useTheme();

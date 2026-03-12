@@ -1,12 +1,15 @@
 import React, { useState, useRef, useEffect } from "react";
-import { View, Text, StyleSheet, Pressable, Platform } from "react-native";
+import { View, Text, StyleSheet, Pressable } from "react-native";
 import { CameraView, useCameraPermissions } from "expo-camera";
 import { Feather } from "@expo/vector-icons";
 import { useTheme } from "../hooks/useTheme";
 import * as MediaLibrary from "expo-media-library";
+import * as ImagePicker from "expo-image-picker";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 export default function CameraScreen({ navigation }: any) {
   const { theme } = useTheme();
+  const insets = useSafeAreaInsets();
   const cameraRef = useRef<any>(null);
   const [permission, requestPermission] = useCameraPermissions();
 
@@ -45,6 +48,29 @@ export default function CameraScreen({ navigation }: any) {
 
   const toggleFlash = () => {
     setFlashMode((current: string) => (current === "off" ? "on" : "off"));
+  };
+
+  const handleImport = async () => {
+    try {
+      const permissionResult =
+        await ImagePicker.requestMediaLibraryPermissionsAsync();
+
+      if (!permissionResult.granted) {
+        return;
+      }
+
+      const result = await ImagePicker.launchImageLibraryAsync({
+        mediaTypes: ImagePicker.MediaTypeOptions.Images,
+        allowsMultipleSelection: true,
+        quality: 0.95,
+      });
+
+      if (!result.canceled) {
+        navigation.navigate("TimelineTab");
+      }
+    } catch (error) {
+      console.error("Error importing photo:", error);
+    }
   };
 
   if (!permission?.granted) {
@@ -150,7 +176,7 @@ export default function CameraScreen({ navigation }: any) {
         </View>
 
         {/* Top Controls */}
-        <View style={styles.topControls}>
+        <View style={[styles.topControls, { top: insets.top + 12 }]}>
           <Pressable
             onPress={() => navigation.goBack()}
             style={[styles.iconButton, { backgroundColor: "rgba(0,0,0,0.5)" }]}
@@ -194,7 +220,14 @@ export default function CameraScreen({ navigation }: any) {
         </View>
 
         {/* Bottom Controls */}
-        <View style={styles.bottomControls}>
+        <View style={[styles.bottomControls, { bottom: insets.bottom + 18 }]}>
+          <Pressable
+            onPress={handleImport}
+            style={[styles.iconButton, { backgroundColor: "rgba(0,0,0,0.5)" }]}
+          >
+            <Feather name="image" size={20} color="white" />
+          </Pressable>
+
           {/* Capture Button */}
           <Pressable
             onPress={handleCapture}
@@ -334,7 +367,6 @@ const styles = StyleSheet.create({
   },
   topControls: {
     position: "absolute",
-    top: Platform.OS === "ios" ? 60 : 40,
     left: 16,
     right: 16,
     flexDirection: "row",
