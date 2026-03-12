@@ -1,10 +1,12 @@
 import React, { useMemo, useState } from "react";
 import {
   Image,
+  Platform,
   Pressable,
   ScrollView,
   StyleSheet,
   TextInput,
+  useWindowDimensions,
   View,
 } from "react-native";
 import { Feather } from "@expo/vector-icons";
@@ -23,9 +25,15 @@ type ExploreNav = NativeStackNavigationProp<ExploreStackParamList>;
 export default function ExploreScreen() {
   const { theme, skin, fonts } = useTheme();
   const { paddingBottom } = useScreenInsets();
+  const { width } = useWindowDimensions();
   const navigation = useNavigation<ExploreNav>();
   const { communityPhotos } = usePhotoStore();
   const [searchText, setSearchText] = useState("");
+  const isDesktopWeb = Platform.OS === "web" && width >= 1280;
+
+  const statCardWidth = isDesktopWeb ? "23.6%" : "48.5%";
+  const recentCardWidth = isDesktopWeb ? "32.4%" : "48.5%";
+  const communityCardWidth = isDesktopWeb ? "32.4%" : "100%";
 
   const filteredPhotos = useMemo(() => {
     if (!searchText.trim()) return communityPhotos;
@@ -71,161 +79,169 @@ export default function ExploreScreen() {
       <CustomHeader variant="actionsOnly" />
 
       <ScrollView
-        contentContainerStyle={{
-          paddingHorizontal: 16,
-          paddingTop: 12,
-          paddingBottom: paddingBottom + 28,
-          gap: 12,
-        }}
+        contentContainerStyle={[
+          styles.scrollContent,
+          {
+            paddingHorizontal: isDesktopWeb ? 24 : 16,
+            paddingTop: 12,
+            paddingBottom: paddingBottom + 28,
+          },
+        ]}
         showsVerticalScrollIndicator={false}
       >
-        <View
-          style={[
-            styles.searchContainer,
-            {
-              backgroundColor: theme.backgroundSecondary,
-              borderColor: theme.border,
-            },
-          ]}
-        >
-          <Feather name="search" size={16} color={theme.textSecondary} />
-          <TextInput
-            placeholder="Search by title, location or catalog..."
-            placeholderTextColor={theme.textSecondary}
-            value={searchText}
-            onChangeText={setSearchText}
-            style={[styles.searchInput, { color: theme.text, fontFamily: fonts.body }]}
-          />
-          {searchText ? (
-            <Pressable onPress={() => setSearchText("")}>
-              <Feather name="x" size={16} color={theme.textSecondary} />
-            </Pressable>
-          ) : null}
-        </View>
-
-        <View
-          style={[
-            styles.heroCard,
-            {
-              backgroundColor: theme.card,
-              borderColor: theme.border,
-            },
-          ]}
-        >
-          <View style={styles.heroLeft}>
-            <View style={styles.heroLabelRow}>
-              <Feather name="activity" size={14} color={theme.accent} />
-              <ThemedText style={[styles.heroLabel, { color: theme.accent, fontFamily: fonts.mono }]}> 
-                System Online
-              </ThemedText>
-            </View>
-            <ThemedText
-              style={[
-                styles.heroTitle,
-                {
-                  color: theme.text,
-                  fontFamily: skin === "cyberpunk" ? fonts.mono : fonts.header,
-                },
-              ]}
-            >
-              {skin === "cyberpunk" ? "NEURAL_LINK_ACTIVE" : "Chronicle Status"}
-            </ThemedText>
-            <ThemedText style={[styles.heroBody, { color: theme.textSecondary }]}> 
-              {skin === "cyberpunk"
-                ? "All optical sensors are functioning within normal parameters."
-                : "Your archival collection is safely stored across the timeline."}
-            </ThemedText>
+        <View style={[styles.dashboardContent, isDesktopWeb && styles.dashboardContentDesktop]}>
+          <View
+            style={[
+              styles.searchContainer,
+              {
+                backgroundColor: theme.backgroundSecondary,
+                borderColor: theme.border,
+              },
+            ]}
+          >
+            <Feather name="search" size={16} color={theme.textSecondary} />
+            <TextInput
+              placeholder="Search by title, location or catalog..."
+              placeholderTextColor={theme.textSecondary}
+              value={searchText}
+              onChangeText={setSearchText}
+              style={[styles.searchInput, { color: theme.text, fontFamily: fonts.body }]}
+            />
+            {searchText ? (
+              <Pressable onPress={() => setSearchText("")}>
+                <Feather name="x" size={16} color={theme.textSecondary} />
+              </Pressable>
+            ) : null}
           </View>
 
-          <View style={[styles.heroRight, { borderColor: `${theme.accent}44` }]}> 
-            <ThemedText style={[styles.syncValue, { color: theme.accent, fontFamily: fonts.header }]}> 
-              98%
-            </ThemedText>
-            <ThemedText style={[styles.syncLabel, { color: theme.textSecondary, fontFamily: fonts.mono }]}> 
-              Sync
-            </ThemedText>
-          </View>
-        </View>
-
-        <View style={styles.statsGrid}>
-          {stats.map((stat) => (
-            <View
-              key={stat.label}
-              style={[
-                styles.statCard,
-                {
-                  backgroundColor: theme.card,
-                  borderColor: theme.border,
-                },
-              ]}
-            >
-              <View style={[styles.statIcon, { backgroundColor: `${theme.accent}14` }]}> 
-                <Feather name={stat.icon} size={16} color={theme.accent} />
-              </View>
-              <ThemedText style={[styles.statLabel, { color: theme.textSecondary, fontFamily: fonts.mono }]}> 
-                {stat.label}
-              </ThemedText>
-              <ThemedText style={[styles.statValue, { color: theme.text, fontFamily: fonts.header }]}> 
-                {stat.value}
-              </ThemedText>
-            </View>
-          ))}
-        </View>
-
-        <SectionTitle title="Recent Ingestions" themeText={theme.text} font={fonts.header} />
-        <View style={styles.recentGrid}>
-          {recent.map((photo) => (
-            <Pressable
-              key={photo.id}
-              onPress={() => navigation.navigate("PhotoDetail", { photoId: photo.id })}
-              style={[
-                styles.recentCard,
-                { backgroundColor: theme.card, borderColor: theme.border },
-              ]}
-            >
-              <Image source={{ uri: photo.uri }} style={styles.recentImage} />
-              <View style={styles.recentMeta}>
-                <ThemedText style={[styles.recentCatalog, { color: theme.textSecondary, fontFamily: fonts.mono }]}> 
-                  {photo.catalogNumber || `REF.${photo.year}`}
+          <View
+            style={[
+              styles.heroCard,
+              isDesktopWeb && styles.heroCardDesktop,
+              {
+                backgroundColor: theme.card,
+                borderColor: theme.border,
+              },
+            ]}
+          >
+            <View style={styles.heroLeft}>
+              <View style={styles.heroLabelRow}>
+                <Feather name="activity" size={14} color={theme.accent} />
+                <ThemedText style={[styles.heroLabel, { color: theme.accent, fontFamily: fonts.mono }]}> 
+                  System Online
                 </ThemedText>
               </View>
-            </Pressable>
-          ))}
-        </View>
+              <ThemedText
+                style={[
+                  styles.heroTitle,
+                  {
+                    color: theme.text,
+                    fontFamily: skin === "cyberpunk" ? fonts.mono : fonts.header,
+                  },
+                ]}
+              >
+                {skin === "cyberpunk" ? "NEURAL_LINK_ACTIVE" : "Chronicle Status"}
+              </ThemedText>
+              <ThemedText style={[styles.heroBody, { color: theme.textSecondary }]}> 
+                {skin === "cyberpunk"
+                  ? "All optical sensors are functioning within normal parameters."
+                  : "Your archival collection is safely stored across the timeline."}
+              </ThemedText>
+            </View>
 
-        <SectionTitle title="Community Highlights" themeText={theme.text} font={fonts.header} />
-        <View style={styles.communityWrap}>
-          {communityHighlights.map((photo) => (
-            <Pressable
-              key={`community-${photo.id}`}
-              onPress={() => navigation.navigate("PhotoDetail", { photoId: photo.id })}
-              style={[
-                styles.communityCard,
-                { backgroundColor: theme.card, borderColor: theme.border },
-              ]}
-            >
-              <Image source={{ uri: photo.uri }} style={styles.communityImage} />
-              <View style={styles.communityBody}>
-                <View style={styles.communityTopRow}>
-                  <ThemedText style={[styles.communityUser, { color: theme.text }]}> 
-                    {photo.userName || "@community"}
-                  </ThemedText>
-                  <View style={styles.communityLikes}>
-                    <Feather name="heart" size={12} color={theme.accent} />
-                    <ThemedText style={[styles.communityLikesText, { color: theme.accent, fontFamily: fonts.mono }]}> 
-                      {photo.likes}
-                    </ThemedText>
-                  </View>
+            <View style={[styles.heroRight, { borderColor: `${theme.accent}44` }]}> 
+              <ThemedText style={[styles.syncValue, { color: theme.accent, fontFamily: fonts.header }]}> 
+                98%
+              </ThemedText>
+              <ThemedText style={[styles.syncLabel, { color: theme.textSecondary, fontFamily: fonts.mono }]}> 
+                Sync
+              </ThemedText>
+            </View>
+          </View>
+
+          <View style={styles.statsGrid}>
+            {stats.map((stat) => (
+              <View
+                key={stat.label}
+                style={[
+                  styles.statCard,
+                  { width: statCardWidth },
+                  {
+                    backgroundColor: theme.card,
+                    borderColor: theme.border,
+                  },
+                ]}
+              >
+                <View style={[styles.statIcon, { backgroundColor: `${theme.accent}14` }]}> 
+                  <Feather name={stat.icon} size={16} color={theme.accent} />
                 </View>
-                <ThemedText style={[styles.communityLocation, { color: theme.textSecondary }]}> 
-                  {typeof photo.location === "string" ? photo.location : photo.location?.name}
+                <ThemedText style={[styles.statLabel, { color: theme.textSecondary, fontFamily: fonts.mono }]}> 
+                  {stat.label}
                 </ThemedText>
-                <ThemedText style={[styles.communityCaption, { color: theme.text }]} numberOfLines={2}> 
-                  {photo.caption || photo.title || "Community archive update"}
+                <ThemedText style={[styles.statValue, { color: theme.text, fontFamily: fonts.header }]}> 
+                  {stat.value}
                 </ThemedText>
               </View>
-            </Pressable>
-          ))}
+            ))}
+          </View>
+
+          <SectionTitle title="Recent Ingestions" themeText={theme.text} font={fonts.header} />
+          <View style={styles.recentGrid}>
+            {recent.map((photo) => (
+              <Pressable
+                key={photo.id}
+                onPress={() => navigation.navigate("PhotoDetail", { photoId: photo.id })}
+                style={[
+                  styles.recentCard,
+                  { width: recentCardWidth },
+                  { backgroundColor: theme.card, borderColor: theme.border },
+                ]}
+              >
+                <Image source={{ uri: photo.uri }} style={styles.recentImage} />
+                <View style={styles.recentMeta}>
+                  <ThemedText style={[styles.recentCatalog, { color: theme.textSecondary, fontFamily: fonts.mono }]}> 
+                    {photo.catalogNumber || `REF.${photo.year}`}
+                  </ThemedText>
+                </View>
+              </Pressable>
+            ))}
+          </View>
+
+          <SectionTitle title="Community Highlights" themeText={theme.text} font={fonts.header} />
+          <View style={styles.communityWrap}>
+            {communityHighlights.map((photo) => (
+              <Pressable
+                key={`community-${photo.id}`}
+                onPress={() => navigation.navigate("PhotoDetail", { photoId: photo.id })}
+                style={[
+                  styles.communityCard,
+                  { width: communityCardWidth },
+                  { backgroundColor: theme.card, borderColor: theme.border },
+                ]}
+              >
+                <Image source={{ uri: photo.uri }} style={styles.communityImage} />
+                <View style={styles.communityBody}>
+                  <View style={styles.communityTopRow}>
+                    <ThemedText style={[styles.communityUser, { color: theme.text }]}> 
+                      {photo.userName || "@community"}
+                    </ThemedText>
+                    <View style={styles.communityLikes}>
+                      <Feather name="heart" size={12} color={theme.accent} />
+                      <ThemedText style={[styles.communityLikesText, { color: theme.accent, fontFamily: fonts.mono }]}> 
+                        {photo.likes}
+                      </ThemedText>
+                    </View>
+                  </View>
+                  <ThemedText style={[styles.communityLocation, { color: theme.textSecondary }]}> 
+                    {typeof photo.location === "string" ? photo.location : photo.location?.name}
+                  </ThemedText>
+                  <ThemedText style={[styles.communityCaption, { color: theme.text }]} numberOfLines={2}> 
+                    {photo.caption || photo.title || "Community archive update"}
+                  </ThemedText>
+                </View>
+              </Pressable>
+            ))}
+          </View>
         </View>
       </ScrollView>
     </View>
@@ -254,6 +270,16 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
   },
+  scrollContent: {
+    alignItems: "center",
+  },
+  dashboardContent: {
+    width: "100%",
+    gap: 12,
+  },
+  dashboardContentDesktop: {
+    maxWidth: 1120,
+  },
   searchContainer: {
     flexDirection: "row",
     alignItems: "center",
@@ -276,6 +302,9 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "space-between",
     gap: 12,
+  },
+  heroCardDesktop: {
+    padding: 18,
   },
   heroLeft: {
     flex: 1,
@@ -321,7 +350,6 @@ const styles = StyleSheet.create({
     gap: 10,
   },
   statCard: {
-    width: "48.5%",
     borderWidth: 1,
     borderRadius: 12,
     padding: 10,
@@ -354,7 +382,6 @@ const styles = StyleSheet.create({
     gap: 10,
   },
   recentCard: {
-    width: "48.5%",
     borderWidth: 1,
     borderRadius: 12,
     overflow: "hidden",
@@ -371,6 +398,8 @@ const styles = StyleSheet.create({
     textTransform: "uppercase",
   },
   communityWrap: {
+    flexDirection: "row",
+    flexWrap: "wrap",
     gap: 10,
   },
   communityCard: {

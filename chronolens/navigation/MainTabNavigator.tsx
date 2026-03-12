@@ -34,7 +34,6 @@ export default function MainTabNavigator() {
   const { theme, isDark } = useTheme();
   const insets = useSafeAreaInsets();
   const { width } = useWindowDimensions();
-  const tabNavigatorRef = React.useRef<any>(null);
   const [activeTab, setActiveTab] = React.useState<keyof MainTabParamList>(
     "ExploreTab",
   );
@@ -54,10 +53,25 @@ export default function MainTabNavigator() {
 
   const showDesktopShell = Platform.OS === "web" && webViewMode === "desktop";
 
+  const desktopContent = React.useMemo(() => {
+    switch (activeTab) {
+      case "TimelineTab":
+        return <TimelineStackNavigator />;
+      case "CameraTab":
+        return <CameraScreen />;
+      case "MapTab":
+        return <MapStackNavigator />;
+      case "ProfileTab":
+        return <ProfileStackNavigator />;
+      case "ExploreTab":
+      default:
+        return <ExploreStackNavigator />;
+    }
+  }, [activeTab]);
+
   const handleDesktopNavigate = React.useCallback(
     (tabName: keyof MainTabParamList) => {
       setActiveTab(tabName);
-      tabNavigatorRef.current?.navigate(tabName);
     },
     [],
   );
@@ -65,7 +79,6 @@ export default function MainTabNavigator() {
   const tabNavigator = (
     <View style={styles.container}>
       <Tab.Navigator
-        ref={tabNavigatorRef}
         initialRouteName="ExploreTab"
         screenListeners={{
           state: (event) => {
@@ -227,7 +240,7 @@ export default function MainTabNavigator() {
   if (showDesktopShell) {
     return (
       <WebLayout activeTab={activeTab} onNavigate={handleDesktopNavigate}>
-        {tabNavigator}
+        {desktopContent}
       </WebLayout>
     );
   }
