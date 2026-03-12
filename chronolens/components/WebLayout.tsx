@@ -1,14 +1,15 @@
 import React from "react";
 import { View, StyleSheet, Pressable, useWindowDimensions } from "react-native";
 import { Feather } from "@expo/vector-icons";
+
 import { ThemedText } from "./ThemedText";
 import { useTheme } from "@/hooks/useTheme";
-import { useNavigation, NavigationProp } from "@react-navigation/native";
-import { MainTabParamList } from "@/navigation/MainTabNavigator";
+import type { MainTabParamList } from "@/navigation/MainTabNavigator";
 
 interface WebLayoutProps {
   children: React.ReactNode;
   activeTab?: keyof MainTabParamList;
+  onNavigate?: (tab: keyof MainTabParamList) => void;
 }
 
 type NavigationScreens = keyof MainTabParamList;
@@ -16,40 +17,76 @@ type NavigationScreens = keyof MainTabParamList;
 interface NavItem {
   name: NavigationScreens;
   label: string;
-  icon: "home" | "archive" | "map-pin" | "user" | "settings";
+  icon: React.ComponentProps<typeof Feather>["name"];
 }
 
 const NAV_ITEMS: NavItem[] = [
-  { name: "ExploreTab", label: "Home", icon: "home" },
-  { name: "TimelineTab", label: "Timeline", icon: "archive" },
-  { name: "MapTab", label: "Map", icon: "map-pin" },
+  { name: "ExploreTab", label: "Dashboard", icon: "home" },
+  { name: "TimelineTab", label: "Timeline", icon: "clock" },
+  { name: "CameraTab", label: "Upload", icon: "upload" },
+  { name: "MapTab", label: "Map", icon: "map" },
   { name: "ProfileTab", label: "Profile", icon: "user" },
 ];
 
 export const WebLayout: React.FC<WebLayoutProps> = ({
   children,
   activeTab = "ExploreTab",
+  onNavigate,
 }) => {
   const { width } = useWindowDimensions();
-  const { theme, skin, colorMode } = useTheme();
-  const navigation = useNavigation<NavigationProp<MainTabParamList>>();
+  const { theme } = useTheme();
+  const [isCollapsed, setIsCollapsed] = React.useState(false);
 
-  // Show sidebar only on desktop-sized web screens
-  const isWebView = width >= 1280;
-  const sidebarWidth = 240;
-  const contentMaxWidth = 1200;
-
-  if (!isWebView) {
-    // Mobile layout - just return children
+  if (width < 1280) {
     return <View style={styles.container}>{children}</View>;
   }
 
-  // Web layout with sidebar
+  const sidebarWidth = isCollapsed ? 92 : 308;
+
+  const renderNavItem = (item: NavItem) => {
+    const isActive = activeTab === item.name;
+
+    return (
+      <Pressable
+        key={item.name}
+        accessibilityRole="button"
+        onPress={() => onNavigate?.(item.name)}
+        style={[
+          styles.navItem,
+          {
+            backgroundColor: isActive ? `${theme.accent}22` : "transparent",
+            borderColor: isActive ? `${theme.accent}44` : "transparent",
+          },
+          isCollapsed && styles.navItemCollapsed,
+        ]}
+      >
+        <Feather
+          name={item.icon}
+          size={22}
+          color={isActive ? theme.accent : theme.text}
+          strokeWidth={1.8}
+        />
+        {!isCollapsed ? (
+          <ThemedText
+            style={[
+              styles.navLabel,
+              {
+                color: theme.text,
+                fontWeight: isActive ? "700" : "600",
+              },
+            ]}
+          >
+            {item.label}
+          </ThemedText>
+        ) : null}
+      </Pressable>
+    );
+  };
+
   return (
     <View
       style={[styles.webContainer, { backgroundColor: theme.backgroundRoot }]}
     >
-      {/* Sidebar Navigation */}
       <View
         style={[
           styles.sidebar,
@@ -60,97 +97,61 @@ export const WebLayout: React.FC<WebLayoutProps> = ({
           },
         ]}
       >
-        {/* Logo/Brand */}
-        <View
-          style={[styles.sidebarHeader, { borderBottomColor: theme.border }]}
-        >
-          <ThemedText style={[styles.brandText, { color: theme.accent }]}>
-            📷
-          </ThemedText>
-          <ThemedText style={[styles.brandName, { color: theme.text }]}>
-            ChronoLens
-          </ThemedText>
-        </View>
-
-        {/* Navigation Items */}
-        <View style={styles.navContainer}>
-          {NAV_ITEMS.map((item) => {
-            const isActive = activeTab === item.name;
-            return (
-              <Pressable
-                key={item.name}
-                onPress={() => {
-                  navigation.navigate(item.name);
-                }}
-                style={[
-                  styles.navItem,
-                  isActive && {
-                    backgroundColor: theme.accent + "1A",
-                    borderLeftColor: theme.accent,
-                    borderLeftWidth: 3,
-                  },
-                  {
-                    borderLeftWidth: isActive ? 0 : 0, // Will be overridden by active state
-                  },
-                ]}
-              >
-                <Feather
-                  name={item.icon}
-                  size={20}
-                  color={isActive ? theme.accent : theme.textSecondary}
-                />
-                <ThemedText
-                  style={[
-                    styles.navLabel,
-                    {
-                      color: isActive ? theme.accent : theme.text,
-                      fontWeight: isActive ? "600" : "500",
-                    },
-                  ]}
-                >
-                  {item.label}
-                </ThemedText>
-              </Pressable>
-            );
-          })}
-        </View>
-
-        {/* Theme Indicator */}
-        <View
+        <Pressable
+          accessibilityRole="button"
+          onPress={() => setIsCollapsed((current) => !current)}
           style={[
-            styles.themeIndicator,
+            styles.collapseButton,
             {
-              borderTopColor: theme.border,
-              backgroundColor: theme.backgroundSecondary,
+              borderColor: theme.border,
+              backgroundColor: theme.backgroundRoot,
             },
           ]}
         >
-          <ThemedText
-            style={[styles.themeLabel, { color: theme.textSecondary }]}
+          <Feather
+            name={isCollapsed ? "chevron-right" : "chevron-left"}
+            size={18}
+            color={theme.text}
+          />
+        </Pressable>
+
+        <View
+          style={[styles.sidebarHeader, { borderBottomColor: theme.border }]}
+        >
+          <View
+            style={[
+              styles.brandBadge,
+              {
+                backgroundColor: `${theme.accent}22`,
+                borderColor: `${theme.accent}30`,
+              },
+            ]}
           >
-            {skin === "historian" ? "🗺️ Historian" : "🌐 Cyberpunk"}
-          </ThemedText>
-          <ThemedText
-            style={[styles.modeLabel, { color: theme.textSecondary }]}
-          >
-            {colorMode === "light"
-              ? "☀️ Light"
-              : colorMode === "dark"
-                ? "🌙 Dark"
-                : "⚙️ System"}
-          </ThemedText>
+            <Feather name="clock" size={26} color={theme.accent} />
+          </View>
+
+          {!isCollapsed ? (
+            <View style={styles.brandCopy}>
+              <ThemedText style={[styles.brandName, { color: theme.text }]}>
+                CHRONOLENS
+              </ThemedText>
+              <ThemedText
+                style={[styles.brandSubline, { color: theme.textSecondary }]}
+              >
+                ARCHIVE DASHBOARD
+              </ThemedText>
+            </View>
+          ) : null}
         </View>
+
+        <View style={styles.navContainer}>{NAV_ITEMS.map(renderNavItem)}</View>
       </View>
 
-      {/* Content Area */}
       <View style={styles.contentArea}>
         <View
           style={[
             styles.contentWrapper,
-            {
-              maxWidth: contentMaxWidth,
-              backgroundColor: theme.backgroundRoot,
-            },
+            { backgroundColor: theme.backgroundRoot },
           ]}
         >
           {children}
@@ -168,57 +169,77 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: "row",
   },
-  contentArea: {
-    flex: 1,
-    alignItems: "center",
-  },
   sidebar: {
     borderRightWidth: 1,
-    paddingVertical: 16,
-    paddingHorizontal: 12,
+    paddingVertical: 24,
+    paddingHorizontal: 16,
+    position: "relative",
+  },
+  collapseButton: {
+    position: "absolute",
+    top: 72,
+    right: -18,
+    width: 36,
+    height: 36,
+    borderRadius: 18,
+    borderWidth: 1,
+    alignItems: "center",
+    justifyContent: "center",
+    zIndex: 10,
   },
   sidebarHeader: {
+    flexDirection: "row",
     alignItems: "center",
-    paddingVertical: 20,
-    marginBottom: 24,
+    gap: 16,
+    paddingBottom: 28,
+    marginBottom: 20,
     borderBottomWidth: 1,
-    gap: 8,
   },
-  brandText: {
-    fontSize: 32,
+  brandBadge: {
+    width: 68,
+    height: 68,
+    borderRadius: 20,
+    borderWidth: 1,
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  brandCopy: {
+    flex: 1,
   },
   brandName: {
-    fontSize: 14,
+    fontSize: 26,
+    fontWeight: "800",
+    letterSpacing: 2,
+    lineHeight: 30,
+  },
+  brandSubline: {
+    marginTop: 6,
+    fontSize: 12,
     fontWeight: "600",
+    letterSpacing: 3,
   },
   navContainer: {
     flex: 1,
-    gap: 4,
+    gap: 8,
   },
   navItem: {
     flexDirection: "row",
     alignItems: "center",
-    paddingVertical: 12,
-    paddingHorizontal: 12,
-    borderRadius: 8,
-    gap: 12,
-    marginBottom: 8,
+    gap: 14,
+    paddingVertical: 18,
+    paddingHorizontal: 18,
+    borderRadius: 22,
+    borderWidth: 1,
+  },
+  navItemCollapsed: {
+    justifyContent: "center",
+    paddingHorizontal: 0,
   },
   navLabel: {
-    fontSize: 14,
+    fontSize: 16,
   },
-  themeIndicator: {
-    borderTopWidth: 1,
-    paddingTop: 12,
-    marginTop: 12,
-    paddingHorizontal: 12,
-  },
-  themeLabel: {
-    fontSize: 12,
-    marginBottom: 4,
-  },
-  modeLabel: {
-    fontSize: 12,
+  contentArea: {
+    flex: 1,
   },
   contentWrapper: {
     flex: 1,

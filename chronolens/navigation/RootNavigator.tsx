@@ -1,4 +1,5 @@
 import React from "react";
+import type { NavigatorScreenParams } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { useAuth } from "@/contexts/AuthContext";
 import { useTheme } from "@/hooks/useTheme";
@@ -8,11 +9,12 @@ import { ActivityIndicator, View, StyleSheet } from "react-native";
 import AuthStackNavigator from "@/navigation/AuthStackNavigator";
 import MainTabNavigator from "@/navigation/MainTabNavigator";
 import OnboardingScreen from "@/screens/OnboardingScreen";
+import type { MainTabParamList } from "@/navigation/MainTabNavigator";
 
 export type RootStackParamList = {
   Auth: undefined;
   Onboarding: undefined;
-  Main: undefined;
+  Main: NavigatorScreenParams<MainTabParamList> | undefined;
   Loading: undefined;
 };
 

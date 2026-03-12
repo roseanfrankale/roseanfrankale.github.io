@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Platform, StyleSheet, View, useWindowDimensions } from "react-native";
+import { Platform, StyleSheet, View } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 import { SafeAreaProvider } from "react-native-safe-area-context";
@@ -8,7 +8,7 @@ import * as SplashScreen from "expo-splash-screen";
 import * as Font from "expo-font";
 
 import RootNavigator from "@/navigation/RootNavigator";
-import { AuthProvider } from "@/contexts/AuthContext";
+import { AuthProvider, useAuth } from "@/contexts/AuthContext";
 import { ThemeProvider } from "@/contexts/ThemeContext";
 import { ErrorBoundary } from "@/components/ErrorBoundary";
 import { useTheme } from "@/hooks/useTheme";
@@ -18,24 +18,29 @@ SplashScreen.preventAutoHideAsync();
 
 function AppShell() {
   const { theme, isDark } = useTheme();
-  const { width } = useWindowDimensions();
-  const isDesktopWeb = Platform.OS === "web" && width >= 768;
+  const { user, hasCompletedOnboarding } = useAuth();
+  const shouldConstrainWebShell =
+    Platform.OS === "web" && (!user || !hasCompletedOnboarding);
 
   return (
     <GestureHandlerRootView
-      style={[styles.root, { backgroundColor: theme.backgroundDefault }]}
+      style={[
+        styles.root,
+        { backgroundColor: theme.backgroundDefault },
+        shouldConstrainWebShell && styles.webConstrainedRoot,
+      ]}
     >
       <View
         style={[
           styles.appFrame,
-          isDesktopWeb && {
+          shouldConstrainWebShell && {
             maxWidth: 520,
             width: "100%",
             alignSelf: "center",
             minHeight: "92%",
             borderWidth: 1,
             borderRadius: 28,
-            borderColor: theme.glassBorder,
+            borderColor: theme.border,
             backgroundColor: isDark
               ? "rgba(26, 25, 23, 0.78)"
               : "rgba(255, 255, 255, 0.78)",
@@ -120,11 +125,9 @@ export default function App() {
 const styles = StyleSheet.create({
   root: {
     flex: 1,
-    ...(Platform.OS === "web"
-      ? ({
-          padding: 16,
-        } as any)
-      : {}),
+  },
+  webConstrainedRoot: {
+    padding: 16,
   },
   appFrame: {
     flex: 1,
