@@ -4,10 +4,12 @@ import {
   StyleSheet,
   Image,
   Pressable,
-  Dimensions,
+  Platform,
   Alert,
   ScrollView,
   TextInput,
+  Modal,
+  useWindowDimensions,
 } from "react-native";
 import { Feather } from "@expo/vector-icons";
 import { useNavigation, useRoute, RouteProp } from "@react-navigation/native";
@@ -27,7 +29,6 @@ import { Spacing, BorderRadius, Shadows } from "@/constants/theme";
 import { TimelineStackParamList } from "@/navigation/TimelineStackNavigator";
 import { usePhotoStore } from "@/store/photoStore";
 
-const { width } = Dimensions.get("window");
 const AnimatedPressable = Animated.createAnimatedComponent(Pressable);
 
 interface CommentData {
@@ -57,6 +58,7 @@ export default function PhotoDetailScreen() {
     useNavigation<NativeStackNavigationProp<TimelineStackParamList>>();
   const route = useRoute<RouteProp<TimelineStackParamList, "PhotoDetail">>();
   const { theme } = useTheme();
+  const { width: windowWidth, height: windowHeight } = useWindowDimensions();
   const headerHeight = useHeaderHeight();
   const insets = useSafeAreaInsets();
   const { getPhotoById, toggleLike, deletePhoto } = usePhotoStore();
@@ -64,10 +66,18 @@ export default function PhotoDetailScreen() {
   const photo = getPhotoById(route.params.photoId);
   const [showComments, setShowComments] = useState(false);
   const [commentText, setCommentText] = useState("");
+  const [isLightboxVisible, setIsLightboxVisible] = useState(false);
+  const [lightboxZoom, setLightboxZoom] = useState(1);
   const [imageDimensions, setImageDimensions] = useState<{
     width: number;
     height: number;
   } | null>(null);
+
+  const isDesktopWeb = Platform.OS === "web" && windowWidth >= 1024;
+  const detailMaxWidth = isDesktopWeb ? 980 : windowWidth - Spacing.xl * 2;
+  const imageSize = isDesktopWeb
+    ? Math.min(560, detailMaxWidth)
+    : windowWidth - Spacing.xl * 2;
 
   const deleteScale = useSharedValue(1);
   const deleteAnimatedStyle = useAnimatedStyle(() => ({
@@ -128,6 +138,18 @@ export default function PhotoDetailScreen() {
 
   const archivedByText = photo.userName || "ChronoLens Archive";
 
+  const lightboxAspectRatio = imageDimensions
+    ? imageDimensions.width / imageDimensions.height
+    : 1;
+
+  let lightboxImageWidth = Math.min(windowWidth * 0.84, 1100);
+  let lightboxImageHeight = lightboxImageWidth / lightboxAspectRatio;
+  const maxLightboxHeight = windowHeight * 0.78;
+  if (lightboxImageHeight > maxLightboxHeight) {
+    lightboxImageHeight = maxLightboxHeight;
+    lightboxImageWidth = lightboxImageHeight * lightboxAspectRatio;
+  }
+
   const isOwnPhoto = photo.userId === "self" || !photo.userId;
 
   const handleDelete = () => {
@@ -165,17 +187,48 @@ export default function PhotoDetailScreen() {
           {
             paddingTop: headerHeight + Spacing.md,
             paddingBottom: insets.bottom + Spacing.xl,
+            alignItems: isDesktopWeb ? "center" : "stretch",
           },
         ]}
         showsVerticalScrollIndicator={false}
       >
-        <Image
-          source={{ uri: photo.uri }}
-          style={styles.image}
-          resizeMode="cover"
-        />
+        <View
+          style={[
+            styles.detailContent,
+            isDesktopWeb && { maxWidth: detailMaxWidth },
+          ]}
+        >
+          <Pressable
+            onPress={() => {
+              setLightboxZoom(1);
+              setIsLightboxVisible(true);
+            }}
+            style={[
+              styles.imageFrame,
+              {
+                width: imageSize,
+                height: imageSize,
+                borderColor: theme.border,
+              },
+            ]}
+          >
+            <Image source={{ uri: photo.uri }} style={styles.image} resizeMode="cover" />
+            {isDesktopWeb ? (
+              <View
+                style={[
+                  styles.zoomHint,
+                  {
+                    backgroundColor: theme.backgroundSecondary,
+                    borderColor: theme.border,
+                  },
+                ]}
+              >
+                <Feather name="maximize-2" size={14} color={theme.text} />
+              </View>
+            ) : null}
+          </Pressable>
 
-        <View style={styles.detailHeader}>
+          <View style={styles.detailHeader}>
           <ThemedText
             type="caption"
             style={[styles.catalogText, { color: theme.textSecondary }]}
@@ -209,13 +262,13 @@ export default function PhotoDetailScreen() {
               </ThemedText>
             </View>
           </View>
-        </View>
+          </View>
 
-        <View
-          style={[styles.divider, { backgroundColor: theme.border, opacity: 0.8 }]}
-        />
+          <View
+            style={[styles.divider, { backgroundColor: theme.border, opacity: 0.8 }]}
+          />
 
-        <View style={styles.infoBlock}>
+          <View style={styles.infoBlock}>
           <ThemedText
             type="caption"
             style={[styles.sectionLabel, { color: theme.textSecondary }]}
@@ -225,9 +278,9 @@ export default function PhotoDetailScreen() {
           <ThemedText type="body" style={styles.sectionBody}>
             {descriptionText}
           </ThemedText>
-        </View>
+          </View>
 
-        <View style={styles.infoBlock}>
+          <View style={styles.infoBlock}>
           <ThemedText
             type="caption"
             style={[styles.sectionLabel, { color: theme.textSecondary }]}
@@ -255,14 +308,14 @@ export default function PhotoDetailScreen() {
               );
             })}
           </View>
-        </View>
+          </View>
 
-        <View
-          style={[
-            styles.technicalCard,
-            { backgroundColor: theme.backgroundSecondary, borderColor: theme.border },
-          ]}
-        >
+          <View
+            style={[
+              styles.technicalCard,
+              { backgroundColor: theme.backgroundSecondary, borderColor: theme.border },
+            ]}
+          >
           <View style={styles.technicalRow}>
             <View style={styles.technicalItem}>
               <ThemedText
@@ -312,9 +365,9 @@ export default function PhotoDetailScreen() {
               </ThemedText>
             </View>
           </View>
-        </View>
+          </View>
 
-        <View style={styles.metadataSection}>
+          <View style={styles.metadataSection}>
           <View
             style={[styles.yearBadge, { backgroundColor: theme.sepiaLight }]}
           >
@@ -341,16 +394,16 @@ export default function PhotoDetailScreen() {
               ))}
             </View>
           ) : null}
-        </View>
+          </View>
 
-        {photo.caption ? (
-          <ThemedText type="body" style={styles.caption}>
-            {photo.caption}
-          </ThemedText>
-        ) : null}
+          {photo.caption ? (
+            <ThemedText type="body" style={styles.caption}>
+              {photo.caption}
+            </ThemedText>
+          ) : null}
 
-        {photo.userName ? (
-          <View style={styles.userSection}>
+          {photo.userName ? (
+            <View style={styles.userSection}>
             <Image source={photo.userAvatar} style={styles.avatar} />
             <View style={styles.userInfo}>
               <ThemedText type="body" style={styles.userName}>
@@ -366,11 +419,11 @@ export default function PhotoDetailScreen() {
                 </ThemedText>
               </View>
             </View>
-          </View>
-        ) : null}
+            </View>
+          ) : null}
 
-        {photo.isShared ? (
-          <View style={styles.actionsSection}>
+          {photo.isShared ? (
+            <View style={styles.actionsSection}>
             <Pressable
               onPress={() => toggleLike(photo.id)}
               style={({ pressed }) => [
@@ -430,11 +483,11 @@ export default function PhotoDetailScreen() {
             >
               <Feather name="download" size={24} color={theme.textSecondary} />
             </Pressable>
-          </View>
-        ) : null}
+            </View>
+          ) : null}
 
-        {showComments ? (
-          <View style={styles.commentsSection}>
+          {showComments ? (
+            <View style={styles.commentsSection}>
             <ThemedText type="h4" style={styles.commentsTitle}>
               Comments
             </ThemedText>
@@ -479,10 +532,10 @@ export default function PhotoDetailScreen() {
                 <Feather name="send" size={18} color="#FFFFFF" />
               </Pressable>
             </View>
-          </View>
-        ) : null}
+            </View>
+          ) : null}
 
-        <View style={styles.metaInfo}>
+          <View style={styles.metaInfo}>
           <Feather name="calendar" size={14} color={theme.textSecondary} />
           <ThemedText
             type="small"
@@ -490,8 +543,61 @@ export default function PhotoDetailScreen() {
           >
             Uploaded {photo.uploadDate}
           </ThemedText>
+          </View>
         </View>
       </ScrollView>
+
+      <Modal
+        visible={isLightboxVisible}
+        transparent
+        animationType="fade"
+        onRequestClose={() => setIsLightboxVisible(false)}
+      >
+        <View style={styles.lightboxBackdrop}>
+          <View style={styles.lightboxControls}>
+            <Pressable
+              onPress={() => setLightboxZoom((value) => Math.max(1, value - 0.25))}
+              style={[styles.lightboxButton, { backgroundColor: theme.backgroundSecondary }]}
+            >
+              <Feather name="minus" size={18} color={theme.text} />
+            </Pressable>
+            <Pressable
+              onPress={() => setLightboxZoom((value) => Math.min(3, value + 0.25))}
+              style={[styles.lightboxButton, { backgroundColor: theme.backgroundSecondary }]}
+            >
+              <Feather name="plus" size={18} color={theme.text} />
+            </Pressable>
+            <Pressable
+              onPress={() => setLightboxZoom(1)}
+              style={[styles.lightboxButton, { backgroundColor: theme.backgroundSecondary }]}
+            >
+              <Feather name="rotate-ccw" size={18} color={theme.text} />
+            </Pressable>
+            <Pressable
+              onPress={() => setIsLightboxVisible(false)}
+              style={[styles.lightboxButton, { backgroundColor: theme.error }]}
+            >
+              <Feather name="x" size={18} color="#FFFFFF" />
+            </Pressable>
+          </View>
+
+          <View
+            style={[
+              styles.lightboxImageFrame,
+              {
+                width: lightboxImageWidth,
+                height: lightboxImageHeight,
+              },
+            ]}
+          >
+            <Image
+              source={{ uri: photo.uri }}
+              style={[styles.lightboxImage, { transform: [{ scale: lightboxZoom }] }]}
+              resizeMode="contain"
+            />
+          </View>
+        </View>
+      </Modal>
 
       {isOwnPhoto ? (
         <AnimatedPressable
@@ -532,11 +638,30 @@ const styles = StyleSheet.create({
   content: {
     paddingHorizontal: Spacing.xl,
   },
-  image: {
-    width: width - Spacing.xl * 2,
-    height: width - Spacing.xl * 2,
+  detailContent: {
+    width: "100%",
+  },
+  imageFrame: {
+    borderWidth: 1,
     borderRadius: BorderRadius.md,
+    overflow: "hidden",
     marginBottom: Spacing.xl,
+    alignSelf: "center",
+  },
+  image: {
+    width: "100%",
+    height: "100%",
+  },
+  zoomHint: {
+    position: "absolute",
+    top: Spacing.sm,
+    right: Spacing.sm,
+    width: 28,
+    height: 28,
+    borderRadius: 14,
+    borderWidth: 1,
+    alignItems: "center",
+    justifyContent: "center",
   },
   detailHeader: {
     marginBottom: Spacing.lg,
@@ -724,5 +849,33 @@ const styles = StyleSheet.create({
     borderRadius: 28,
     alignItems: "center",
     justifyContent: "center",
+  },
+  lightboxBackdrop: {
+    flex: 1,
+    backgroundColor: "rgba(8, 8, 10, 0.92)",
+    alignItems: "center",
+    justifyContent: "center",
+    padding: Spacing.lg,
+  },
+  lightboxControls: {
+    flexDirection: "row",
+    gap: Spacing.sm,
+    marginBottom: Spacing.md,
+  },
+  lightboxButton: {
+    width: 40,
+    height: 40,
+    borderRadius: 20,
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  lightboxImageFrame: {
+    alignItems: "center",
+    justifyContent: "center",
+    overflow: "hidden",
+  },
+  lightboxImage: {
+    width: "100%",
+    height: "100%",
   },
 });

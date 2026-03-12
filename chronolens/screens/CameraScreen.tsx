@@ -244,14 +244,13 @@ export default function CameraScreen({ navigation }: any) {
             { bottom: Math.max(insets.bottom, 24) + 80 },
           ]}
         >
-          <Pressable
-            onPress={handleImport}
-            style={styles.tabLikeButton}
-          >
+          <Pressable onPress={handleImport} style={styles.tabLikeButton}>
             <View style={styles.tabLikeIconContainer}>
               <Feather name="image" size={24} color={theme.tabIconDefault} />
             </View>
-            <Text style={[styles.tabLikeLabel, { color: theme.tabIconDefault }]}>
+            <Text
+              style={[styles.tabLikeLabel, { color: theme.tabIconDefault }]}
+            >
               Library
             </Text>
           </Pressable>
@@ -273,14 +272,13 @@ export default function CameraScreen({ navigation }: any) {
           </Pressable>
 
           {/* Switch Camera */}
-          <Pressable
-            onPress={toggleCameraType}
-            style={styles.tabLikeButton}
-          >
+          <Pressable onPress={toggleCameraType} style={styles.tabLikeButton}>
             <View style={styles.tabLikeIconContainer}>
               <Feather name="repeat" size={24} color={theme.tabIconDefault} />
             </View>
-            <Text style={[styles.tabLikeLabel, { color: theme.tabIconDefault }]}>
+            <Text
+              style={[styles.tabLikeLabel, { color: theme.tabIconDefault }]}
+            >
               Switch
             </Text>
           </Pressable>
