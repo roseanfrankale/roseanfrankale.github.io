@@ -1,6 +1,6 @@
 
 <!DOCTYPE html>
-<html lang="en" data-theme="dark">
+<html lang="en" data-theme="light">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -17,6 +17,21 @@
   <link rel="stylesheet" href="../assets/css/chronolens-landing.css">
 
   <script src="https://unpkg.com/lucide@latest"></script>
+
+  <!-- Flash-free theme init: always default to light; only go dark if user explicitly chose it -->
+  <script>
+    (function() {
+      var saved = localStorage.getItem('theme');
+      var html = document.documentElement;
+      if (saved === 'dark') {
+        html.setAttribute('data-theme', 'dark');
+        html.classList.add('dark');
+      } else {
+        html.setAttribute('data-theme', 'light');
+        html.classList.remove('dark');
+      }
+    })();
+  </script>
 </head>
 <body class="bg-bg text-text antialiased transition-colors duration-500">
 
@@ -42,9 +57,15 @@
           <div class="flex items-center space-x-5 border-l pl-8 border-gray-300 dark:border-gray-700 space-x-4">
             <a href="https://chronolens-iota.vercel.app/?auth=login" class="custom-btn px-4 py-2">LOGIN</a>
             
-            <button id="theme-toggle" class="p-2 rounded-full bg-bg text-text hover:text-accent transition-all hover:rotate-90 border-none">
-              <i data-lucide="moon" class="w-5 h-5"></i>
-            </button>
+            <div class="relative cl-theme-tooltip-wrap">
+              <button id="theme-toggle" class="p-2 rounded-full bg-bg text-text hover:text-accent transition-all hover:rotate-90 border-none" aria-label="Toggle theme">
+                <i data-lucide="moon" class="w-5 h-5"></i>
+              </button>
+              <div id="dark-mode-tooltip" class="cl-dark-tooltip" role="tooltip">
+                <span>try dark mode</span>
+                <svg class="cl-tooltip-caret" width="10" height="6" viewBox="0 0 10 6" fill="none" aria-hidden="true"><path d="M5 0L10 6H0Z" fill="currentColor"/></svg>
+              </div>
+            </div>
           </div>
         </div>
 
@@ -89,7 +110,7 @@
           </p>
 
           <div class="mt-6 flex flex-col sm:flex-row gap-3 cl-reveal">
-            <a href="/chronolens/index.html#live-preview" class="custom-btn">view live preview</a>
+            <a href="#live-preview" id="view-preview-btn" class="custom-btn">view live preview</a>
             <a href="https://chronolens-iota.vercel.app/?auth=signup" class="custom-btn-outline">sign up</a>
             <a href="/chronolens/index.html" class="custom-btn-outline">read case study</a>
           </div>
@@ -312,6 +333,41 @@
               View case study
             </a>
           </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- LIVE PREVIEW PANEL -->
+  <section id="live-preview" class="cl-preview-panel" aria-hidden="true">
+    <div class="container mx-auto px-4 md:px-6 py-16">
+      <div class="max-w-6xl mx-auto">
+        <div class="flex items-end justify-between gap-6 flex-wrap mb-8">
+          <div class="max-w-3xl">
+            <p class="cl-label mb-3">interactive preview</p>
+            <h2 class="cl-heading text-3xl md:text-5xl">try chronolens live</h2>
+            <p class="mt-4 text-lg text-text-muted leading-relaxed">
+              The embed runs the current ChronoLens web build. Open full-screen for the complete experience.
+            </p>
+          </div>
+          <div class="flex gap-3 flex-wrap items-center">
+            <a href="https://chronolens-iota.vercel.app/?auth=login" class="custom-btn">open app</a>
+            <a href="https://chronolens-iota.vercel.app/?auth=signup" class="custom-btn-outline">sign up</a>
+            <button id="close-preview-btn" class="custom-btn-outline flex items-center gap-2" aria-label="Close preview">
+              <i data-lucide="x" class="w-3 h-3"></i>
+              <span>close</span>
+            </button>
+          </div>
+        </div>
+        <div class="cl-glass-card overflow-hidden" style="min-height: 760px;">
+          <iframe
+            id="preview-iframe"
+            src=""
+            data-src="https://chronolens-iota.vercel.app/"
+            title="ChronoLens live app preview"
+            class="w-full"
+            style="height: 760px; border: 0;"
+          ></iframe>
         </div>
       </div>
     </div>

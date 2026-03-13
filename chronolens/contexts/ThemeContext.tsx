@@ -36,7 +36,12 @@ export function ThemeProvider({ children }: { children: ReactNode }) {
       const savedSkin = await AsyncStorage.getItem("themeSkin");
       const savedColorMode = await AsyncStorage.getItem("colorMode");
 
-      if (savedSkin) setSkinState(savedSkin as ThemeSkin);
+      const validSkins: ThemeSkin[] = ["historian", "cyberpunk"];
+      if (savedSkin && validSkins.includes(savedSkin as ThemeSkin)) {
+        setSkinState(savedSkin as ThemeSkin);
+      } else {
+        setSkinState("historian"); // always fall back to historian
+      }
       if (savedColorMode) setColorModeState(savedColorMode as ColorMode);
     } catch (error) {
       console.error("Error loading theme:", error);

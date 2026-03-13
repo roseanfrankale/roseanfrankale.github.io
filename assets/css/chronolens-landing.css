@@ -504,3 +504,74 @@ footer,
   }
 }
 
+/* ─────────────────────────────────────────────
+   LIVE PREVIEW PANEL
+───────────────────────────────────────────── */
+.cl-preview-panel {
+  max-height: 0;
+  overflow: hidden;
+  opacity: 0;
+  transform: translateY(-12px);
+  transition:
+    max-height 680ms cubic-bezier(0.22, 1, 0.36, 1),
+    opacity 480ms cubic-bezier(0.22, 1, 0.36, 1),
+    transform 480ms cubic-bezier(0.22, 1, 0.36, 1);
+  pointer-events: none;
+  border-top: 0 solid var(--border);
+}
+
+.cl-preview-panel.is-open {
+  max-height: 9999px;
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+  border-top-width: 1px;
+}
+
+/* ─────────────────────────────────────────────
+   DARK MODE TOOLTIP
+───────────────────────────────────────────── */
+.cl-theme-tooltip-wrap {
+  position: relative;
+}
+
+.cl-dark-tooltip {
+  position: absolute;
+  /* Right-align to the button so it never overflows off the right edge of the screen */
+  right: 0;
+  top: calc(100% + 9px);
+  transform: translateY(5px);
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  color: var(--text);
+  backdrop-filter: blur(14px);
+  padding: 0.42rem 0.7rem;
+  white-space: nowrap;
+  font-family: "JetBrains Mono", monospace;
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.14);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 220ms ease, transform 220ms cubic-bezier(0.22, 1, 0.36, 1);
+  z-index: 200;
+}
+
+.cl-dark-tooltip.is-visible {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translateY(0);
+}
+
+/* Caret sits at the right side of the tooltip, aligned under the toggle button */
+.cl-tooltip-caret {
+  position: absolute;
+  top: -5px;
+  right: 10px;
+  left: auto;
+  transform: rotate(180deg);
+  color: var(--border);
+}
+
+

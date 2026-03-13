@@ -127,3 +127,100 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 });
+
+// ─── Live Preview Panel ────────────────────────────────────────────────────
+document.addEventListener('DOMContentLoaded', () => {
+  const viewPreviewBtn = document.getElementById('view-preview-btn');
+  const livePreviewPanel = document.getElementById('live-preview');
+  const closePreviewBtn = document.getElementById('close-preview-btn');
+
+  function openPreviewPanel() {
+    if (!livePreviewPanel) return;
+
+    // Lazy-load the iframe only on first open
+    const iframe = document.getElementById('preview-iframe');
+    if (iframe && iframe.dataset.src && !iframe.getAttribute('src')) {
+      iframe.setAttribute('src', iframe.dataset.src);
+    }
+
+    livePreviewPanel.classList.add('is-open');
+    livePreviewPanel.removeAttribute('aria-hidden');
+
+    // Re-init lucide icons inside the revealed section
+    if (typeof lucide !== 'undefined') lucide.createIcons();
+
+    // Smooth scroll to the panel after transition starts
+    setTimeout(() => {
+      livePreviewPanel.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }, 80);
+  }
+
+  function closePreviewPanel() {
+    if (!livePreviewPanel) return;
+    livePreviewPanel.classList.remove('is-open');
+    livePreviewPanel.setAttribute('aria-hidden', 'true');
+
+    // Scroll back to the hero button
+    if (viewPreviewBtn) {
+      setTimeout(() => {
+        viewPreviewBtn.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      }, 80);
+    }
+  }
+
+  if (viewPreviewBtn) {
+    viewPreviewBtn.addEventListener('click', (e) => {
+      e.preventDefault();
+      openPreviewPanel();
+    });
+  }
+
+  if (closePreviewBtn) {
+    closePreviewBtn.addEventListener('click', closePreviewPanel);
+  }
+});
+
+// ─── Dark Mode Tooltip ────────────────────────────────────────────────────
+document.addEventListener('DOMContentLoaded', () => {
+  const html = document.documentElement;
+  const darkTooltip = document.getElementById('dark-mode-tooltip');
+  const themeToggle = document.getElementById('theme-toggle');
+
+  if (!darkTooltip || !themeToggle) return;
+
+  let autoTimeout = null;
+  let dismissed = false;
+
+  function showTooltip() {
+    if (dismissed || html.getAttribute('data-theme') === 'dark') return;
+    darkTooltip.classList.add('is-visible');
+  }
+
+  function dismissTooltip() {
+    dismissed = true;
+    darkTooltip.classList.remove('is-visible');
+    if (autoTimeout) clearTimeout(autoTimeout);
+  }
+
+  // Auto-show after 2.5s, then auto-dismiss after 5s
+  autoTimeout = setTimeout(() => {
+    showTooltip();
+    // Auto-dismiss 5s after it appears
+    autoTimeout = setTimeout(dismissTooltip, 5000);
+  }, 2500);
+
+  // Also show immediately on hover (before the timer)
+  themeToggle.addEventListener('mouseenter', showTooltip);
+  themeToggle.addEventListener('mouseleave', () => {
+    // Only hide on mouse-leave if it was shown by hover before the auto-timer fired
+    if (!dismissed && darkTooltip.classList.contains('is-visible')) {
+      // Keep it visible — let auto-dismiss or click handle it
+    }
+  });
+
+  // Dismiss when the theme toggle is clicked (they acted on it)
+  themeToggle.addEventListener('click', dismissTooltip, { once: true });
+
+  // Clicking the tooltip itself also counts as dismissal
+  darkTooltip.addEventListener('click', dismissTooltip);
+});
