@@ -22,7 +22,7 @@ document.addEventListener('DOMContentLoaded', () => {
     let livePerformanceVideos = [];
     let allVideos = [];
     let videoMetadata = {};
-    let itemsDisplayed = 4;
+    let itemsDisplayed = 8;
     let activeFilter = null;
 
     // Batch fetch YouTube metadata
@@ -210,7 +210,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // Set filter
     const setFilter = (filter) => {
         activeFilter = filter;
-        itemsDisplayed = 4; // Reset pagination
+        itemsDisplayed = 8; // Reset pagination
         renderVaultItems();
 
         // Update button states
