@@ -7,8 +7,12 @@ document.addEventListener('DOMContentLoaded', () => {
     // Check Local Storage
     const savedTheme = localStorage.getItem('theme');
     const systemDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    // Pages with data-theme-default="light" only go dark if the user explicitly saved dark.
+    // All other pages also respect the system preference when nothing is saved.
+    const lightDefault = html.dataset.themeDefault === 'light';
+    const isDark = savedTheme === 'dark' || (!lightDefault && !savedTheme && systemDark);
 
-    if (savedTheme === 'dark' || (!savedTheme && systemDark)) {
+    if (isDark) {
         html.setAttribute('data-theme', 'dark');
         html.classList.add('dark');
         if(themeIcon) themeIcon.setAttribute('data-lucide', 'sun');
