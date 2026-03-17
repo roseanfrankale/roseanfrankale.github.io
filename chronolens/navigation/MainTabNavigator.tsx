@@ -273,18 +273,17 @@ const styles = StyleSheet.create({
   },
   cameraButtonWrapper: {
     position: "absolute",
-    top: -24,
+    top: -10,
     zIndex: 50,
     elevation: 10,
     alignItems: "center",
     justifyContent: "center",
   },
   cameraButtonGlow: {
-    shadowColor: "#00F0FF",
     shadowOffset: { width: 0, height: 0 },
-    shadowOpacity: 0.8,
-    shadowRadius: 15,
-    elevation: 15,
+    shadowOpacity: 0.45,
+    shadowRadius: 10,
+    elevation: 9,
   },
   cameraIconContainer: {
     width: 44,
@@ -293,7 +292,7 @@ const styles = StyleSheet.create({
     borderWidth: 2,
     justifyContent: "center",
     alignItems: "center",
-    marginBottom: -8,
+    marginBottom: -2,
   },
   cameraLabel: {
     fontSize: 10,
