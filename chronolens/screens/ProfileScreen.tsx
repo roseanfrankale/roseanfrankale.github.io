@@ -25,12 +25,7 @@ export default function ProfileScreen() {
   const { paddingBottom } = useScreenInsets();
   const { user, logout } = useAuth();
   const { photos } = usePhotoStore();
-  const {
-    theme,
-    fonts,
-    skin,
-    isDark,
-  } = useTheme();
+  const { theme, fonts, skin, isDark } = useTheme();
 
   const styles = useMemo(
     () => createStyles(theme, fonts, skin, paddingBottom, isDark),
@@ -39,7 +34,11 @@ export default function ProfileScreen() {
 
   const stats = useMemo(
     () => [
-      { label: "Memories", value: String(photos.length), icon: "image" as const },
+      {
+        label: "Memories",
+        value: String(photos.length),
+        icon: "image" as const,
+      },
       { label: "Members", value: "12", icon: "users" as const },
       { label: "Generations", value: "3", icon: "git-branch" as const },
       { label: "Animated", value: "12", icon: "zap" as const },
@@ -100,7 +99,7 @@ export default function ProfileScreen() {
   const handleLogout = async () => {
     try {
       await logout();
-    } catch (error) {
+    } catch {
       Alert.alert("Sign out failed", "Please try again.");
     }
   };
@@ -113,175 +112,203 @@ export default function ProfileScreen() {
         contentContainerStyle={styles.contentContainer}
         showsVerticalScrollIndicator={false}
       >
-      <View style={styles.heroCard}>
-        <View style={styles.avatarCircle}>
-          <Text style={styles.avatarText}>{displayName.charAt(0).toUpperCase()}</Text>
+        <View style={styles.heroCard}>
+          <View style={styles.avatarCircle}>
+            <Text style={styles.avatarText}>
+              {displayName.charAt(0).toUpperCase()}
+            </Text>
+          </View>
+          <View style={styles.heroTextWrap}>
+            <Text style={styles.name}>{displayName}</Text>
+            <Text style={styles.metaText}>{displayEmail}</Text>
+            <Text style={styles.bioText}>
+              Preserving family archives and crafting stories across
+              generations.
+            </Text>
+          </View>
         </View>
-        <View style={styles.heroTextWrap}>
-          <Text style={styles.name}>{displayName}</Text>
-          <Text style={styles.metaText}>{displayEmail}</Text>
-          <Text style={styles.bioText}>
-            Preserving family archives and crafting stories across generations.
-          </Text>
-        </View>
-      </View>
 
-      <View style={styles.statsGrid}>
-        {stats.map((item) => (
-          <View key={item.label} style={styles.statCard}>
-            <View style={styles.statIconWrap}>
-              <Feather name={item.icon} size={16} color={theme.accent} />
+        <View style={styles.statsGrid}>
+          {stats.map((item) => (
+            <View key={item.label} style={styles.statCard}>
+              <View style={styles.statIconWrap}>
+                <Feather name={item.icon} size={16} color={theme.accent} />
+              </View>
+              <Text style={styles.statValue}>{item.value}</Text>
+              <Text style={styles.statLabel}>{item.label}</Text>
             </View>
-            <Text style={styles.statValue}>{item.value}</Text>
-            <Text style={styles.statLabel}>{item.label}</Text>
-          </View>
-        ))}
-      </View>
-
-      <View style={styles.sectionCard}>
-        <Text style={styles.sectionTitle}>Quick Actions</Text>
-        <View style={styles.rowActions}>
-          <ActionButton
-            label="Invite Family"
-            icon="user-plus"
-            onPress={() => Alert.alert("Invite", "Coming soon")}
-            styles={styles}
-          />
-          <ActionButton
-            label="Add Story"
-            icon="book-open"
-            onPress={() => Alert.alert("Stories", "Coming soon")}
-            styles={styles}
-          />
-          <ActionButton
-            label="Animate"
-            icon="zap"
-            onPress={() => Alert.alert("Animate", "Connect Leonardo flow next")}
-            styles={styles}
-          />
-          <ActionButton
-            label="Share"
-            icon="share-2"
-            onPress={() => Alert.alert("Share", "Coming soon")}
-            styles={styles}
-          />
-        </View>
-      </View>
-
-      <View style={styles.sectionCard}>
-        <Text style={styles.sectionTitle}>Storage</Text>
-
-        <View style={styles.storageHeaderRow}>
-          <Text style={styles.storageMainText}>12.4 GB used</Text>
-          <Text style={styles.storageSecondaryText}>50 GB total</Text>
-        </View>
-        <View style={styles.progressTrack}>
-          <View style={styles.progressFill} />
+          ))}
         </View>
 
-        <View style={styles.backupCard}>
-          <Feather name="cloud" size={15} color={theme.accent} />
-          <View>
-            <Text style={styles.backupTitle}>Last Backup</Text>
-            <Text style={styles.backupSubtitle}>Today at 04:30 AM</Text>
+        <View style={styles.sectionCard}>
+          <Text style={styles.sectionTitle}>Quick Actions</Text>
+          <View style={styles.rowActions}>
+            <ActionButton
+              label="Invite Family"
+              icon="user-plus"
+              onPress={() => Alert.alert("Invite", "Coming soon")}
+              styles={styles}
+            />
+            <ActionButton
+              label="Add Story"
+              icon="book-open"
+              onPress={() => Alert.alert("Stories", "Coming soon")}
+              styles={styles}
+            />
+            <ActionButton
+              label="Animate"
+              icon="zap"
+              onPress={() =>
+                Alert.alert("Animate", "Connect Leonardo flow next")
+              }
+              styles={styles}
+            />
+            <ActionButton
+              label="Share"
+              icon="share-2"
+              onPress={() => Alert.alert("Share", "Coming soon")}
+              styles={styles}
+            />
           </View>
         </View>
-      </View>
 
-      <View style={styles.sectionCard}>
-        <Text style={styles.sectionTitle}>Achievements</Text>
-        {achievements.map((item) => (
-          <View
-            key={item.title}
-            style={[
-              styles.achievementRow,
-              item.unlocked ? styles.achievementUnlocked : styles.achievementLocked,
-            ]}
+        <View style={styles.sectionCard}>
+          <Text style={styles.sectionTitle}>Storage</Text>
+
+          <View style={styles.storageHeaderRow}>
+            <Text style={styles.storageMainText}>12.4 GB used</Text>
+            <Text style={styles.storageSecondaryText}>50 GB total</Text>
+          </View>
+          <View style={styles.progressTrack}>
+            <View style={styles.progressFill} />
+          </View>
+
+          <View style={styles.backupCard}>
+            <Feather name="cloud" size={15} color={theme.accent} />
+            <View>
+              <Text style={styles.backupTitle}>Last Backup</Text>
+              <Text style={styles.backupSubtitle}>Today at 04:30 AM</Text>
+            </View>
+          </View>
+        </View>
+
+        <View style={styles.sectionCard}>
+          <Text style={styles.sectionTitle}>Achievements</Text>
+          {achievements.map((item) => (
+            <View
+              key={item.title}
+              style={[
+                styles.achievementRow,
+                item.unlocked
+                  ? styles.achievementUnlocked
+                  : styles.achievementLocked,
+              ]}
+            >
+              <View style={styles.achievementLeft}>
+                <Feather
+                  name="award"
+                  size={15}
+                  color={item.unlocked ? theme.accent : theme.textSecondary}
+                />
+                <View>
+                  <Text
+                    style={[
+                      styles.achievementTitle,
+                      !item.unlocked && styles.dimmedText,
+                    ]}
+                  >
+                    {item.title}
+                  </Text>
+                  <Text
+                    style={[
+                      styles.achievementDesc,
+                      !item.unlocked && styles.dimmedText,
+                    ]}
+                  >
+                    {item.description}
+                  </Text>
+                </View>
+              </View>
+              {item.unlocked && (
+                <Feather name="check-circle" size={15} color={theme.accent} />
+              )}
+            </View>
+          ))}
+        </View>
+
+        <View style={styles.sectionCard}>
+          <Text style={styles.sectionTitle}>Recent Activity</Text>
+          {recentActivity.map((item, index) => (
+            <View key={`${item.action}-${index}`} style={styles.activityRow}>
+              <View style={styles.activityDot} />
+              <View style={styles.activityBody}>
+                <Text style={styles.activityAction}>{item.action}</Text>
+                <View style={styles.activityMetaRow}>
+                  <View style={styles.activityMetaItem}>
+                    <Feather
+                      name="map-pin"
+                      size={11}
+                      color={theme.textSecondary}
+                    />
+                    <Text style={styles.activityMetaText}>{item.location}</Text>
+                  </View>
+                  <View style={styles.activityMetaItem}>
+                    <Feather
+                      name="clock"
+                      size={11}
+                      color={theme.textSecondary}
+                    />
+                    <Text style={styles.activityMetaText}>{item.time}</Text>
+                  </View>
+                </View>
+              </View>
+            </View>
+          ))}
+        </View>
+
+        <View style={styles.sectionCard}>
+          <Text style={styles.sectionTitle}>Account</Text>
+
+          <Pressable
+            onPress={() => navigation.navigate("EditProfile")}
+            style={styles.linkRow}
           >
-            <View style={styles.achievementLeft}>
-              <Feather
-                name="award"
-                size={15}
-                color={item.unlocked ? theme.accent : theme.textSecondary}
-              />
-              <View>
-                <Text
-                  style={[
-                    styles.achievementTitle,
-                    !item.unlocked && styles.dimmedText,
-                  ]}
-                >
-                  {item.title}
-                </Text>
-                <Text
-                  style={[
-                    styles.achievementDesc,
-                    !item.unlocked && styles.dimmedText,
-                  ]}
-                >
-                  {item.description}
-                </Text>
-              </View>
+            <View style={styles.linkRowLeft}>
+              <Feather name="edit-3" size={16} color={theme.text} />
+              <Text style={styles.linkText}>Edit Profile</Text>
             </View>
-            {item.unlocked && <Feather name="check-circle" size={15} color={theme.accent} />}
-          </View>
-        ))}
-      </View>
+            <Feather
+              name="chevron-right"
+              size={16}
+              color={theme.textSecondary}
+            />
+          </Pressable>
 
-      <View style={styles.sectionCard}>
-        <Text style={styles.sectionTitle}>Recent Activity</Text>
-        {recentActivity.map((item, index) => (
-          <View key={`${item.action}-${index}`} style={styles.activityRow}>
-            <View style={styles.activityDot} />
-            <View style={styles.activityBody}>
-              <Text style={styles.activityAction}>{item.action}</Text>
-              <View style={styles.activityMetaRow}>
-                <View style={styles.activityMetaItem}>
-                  <Feather name="map-pin" size={11} color={theme.textSecondary} />
-                  <Text style={styles.activityMetaText}>{item.location}</Text>
-                </View>
-                <View style={styles.activityMetaItem}>
-                  <Feather name="clock" size={11} color={theme.textSecondary} />
-                  <Text style={styles.activityMetaText}>{item.time}</Text>
-                </View>
-              </View>
+          <Pressable
+            onPress={() => navigation.navigate("Settings")}
+            style={styles.linkRow}
+          >
+            <View style={styles.linkRowLeft}>
+              <Feather name="settings" size={16} color={theme.text} />
+              <Text style={styles.linkText}>Settings</Text>
             </View>
-          </View>
-        ))}
-      </View>
+            <Feather
+              name="chevron-right"
+              size={16}
+              color={theme.textSecondary}
+            />
+          </Pressable>
 
-      <View style={styles.sectionCard}>
-        <Text style={styles.sectionTitle}>Account</Text>
-
-        <Pressable
-          onPress={() => navigation.navigate("EditProfile")}
-          style={styles.linkRow}
-        >
-          <View style={styles.linkRowLeft}>
-            <Feather name="edit-3" size={16} color={theme.text} />
-            <Text style={styles.linkText}>Edit Profile</Text>
-          </View>
-          <Feather name="chevron-right" size={16} color={theme.textSecondary} />
-        </Pressable>
-
-        <Pressable
-          onPress={() => navigation.navigate("Settings")}
-          style={styles.linkRow}
-        >
-          <View style={styles.linkRowLeft}>
-            <Feather name="settings" size={16} color={theme.text} />
-            <Text style={styles.linkText}>Settings</Text>
-          </View>
-          <Feather name="chevron-right" size={16} color={theme.textSecondary} />
-        </Pressable>
-
-        <Pressable onPress={handleLogout} style={[styles.linkRow, styles.logoutRow]}>
-          <View style={styles.linkRowLeft}>
-            <Feather name="log-out" size={16} color={theme.error} />
-            <Text style={styles.logoutText}>Sign Out</Text>
-          </View>
-        </Pressable>
-      </View>
+          <Pressable
+            onPress={handleLogout}
+            style={[styles.linkRow, styles.logoutRow]}
+          >
+            <View style={styles.linkRowLeft}>
+              <Feather name="log-out" size={16} color={theme.error} />
+              <Text style={styles.logoutText}>Sign Out</Text>
+            </View>
+          </Pressable>
+        </View>
       </ScrollView>
     </View>
   );
