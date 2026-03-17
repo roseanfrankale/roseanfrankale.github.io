@@ -99,6 +99,7 @@ export default function MainTabNavigator() {
           tabBarInactiveTintColor: theme.tabIconDefault,
           tabBarStyle: {
             position: "absolute",
+            overflow: "visible",
             backgroundColor: Platform.select({
               ios: "transparent",
               android: theme.backgroundRoot,
@@ -176,19 +177,27 @@ export default function MainTabNavigator() {
             tabBarIcon: ({ color, size, focused }) => (
               <View
                 style={[
-                  styles.cameraIconContainer,
-                  {
-                    backgroundColor: focused ? color : "transparent",
-                    borderColor: color,
-                  },
+                  styles.cameraButtonWrapper,
+                  styles.cameraButtonGlow,
                 ]}
               >
-                <Feather
-                  name="camera"
-                  size={size - 4}
-                  color={focused ? theme.backgroundRoot : color}
-                  strokeWidth={1.5}
-                />
+                <View
+                  style={[
+                    styles.cameraIconContainer,
+                    {
+                      backgroundColor: focused ? color : "transparent",
+                      borderColor: color,
+                      transform: [{ scale: 1 }],
+                    },
+                  ]}
+                >
+                  <Feather
+                    name="camera"
+                    size={size - 4}
+                    color={focused ? theme.backgroundRoot : color}
+                    strokeWidth={1.5}
+                  />
+                </View>
               </View>
             ),
             tabBarLabel: ({ focused }) => (
@@ -261,6 +270,21 @@ const styles = StyleSheet.create({
   },
   container: {
     flex: 1,
+  },
+  cameraButtonWrapper: {
+    position: "absolute",
+    top: -24,
+    zIndex: 50,
+    elevation: 10,
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  cameraButtonGlow: {
+    shadowColor: "#00F0FF",
+    shadowOffset: { width: 0, height: 0 },
+    shadowOpacity: 0.8,
+    shadowRadius: 15,
+    elevation: 15,
   },
   cameraIconContainer: {
     width: 44,
