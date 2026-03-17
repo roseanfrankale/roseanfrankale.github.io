@@ -45,7 +45,9 @@
         min-height: 100dvh;
       }
     </style>
-  <link rel="icon" href="./favicon.ico" /></head>
+  <link rel="icon" href="./favicon.ico" />    <link rel="manifest" href="./manifest.webmanifest" />
+    <link rel="apple-touch-icon" href="./pwa-icons/icon-1024.png" />
+</head>
 
   <body>
     <!-- Use static rendering with Expo Router to support running without JavaScript. -->
@@ -54,6 +56,15 @@
     </noscript>
     <!-- The root element for your Expo app. -->
     <div id="root"></div>
-  <script src="./_expo/static/js/web/AppEntry-1d2eace0b354ee23c9afbd566de6ef0e.js" defer></script>
+  <script src="./_expo/static/js/web/AppEntry-a0346f1a12a9d512c633b266f5aa04a6.js" defer></script>
+  <script id="chronolens-sw-register">
+    if ("serviceWorker" in navigator) {
+      window.addEventListener("load", () => {
+        navigator.serviceWorker.register("./sw.js").catch((error) => {
+          console.warn("Service worker registration failed", error);
+        });
+      });
+    }
+  </script>
 </body>
 </html>
