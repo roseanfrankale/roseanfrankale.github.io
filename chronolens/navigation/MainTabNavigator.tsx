@@ -28,6 +28,12 @@ export type MainTabParamList = {
   ProfileTab: undefined;
 };
 
+function withAlpha(color: string, alphaHex: string) {
+  return color.startsWith("#") && color.length === 7
+    ? `${color}${alphaHex}`
+    : color;
+}
+
 const Tab = createBottomTabNavigator<MainTabParamList>();
 
 export default function MainTabNavigator() {
@@ -36,6 +42,18 @@ export default function MainTabNavigator() {
   const { width } = useWindowDimensions();
   const [activeTab, setActiveTab] =
     React.useState<keyof MainTabParamList>("ExploreTab");
+  const cameraGlowStyle = React.useMemo(
+    () =>
+      Platform.select({
+        web: {
+          filter: `drop-shadow(0 0 10px ${withAlpha(theme.accent, "80")})`,
+        },
+        default: {
+          shadowColor: theme.accent,
+        },
+      }),
+    [theme.accent],
+  );
 
   const webViewMode = React.useMemo<"mobile" | "desktop">(() => {
     if (Platform.OS !== "web") {
@@ -177,7 +195,11 @@ export default function MainTabNavigator() {
             title: "Camera",
             tabBarIcon: ({ size }) => (
               <View
-                style={[styles.cameraButtonWrapper, styles.cameraButtonGlow]}
+                style={[
+                  styles.cameraButtonWrapper,
+                  styles.cameraButtonGlow,
+                  cameraGlowStyle,
+                ]}
               >
                 <View
                   style={[
@@ -272,7 +294,6 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
   cameraButtonGlow: {
-    shadowColor: "#D4AF37",
     shadowOffset: { width: 0, height: 0 },
     shadowOpacity: 0.35,
     shadowRadius: 7,
