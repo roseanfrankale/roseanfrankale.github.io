@@ -18,7 +18,7 @@ const distIcon = resolve(pwaIconsDir, "icon-1024.png");
 const distMaskableIcon = resolve(pwaIconsDir, "icon-maskable-1024.png");
 
 const mobileWebMeta = [
-  '<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />',
+  '<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover" />',
   '<meta name="theme-color" content="#1A1917" />',
   '<meta name="apple-mobile-web-app-capable" content="yes" />',
   '<meta name="mobile-web-app-capable" content="yes" />',
@@ -29,10 +29,21 @@ const mobileWebMeta = [
 
 const mobileWebStyles = [
   '<style id="chronolens-mobile-web">',
+  '  :root {',
+  '    --safe-area-bottom: env(safe-area-inset-bottom);',
+  '    --safe-area-left: env(safe-area-inset-left);',
+  '    --safe-area-right: env(safe-area-inset-right);',
+  '    --safe-area-top: env(safe-area-inset-top);',
+  '  }',
+  '',
   '  html,',
   '  body {',
   '    background: #1A1917;',
   '    overscroll-behavior: none;',
+  '    position: fixed;',
+  '    overflow: hidden;',
+  '    width: 100%;',
+  '    height: 100%;',
   '  }',
   '',
   '  body {',
@@ -42,6 +53,7 @@ const mobileWebStyles = [
   '',
   '  #root {',
   '    min-height: 100dvh;',
+  '    padding-bottom: var(--safe-area-bottom);',
   '  }',
   '</style>',
 ].join("\n    ");
@@ -81,8 +93,20 @@ const manifest = {
       purpose: "any",
     },
     {
+      src: "./pwa-icons/icon-1024.png",
+      sizes: "192x192",
+      type: "image/png",
+      purpose: "any",
+    },
+    {
       src: "./pwa-icons/icon-maskable-1024.png",
       sizes: "1024x1024",
+      type: "image/png",
+      purpose: "maskable",
+    },
+    {
+      src: "./pwa-icons/icon-maskable-1024.png",
+      sizes: "192x192",
       type: "image/png",
       purpose: "maskable",
     },
