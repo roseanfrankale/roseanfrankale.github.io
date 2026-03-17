@@ -34,9 +34,8 @@ export default function MainTabNavigator() {
   const { theme, isDark } = useTheme();
   const insets = useSafeAreaInsets();
   const { width } = useWindowDimensions();
-  const [activeTab, setActiveTab] = React.useState<keyof MainTabParamList>(
-    "ExploreTab",
-  );
+  const [activeTab, setActiveTab] =
+    React.useState<keyof MainTabParamList>("ExploreTab");
 
   const webViewMode = React.useMemo<"mobile" | "desktop">(() => {
     if (Platform.OS !== "web") {
@@ -85,7 +84,7 @@ export default function MainTabNavigator() {
             const tabState = event.data.state as
               | {
                   index: number;
-                  routes: Array<{ name: keyof MainTabParamList }>;
+                  routes: { name: keyof MainTabParamList }[];
                 }
               | undefined;
             const focusedRoute = tabState?.routes?.[tabState.index]?.name;
@@ -103,7 +102,9 @@ export default function MainTabNavigator() {
             backgroundColor: Platform.select({
               ios: "transparent",
               android: theme.backgroundRoot,
-              web: isDark ? "rgba(26, 25, 23, 0.78)" : "rgba(255, 255, 255, 0.78)",
+              web: isDark
+                ? "rgba(26, 25, 23, 0.78)"
+                : "rgba(255, 255, 255, 0.78)",
             }),
             borderTopWidth: 1,
             borderTopColor: theme.border,
@@ -174,27 +175,23 @@ export default function MainTabNavigator() {
           component={CameraScreen}
           options={{
             title: "Camera",
-            tabBarIcon: ({ color, size, focused }) => (
+            tabBarIcon: ({ size }) => (
               <View
-                style={[
-                  styles.cameraButtonWrapper,
-                  styles.cameraButtonGlow,
-                ]}
+                style={[styles.cameraButtonWrapper, styles.cameraButtonGlow]}
               >
                 <View
                   style={[
                     styles.cameraIconContainer,
                     {
-                      backgroundColor: focused ? color : "transparent",
-                      borderColor: color,
-                      transform: [{ scale: 1 }],
+                      backgroundColor: theme.accent,
+                      borderColor: theme.accent,
                     },
                   ]}
                 >
                   <Feather
                     name="camera"
-                    size={size - 4}
-                    color={focused ? theme.backgroundRoot : color}
+                    size={size}
+                    color={theme.backgroundRoot}
                     strokeWidth={1.5}
                   />
                 </View>
@@ -218,12 +215,7 @@ export default function MainTabNavigator() {
           options={{
             title: "Map",
             tabBarIcon: ({ color, size }) => (
-              <Feather
-                name="map"
-                size={size}
-                color={color}
-                strokeWidth={1.5}
-              />
+              <Feather name="map" size={size} color={color} strokeWidth={1.5} />
             ),
           }}
         />
@@ -273,26 +265,27 @@ const styles = StyleSheet.create({
   },
   cameraButtonWrapper: {
     position: "absolute",
-    top: -10,
+    top: -6,
     zIndex: 50,
-    elevation: 10,
+    elevation: 7,
     alignItems: "center",
     justifyContent: "center",
   },
   cameraButtonGlow: {
+    shadowColor: "#D4AF37",
     shadowOffset: { width: 0, height: 0 },
-    shadowOpacity: 0.45,
-    shadowRadius: 10,
-    elevation: 9,
+    shadowOpacity: 0.35,
+    shadowRadius: 7,
+    elevation: 7,
   },
   cameraIconContainer: {
-    width: 44,
-    height: 44,
+    width: 34,
+    height: 34,
     borderRadius: BorderRadius.full,
-    borderWidth: 2,
+    borderWidth: StyleSheet.hairlineWidth,
     justifyContent: "center",
     alignItems: "center",
-    marginBottom: -2,
+    marginBottom: 0,
   },
   cameraLabel: {
     fontSize: 10,

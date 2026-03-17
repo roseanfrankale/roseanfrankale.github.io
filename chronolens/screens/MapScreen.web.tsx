@@ -109,7 +109,10 @@ export default function MapScreenWeb() {
           <View
             style={[
               styles.locationMarker,
-              { backgroundColor: `${theme.accent}22`, borderColor: theme.accent },
+              {
+                backgroundColor: `${theme.accent}22`,
+                borderColor: theme.accent,
+              },
             ]}
           >
             <Feather name="map-pin" size={14} color={theme.accent} />
@@ -229,7 +232,8 @@ export default function MapScreenWeb() {
               { fontFamily: fonts.mono, color: theme.textSecondary },
             ]}
           >
-            {filteredLocations.length} location{filteredLocations.length !== 1 ? "s" : ""}
+            {filteredLocations.length} location
+            {filteredLocations.length !== 1 ? "s" : ""}
           </ThemedText>
         </View>
       </View>
@@ -275,10 +279,7 @@ export default function MapScreenWeb() {
           {/* Map Background */}
           <ImageBackground
             source={{ uri: MAP_BACKGROUNDS[skin] }}
-            style={[
-              styles.mapPreview,
-              { borderColor: theme.border },
-            ]}
+            style={[styles.mapPreview, { borderColor: theme.border }]}
             imageStyle={styles.mapPreviewImage}
           >
             <View
@@ -313,7 +314,9 @@ export default function MapScreenWeb() {
                 `${item.location.lat},${item.location.lng}`
               }
               scrollEnabled={false}
-              gap={Spacing.md}
+              ItemSeparatorComponent={() => (
+                <View style={styles.listSeparator} />
+              )}
             />
           ) : (
             <View style={styles.emptyState}>
@@ -364,7 +367,8 @@ export default function MapScreenWeb() {
               type="body"
               style={[styles.emptySubtitle, { color: theme.textSecondary }]}
             >
-              Tag photos with locations to map your family's spatial history.
+              Tag photos with locations to map your family&apos;s spatial
+              history.
             </ThemedText>
           </View>
         </ImageBackground>
@@ -373,7 +377,12 @@ export default function MapScreenWeb() {
       {/* Location Detail Modal */}
       <Modal visible={!!selectedCluster} transparent animationType="slide">
         {selectedCluster && (
-          <View style={[styles.modalContainer, { backgroundColor: theme.backgroundDefault }]}>
+          <View
+            style={[
+              styles.modalContainer,
+              { backgroundColor: theme.backgroundDefault },
+            ]}
+          >
             <View
               style={[
                 styles.modalHeader,
@@ -441,8 +450,10 @@ export default function MapScreenWeb() {
                 keyExtractor={(item) => item.id}
                 numColumns={2}
                 scrollEnabled={false}
-                columnWrapperStyle={{ gap: Spacing.md }}
-                gap={Spacing.md}
+                columnWrapperStyle={styles.photoGridRow}
+                ItemSeparatorComponent={() => (
+                  <View style={styles.photoGridSeparator} />
+                )}
               />
             </ScrollView>
           </View>
@@ -513,6 +524,9 @@ const styles = StyleSheet.create({
     padding: Spacing.md,
     gap: Spacing.md,
   },
+  listSeparator: {
+    height: Spacing.md,
+  },
   locationCardHeader: {
     flexDirection: "row",
     justifyContent: "space-between",
@@ -568,6 +582,12 @@ const styles = StyleSheet.create({
     borderRadius: BorderRadius.sm,
     borderWidth: 1,
     overflow: "hidden",
+  },
+  photoGridRow: {
+    gap: Spacing.md,
+  },
+  photoGridSeparator: {
+    height: Spacing.md,
   },
   photoGridImage: {
     width: "100%",
