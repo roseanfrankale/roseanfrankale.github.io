@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from "react";
+import React, { ReactNode, useEffect, useMemo, useState } from "react";
 import {
   Image,
   Platform,
@@ -12,15 +12,60 @@ import {
 import { Feather } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
+import Animated, {
+  useAnimatedStyle,
+  useSharedValue,
+  withDelay,
+  withSpring,
+} from "react-native-reanimated";
 
 import { CustomHeader } from "@/components/CustomHeader";
 import { ThemedText } from "@/components/ThemedText";
 import { useTheme } from "@/hooks/useTheme";
 import { useScreenInsets } from "@/hooks/useScreenInsets";
+import { useStaggeredAnimation } from "@/hooks/useStaggeredAnimation";
 import { ExploreStackParamList } from "@/navigation/ExploreStackNavigator";
 import { usePhotoStore } from "@/store/photoStore";
 
 type ExploreNav = NativeStackNavigationProp<ExploreStackParamList>;
+
+const STAGGER_DELAY_MS = 100;
+const STAGGER_START_MS = 80;
+
+function StaggeredReveal({
+  index,
+  children,
+}: {
+  index: number;
+  children: ReactNode;
+}) {
+  const { opacity, translateY } = useStaggeredAnimation(index, {
+    delay: STAGGER_DELAY_MS,
+    startDelay: STAGGER_START_MS,
+    initialTranslateY: 18,
+  });
+  const scale = useSharedValue(0.9);
+
+  useEffect(() => {
+    const totalDelay = STAGGER_START_MS + index * STAGGER_DELAY_MS;
+    scale.value = withDelay(
+      totalDelay,
+      withSpring(1, {
+        damping: 14,
+        stiffness: 170,
+        mass: 0.9,
+      }),
+    );
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [index]);
+
+  const animatedStyle = useAnimatedStyle(() => ({
+    opacity: opacity.value,
+    transform: [{ translateY: translateY.value }, { scale: scale.value }],
+  }));
+
+  return <Animated.View style={animatedStyle}>{children}</Animated.View>;
+}
 
 export default function ExploreScreen() {
   const { theme, skin, fonts } = useTheme();
@@ -114,132 +159,137 @@ export default function ExploreScreen() {
             ) : null}
           </View>
 
-          <View
-            style={[
-              styles.heroCard,
-              isDesktopWeb && styles.heroCardDesktop,
-              {
-                backgroundColor: theme.card,
-                borderColor: theme.border,
-              },
-            ]}
-          >
-            <View style={styles.heroLeft}>
-              <View style={styles.heroLabelRow}>
-                <Feather name="activity" size={14} color={theme.accent} />
-                <ThemedText style={[styles.heroLabel, { color: theme.accent, fontFamily: fonts.mono }]}> 
-                  System Online
+          <StaggeredReveal index={0}>
+            <View
+              style={[
+                styles.heroCard,
+                isDesktopWeb && styles.heroCardDesktop,
+                {
+                  backgroundColor: theme.card,
+                  borderColor: theme.border,
+                },
+              ]}
+            >
+              <View style={styles.heroLeft}>
+                <View style={styles.heroLabelRow}>
+                  <Feather name="activity" size={14} color={theme.accent} />
+                  <ThemedText style={[styles.heroLabel, { color: theme.accent, fontFamily: fonts.mono }]}> 
+                    System Online
+                  </ThemedText>
+                </View>
+                <ThemedText
+                  style={[
+                    styles.heroTitle,
+                    {
+                      color: theme.text,
+                      fontFamily: skin === "cyberpunk" ? fonts.mono : fonts.header,
+                    },
+                  ]}
+                >
+                  {skin === "cyberpunk" ? "NEURAL_LINK_ACTIVE" : "Chronicle Status"}
+                </ThemedText>
+                <ThemedText style={[styles.heroBody, { color: theme.textSecondary }]}> 
+                  {skin === "cyberpunk"
+                    ? "All optical sensors are functioning within normal parameters."
+                    : "Your archival collection is safely stored across the timeline."}
                 </ThemedText>
               </View>
-              <ThemedText
-                style={[
-                  styles.heroTitle,
-                  {
-                    color: theme.text,
-                    fontFamily: skin === "cyberpunk" ? fonts.mono : fonts.header,
-                  },
-                ]}
-              >
-                {skin === "cyberpunk" ? "NEURAL_LINK_ACTIVE" : "Chronicle Status"}
-              </ThemedText>
-              <ThemedText style={[styles.heroBody, { color: theme.textSecondary }]}> 
-                {skin === "cyberpunk"
-                  ? "All optical sensors are functioning within normal parameters."
-                  : "Your archival collection is safely stored across the timeline."}
-              </ThemedText>
-            </View>
 
-            <View style={[styles.heroRight, { borderColor: `${theme.accent}44` }]}> 
-              <ThemedText style={[styles.syncValue, { color: theme.accent, fontFamily: fonts.header }]}> 
-                98%
-              </ThemedText>
-              <ThemedText style={[styles.syncLabel, { color: theme.textSecondary, fontFamily: fonts.mono }]}> 
-                Sync
-              </ThemedText>
+              <View style={[styles.heroRight, { borderColor: `${theme.accent}44` }]}> 
+                <ThemedText style={[styles.syncValue, { color: theme.accent, fontFamily: fonts.header }]}> 
+                  98%
+                </ThemedText>
+                <ThemedText style={[styles.syncLabel, { color: theme.textSecondary, fontFamily: fonts.mono }]}> 
+                  Sync
+                </ThemedText>
+              </View>
             </View>
-          </View>
+          </StaggeredReveal>
 
           <View style={styles.statsGrid}>
-            {stats.map((stat) => (
-              <View
-                key={stat.label}
-                style={[
-                  styles.statCard,
-                  { width: statCardWidth },
-                  {
-                    backgroundColor: theme.card,
-                    borderColor: theme.border,
-                  },
-                ]}
-              >
-                <View style={[styles.statIcon, { backgroundColor: `${theme.accent}14` }]}> 
-                  <Feather name={stat.icon} size={16} color={theme.accent} />
+            {stats.map((stat, index) => (
+              <StaggeredReveal key={stat.label} index={index + 1}>
+                <View
+                  style={[
+                    styles.statCard,
+                    { width: statCardWidth },
+                    {
+                      backgroundColor: theme.card,
+                      borderColor: theme.border,
+                    },
+                  ]}
+                >
+                  <View style={[styles.statIcon, { backgroundColor: `${theme.accent}14` }]}> 
+                    <Feather name={stat.icon} size={16} color={theme.accent} />
+                  </View>
+                  <ThemedText style={[styles.statLabel, { color: theme.textSecondary, fontFamily: fonts.mono }]}> 
+                    {stat.label}
+                  </ThemedText>
+                  <ThemedText style={[styles.statValue, { color: theme.text, fontFamily: fonts.header }]}> 
+                    {stat.value}
+                  </ThemedText>
                 </View>
-                <ThemedText style={[styles.statLabel, { color: theme.textSecondary, fontFamily: fonts.mono }]}> 
-                  {stat.label}
-                </ThemedText>
-                <ThemedText style={[styles.statValue, { color: theme.text, fontFamily: fonts.header }]}> 
-                  {stat.value}
-                </ThemedText>
-              </View>
+              </StaggeredReveal>
             ))}
           </View>
 
           <SectionTitle title="Recent Ingestions" themeText={theme.text} font={fonts.header} />
           <View style={styles.recentGrid}>
-            {recent.map((photo) => (
-              <Pressable
-                key={photo.id}
-                onPress={() => navigation.navigate("PhotoDetail", { photoId: photo.id })}
-                style={[
-                  styles.recentCard,
-                  { width: recentCardWidth },
-                  { backgroundColor: theme.card, borderColor: theme.border },
-                ]}
-              >
-                <Image source={{ uri: photo.uri }} style={styles.recentImage} />
-                <View style={styles.recentMeta}>
-                  <ThemedText style={[styles.recentCatalog, { color: theme.textSecondary, fontFamily: fonts.mono }]}> 
-                    {photo.catalogNumber || `REF.${photo.year}`}
-                  </ThemedText>
-                </View>
-              </Pressable>
+            {recent.map((photo, index) => (
+              <StaggeredReveal key={photo.id} index={index + 6}>
+                <Pressable
+                  onPress={() => navigation.navigate("PhotoDetail", { photoId: photo.id })}
+                  style={[
+                    styles.recentCard,
+                    { width: recentCardWidth },
+                    { backgroundColor: theme.card, borderColor: theme.border },
+                  ]}
+                >
+                  <Image source={{ uri: photo.uri }} style={styles.recentImage} />
+                  <View style={styles.recentMeta}>
+                    <ThemedText style={[styles.recentCatalog, { color: theme.textSecondary, fontFamily: fonts.mono }]}> 
+                      {photo.catalogNumber || `REF.${photo.year}`}
+                    </ThemedText>
+                  </View>
+                </Pressable>
+              </StaggeredReveal>
             ))}
           </View>
 
           <SectionTitle title="Community Highlights" themeText={theme.text} font={fonts.header} />
           <View style={styles.communityWrap}>
-            {communityHighlights.map((photo) => (
-              <Pressable
-                key={`community-${photo.id}`}
-                onPress={() => navigation.navigate("PhotoDetail", { photoId: photo.id })}
-                style={[
-                  styles.communityCard,
-                  { width: communityCardWidth },
-                  { backgroundColor: theme.card, borderColor: theme.border },
-                ]}
-              >
-                <Image source={{ uri: photo.uri }} style={styles.communityImage} />
-                <View style={styles.communityBody}>
-                  <View style={styles.communityTopRow}>
-                    <ThemedText style={[styles.communityUser, { color: theme.text }]}> 
-                      {photo.userName || "@community"}
-                    </ThemedText>
-                    <View style={styles.communityLikes}>
-                      <Feather name="heart" size={12} color={theme.accent} />
-                      <ThemedText style={[styles.communityLikesText, { color: theme.accent, fontFamily: fonts.mono }]}> 
-                        {photo.likes}
+            {communityHighlights.map((photo, index) => (
+              <StaggeredReveal key={`community-${photo.id}`} index={index + 12}>
+                <Pressable
+                  onPress={() => navigation.navigate("PhotoDetail", { photoId: photo.id })}
+                  style={[
+                    styles.communityCard,
+                    { width: communityCardWidth },
+                    { backgroundColor: theme.card, borderColor: theme.border },
+                  ]}
+                >
+                  <Image source={{ uri: photo.uri }} style={styles.communityImage} />
+                  <View style={styles.communityBody}>
+                    <View style={styles.communityTopRow}>
+                      <ThemedText style={[styles.communityUser, { color: theme.text }]}> 
+                        {photo.userName || "@community"}
                       </ThemedText>
+                      <View style={styles.communityLikes}>
+                        <Feather name="heart" size={12} color={theme.accent} />
+                        <ThemedText style={[styles.communityLikesText, { color: theme.accent, fontFamily: fonts.mono }]}> 
+                          {photo.likes}
+                        </ThemedText>
+                      </View>
                     </View>
+                    <ThemedText style={[styles.communityLocation, { color: theme.textSecondary }]}> 
+                      {typeof photo.location === "string" ? photo.location : photo.location?.name}
+                    </ThemedText>
+                    <ThemedText style={[styles.communityCaption, { color: theme.text }]} numberOfLines={2}> 
+                      {photo.caption || photo.title || "Community archive update"}
+                    </ThemedText>
                   </View>
-                  <ThemedText style={[styles.communityLocation, { color: theme.textSecondary }]}> 
-                    {typeof photo.location === "string" ? photo.location : photo.location?.name}
-                  </ThemedText>
-                  <ThemedText style={[styles.communityCaption, { color: theme.text }]} numberOfLines={2}> 
-                    {photo.caption || photo.title || "Community archive update"}
-                  </ThemedText>
-                </View>
-              </Pressable>
+                </Pressable>
+              </StaggeredReveal>
             ))}
           </View>
         </View>
