@@ -1,33 +1,57 @@
-import React, { useState, useMemo } from "react";
+import React, { useMemo, useState } from "react";
 import {
   View,
   StyleSheet,
-  ImageBackground,
   Pressable,
-  ScrollView,
   Image,
   Modal,
-  TextInput,
+  Dimensions,
+  ScrollView,
   FlatList,
+  TextInput,
 } from "react-native";
 import { Feather } from "@expo/vector-icons";
+import { useNavigation } from "@react-navigation/native";
+import { NativeStackNavigationProp } from "@react-navigation/native-stack";
+import MapboxMap, { Marker } from "react-map-gl/mapbox";
 
 import { ThemedText } from "@/components/ThemedText";
+import { CustomHeader } from "@/components/CustomHeader";
 import { useTheme } from "@/hooks/useTheme";
 import { useScreenInsets } from "@/hooks/useScreenInsets";
 import { Spacing, BorderRadius } from "@/constants/theme";
+import { MapStackParamList } from "@/navigation/MapStackNavigator";
 import { usePhotoStore, Photo, PhotoLocation } from "@/store/photoStore";
 
-const MAP_BACKGROUNDS = {
-  historian:
-    "https://images.unsplash.com/photo-1744911617351-da45df2861f3?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHx3b3JsZCUyMG1hcCUyMHZpbnRhZ2UlMjBwYXBlcnxlbnwxfHx8fDE3NzE4NTIwMDV8MA&ixlib=rb-4.1.0&q=80&w=1080",
-  cyberpunk:
-    "https://images.unsplash.com/photo-1547930206-82ac0a7aa08d?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHx3b3JsZCUyMG1hcCUyMGJsYWNrJTIwdGVjaG5vbG9neXxlbnwxfHx8fDE3NzE4NTIwMTF8MA&ixlib=rb-4.1.0&q=80&w=1080",
+const { height } = Dimensions.get("window");
+
+const MAPBOX_TOKEN =
+  process.env.EXPO_PUBLIC_MAPBOX_TOKEN ??
+  "pk.eyJ1IjoicmpmYSIsImEiOiJjbW12dnFuM20yZWU1MnJyMDhxdGM0aWY5In0.GFnMhphog6ZSNBZFugG-6g";
+
+const MAPBOX_STYLE_BY_SKIN = {
+  historian: "mapbox://styles/mapbox/outdoors-v12",
+  cyberpunk: "mapbox://styles/mapbox/dark-v11",
 } as const;
 
 interface ClusteredLocation {
   location: PhotoLocation;
   photos: Photo[];
+}
+
+type MapNav = NativeStackNavigationProp<MapStackParamList>;
+
+interface PreviewRegion {
+  latitude: number;
+  longitude: number;
+  latitudeDelta: number;
+  longitudeDelta: number;
+}
+
+function regionToZoom(region: PreviewRegion): number {
+  const maxDelta = Math.max(region.latitudeDelta, region.longitudeDelta);
+  const zoom = Math.log2(360 / Math.max(maxDelta, 0.0001));
+  return Math.max(1.5, Math.min(12, zoom));
 }
 
 function groupPhotosByLocation(photos: Photo[]): ClusteredLocation[] {
@@ -40,7 +64,7 @@ function groupPhotosByLocation(photos: Photo[]): ClusteredLocation[] {
       photo.location.lat &&
       photo.location.lng
     ) {
-      const key = `${photo.location.lat.toFixed(2)},${photo.location.lng.toFixed(2)}`;
+      const key = `${photo.location.lat.toFixed(3)},${photo.location.lng.toFixed(3)}`;
 
       if (!groups.has(key)) {
         groups.set(key, {
@@ -48,6 +72,7 @@ function groupPhotosByLocation(photos: Photo[]): ClusteredLocation[] {
           photos: [],
         });
       }
+
       groups.get(key)!.photos.push(photo);
     }
   });
@@ -56,9 +81,10 @@ function groupPhotosByLocation(photos: Photo[]): ClusteredLocation[] {
 }
 
 export default function MapScreenWeb() {
+  const navigation = useNavigation<MapNav>();
   const { theme, fonts, skin } = useTheme();
-  const { paddingTop, paddingBottom } = useScreenInsets();
   const { photos, communityPhotos } = usePhotoStore();
+  const { paddingBottom } = useScreenInsets();
   const [selectedCluster, setSelectedCluster] =
     useState<ClusteredLocation | null>(null);
   const [searchQuery, setSearchQuery] = useState("");
@@ -93,100 +119,37 @@ export default function MapScreenWeb() {
     [locationGroups, searchQuery],
   );
 
-  const renderLocationItem = ({ item }: { item: ClusteredLocation }) => (
-    <Pressable
-      style={[
-        styles.locationCard,
-        {
-          backgroundColor: theme.card,
-          borderColor: theme.border,
-        },
-      ]}
-      onPress={() => setSelectedCluster(item)}
-    >
-      <View style={styles.locationCardHeader}>
-        <View style={styles.locationCardLeft}>
-          <View
-            style={[
-              styles.locationMarker,
-              {
-                backgroundColor: `${theme.accent}22`,
-                borderColor: theme.accent,
-              },
-            ]}
-          >
-            <Feather name="map-pin" size={14} color={theme.accent} />
-          </View>
-          <View style={styles.locationCardText}>
-            <ThemedText
-              style={[
-                styles.locationName,
-                { color: theme.text, fontFamily: fonts.header },
-              ]}
-            >
-              {item.location.name}
-            </ThemedText>
-            <ThemedText
-              type="caption"
-              style={[
-                styles.locationCount,
-                { color: theme.textSecondary, fontFamily: fonts.mono },
-              ]}
-            >
-              {item.photos.length} photo{item.photos.length !== 1 ? "s" : ""}
-            </ThemedText>
-          </View>
-        </View>
-        <Feather
-          name="chevron-right"
-          size={16}
-          color={theme.textSecondary}
-          style={{ opacity: 0.5 }}
-        />
-      </View>
+  const previewRegion = useMemo(() => {
+    const source =
+      filteredLocations.length > 0 ? filteredLocations : locationGroups;
 
-      {item.photos.length > 0 && (
-        <View style={styles.locationCardThumbnails}>
-          {item.photos.slice(0, 3).map((photo, idx) => (
-            <Image
-              key={photo.id}
-              source={{ uri: photo.uri }}
-              style={[
-                styles.locationCardThumbnail,
-                {
-                  zIndex: 10 - idx,
-                  marginLeft: idx === 0 ? 0 : -12,
-                },
-              ]}
-            />
-          ))}
-          {item.photos.length > 3 && (
-            <View
-              style={[
-                styles.locationCardThumbnail,
-                styles.locationCardMore,
-                {
-                  backgroundColor: theme.backgroundSecondary,
-                  borderColor: theme.border,
-                  zIndex: 10,
-                  marginLeft: -12,
-                },
-              ]}
-            >
-              <ThemedText
-                style={[
-                  styles.moreCount,
-                  { color: theme.textSecondary, fontFamily: fonts.mono },
-                ]}
-              >
-                +{item.photos.length - 3}
-              </ThemedText>
-            </View>
-          )}
-        </View>
-      )}
-    </Pressable>
-  );
+    if (source.length === 0) {
+      return {
+        latitude: 20,
+        longitude: 0,
+        latitudeDelta: 120,
+        longitudeDelta: 120,
+      };
+    }
+
+    const latitudes = source.map((item) => item.location.lat);
+    const longitudes = source.map((item) => item.location.lng);
+
+    const minLat = Math.min(...latitudes);
+    const maxLat = Math.max(...latitudes);
+    const minLng = Math.min(...longitudes);
+    const maxLng = Math.max(...longitudes);
+
+    return {
+      latitude: (minLat + maxLat) / 2,
+      longitude: (minLng + maxLng) / 2,
+      latitudeDelta: Math.max((maxLat - minLat) * 1.9, 30),
+      longitudeDelta: Math.max((maxLng - minLng) * 1.9, 40),
+    };
+  }, [filteredLocations, locationGroups]);
+
+  const mapStyleUrl =
+    MAPBOX_STYLE_BY_SKIN[skin] ?? MAPBOX_STYLE_BY_SKIN.historian;
 
   const renderPhotoItem = ({ item }: { item: Photo }) => (
     <Pressable
@@ -197,58 +160,33 @@ export default function MapScreenWeb() {
           backgroundColor: theme.backgroundSecondary,
         },
       ]}
+      onPress={() => {
+        setSelectedCluster(null);
+        navigation.navigate("PhotoDetail", { photoId: item.id });
+      }}
     >
       <Image source={{ uri: item.uri }} style={styles.photoGridImage} />
     </Pressable>
   );
 
+  const hasMapToken = MAPBOX_TOKEN.trim().length > 0;
+
   return (
     <View
       style={[styles.container, { backgroundColor: theme.backgroundDefault }]}
     >
-      <View
-        style={[
-          styles.header,
-          {
-            backgroundColor: theme.backgroundDefault,
-            borderBottomColor: theme.border,
-            paddingTop: paddingTop + Spacing.xl,
-          },
-        ]}
-      >
-        <View>
-          <ThemedText
-            style={[
-              styles.headerTitle,
-              { fontFamily: fonts.header, color: theme.text },
-            ]}
-          >
-            Family Map
-          </ThemedText>
-          <ThemedText
-            type="caption"
-            style={[
-              styles.headerSubtitle,
-              { fontFamily: fonts.mono, color: theme.textSecondary },
-            ]}
-          >
-            {filteredLocations.length} location
-            {filteredLocations.length !== 1 ? "s" : ""}
-          </ThemedText>
-        </View>
-      </View>
+      <CustomHeader variant="actionsOnly" />
 
       {photosWithLocation.length > 0 ? (
         <ScrollView
           contentContainerStyle={{
             paddingHorizontal: Spacing.lg,
-            paddingVertical: Spacing.lg,
-            paddingBottom: paddingBottom + Spacing["2xl"],
-            gap: Spacing.md,
+            paddingTop: Spacing.lg,
+            paddingBottom: Math.max(paddingBottom, 20) + Spacing["2xl"],
+            gap: Spacing.lg,
           }}
           showsVerticalScrollIndicator={false}
         >
-          {/* Search Bar */}
           <View
             style={[
               styles.searchContainer,
@@ -276,189 +214,401 @@ export default function MapScreenWeb() {
             ) : null}
           </View>
 
-          {/* Map Background */}
-          <ImageBackground
-            source={{ uri: MAP_BACKGROUNDS[skin] }}
-            style={[styles.mapPreview, { borderColor: theme.border }]}
-            imageStyle={styles.mapPreviewImage}
-          >
-            <View
-              style={[
-                styles.mapOverlay,
-                { backgroundColor: theme.backgroundDefault + "AA" },
-              ]}
-            >
-              <Feather
-                name={skin === "cyberpunk" ? "radio" : "map"}
-                size={48}
-                color={theme.accent}
-                style={{ opacity: 0.6 }}
-              />
-              <ThemedText
-                style={[
-                  styles.mapLabel,
-                  { color: theme.text, fontFamily: fonts.header },
-                ]}
-              >
-                {skin === "cyberpunk" ? "GEO_NODES" : "Spatial Archive"}
-              </ThemedText>
-            </View>
-          </ImageBackground>
-
-          {/* Locations List */}
-          {filteredLocations.length > 0 ? (
-            <FlatList
-              data={filteredLocations}
-              renderItem={renderLocationItem}
-              keyExtractor={(item) =>
-                `${item.location.lat},${item.location.lng}`
-              }
-              scrollEnabled={false}
-              ItemSeparatorComponent={() => (
-                <View style={styles.listSeparator} />
-              )}
-            />
-          ) : (
-            <View style={styles.emptyState}>
-              <Feather
-                name="map-pin"
-                size={40}
-                color={theme.textSecondary}
-                style={{ opacity: 0.3 }}
-              />
-              <ThemedText
-                style={[
-                  styles.emptyTitle,
-                  { color: theme.textSecondary, fontFamily: fonts.header },
-                ]}
-              >
-                No locations found
-              </ThemedText>
-            </View>
-          )}
-        </ScrollView>
-      ) : (
-        <ImageBackground
-          source={{ uri: MAP_BACKGROUNDS[skin] }}
-          style={styles.emptyContainer}
-          imageStyle={styles.emptyStateImage}
-        >
           <View
             style={[
-              styles.emptyOverlay,
-              { backgroundColor: theme.backgroundDefault + "CC" },
+              styles.heroCard,
+              {
+                backgroundColor: theme.card,
+                borderColor: theme.border,
+              },
             ]}
           >
-            <Feather
-              name="map"
-              size={64}
-              color={theme.textSecondary}
-              style={{ opacity: 0.3 }}
-            />
-            <ThemedText
-              style={[
-                styles.emptyTitle,
-                { fontFamily: fonts.header, color: theme.text },
-              ]}
-            >
-              No photos with locations yet
-            </ThemedText>
-            <ThemedText
-              type="body"
-              style={[styles.emptySubtitle, { color: theme.textSecondary }]}
-            >
-              Tag photos with locations to map your family&apos;s spatial
-              history.
-            </ThemedText>
-          </View>
-        </ImageBackground>
-      )}
-
-      {/* Location Detail Modal */}
-      <Modal visible={!!selectedCluster} transparent animationType="slide">
-        {selectedCluster && (
-          <View
-            style={[
-              styles.modalContainer,
-              { backgroundColor: theme.backgroundDefault },
-            ]}
-          >
-            <View
-              style={[
-                styles.modalHeader,
-                {
-                  backgroundColor: theme.backgroundDefault,
-                  borderBottomColor: theme.border,
-                  paddingTop: Math.max(paddingTop, Spacing.lg),
-                },
-              ]}
-            >
-              <Pressable onPress={() => setSelectedCluster(null)}>
-                <Feather name="x" size={24} color={theme.text} />
-              </Pressable>
-              <View style={styles.modalHeaderContent}>
+            <View style={styles.heroLeft}>
+              <View style={styles.heroLabelRow}>
+                <Feather name="map" size={14} color={theme.accent} />
                 <ThemedText
                   style={[
-                    styles.modalTitle,
-                    { color: theme.text, fontFamily: fonts.header },
+                    styles.heroLabel,
+                    { color: theme.accent, fontFamily: fonts.mono },
                   ]}
                 >
-                  {selectedCluster.location.name}
+                  Spatial Archive
                 </ThemedText>
               </View>
-              <View style={{ width: 24 }} />
+              <ThemedText
+                style={[
+                  styles.heroTitle,
+                  {
+                    color: theme.text,
+                    fontFamily:
+                      skin === "cyberpunk" ? fonts.mono : fonts.header,
+                  },
+                ]}
+              >
+                {skin === "cyberpunk" ? "GEO_NODES" : "Family Locations"}
+              </ThemedText>
+              <ThemedText
+                style={[styles.heroBody, { color: theme.textSecondary }]}
+              >
+                {skin === "cyberpunk"
+                  ? `${filteredLocations.length} geographic clusters mapped`
+                  : `Visualize memories across ${filteredLocations.length} locations`}
+              </ThemedText>
             </View>
 
-            <ScrollView
-              contentContainerStyle={{
-                paddingHorizontal: Spacing.lg,
-                paddingVertical: Spacing.lg,
-                paddingBottom: paddingBottom + Spacing["2xl"],
-              }}
-              showsVerticalScrollIndicator={false}
+            <View
+              style={[styles.heroRight, { borderColor: `${theme.accent}44` }]}
             >
-              {/* Location Info */}
-              <View
+              <ThemedText
                 style={[
-                  styles.locationInfo,
+                  styles.syncValue,
+                  { color: theme.accent, fontFamily: fonts.header },
+                ]}
+              >
+                {filteredLocations.length}
+              </ThemedText>
+              <ThemedText
+                style={[
+                  styles.syncLabel,
+                  { color: theme.textSecondary, fontFamily: fonts.mono },
+                ]}
+              >
+                Places
+              </ThemedText>
+            </View>
+          </View>
+
+          <View
+            style={[
+              styles.previewCard,
+              {
+                backgroundColor: theme.card,
+                borderColor: theme.border,
+              },
+            ]}
+          >
+            <View style={styles.previewToolbar}>
+              <Pressable
+                style={[
+                  styles.previewToolbarButton,
                   {
-                    backgroundColor: theme.card,
+                    backgroundColor: theme.backgroundSecondary,
                     borderColor: theme.border,
                   },
                 ]}
               >
-                <View style={styles.locationInfoRow}>
-                  <Feather name="map-pin" size={16} color={theme.accent} />
-                  <ThemedText style={{ color: theme.text }}>
-                    {selectedCluster.location.lat.toFixed(4)}°,{" "}
-                    {selectedCluster.location.lng.toFixed(4)}°
-                  </ThemedText>
-                </View>
-                <View style={styles.locationInfoRow}>
-                  <Feather name="image" size={16} color={theme.accent} />
-                  <ThemedText style={{ color: theme.text }}>
-                    {selectedCluster.photos.length} photo
-                    {selectedCluster.photos.length !== 1 ? "s" : ""}
-                  </ThemedText>
-                </View>
-              </View>
+                <Feather name="filter" size={16} color={theme.text} />
+              </Pressable>
+              <Pressable
+                style={[
+                  styles.previewToolbarButton,
+                  styles.previewToolbarButtonActive,
+                  { backgroundColor: theme.accent },
+                ]}
+              >
+                <Feather
+                  name="download"
+                  size={16}
+                  color={theme.backgroundRoot}
+                />
+              </Pressable>
+            </View>
 
-              {/* Photos Grid */}
-              <FlatList
-                data={selectedCluster.photos}
-                renderItem={renderPhotoItem}
-                keyExtractor={(item) => item.id}
-                numColumns={2}
-                scrollEnabled={false}
-                columnWrapperStyle={styles.photoGridRow}
-                ItemSeparatorComponent={() => (
-                  <View style={styles.photoGridSeparator} />
-                )}
-              />
-            </ScrollView>
+            <View
+              style={[
+                styles.previewMapFrame,
+                {
+                  borderColor: `${theme.border}AA`,
+                },
+              ]}
+            >
+              {hasMapToken ? (
+                <MapboxMap
+                  mapboxAccessToken={MAPBOX_TOKEN}
+                  mapStyle={mapStyleUrl}
+                  initialViewState={{
+                    latitude: previewRegion.latitude,
+                    longitude: previewRegion.longitude,
+                    zoom: regionToZoom(previewRegion),
+                  }}
+                  longitude={previewRegion.longitude}
+                  latitude={previewRegion.latitude}
+                  zoom={regionToZoom(previewRegion)}
+                  style={styles.previewMap}
+                  interactive={false}
+                  attributionControl={false}
+                  logoPosition="top-right"
+                >
+                  {filteredLocations.slice(0, 8).map((cluster, index) => (
+                    <Marker
+                      key={`${cluster.location.name}-${index}`}
+                      latitude={cluster.location.lat}
+                      longitude={cluster.location.lng}
+                      anchor="center"
+                    >
+                      <Pressable
+                        onPress={() => setSelectedCluster(cluster)}
+                        style={[
+                          styles.previewPin,
+                          {
+                            backgroundColor: theme.accent,
+                            shadowColor: theme.accent,
+                          },
+                        ]}
+                      >
+                        <ThemedText
+                          style={[
+                            styles.previewPinText,
+                            {
+                              color: theme.backgroundRoot,
+                              fontFamily: fonts.mono,
+                            },
+                          ]}
+                        >
+                          {cluster.photos.length}
+                        </ThemedText>
+                      </Pressable>
+                    </Marker>
+                  ))}
+                </MapboxMap>
+              ) : (
+                <View
+                  style={[
+                    styles.noTokenState,
+                    { backgroundColor: theme.backgroundSecondary },
+                  ]}
+                >
+                  <Feather name="map" size={28} color={theme.textSecondary} />
+                  <ThemedText
+                    style={{ color: theme.textSecondary, textAlign: "center" }}
+                  >
+                    Mapbox token missing.
+                  </ThemedText>
+                </View>
+              )}
+            </View>
           </View>
-        )}
-      </Modal>
+
+          <View>
+            <ThemedText
+              style={[
+                styles.sectionTitle,
+                {
+                  color: theme.text,
+                  fontFamily: fonts.header,
+                  marginBottom: Spacing.md,
+                },
+              ]}
+            >
+              Documented Locations
+            </ThemedText>
+
+            {filteredLocations.map((cluster, index) => (
+              <Pressable
+                key={index}
+                onPress={() => setSelectedCluster(cluster)}
+                style={[
+                  styles.locationCard,
+                  {
+                    backgroundColor: theme.card,
+                    borderColor: theme.border,
+                    marginBottom: Spacing.sm,
+                  },
+                ]}
+              >
+                <View
+                  style={[
+                    styles.locationIcon,
+                    { backgroundColor: `${theme.accent}20` },
+                  ]}
+                >
+                  <Feather name="map-pin" size={18} color={theme.accent} />
+                </View>
+                <View style={styles.locationInfo}>
+                  <ThemedText
+                    style={[
+                      styles.locationName,
+                      { color: theme.text, fontFamily: fonts.mono },
+                    ]}
+                    numberOfLines={1}
+                  >
+                    {cluster.location.name}
+                  </ThemedText>
+                  <ThemedText
+                    type="small"
+                    style={{ color: theme.textSecondary, fontSize: 11 }}
+                  >
+                    {cluster.photos.length}{" "}
+                    {cluster.photos.length === 1 ? "memory" : "memories"}
+                  </ThemedText>
+                  <ThemedText
+                    type="small"
+                    style={[
+                      {
+                        color: theme.textSecondary,
+                        fontSize: 10,
+                        marginTop: 2,
+                        fontFamily: fonts.mono,
+                      },
+                    ]}
+                  >
+                    {`${cluster.location.lat.toFixed(2)}°, ${cluster.location.lng.toFixed(2)}°`}
+                  </ThemedText>
+                </View>
+                <Feather
+                  name="chevron-right"
+                  size={18}
+                  color={theme.textSecondary}
+                />
+              </Pressable>
+            ))}
+          </View>
+        </ScrollView>
+      ) : (
+        <View style={styles.emptyState}>
+          <Feather
+            name="map"
+            size={64}
+            color={theme.textSecondary}
+            style={{ opacity: 0.3 }}
+          />
+          <ThemedText
+            style={[
+              styles.emptyTitle,
+              { fontFamily: fonts.header, color: theme.text },
+            ]}
+          >
+            No Locations Yet
+          </ThemedText>
+          <ThemedText
+            type="body"
+            style={[styles.emptySubtitle, { color: theme.textSecondary }]}
+          >
+            Photos with GPS data will appear on the map. Upload photos from your
+            camera or add location data manually.
+          </ThemedText>
+        </View>
+      )}
+
+      {selectedCluster && (
+        <Modal
+          visible={true}
+          animationType="slide"
+          transparent={true}
+          onRequestClose={() => setSelectedCluster(null)}
+        >
+          <View
+            style={[
+              styles.modalContent,
+              {
+                bottom: Math.max(paddingBottom, 16) + 54,
+              },
+              {
+                backgroundColor: theme.card,
+                borderColor: theme.border,
+              },
+            ]}
+          >
+            <View style={styles.modalHeader}>
+              <View>
+                <ThemedText
+                  style={[
+                    styles.modalTitle,
+                    { fontFamily: fonts.header, color: theme.text },
+                  ]}
+                >
+                  {selectedCluster.location.name}
+                </ThemedText>
+                <ThemedText
+                  type="caption"
+                  style={[
+                    styles.modalSubtitle,
+                    { fontFamily: fonts.mono, color: theme.textSecondary },
+                  ]}
+                >
+                  {selectedCluster.photos.length}{" "}
+                  {selectedCluster.photos.length === 1 ? "memory" : "memories"}
+                </ThemedText>
+              </View>
+              <Pressable
+                style={[
+                  styles.modalCloseButton,
+                  { backgroundColor: theme.backgroundSecondary },
+                ]}
+                onPress={() => setSelectedCluster(null)}
+              >
+                <Feather name="x" size={20} color={theme.text} />
+              </Pressable>
+            </View>
+
+            <FlatList
+              data={selectedCluster.photos}
+              renderItem={renderPhotoItem}
+              keyExtractor={(item) => item.id}
+              numColumns={3}
+              columnWrapperStyle={styles.photoGridRow}
+              contentContainerStyle={styles.photoGridContainer}
+            />
+
+            <View
+              style={[
+                styles.statsContainer,
+                {
+                  backgroundColor: theme.backgroundSecondary,
+                  borderColor: theme.border,
+                },
+              ]}
+            >
+              <View style={styles.statRow}>
+                <Feather
+                  name="calendar"
+                  size={14}
+                  color={theme.textSecondary}
+                />
+                <ThemedText
+                  type="small"
+                  style={[
+                    styles.statText,
+                    { fontFamily: fonts.mono, color: theme.text },
+                  ]}
+                >
+                  {new Date(selectedCluster.photos[0].date).getFullYear()}
+                  {selectedCluster.photos.length > 1 &&
+                    ` - ${new Date(
+                      selectedCluster.photos[
+                        selectedCluster.photos.length - 1
+                      ].date,
+                    ).getFullYear()}`}
+                </ThemedText>
+              </View>
+              <View style={styles.statRow}>
+                <Feather name="image" size={14} color={theme.textSecondary} />
+                <ThemedText
+                  type="small"
+                  style={[
+                    styles.statText,
+                    { fontFamily: fonts.mono, color: theme.text },
+                  ]}
+                >
+                  {selectedCluster.photos.length} photos
+                </ThemedText>
+              </View>
+              <View style={styles.statRow}>
+                <Feather name="map-pin" size={14} color={theme.textSecondary} />
+                <ThemedText
+                  type="small"
+                  style={[
+                    styles.statText,
+                    { fontFamily: fonts.mono, color: theme.text },
+                  ]}
+                >
+                  {`${selectedCluster.location.lat.toFixed(2)}°, ${selectedCluster.location.lng.toFixed(2)}°`}
+                </ThemedText>
+              </View>
+            </View>
+          </View>
+        </Modal>
+      )}
     </View>
   );
 }
@@ -467,192 +617,236 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
   },
-  header: {
-    paddingHorizontal: Spacing.lg,
-    paddingVertical: Spacing.md,
-    borderBottomWidth: 1,
-  },
-  headerTitle: {
-    fontSize: 24,
-    fontWeight: "400",
-    marginBottom: 4,
-  },
-  headerSubtitle: {
-    fontSize: 10,
-    textTransform: "uppercase",
-    letterSpacing: 1,
-    opacity: 0.7,
-  },
   searchContainer: {
     flexDirection: "row",
     alignItems: "center",
-    paddingHorizontal: Spacing.md,
-    gap: Spacing.sm,
+    paddingHorizontal: 12,
+    height: 46,
+    borderRadius: 12,
     borderWidth: 1,
-    borderRadius: BorderRadius.md,
-    height: 40,
+    gap: 8,
   },
   searchInput: {
     flex: 1,
     fontSize: 14,
-    padding: 0,
+    paddingVertical: 0,
   },
-  mapPreview: {
-    height: 200,
-    borderRadius: BorderRadius.md,
+  heroCard: {
     borderWidth: 1,
-    overflow: "hidden",
-    justifyContent: "center",
-    alignItems: "center",
-  },
-  mapPreviewImage: {
-    opacity: 0.35,
-  },
-  mapOverlay: {
-    ...StyleSheet.absoluteFillObject,
-    justifyContent: "center",
-    alignItems: "center",
-    gap: Spacing.md,
-  },
-  mapLabel: {
-    fontSize: 18,
-    textAlign: "center",
-  },
-  locationCard: {
-    borderWidth: 1,
-    borderRadius: BorderRadius.md,
-    padding: Spacing.md,
-    gap: Spacing.md,
-  },
-  listSeparator: {
-    height: Spacing.md,
-  },
-  locationCardHeader: {
+    borderRadius: 16,
+    padding: 14,
     flexDirection: "row",
+    alignItems: "center",
     justifyContent: "space-between",
-    alignItems: "center",
+    gap: 12,
   },
-  locationCardLeft: {
-    flexDirection: "row",
-    alignItems: "center",
-    gap: Spacing.md,
+  heroLeft: {
     flex: 1,
   },
-  locationMarker: {
-    width: 32,
-    height: 32,
-    borderRadius: BorderRadius.md,
-    borderWidth: 1.5,
-    justifyContent: "center",
-    alignItems: "center",
-  },
-  locationCardText: {
-    flex: 1,
-  },
-  locationName: {
-    fontSize: 16,
-    marginBottom: 2,
-  },
-  locationCount: {
-    fontSize: 11,
-  },
-  locationCardThumbnails: {
+  heroLabelRow: {
     flexDirection: "row",
     alignItems: "center",
-    height: 48,
+    gap: 6,
+    marginBottom: 6,
   },
-  locationCardThumbnail: {
-    width: 48,
-    height: 48,
-    borderRadius: BorderRadius.sm,
-    backgroundColor: "#ccc",
+  heroLabel: {
+    fontSize: 10,
+    textTransform: "uppercase",
+    letterSpacing: 1,
   },
-  locationCardMore: {
-    justifyContent: "center",
-    alignItems: "center",
-    borderWidth: 1,
+  heroTitle: {
+    fontSize: 20,
   },
-  moreCount: {
+  heroBody: {
+    marginTop: 4,
     fontSize: 12,
-    fontWeight: "600",
+    lineHeight: 17,
   },
-  photoGridItem: {
+  heroRight: {
+    width: 76,
+    height: 76,
+    borderRadius: 38,
+    borderWidth: 2,
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  syncValue: {
+    fontSize: 22,
+  },
+  syncLabel: {
+    marginTop: 2,
+    fontSize: 10,
+    textTransform: "uppercase",
+  },
+  previewCard: {
+    borderWidth: 1,
+    borderRadius: 18,
+    padding: 12,
+    gap: 12,
+  },
+  previewToolbar: {
+    flexDirection: "row",
+    gap: 10,
+  },
+  previewToolbarButton: {
     flex: 1,
-    aspectRatio: 1,
-    borderRadius: BorderRadius.sm,
+    height: 42,
+    borderRadius: 10,
+    borderWidth: 1,
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  previewToolbarButtonActive: {
+    borderWidth: 0,
+  },
+  previewMapFrame: {
+    height: 320,
+    borderRadius: 16,
     borderWidth: 1,
     overflow: "hidden",
+    position: "relative",
   },
-  photoGridRow: {
-    gap: Spacing.md,
-  },
-  photoGridSeparator: {
-    height: Spacing.md,
-  },
-  photoGridImage: {
+  previewMap: {
     width: "100%",
     height: "100%",
   },
-  emptyContainer: {
+  noTokenState: {
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
+    gap: 8,
+    paddingHorizontal: 16,
+  },
+  previewPin: {
+    minWidth: 36,
+    height: 36,
+    borderRadius: 18,
+    paddingHorizontal: 10,
+    alignItems: "center",
+    justifyContent: "center",
+    shadowOffset: { width: 0, height: 8 },
+    shadowOpacity: 0.24,
+    shadowRadius: 16,
+    elevation: 4,
+  },
+  previewPinText: {
+    fontSize: 13,
+  },
+  sectionTitle: {
+    fontSize: 16,
+  },
+  locationCard: {
+    flexDirection: "row",
+    padding: Spacing.md,
+    borderRadius: BorderRadius.lg,
+    borderWidth: 1,
+    gap: Spacing.md,
+    alignItems: "center",
+  },
+  locationIcon: {
+    width: 48,
+    height: 48,
+    borderRadius: BorderRadius.full,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  locationInfo: {
+    flex: 1,
+    justifyContent: "center",
+  },
+  locationName: {
+    fontSize: 14,
+    marginBottom: 4,
   },
   emptyState: {
-    paddingVertical: Spacing["3xl"],
+    flex: 1,
     justifyContent: "center",
     alignItems: "center",
+    padding: Spacing["2xl"],
     gap: Spacing.md,
   },
-  emptyStateImage: {
-    opacity: 0.35,
-  },
-  emptyOverlay: {
-    flex: 1,
-    width: "100%",
-    justifyContent: "center",
-    alignItems: "center",
-    paddingHorizontal: Spacing["3xl"],
-    gap: Spacing.lg,
-  },
   emptyTitle: {
-    fontSize: 28,
-    textAlign: "center",
+    fontSize: 20,
+    fontWeight: "400",
+    marginTop: Spacing.md,
   },
   emptySubtitle: {
+    fontSize: 14,
     textAlign: "center",
-    lineHeight: 22,
-    maxWidth: 320,
+    opacity: 0.7,
+    maxWidth: 300,
   },
-  modalContainer: {
-    flex: 1,
+  modalContent: {
+    position: "absolute",
+    left: Spacing.md,
+    right: Spacing.md,
+    maxHeight: height * 0.72,
+    borderRadius: BorderRadius["2xl"],
+    borderTopWidth: 1,
+    paddingBottom: Spacing.xl,
+    shadowColor: "#000",
+    shadowOffset: { width: 0, height: 10 },
+    shadowOpacity: 0.2,
+    shadowRadius: 20,
+    elevation: 12,
   },
   modalHeader: {
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
-    paddingHorizontal: Spacing.lg,
-    paddingVertical: Spacing.md,
-    borderBottomWidth: 1,
-  },
-  modalHeaderContent: {
-    flex: 1,
-    alignItems: "center",
+    padding: Spacing.lg,
   },
   modalTitle: {
     fontSize: 18,
-    fontWeight: "600",
+    fontWeight: "400",
+    marginBottom: 4,
   },
-  locationInfo: {
-    borderWidth: 1,
-    borderRadius: BorderRadius.md,
-    padding: Spacing.md,
+  modalSubtitle: {
+    fontSize: 10,
+    textTransform: "uppercase",
+    letterSpacing: 1,
+    opacity: 0.7,
+  },
+  modalCloseButton: {
+    width: 40,
+    height: 40,
+    borderRadius: BorderRadius.full,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  photoGridContainer: {
+    paddingHorizontal: Spacing.lg,
+    paddingBottom: Spacing.md,
+  },
+  photoGridRow: {
     gap: Spacing.sm,
-    marginBottom: Spacing.lg,
   },
-  locationInfoRow: {
+  photoGridItem: {
+    flex: 1 / 3,
+    aspectRatio: 1,
+    borderRadius: BorderRadius.md,
+    borderWidth: 1,
+    overflow: "hidden",
+  },
+  photoGridImage: {
+    width: "100%",
+    height: "100%",
+  },
+  statsContainer: {
+    marginHorizontal: Spacing.lg,
+    padding: Spacing.md,
+    borderRadius: BorderRadius.lg,
+    borderWidth: 1,
+    flexDirection: "row",
+    flexWrap: "wrap",
+    gap: Spacing.md,
+  },
+  statRow: {
     flexDirection: "row",
     alignItems: "center",
-    gap: Spacing.md,
+    gap: Spacing.xs,
+  },
+  statText: {
+    fontSize: 12,
   },
 });
