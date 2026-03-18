@@ -1,10 +1,12 @@
 import React, { ReactNode, useEffect, useMemo, useState } from "react";
 import {
   Image,
+  StyleProp,
   Platform,
   Pressable,
   ScrollView,
   StyleSheet,
+  ViewStyle,
   TextInput,
   useWindowDimensions,
   View,
@@ -34,9 +36,11 @@ const STAGGER_START_MS = 80;
 
 function StaggeredReveal({
   index,
+  style,
   children,
 }: {
   index: number;
+  style?: StyleProp<ViewStyle>;
   children: ReactNode;
 }) {
   const { opacity, translateY } = useStaggeredAnimation(index, {
@@ -64,7 +68,7 @@ function StaggeredReveal({
     transform: [{ translateY: translateY.value }, { scale: scale.value }],
   }));
 
-  return <Animated.View style={animatedStyle}>{children}</Animated.View>;
+  return <Animated.View style={[style, animatedStyle]}>{children}</Animated.View>;
 }
 
 export default function ExploreScreen() {
@@ -208,11 +212,14 @@ export default function ExploreScreen() {
 
           <View style={styles.statsGrid}>
             {stats.map((stat, index) => (
-              <StaggeredReveal key={stat.label} index={index + 1}>
+              <StaggeredReveal
+                key={stat.label}
+                index={index + 1}
+                style={[styles.gridItem, { width: statCardWidth }]}
+              >
                 <View
                   style={[
                     styles.statCard,
-                    { width: statCardWidth },
                     {
                       backgroundColor: theme.card,
                       borderColor: theme.border,
@@ -236,12 +243,15 @@ export default function ExploreScreen() {
           <SectionTitle title="Recent Ingestions" themeText={theme.text} font={fonts.header} />
           <View style={styles.recentGrid}>
             {recent.map((photo, index) => (
-              <StaggeredReveal key={photo.id} index={index + 6}>
+              <StaggeredReveal
+                key={photo.id}
+                index={index + 6}
+                style={[styles.gridItem, { width: recentCardWidth }]}
+              >
                 <Pressable
                   onPress={() => navigation.navigate("PhotoDetail", { photoId: photo.id })}
                   style={[
                     styles.recentCard,
-                    { width: recentCardWidth },
                     { backgroundColor: theme.card, borderColor: theme.border },
                   ]}
                 >
@@ -259,12 +269,15 @@ export default function ExploreScreen() {
           <SectionTitle title="Community Highlights" themeText={theme.text} font={fonts.header} />
           <View style={styles.communityWrap}>
             {communityHighlights.map((photo, index) => (
-              <StaggeredReveal key={`community-${photo.id}`} index={index + 12}>
+              <StaggeredReveal
+                key={`community-${photo.id}`}
+                index={index + 12}
+                style={[styles.gridItem, { width: communityCardWidth }]}
+              >
                 <Pressable
                   onPress={() => navigation.navigate("PhotoDetail", { photoId: photo.id })}
                   style={[
                     styles.communityCard,
-                    { width: communityCardWidth },
                     { backgroundColor: theme.card, borderColor: theme.border },
                   ]}
                 >
@@ -425,6 +438,9 @@ const styles = StyleSheet.create({
   },
   sectionTitle: {
     fontSize: 16,
+  },
+  gridItem: {
+    flexShrink: 0,
   },
   recentGrid: {
     flexDirection: "row",
