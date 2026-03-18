@@ -333,11 +333,17 @@ export default function MapScreenWeb() {
                   latitude={previewRegion.latitude}
                   zoom={regionToZoom(previewRegion)}
                   style={styles.previewMap}
-                  interactive={false}
+                  dragPan={false}
+                  scrollZoom={false}
+                  boxZoom={false}
+                  dragRotate={false}
+                  doubleClickZoom={false}
+                  touchZoomRotate={false}
+                  keyboard={false}
                   attributionControl={false}
                   logoPosition="top-right"
                 >
-                  {filteredLocations.slice(0, 8).map((cluster, index) => (
+                  {filteredLocations.map((cluster, index) => (
                     <Marker
                       key={`${cluster.location.name}-${index}`}
                       latitude={cluster.location.lat}
