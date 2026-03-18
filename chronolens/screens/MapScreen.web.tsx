@@ -25,9 +25,7 @@ import { usePhotoStore, Photo, PhotoLocation } from "@/store/photoStore";
 
 const { height } = Dimensions.get("window");
 
-const MAPBOX_TOKEN =
-  process.env.EXPO_PUBLIC_MAPBOX_TOKEN ??
-  "pk.eyJ1IjoicmpmYSIsImEiOiJjbW12dnFuM20yZWU1MnJyMDhxdGM0aWY5In0.GFnMhphog6ZSNBZFugG-6g";
+const MAPBOX_TOKEN = process.env.EXPO_PUBLIC_MAPBOX_TOKEN ?? "";
 
 const MAPBOX_STYLE_BY_SKIN = {
   historian: "mapbox://styles/mapbox/outdoors-v12",
