@@ -1,8 +1,8 @@
 document.addEventListener('DOMContentLoaded', () => {
   const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-  // Reveal targets: feature cards, gallery slides, pricing cards, and live preview
-  const revealTargets = document.querySelectorAll('.cl-reveal, #live-preview .cl-glass-card, #pricing .cl-glass-card, #screens .cl-slide');
+  // Reveal targets: feature content, pricing cards, and live preview panel
+  const revealTargets = document.querySelectorAll('.cl-reveal, #live-preview .cl-glass-card, #pricing .cl-glass-card');
   
   if (!prefersReducedMotion && revealTargets.length > 0 && 'IntersectionObserver' in window) {
     revealTargets.forEach((element) => {
