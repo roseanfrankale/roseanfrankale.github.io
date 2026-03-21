@@ -263,29 +263,309 @@ body > * {
   }
 }
 
+.cl-compare-highlight {
+  color: var(--accent);
+  text-shadow: 0 0 16px color-mix(in srgb, var(--accent) 24%, transparent);
+}
+
+.cl-compare-wrap {
+  border-radius: 1.5rem;
+  border: 1px solid color-mix(in srgb, var(--border) 84%, transparent);
+  background: linear-gradient(180deg, rgba(12, 9, 7, 0.92), rgba(7, 5, 4, 0.96));
+  box-shadow: 0 26px 62px rgba(0, 0, 0, 0.34);
+  overflow: hidden;
+}
+
 .cl-compare-table {
   border-collapse: collapse;
-  border: 1px solid var(--border);
-  background: color-mix(in srgb, var(--card-alt) 65%, transparent);
+  background: transparent;
 }
 
 .cl-compare-table th,
 .cl-compare-table td {
-  border-bottom: 1px solid var(--border);
-  padding: 0.85rem 0.9rem;
-  text-align: left;
+  border-bottom: 1px solid color-mix(in srgb, var(--border) 70%, transparent);
+  padding: 1.15rem 1.25rem;
 }
 
 .cl-compare-table th {
+  text-align: center;
   font-family: "JetBrains Mono", "SFMono-Regular", Menlo, monospace;
   text-transform: uppercase;
-  letter-spacing: 0.12em;
-  font-size: 0.66rem;
+  letter-spacing: 0.08em;
+  font-size: 0.75rem;
+  color: color-mix(in srgb, var(--text-muted) 88%, #d6d2cb);
+}
+
+.cl-compare-table .cl-compare-col-feature {
+  text-align: left;
+  width: 42%;
+}
+
+.cl-compare-table .cl-compare-col-brand {
+  color: var(--accent);
+  text-shadow: 0 0 14px color-mix(in srgb, var(--accent) 22%, transparent);
+}
+
+.cl-compare-table td {
+  text-align: center;
   color: var(--text-muted);
+  font-size: 0.98rem;
+}
+
+.cl-compare-table td:first-child {
+  text-align: left;
+  color: color-mix(in srgb, var(--text) 88%, #efeadf);
+  font-size: 1.02rem;
+  line-height: 1.42;
 }
 
 .cl-compare-table tbody tr:last-child td {
   border-bottom: 0;
+}
+
+.cl-compare-indicator {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.6rem;
+  height: 2.6rem;
+  border-radius: 9999px;
+  border: 1px solid transparent;
+}
+
+.cl-compare-indicator--yes {
+  color: var(--accent);
+  border-color: color-mix(in srgb, var(--accent) 52%, transparent);
+  background: color-mix(in srgb, var(--accent) 18%, transparent);
+  box-shadow: 0 0 16px color-mix(in srgb, var(--accent) 16%, transparent);
+}
+
+.cl-compare-indicator--partial {
+  color: color-mix(in srgb, var(--text) 70%, #8f8b86);
+  border-color: color-mix(in srgb, var(--border) 72%, transparent);
+  background: color-mix(in srgb, var(--card-alt) 34%, transparent);
+}
+
+.cl-compare-indicator--no {
+  color: color-mix(in srgb, var(--text-muted) 82%, #6c6660);
+  border-color: color-mix(in srgb, var(--border) 62%, transparent);
+  background: color-mix(in srgb, #1d1a18 52%, transparent);
+}
+
+.cl-visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+[data-theme="light"] .cl-compare-wrap {
+  background: linear-gradient(180deg, rgba(36, 26, 18, 0.95), rgba(21, 15, 10, 0.97));
+}
+
+.cl-pricing-section {
+  position: relative;
+  background:
+    radial-gradient(720px 320px at 50% -6%, color-mix(in srgb, var(--accent) 20%, transparent), transparent 72%),
+    var(--section-bg);
+}
+
+.cl-pricing-grid {
+  align-items: stretch;
+}
+
+.cl-pricing-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  min-height: 100%;
+  border-radius: 1.25rem;
+  border: 1px solid color-mix(in srgb, var(--border) 90%, transparent);
+  background: linear-gradient(160deg, color-mix(in srgb, var(--card-bg) 76%, transparent), color-mix(in srgb, var(--card-alt) 86%, transparent));
+  backdrop-filter: blur(12px);
+  box-shadow: 0 20px 44px rgba(0, 0, 0, 0.26);
+  overflow: hidden;
+  transition: transform 280ms ease, border-color 280ms ease, box-shadow 280ms ease;
+}
+
+.cl-pricing-card:hover {
+  transform: translateY(-4px);
+  border-color: color-mix(in srgb, var(--accent) 52%, transparent);
+  box-shadow: 0 26px 52px rgba(0, 0, 0, 0.3);
+}
+
+.cl-pricing-name {
+  font-size: 2rem;
+  line-height: 1;
+}
+
+.cl-pricing-copy {
+  color: var(--text-muted);
+  font-size: 1.03rem;
+  line-height: 1.62;
+}
+
+.cl-pricing-price {
+  font-family: "Inter", sans-serif;
+  font-size: clamp(2.25rem, 3.2vw, 3.1rem);
+  line-height: 0.94;
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  color: var(--text);
+}
+
+.cl-pricing-cycle {
+  margin-left: 0.35rem;
+  font-size: 1.3rem;
+  line-height: 1;
+  letter-spacing: 0;
+  font-weight: 500;
+  color: var(--text-muted);
+}
+
+.cl-pricing-btn {
+  border-radius: 9999px;
+  padding: 0.9rem 1.1rem;
+  border: 1px solid color-mix(in srgb, var(--border) 88%, transparent);
+  background: linear-gradient(120deg, rgba(255, 255, 255, 0.14), rgba(255, 255, 255, 0.04));
+  font-family: "Inter", sans-serif;
+  font-weight: 700;
+  font-size: 1.07rem;
+  color: var(--text);
+  transition: transform 220ms ease, filter 220ms ease, border-color 220ms ease;
+}
+
+.cl-pricing-btn:hover {
+  transform: translateY(-1px);
+  filter: brightness(1.08);
+  border-color: color-mix(in srgb, var(--accent) 65%, transparent);
+}
+
+.cl-pricing-includes {
+  font-family: "JetBrains Mono", "SFMono-Regular", Menlo, monospace;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  font-size: 0.7rem;
+  color: var(--text-muted);
+}
+
+.cl-pricing-card .cl-label {
+  margin-bottom: 0.95rem;
+}
+
+.cl-pricing-card .cl-pricing-price {
+  margin-top: 2rem;
+}
+
+.cl-pricing-card .cl-pricing-btn {
+  margin-top: 1.4rem;
+}
+
+.cl-pricing-card .cl-pricing-includes {
+  margin-top: 2rem;
+}
+
+.cl-pricing-list {
+  margin-top: 1.1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.92rem;
+}
+
+.cl-pricing-list li {
+  align-items: flex-start;
+  gap: 0.68rem;
+  line-height: 1.58;
+}
+
+.cl-pricing-list i {
+  margin-top: 0.19rem;
+  flex-shrink: 0;
+}
+
+.cl-pricing-card--featured {
+  padding-top: 3.3rem;
+  border-color: color-mix(in srgb, var(--accent) 56%, transparent);
+  background:
+    radial-gradient(120% 85% at 50% -12%, color-mix(in srgb, var(--accent) 28%, transparent), transparent 72%),
+    linear-gradient(165deg, color-mix(in srgb, var(--card-bg) 88%, transparent), color-mix(in srgb, var(--card-alt) 92%, transparent));
+  box-shadow:
+    0 0 20px rgba(212, 165, 116, 0.08),
+    0 28px 56px rgba(0, 0, 0, 0.28),
+    inset 0 1px 0 rgba(255, 255, 255, 0.16);
+}
+
+.cl-pricing-card--featured:hover {
+  box-shadow:
+    0 0 28px color-mix(in srgb, var(--accent) 24%, transparent),
+    0 32px 62px rgba(0, 0, 0, 0.31),
+    inset 0 1px 0 rgba(255, 255, 255, 0.22);
+}
+
+.cl-pricing-badge {
+  position: absolute;
+  left: 50%;
+  top: 1rem;
+  transform: translateX(-50%);
+  z-index: 2;
+  border-radius: 9999px;
+  padding: 0.45rem 1.05rem;
+  border: 1px solid color-mix(in srgb, var(--accent) 62%, transparent);
+  background: color-mix(in srgb, var(--accent) 36%, var(--card-alt));
+  color: var(--accent);
+  box-shadow:
+    0 0 16px color-mix(in srgb, var(--accent) 24%, transparent),
+    inset 0 1px 0 rgba(255, 255, 255, 0.2);
+  font-family: "JetBrains Mono", "SFMono-Regular", Menlo, monospace;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  font-size: 0.62rem;
+  font-weight: 700;
+}
+
+.cl-pricing-card--featured .cl-pricing-price,
+.cl-pricing-card--featured .cl-heading {
+  color: var(--accent);
+  text-shadow: 0 0 14px color-mix(in srgb, var(--accent) 22%, transparent);
+}
+
+.cl-pricing-btn--featured {
+  background: color-mix(in srgb, var(--accent) 20%, transparent);
+  border-color: color-mix(in srgb, var(--accent) 56%, transparent);
+  color: var(--text);
+  box-shadow: 0 0 14px color-mix(in srgb, var(--accent) 16%, transparent);
+}
+
+.cl-pricing-btn--featured:hover {
+  filter: brightness(1.05);
+  border-color: color-mix(in srgb, var(--accent) 70%, transparent);
+  box-shadow: 0 0 18px color-mix(in srgb, var(--accent) 22%, transparent);
+}
+
+[data-theme="dark"] .cl-pricing-card {
+  background: linear-gradient(160deg, rgba(14, 11, 9, 0.88), rgba(25, 19, 15, 0.84));
+}
+
+[data-theme="dark"] .cl-pricing-card--featured {
+  background:
+    radial-gradient(120% 85% at 50% -12%, color-mix(in srgb, var(--accent) 26%, transparent), transparent 72%),
+    linear-gradient(165deg, rgba(22, 17, 13, 0.92), rgba(29, 21, 15, 0.9));
+  border-color: color-mix(in srgb, var(--accent) 64%, transparent);
+}
+
+@media (min-width: 768px) {
+  .cl-pricing-card--featured {
+    padding-top: 3.7rem;
+  }
+}
+
+[data-theme="dark"] .cl-pricing-btn {
+  background: linear-gradient(120deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.02));
 }
 
 .cl-feature-card {
