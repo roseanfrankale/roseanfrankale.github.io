@@ -130,6 +130,164 @@ body > * {
   backdrop-filter: blur(14px);
 }
 
+.cl-title-3rem {
+  font-size: 3rem;
+}
+
+.cl-proof-surface {
+  position: relative;
+  background: transparent;
+  box-shadow: none;
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+}
+
+.cl-proof-surface::before,
+.cl-proof-surface::after {
+  content: "";
+  position: absolute;
+  left: 1.25rem;
+  right: 1.25rem;
+  height: 1px;
+  background: color-mix(in srgb, var(--accent) 35%, transparent);
+  opacity: 0.5;
+}
+
+.cl-proof-surface::before {
+  top: 0;
+}
+
+.cl-proof-surface::after {
+  bottom: 0;
+}
+
+.cl-trust-kicker {
+  padding: 0.85rem 1rem 0.95rem;
+}
+
+.cl-trust-kicker .cl-heading {
+  line-height: 0.94;
+}
+
+.cl-metric-card {
+  position: relative;
+  padding: 1.2rem 1rem 1.3rem;
+  background: transparent;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  min-height: 15.5rem;
+  transition: background-color 260ms ease, box-shadow 260ms ease;
+}
+
+.cl-metric-card:hover {
+  background: color-mix(in srgb, var(--section-bg) 45%, transparent);
+  box-shadow: 0 0 20px rgba(212, 165, 116, 0.08);
+}
+
+.cl-metric-icon {
+  width: 2.8rem;
+  height: 2.8rem;
+  border-radius: 0.85rem;
+  border: 1px solid color-mix(in srgb, var(--accent) 45%, var(--border));
+  color: var(--accent);
+  background: color-mix(in srgb, var(--accent) 8%, transparent);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 0.95rem;
+  transition: border-color 220ms ease, box-shadow 220ms ease, background-color 220ms ease, color 220ms ease;
+}
+
+.cl-metric-value {
+  font-family: "Inter", sans-serif;
+  font-size: clamp(2rem, 3.7vw, 3.1rem);
+  line-height: 0.96;
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  color: var(--text);
+  transition: color 220ms ease, text-shadow 220ms ease;
+}
+
+.cl-metric-title {
+  margin-top: 0.75rem;
+  font-family: "JetBrains Mono", "SFMono-Regular", Menlo, monospace;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--text);
+  font-size: 0.96rem;
+  transition: color 220ms ease;
+}
+
+.cl-metric-copy {
+  margin-top: 0.55rem;
+  color: var(--text-muted);
+  font-size: 0.95rem;
+  line-height: 1.38;
+}
+
+.cl-metric-card:hover .cl-metric-title,
+.cl-metric-card:hover .cl-metric-value {
+  color: var(--accent);
+}
+
+.cl-metric-card:hover .cl-metric-value {
+  text-shadow: 0 0 14px color-mix(in srgb, var(--accent) 28%, transparent);
+}
+
+.cl-metric-card:hover .cl-metric-icon {
+  border-color: color-mix(in srgb, var(--accent) 70%, transparent);
+  background: color-mix(in srgb, var(--accent) 14%, transparent);
+  box-shadow: 0 0 16px color-mix(in srgb, var(--accent) 22%, transparent);
+}
+
+@media (min-width: 768px) {
+  .cl-metric-card {
+    padding: 1.4rem 1.2rem 1.6rem;
+  }
+
+  .cl-metric-card:not(:last-child)::after {
+    content: "";
+    position: absolute;
+    right: 0;
+    top: 16%;
+    bottom: 16%;
+    width: 1px;
+    background: color-mix(in srgb, var(--accent) 28%, transparent);
+    opacity: 0.5;
+  }
+
+  .cl-trust-kicker {
+    padding: 0.95rem 1.2rem 1.05rem;
+  }
+}
+
+.cl-compare-table {
+  border-collapse: collapse;
+  border: 1px solid var(--border);
+  background: color-mix(in srgb, var(--card-alt) 65%, transparent);
+}
+
+.cl-compare-table th,
+.cl-compare-table td {
+  border-bottom: 1px solid var(--border);
+  padding: 0.85rem 0.9rem;
+  text-align: left;
+}
+
+.cl-compare-table th {
+  font-family: "JetBrains Mono", "SFMono-Regular", Menlo, monospace;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  font-size: 0.66rem;
+  color: var(--text-muted);
+}
+
+.cl-compare-table tbody tr:last-child td {
+  border-bottom: 0;
+}
+
 .cl-feature-card {
   transition: transform 340ms cubic-bezier(0.22, 1, 0.36, 1), opacity 340ms ease, border-color 280ms ease;
 }
@@ -137,6 +295,38 @@ body > * {
 .cl-feature-card:hover {
   transform: translateY(-4px);
   border-color: rgba(212, 165, 116, 0.34);
+}
+
+.cl-feature-band {
+  padding: 1.1rem 1rem;
+}
+
+.cl-feature-band--soft {
+  background: var(--section-bg);
+}
+
+.cl-feature-band--paper {
+  background: var(--card-alt);
+}
+
+.cl-feature-band--bleed {
+  width: 100vw;
+  margin-left: 50%;
+  transform: translateX(-50%);
+  padding-left: clamp(1rem, 4vw, 2.75rem);
+  padding-right: clamp(1rem, 4vw, 2.75rem);
+}
+
+@media (min-width: 768px) {
+  .cl-feature-band {
+    padding-top: 1.6rem;
+    padding-bottom: 1.6rem;
+  }
+
+  .cl-feature-band--bleed {
+    padding-left: clamp(1.25rem, 7vw, 6rem);
+    padding-right: clamp(1.25rem, 7vw, 6rem);
+  }
 }
 
 .cl-icon-wrap {
@@ -151,20 +341,29 @@ body > * {
 .cl-case-image {
   position: relative;
   cursor: zoom-in;
-  transition: transform 0.38s ease, box-shadow 0.38s ease, border-color 0.28s ease;
+  transition: box-shadow 0.38s ease, border-color 0.28s ease;
+}
+
+.cl-media-frame {
+  position: relative;
+  overflow: hidden;
+  border-radius: 1rem;
+  border: 1px solid rgba(244, 230, 213, 0.08);
+  background: rgba(0, 0, 0, 0.06);
 }
 
 .cl-case-image img {
-  transition: transform 0.58s ease;
+  display: block;
+  transition: transform 0.48s ease;
 }
 
 .cl-case-image:hover {
-  transform: translateY(-3px);
   border-color: rgba(212, 165, 116, 0.34);
 }
 
-.cl-case-image:hover img {
-  transform: scale(1.045);
+.cl-case-image:hover .cl-media-frame img,
+.cl-case-image:focus-within .cl-media-frame img {
+  transform: scale(1.02);
 }
 
 .cl-case-overlay {
@@ -475,7 +674,7 @@ footer,
 
 /* Enhanced Card Hover States */
 .cl-glass-card:hover {
-  border-color: rgba(212, 165, 116, 0.28);
+  border-color: rgba(212, 165, 116, 0.22);
 }
 
 /* Mobile Menu Auth Links */

@@ -30,10 +30,10 @@
     })();
   </script>
 </head>
-<body class="bg-bg text-text antialiased transition-colors duration-500">
+<body class="bg-bg text-text min-h-screen antialiased transition-colors duration-500 selection:bg-accent selection:text-bg">
 
   <!-- NAVBAR -->
-  <nav id="navbar" class="fixed w-full z-50 transition-all duration-300 py-6">
+  <nav id="navbar" class="fixed w-full z-50 transition-all duration-300 py-6 backdrop-blur-md">
     <div class="container mx-auto px-4 md:px-6">
       <div class="flex justify-between items-center">
         <!-- Logo -->
@@ -93,31 +93,29 @@
       <div class="grid md:grid-cols-2 gap-12 md:gap-16 items-start md:items-center">
         <!-- Left Column: Text Content -->
         <div class="flex flex-col gap-8">
-          <div class="cl-badge mb-2 cl-reveal">
-            <i data-lucide="archive" class="w-4 h-4"></i>
-            <span class="cl-label">historian mode</span>
-          </div>
-          
-          <h1 class="cl-heading text-4xl sm:text-5xl md:text-6xl lg:text-7xl leading-[0.95] cl-reveal">
-            ChronoLens:<br> The Intelligent Archive
+         
+          <h1 class="cl-heading cl-title-3rem leading-[0.95] cl-reveal">
+            ChronoLens
           </h1>
           
           <p class="mt-4 text-lg md:text-xl text-text-muted leading-relaxed max-w-2xl cl-reveal">
-            Powered by Gemini Pro Vision. ChronoLens translates archival rituals into a modern interface. Stop scrolling an endless feed; start building a curated history.
+            ChronoLens is a vision-first memory layer. Powered by a schema-constrained Gemini Flash pipeline, it translates unorganized pixels into a structured, searchable, and durable archive.
           </p>
 
           <div class="mt-6 flex flex-col sm:flex-row gap-3 cl-reveal">
-            <a href="#live-preview" id="view-preview-btn" class="custom-btn">view live preview</a>
-            <a href="https://chronolens-iota.vercel.app/?auth=signup" class="custom-btn-outline">sign up</a>
+           <!--<a href="#live-preview" id="view-preview-btn" class="custom-btn">view live preview</a>-->
+            <a href="https://chronolens-iota.vercel.app/?auth=signup" class="custom-btn">sign up</a>
             <a href="/chronolens/index.html" class="custom-btn-outline">read case study</a>
           </div>
 
-          <div class="mt-4 flex flex-wrap gap-2 text-text-muted cl-reveal">
+          <div class="mt-4 flex flex-wrap gap-2 text-text-muted cl-reveal"> 
+        
             <span class="cl-chip">iOS</span>
             <span class="cl-chip">Android</span>
             <span class="cl-chip">On-device AI</span>
             <span class="cl-chip">Archive-first UI</span>
           </div>
+        
         </div>
 
         <!-- Right Column: Image -->
@@ -144,61 +142,107 @@
     <div class="cl-divider my-10"></div>
   </div>
 
+  <!-- TRUST + METRICS -->
+  <section id="proof" class="pb-10 md:pb-14">
+    <div class="container mx-auto px-4 md:px-6">
+      <div class="cl-proof-surface">
+        <div class="cl-trust-kicker">
+          <h2 class="cl-heading cl-title-3rem">The Deterministic
+Archive.</h2>
+        </div>
+
+        <div class="cl-metric-grid grid grid-cols-1 md:grid-cols-4">
+          <article class="cl-metric-card">
+            <div class="cl-metric-icon"><i data-lucide="zap" class="w-4 h-4"></i></div>
+            <p class="cl-metric-value">schema-locked</p>
+            <p class="cl-metric-title">inference layer</p>
+            <p class="cl-metric-copy">Deterministic output for stable archive rendering.</p>
+          </article>
+
+          <article class="cl-metric-card">
+            <div class="cl-metric-icon"><i data-lucide="target" class="w-4 h-4"></i></div>
+            <p class="cl-metric-value">archive-first</p>
+            <p class="cl-metric-title">ux mode</p>
+            <p class="cl-metric-copy">Designed for retrieval and chronology, not feed loops.</p>
+          </article>
+
+          <article class="cl-metric-card">
+            <div class="cl-metric-icon"><i data-lucide="line-chart" class="w-4 h-4"></i></div>
+            <p class="cl-metric-value">consent-first</p>
+            <p class="cl-metric-title">data posture</p>
+            <p class="cl-metric-copy">User-triggered analysis with governance-aligned patterns.</p>
+          </article>
+
+          <article class="cl-metric-card">
+            <div class="cl-metric-icon"><i data-lucide="wifi" class="w-4 h-4"></i></div>
+            <p class="cl-metric-value">portable</p>
+            <p class="cl-metric-title">deploy model</p>
+            <p class="cl-metric-copy">Consistent behavior across local, cloud, and preview workflows.</p>
+          </article>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <!-- FEATURES -->
   <section id="features" class="py-24 bg-bg">
     <div class="container mx-auto px-4 md:px-6">
       <div class="max-w-3xl mb-24 cl-reveal">
-        <p class="cl-label mb-4 text-accent">philosophy</p>
-        <h2 class="cl-heading text-4xl md:text-6xl">A photo archive that respects your attention.</h2>
+        <p class="cl-label mb-4 text-accent">how it works</p>
+        <h2 class="cl-heading text-4xl md:text-6xl">Built for retrieval, not consumption.</h2>
         <p class="mt-6 text-xl text-text-muted leading-relaxed">
-          We replaced the mindless infinite feed with a structured, intentional ledger. Stop scrolling; start documenting.
+          We replaced the ephemeral feed with a persistent ledger. Stop scrolling, start documenting.
         </p>
       </div>
 
-      <div class="grid md:grid-cols-12 gap-12 items-center mb-32">
-        <div class="order-2 md:order-1 md:col-span-7 cl-reveal">
-          <p class="cl-label mb-4 text-accent">01 / intelligence</p>
-          <h3 class="cl-heading text-3xl md:text-4xl mb-6">The Detective in the Machine.</h3>
+      <div class="grid md:grid-cols-12 gap-10 md:gap-12 items-center mb-20 cl-feature-band cl-feature-band--soft cl-feature-band--bleed">
+        <div class="order-2 md:order-1 md:col-span-8 cl-reveal max-w-2xl">
+          <p class="cl-label mb-4 text-accent">Module 01 // Ingestion</p>
+          <h3 class="cl-heading text-3xl md:text-4xl mb-6">Context Ingestion.</h3>
           <p class="text-text-muted leading-relaxed mb-6">
-            ChronoLens uses a schema-constrained Gemini Flash pipeline to analyze photos for historical markers. From clothing silhouettes to architectural cues, it recovers context your metadata forgot.
+            Passive metadata is often incomplete. ChronoLens detects era cues and architectural markers to recover ground-truth context from the image itself.
           </p>
           <ul class="space-y-3 text-sm text-text-muted">
             <li class="flex items-center gap-2"><i data-lucide="search" class="w-4 h-4 text-accent"></i> Era and architecture detection</li>
             <li class="flex items-center gap-2"><i data-lucide="database" class="w-4 h-4 text-accent"></i> Structured JSON output</li>
           </ul>
         </div>
-        <div class="order-1 md:order-2 md:col-span-5 cl-glass-card p-3 rounded-2xl bg-white/5 border-white/10 shadow-lg lightbox-trigger cl-case-image group cl-reveal">
-          <img src="../assets/img/chronolens/welcome.png" alt="AI analysis and intake interface" class="rounded-[2rem] w-full border border-white/5" />
-          <div class="cl-case-overlay">
-            <div class="cl-case-overlay-icon">
-              <i data-lucide="zoom-in" class="w-5 h-5"></i>
-            </div>
-            <div class="cl-case-overlay-meta">
-              <span class="cl-case-overlay-title">Intelligence Intake</span>
-              <span class="cl-case-overlay-tag">Feature</span>
+        <div class="order-1 md:order-2 md:col-span-4 lightbox-trigger cl-case-image group cl-reveal w-full max-w-[240px] md:max-w-[252px] mx-auto">
+          <div class="cl-media-frame">
+            <img src="../assets/img/chronolens/welcome.png" alt="AI analysis and intake interface" class="w-full" />
+            <div class="cl-case-overlay">
+              <div class="cl-case-overlay-icon">
+                <i data-lucide="zoom-in" class="w-5 h-5"></i>
+              </div>
+              <div class="cl-case-overlay-meta">
+                <span class="cl-case-overlay-title">Intelligence Intake</span>
+                <span class="cl-case-overlay-tag">Feature</span>
+              </div>
             </div>
           </div>
         </div>
       </div>
 
-      <div class="grid md:grid-cols-12 gap-12 items-center mb-32">
-        <div class="md:col-span-5 cl-glass-card p-3 rounded-2xl bg-white/5 border-white/10 shadow-lg lightbox-trigger cl-case-image group cl-reveal">
-          <img src="../assets/img/chronolens/catalog.png" alt="Archive ledger and catalog interface" class="rounded-[2rem] w-full border border-white/5" />
-          <div class="cl-case-overlay">
-            <div class="cl-case-overlay-icon">
-              <i data-lucide="zoom-in" class="w-5 h-5"></i>
-            </div>
-            <div class="cl-case-overlay-meta">
-              <span class="cl-case-overlay-title">Catalog Ledger</span>
-              <span class="cl-case-overlay-tag">Feature</span>
+      <div class="grid md:grid-cols-12 gap-10 md:gap-12 items-center mb-20">
+        <div class="md:col-span-4 lightbox-trigger cl-case-image group cl-reveal w-full max-w-[240px] md:max-w-[252px] mx-auto">
+          <div class="cl-media-frame">
+            <img src="../assets/img/chronolens/catalog.png" alt="Archive ledger and catalog interface" class="w-full" />
+            <div class="cl-case-overlay">
+              <div class="cl-case-overlay-icon">
+                <i data-lucide="zoom-in" class="w-5 h-5"></i>
+              </div>
+              <div class="cl-case-overlay-meta">
+                <span class="cl-case-overlay-title">Catalog Ledger</span>
+                <span class="cl-case-overlay-tag">Feature</span>
+              </div>
             </div>
           </div>
         </div>
-        <div class="md:col-span-7 cl-reveal">
-          <p class="cl-label mb-4 text-accent">02 / organization</p>
-          <h3 class="cl-heading text-3xl md:text-4xl mb-6">A Digital Ledger, Not a Feed.</h3>
+        <div class="md:col-span-7 md:col-start-6 cl-reveal max-w-xl justify-self-end">
+          <p class="cl-label mb-4 text-accent">Module 02 // Schema</p>
+          <h3 class="cl-heading text-3xl md:text-4xl mb-6">Schema-Locked Data.</h3>
           <p class="text-text-muted leading-relaxed mb-6">
-            Memories deserve order. The Historian interface groups photos by era and collection structure so discovery feels intentional instead of algorithmic.
+            Memory should not be messy. Every inference is validated against a strict JSON structure so archive state stays portable, versioned, and deterministic.
           </p>
           <ul class="space-y-3 text-sm text-text-muted">
             <li class="flex items-center gap-2"><i data-lucide="layout-grid" class="w-4 h-4 text-accent"></i> Token-driven theme engine</li>
@@ -207,31 +251,100 @@
         </div>
       </div>
 
-      <div class="grid md:grid-cols-12 gap-12 items-center">
-        <div class="order-2 md:order-1 md:col-span-7 cl-reveal">
-          <p class="cl-label mb-4 text-accent">03 / restoration</p>
-          <h3 class="cl-heading text-3xl md:text-4xl mb-6">Bring the Past to Life.</h3>
+      <div class="grid md:grid-cols-12 gap-10 md:gap-12 items-center cl-feature-band cl-feature-band--soft cl-feature-band--bleed">
+        <div class="order-2 md:order-1 md:col-span-8 cl-reveal max-w-2xl">
+          <p class="cl-label mb-4 text-accent">Module 03 // Logic</p>
+          <h3 class="cl-heading text-3xl md:text-4xl mb-6">Temporal Reasoning.</h3>
           <p class="text-text-muted leading-relaxed mb-6">
-            ChronoLens is exploring a Living Archive layer where still portraits can evolve into motion-enhanced memory scenes with optional oral-history playback.
+            Chronology is more than a timestamp. ChronoLens links records across decades to build a coherent, queryable family timeline.
           </p>
           <ul class="space-y-3 text-sm text-text-muted">
             <li class="flex items-center gap-2"><i data-lucide="video" class="w-4 h-4 text-accent"></i> Luma-driven photo motion roadmap</li>
             <li class="flex items-center gap-2"><i data-lucide="mic" class="w-4 h-4 text-accent"></i> Oral history integration roadmap</li>
           </ul>
         </div>
-        <div class="order-1 md:order-2 md:col-span-5 cl-glass-card p-3 rounded-2xl bg-white/5 border-white/10 shadow-lg lightbox-trigger cl-case-image group cl-reveal">
-          <img src="../assets/img/chronolens/archives-mobile.png" alt="Living archive concept interface" class="rounded-[2rem] w-full border border-white/5" />
-          <div class="cl-case-overlay">
-            <div class="cl-case-overlay-icon">
-              <i data-lucide="zoom-in" class="w-5 h-5"></i>
-            </div>
-            <div class="cl-case-overlay-meta">
-              <span class="cl-case-overlay-title">Living Archive</span>
-              <span class="cl-case-overlay-tag">Roadmap</span>
+        <div class="order-1 md:order-2 md:col-span-4 lightbox-trigger cl-case-image group cl-reveal w-full max-w-[240px] md:max-w-[252px] mx-auto">
+          <div class="cl-media-frame">
+            <img src="../assets/img/chronolens/archives-mobile.png" alt="Living archive concept interface" class="w-full" />
+            <div class="cl-case-overlay">
+              <div class="cl-case-overlay-icon">
+                <i data-lucide="zoom-in" class="w-5 h-5"></i>
+              </div>
+              <div class="cl-case-overlay-meta">
+                <span class="cl-case-overlay-title">Living Archive</span>
+                <span class="cl-case-overlay-tag">Roadmap</span>
+              </div>
             </div>
           </div>
         </div>
       </div>
+
+      <section id="interest-cta" class="py-14 md:py-16">
+        <div class="max-w-5xl mx-auto cl-glass-card p-7 md:p-10">
+          <div class="grid md:grid-cols-12 gap-8 items-center">
+            <div class="md:col-span-8">
+              <p class="cl-label mb-4">updates + access</p>
+              <h3 class="cl-heading text-3xl md:text-5xl">Get ChronoLens updates first.</h3>
+              <p class="mt-4 text-lg text-text-muted leading-relaxed max-w-2xl">
+                Join the information list for roadmap drops, release windows, and early product invites.
+              </p>
+            </div>
+            <div class="md:col-span-4 flex md:justify-end">
+              <div class="w-full md:w-auto flex flex-col gap-3">
+                <a href="https://chronolens-iota.vercel.app/?auth=signup" class="custom-btn w-full md:w-auto text-center">Sign up for updates</a>
+                <a href="mailto:rosean.frankalexander@gmail.com?subject=ChronoLens%20Information%20List" class="custom-btn-outline w-full md:w-auto text-center">Request information</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="comparison" class="pb-14 md:pb-16">
+        <div class="max-w-6xl mx-auto">
+          <div class="max-w-3xl mb-8">
+            <p class="cl-label mb-3">comparison</p>
+            <h3 class="cl-heading text-3xl md:text-5xl">Why teams choose ChronoLens over generic photo stacks.</h3>
+          </div>
+          <div class="overflow-x-auto">
+            <table class="cl-compare-table w-full min-w-[720px]">
+              <thead>
+                <tr>
+                  <th>Capability</th>
+                  <th>ChronoLens</th>
+                  <th>Cloud Albums</th>
+                  <th>Manual Folders</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Schema-constrained inference</td>
+                  <td>Yes</td>
+                  <td>Limited</td>
+                  <td>No</td>
+                </tr>
+                <tr>
+                  <td>Archive-first historian UX</td>
+                  <td>Core design</td>
+                  <td>Feed-biased</td>
+                  <td>Basic</td>
+                </tr>
+                <tr>
+                  <td>Roadmap to living archive</td>
+                  <td>Planned</td>
+                  <td>Not focused</td>
+                  <td>No</td>
+                </tr>
+                <tr>
+                  <td>Portable deployment workflow</td>
+                  <td>Yes</td>
+                  <td>Vendor-locked</td>
+                  <td>Local only</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
     </div>
   </section>
 
@@ -243,7 +356,7 @@
         <h2 class="cl-heading text-3xl md:text-5xl">choose your archive tier.</h2>
       </div>
       <div class="mt-10 grid md:grid-cols-3 gap-6">
-        <article class="cl-glass-card p-6 md:p-8 border-2 border-accent">
+        <article class="cl-glass-card p-6 md:p-8 border border-white/10">
           <p class="cl-label mb-3">collector / free</p>
           <h3 class="cl-heading text-2xl">Collector</h3>
           <p class="mt-3 text-text-muted text-sm leading-relaxed">For people starting their digital family archive.</p>
@@ -254,7 +367,7 @@
           </ul>
           <a href="https://chronolens-iota.vercel.app/?auth=signup" class="custom-btn-outline mt-6 block w-full text-center">Start free</a>
         </article>
-        <article class="cl-glass-card p-6 md:p-8">
+        <article class="cl-glass-card p-6 md:p-8 border-2 border-accent">
           <p class="cl-label mb-3">historian / pro</p>
           <h3 class="cl-heading text-2xl">Historian</h3>
           <p class="mt-3 text-text-muted text-sm leading-relaxed">For users who want schema-constrained AI support for real archive scale.</p>
@@ -265,7 +378,7 @@
           </ul>
           <a href="https://chronolens-iota.vercel.app/?auth=signup" class="custom-btn mt-6 block w-full text-center">Join waitlist</a>
         </article>
-        <article class="cl-glass-card p-6 md:p-8">
+        <article class="cl-glass-card p-6 md:p-8 border border-white/10">
           <p class="cl-label mb-3">archivist / studio</p>
           <h3 class="cl-heading text-2xl">Archivist</h3>
           <p class="mt-3 text-text-muted text-sm leading-relaxed">For institutions and family historians preparing for Living Archive workflows.</p>
