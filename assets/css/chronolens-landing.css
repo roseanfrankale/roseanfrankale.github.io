@@ -273,7 +273,9 @@ body > * {
   border: 1px solid color-mix(in srgb, var(--border) 84%, transparent);
   background: linear-gradient(180deg, rgba(12, 9, 7, 0.92), rgba(7, 5, 4, 0.96));
   box-shadow: 0 26px 62px rgba(0, 0, 0, 0.34);
-  overflow: hidden;
+  overflow-x: auto;
+  overflow-y: hidden;
+  -webkit-overflow-scrolling: touch;
 }
 
 .cl-compare-table {
@@ -333,6 +335,13 @@ body > * {
   border: 1px solid transparent;
 }
 
+.cl-compare-glyph {
+  font-family: "Inter", sans-serif;
+  font-size: 1.05rem;
+  line-height: 1;
+  font-weight: 600;
+}
+
 .cl-compare-indicator--yes {
   color: var(--accent);
   border-color: color-mix(in srgb, var(--accent) 52%, transparent);
@@ -373,6 +382,44 @@ body > * {
   background:
     radial-gradient(720px 320px at 50% -6%, color-mix(in srgb, var(--accent) 20%, transparent), transparent 72%),
     var(--section-bg);
+}
+
+.cl-conversion-surface {
+  position: relative;
+  border-color: color-mix(in srgb, var(--accent) 30%, var(--border));
+  background:
+    radial-gradient(115% 110% at 14% -22%, color-mix(in srgb, var(--accent) 16%, transparent), transparent 68%),
+    linear-gradient(160deg, color-mix(in srgb, var(--card-bg) 86%, transparent), color-mix(in srgb, var(--card-alt) 94%, transparent));
+  box-shadow:
+    0 20px 44px rgba(0, 0, 0, 0.26),
+    0 0 20px color-mix(in srgb, var(--accent) 10%, transparent);
+  overflow: hidden;
+}
+
+.cl-conversion-surface::before,
+.cl-conversion-surface::after {
+  content: "";
+  position: absolute;
+  left: 1rem;
+  right: 1rem;
+  height: 1px;
+  background: color-mix(in srgb, var(--accent) 28%, transparent);
+  opacity: 0.52;
+  pointer-events: none;
+}
+
+.cl-conversion-surface::before {
+  top: 0;
+}
+
+.cl-conversion-surface::after {
+  bottom: 0;
+}
+
+[data-theme="dark"] .cl-conversion-surface {
+  background:
+    radial-gradient(115% 110% at 14% -22%, color-mix(in srgb, var(--accent) 18%, transparent), transparent 68%),
+    linear-gradient(160deg, rgba(20, 15, 12, 0.9), rgba(26, 19, 15, 0.92));
 }
 
 .cl-pricing-grid {
@@ -606,6 +653,76 @@ body > * {
   .cl-feature-band--bleed {
     padding-left: clamp(1.25rem, 7vw, 6rem);
     padding-right: clamp(1.25rem, 7vw, 6rem);
+  }
+}
+
+@media (max-width: 767px) {
+  #features {
+    padding-top: 5rem;
+    padding-bottom: 5rem;
+  }
+
+  #features > .container > .max-w-3xl {
+    margin-bottom: 3.5rem;
+  }
+
+  #features .grid.items-center {
+    gap: 1.5rem;
+  }
+
+  #features .grid.items-center > .cl-case-image {
+    margin-bottom: 0.65rem;
+  }
+
+  #features .grid.items-center > .cl-reveal.max-w-2xl,
+  #features .grid.items-center > .cl-reveal.max-w-xl {
+    padding-top: 0.55rem;
+  }
+
+  #features .cl-label {
+    margin-bottom: 0.9rem;
+  }
+
+  #features h3.cl-heading {
+    margin-bottom: 1.05rem;
+  }
+
+  #comparison .cl-compare-wrap {
+    margin-left: -0.2rem;
+    margin-right: -0.2rem;
+  }
+
+  #interest-cta {
+    margin-top: 2.75rem;
+    margin-bottom: 5.5rem;
+    padding-top: 2.75rem;
+    padding-bottom: 2.75rem;
+  }
+
+  .cl-conversion-surface {
+    padding: 1.3rem;
+  }
+
+  #comparison {
+    margin-top: 5.5rem;
+    padding-bottom: 4rem;
+  }
+
+  #pricing {
+    padding-top: 4.5rem;
+    padding-bottom: 4.75rem;
+  }
+
+  #pricing .cl-pricing-grid {
+    gap: 1rem;
+  }
+
+  #pricing .cl-pricing-card {
+    padding: 1.35rem;
+  }
+
+  #pricing .cl-pricing-card--featured {
+    padding-top: 3rem;
   }
 }
 
