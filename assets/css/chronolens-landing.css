@@ -377,6 +377,88 @@ body > * {
   background: linear-gradient(180deg, rgba(36, 26, 18, 0.95), rgba(21, 15, 10, 0.97));
 }
 
+.cl-faq-surface {
+  border-radius: 1.25rem;
+  border: 1px solid color-mix(in srgb, var(--border) 84%, transparent);
+  background:
+    radial-gradient(120% 120% at 10% -20%, color-mix(in srgb, var(--accent) 14%, transparent), transparent 70%),
+    linear-gradient(180deg, rgba(12, 9, 7, 0.9), rgba(7, 5, 4, 0.95));
+  box-shadow: 0 24px 56px rgba(0, 0, 0, 0.28);
+  overflow: hidden;
+}
+
+.cl-faq-item {
+  border-bottom: 1px solid color-mix(in srgb, var(--border) 70%, transparent);
+}
+
+.cl-faq-question {
+  list-style: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 1.2rem 1.25rem;
+}
+
+.cl-faq-question::-webkit-details-marker {
+  display: none;
+}
+
+.cl-faq-question::after {
+  content: "+";
+  width: 1.8rem;
+  height: 1.8rem;
+  border-radius: 9999px;
+  border: 1px solid color-mix(in srgb, var(--accent) 44%, transparent);
+  color: var(--accent);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-family: "Inter", sans-serif;
+  font-size: 1.1rem;
+  line-height: 1;
+  transition: transform 260ms ease, background-color 260ms ease;
+}
+
+.cl-faq-item[open] .cl-faq-question::after {
+  content: "−";
+  background: color-mix(in srgb, var(--accent) 12%, transparent);
+  transform: rotate(180deg);
+}
+
+.cl-faq-question .cl-heading {
+  line-height: 1.08;
+}
+
+.cl-faq-answer {
+  padding: 0 1.25rem 1.35rem;
+}
+
+.cl-faq-item:last-child {
+  border-bottom: 0;
+}
+
+@media (min-width: 768px) {
+  .cl-faq-item {
+    border-bottom-width: 1px;
+  }
+
+  .cl-faq-question {
+    padding: 1.45rem 1.75rem;
+  }
+
+  .cl-faq-answer {
+    padding: 0 1.75rem 1.6rem;
+  }
+}
+
+[data-theme="light"] .cl-faq-surface {
+  background:
+    radial-gradient(120% 120% at 10% -20%, color-mix(in srgb, var(--accent) 16%, transparent), transparent 70%),
+    linear-gradient(180deg, rgba(36, 26, 18, 0.95), rgba(21, 15, 10, 0.97));
+}
+
 .cl-pricing-section {
   position: relative;
   background:

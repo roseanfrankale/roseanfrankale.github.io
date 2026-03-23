@@ -6,9 +6,15 @@ document.addEventListener('DOMContentLoaded', () => {
   
   if (!prefersReducedMotion && revealTargets.length > 0 && 'IntersectionObserver' in window) {
     revealTargets.forEach((element) => {
+      const isRevealPanel = element.classList.contains('cl-reveal-panel');
       element.style.opacity = '0';
-      element.style.transform = 'translateY(16px)';
-      element.style.transition = 'opacity 540ms cubic-bezier(0.22, 1, 0.36, 1), transform 540ms cubic-bezier(0.22, 1, 0.36, 1)';
+      element.style.transform = isRevealPanel ? 'translateY(26px) scale(0.985)' : 'translateY(16px)';
+      if (isRevealPanel) {
+        element.style.filter = 'blur(2px)';
+        element.style.transition = 'opacity 620ms cubic-bezier(0.22, 1, 0.36, 1), transform 620ms cubic-bezier(0.22, 1, 0.36, 1), filter 620ms cubic-bezier(0.22, 1, 0.36, 1)';
+      } else {
+        element.style.transition = 'opacity 540ms cubic-bezier(0.22, 1, 0.36, 1), transform 540ms cubic-bezier(0.22, 1, 0.36, 1)';
+      }
     });
 
     const observer = new IntersectionObserver((entries, currentObserver) => {
@@ -16,8 +22,12 @@ document.addEventListener('DOMContentLoaded', () => {
         if (!entry.isIntersecting) {
           return;
         }
+        const isRevealPanel = entry.target.classList.contains('cl-reveal-panel');
         entry.target.style.opacity = '1';
-        entry.target.style.transform = 'translateY(0)';
+        entry.target.style.transform = isRevealPanel ? 'translateY(0) scale(1)' : 'translateY(0)';
+        if (isRevealPanel) {
+          entry.target.style.filter = 'blur(0)';
+        }
         currentObserver.unobserve(entry.target);
       });
     }, { threshold: 0.2, rootMargin: '0px 0px -8% 0px' });
