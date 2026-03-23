@@ -374,7 +374,33 @@ body > * {
 }
 
 [data-theme="light"] .cl-compare-wrap {
-  background: linear-gradient(180deg, rgba(36, 26, 18, 0.95), rgba(21, 15, 10, 0.97));
+  border-color: color-mix(in srgb, var(--accent) 26%, var(--border));
+  background:
+    radial-gradient(120% 120% at 8% -24%, color-mix(in srgb, var(--accent) 14%, transparent), transparent 70%),
+    linear-gradient(180deg, rgba(244, 233, 218, 0.96), rgba(236, 220, 199, 0.95));
+  box-shadow: 0 18px 38px rgba(34, 22, 14, 0.14);
+}
+
+[data-theme="light"] .cl-compare-table th {
+  color: color-mix(in srgb, var(--text-muted) 92%, var(--text));
+}
+
+[data-theme="light"] .cl-compare-table td {
+  color: color-mix(in srgb, var(--text-muted) 90%, var(--text));
+}
+
+[data-theme="light"] .cl-compare-table td:first-child {
+  color: var(--text);
+}
+
+[data-theme="light"] .cl-compare-indicator--partial {
+  color: color-mix(in srgb, var(--text) 72%, #6f5a46);
+  background: color-mix(in srgb, var(--card-bg) 62%, #ead7bd);
+}
+
+[data-theme="light"] .cl-compare-indicator--no {
+  color: color-mix(in srgb, var(--text-muted) 80%, #8c7460);
+  background: color-mix(in srgb, var(--card-bg) 78%, #efe1cc);
 }
 
 .cl-faq-surface {
@@ -454,9 +480,11 @@ body > * {
 }
 
 [data-theme="light"] .cl-faq-surface {
+  border-color: color-mix(in srgb, var(--accent) 24%, var(--border));
   background:
     radial-gradient(120% 120% at 10% -20%, color-mix(in srgb, var(--accent) 16%, transparent), transparent 70%),
-    linear-gradient(180deg, rgba(36, 26, 18, 0.95), rgba(21, 15, 10, 0.97));
+    linear-gradient(180deg, rgba(244, 233, 218, 0.96), rgba(236, 220, 199, 0.95));
+  box-shadow: 0 16px 34px rgba(34, 22, 14, 0.12);
 }
 
 .cl-pricing-section {
